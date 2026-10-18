@@ -10,7 +10,7 @@
 
 - Napkin model in `web/src/model/` that reproduces the brief's per-GPU numbers (Brief p.10)
 - Problem statement: GPU sandbox vs QPU wing for agent chemistry tool calls
-- Status quo: power and capex for the three cases, with the brief's levers
+- Comparison: GPU-only vs GPU + QPU for the three cases, with a deep-tool-call frequency switch
 - This page, with workstream sections built from `docs/workstreams/*.md`
 
 **Next**

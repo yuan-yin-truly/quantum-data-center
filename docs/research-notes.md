@@ -5,7 +5,7 @@ _Plan review from Sun Oct 18, 2026. The live numbers are on the team page (probl
 ## Where we stand
 
 - **Earth only.** No orbit, Moon or Mars.
-- **Case B (agent developers)** is the working choice; the reasons are below. The status quo on the team page shows all three cases.
+- **Case B (agent developers)** is the working choice; the reasons are below. The comparison on the team page shows all three cases.
 - **Demo is tonight at 8 PM, and slides aren't allowed** (Deck s.43–44). Our website is the pitch, so it should feel like a live tool, not a deck.
 - **Scoring:** users served at the speed targets first, then dollars saved (Brief p.5). The speaker notes add: "The leaderboard rewards the best design; the pitch rewards the best idea" (Deck s.16).
 
@@ -121,7 +121,7 @@ What this tells us:
 
 ## Website roadmap
 
-1. Problem statement and status quo (done): GPU sandbox vs QPU wing for agent science-tool calls; three-case status quo with key assumptions.
+1. Problem statement and comparison (done): GPU sandbox vs QPU wing for agent science-tool calls; GPU-only vs GPU + QPU for all three cases with a tool-call frequency switch and key assumptions.
 2. Workstream sections (filled from `docs/workstreams/`).
 3. QC Hybrid Simulator (`thermal_lab/`): annual rollout, router comparison and playback.
 4. Thermal: heatmaps from `.grid` files and a coolant-temperature sweep chart.
