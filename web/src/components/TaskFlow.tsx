@@ -16,16 +16,14 @@ import {
 
 const PLAY_SECONDS = 16; // wall-clock length of a full playback
 const NODES: Record<NodeId, { x: number; y: number; title: string; sub: string }> = {
-  sched: { x: 40, y: 125, title: 'Scheduler node', sub: 'picks the node and the path' },
-  gpu: { x: 340, y: 125, title: 'GPU node pool', sub: 'prefill + decode' },
-  ctx: { x: 340, y: 245, title: 'Context memory', sub: 'parked sessions' },
-  cpu: { x: 650, y: 5, title: 'CPU sandbox pool', sub: 'tool calls' },
-  qpu: { x: 650, y: 125, title: 'Shared QPU service', sub: 'queue + run' },
-  fallback: { x: 650, y: 245, title: 'Classical GPU fallback', sub: 'when the QPU queue is too long' },
+  sched: { x: 40, y: 50, title: 'Scheduler node', sub: 'picks the node and the path' },
+  gpu: { x: 490, y: 50, title: 'GPU node pool', sub: 'prefill + decode' },
+  ctx: { x: 490, y: 190, title: 'Context memory', sub: 'parked sessions, tool waits' },
+  qpu: { x: 940, y: 50, title: 'Shared QPU service', sub: 'queue + run' },
 };
 const W = 200;
 const H = 66;
-const COLORS = { gpu: '#22d3ee', park: '#e69f00', tool: '#8691aa', qpu: '#d946ef', classical: '#60a5fa', fail: '#f07575' };
+const COLORS = { gpu: '#22d3ee', park: '#e69f00', tool: '#8691aa', qpu: '#d946ef' };
 
 const KIND_COLOR: Record<SegKind, string> = {
   schedule: '#8691aa',
@@ -36,8 +34,6 @@ const KIND_COLOR: Record<SegKind, string> = {
   qpu: COLORS.qpu,
   held: COLORS.park,
   resume: COLORS.gpu,
-  classical: COLORS.classical,
-  fail: COLORS.fail,
   done: '#3ccf3c',
 };
 
@@ -49,11 +45,9 @@ function dotPos(id: NodeId, side: 'session' | 'job'): [number, number] {
 
 const EDGES: Array<[NodeId, NodeId, boolean]> = [
   ['sched', 'gpu', false],
-  ['gpu', 'cpu', true],
   ['gpu', 'ctx', true],
   ['ctx', 'qpu', false],
   ['gpu', 'qpu', false],
-  ['ctx', 'fallback', false],
 ];
 
 function edgePath(a: NodeId, b: NodeId): string {
@@ -144,9 +138,8 @@ export function TaskFlow() {
   const gx = (w: number) => GX + (w / total) * GW;
   const rows: Array<{ key: string; label: string; match: (s: Segment) => boolean }> = [
     { key: 'gpu', label: 'GPU reserved', match: (s) => s.gpuReserved },
-    { key: 'ctx', label: 'Parked in memory', match: (s) => s.session === 'ctx' && s.kind !== 'wait' && s.kind !== 'qpu' && s.kind !== 'classical' ? true : s.session === 'ctx' },
-    { key: 'cpu', label: 'CPU sandbox', match: (s) => s.kind === 'tool' },
-    { key: 'qpu', label: 'QPU / fallback', match: (s) => s.job === 'qpu' || s.job === 'fallback' },
+    { key: 'ctx', label: 'In context memory', match: (s) => s.session === 'ctx' },
+    { key: 'qpu', label: 'QPU', match: (s) => s.job === 'qpu' },
   ];
 
   const nodeActive = (id: NodeId) => id === sessionNode || id === jobNode;
@@ -198,7 +191,7 @@ export function TaskFlow() {
           <p className="flow-blurb">{TASKS[task].blurb}</p>
         </div>
 
-        <svg className="flow-svg" viewBox="0 0 1200 350" role="img" aria-label="Where the task is now in the data center">
+        <svg className="flow-svg" viewBox="0 0 1200 300" role="img" aria-label="Where the task is now in the data center">
           <defs>
             <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
               <path d="M0 0 L10 5 L0 10 z" fill="#4a5470" />
@@ -211,14 +204,14 @@ export function TaskFlow() {
           {EDGES.map(([a, b, both]) => (
             <path key={`${a}-${b}`} d={edgePath(a, b)} stroke="#3a4463" strokeWidth="2" fill="none" markerEnd="url(#fa)" markerStart={both ? 'url(#fa)' : undefined} />
           ))}
-          <path d="M4 158 H36" stroke="#4a5470" strokeWidth="2" markerEnd="url(#fa)" />
-          <text x="4" y="148" fill="#8691aa" fontSize="12">
+          <path d="M4 83 H36" stroke="#4a5470" strokeWidth="2" markerEnd="url(#fa)" />
+          <text x="4" y="73" fill="#8691aa" fontSize="12">
             task
           </text>
           {(Object.keys(NODES) as NodeId[]).map((id) => {
             const n = NODES[id];
             const on = nodeActive(id);
-            const accent = id === 'qpu' ? COLORS.qpu : id === 'ctx' ? COLORS.park : id === 'fallback' ? COLORS.classical : id === 'cpu' ? COLORS.tool : COLORS.gpu;
+            const accent = id === 'qpu' ? COLORS.qpu : id === 'ctx' ? COLORS.park : COLORS.gpu;
             return (
               <g key={id}>
                 <rect x={n.x} y={n.y} width={W} height={H} rx="12" fill={on ? '#16203a' : '#111828'} stroke={on ? accent : 'rgba(255,255,255,0.14)'} strokeWidth={on ? 2.5 : 1} />
@@ -268,7 +261,7 @@ export function TaskFlow() {
               {segs.map((s, j) => {
                 if (!r.match(s)) return null;
                 const idle = r.key === 'gpu' && s.gpuReserved && !s.gpuBusy;
-                const color = r.key === 'gpu' ? (idle ? 'url(#hold)' : COLORS.gpu) : r.key === 'ctx' ? COLORS.park : r.key === 'cpu' ? COLORS.tool : s.job === 'fallback' ? COLORS.classical : s.kind === 'wait' ? '#6b2a78' : COLORS.qpu;
+                const color = r.key === 'gpu' ? (idle ? 'url(#hold)' : COLORS.gpu) : r.key === 'ctx' ? (s.kind === 'tool' ? COLORS.tool : COLORS.park) : s.kind === 'wait' ? '#6b2a78' : COLORS.qpu;
                 return <rect key={j} x={gx(starts[j]!)} y={14 + i * 30} width={Math.max(2, gx(starts[j]! + widths[j]!) - gx(starts[j]!) - 1)} height="18" rx="3" fill={color} opacity={j <= idx ? 1 : 0.38} />;
               })}
             </g>
@@ -300,7 +293,7 @@ export function TaskFlow() {
         <div className="flow-tiles">
           <div className="tile">
             <span>Task time</span>
-            <strong>{tot.failed ? 'not served' : secsLabel(tot.elapsed)}</strong>
+            <strong>{secsLabel(tot.elapsed)}</strong>
           </div>
           <div className="tile">
             <span>GPU busy</span>
@@ -311,7 +304,7 @@ export function TaskFlow() {
             <strong>{secsLabel(tot.gpuHeldIdle)}</strong>
           </div>
           <div className="tile">
-            <span>Parked in memory</span>
+            <span>In context memory</span>
             <strong>{secsLabel(tot.parked)}</strong>
           </div>
           <div className="tile">
@@ -335,9 +328,9 @@ export function TaskFlow() {
 
         <p className="fine">
           Illustrative. QPU run times come from quantum_arch (40k cat-qubit QPU, mid-2030s base scenario): 44 s for a 50-qubit variational call, 227 s for a
-          small chemistry call. LLM step (6 s), tool call (8 s), park (0.2 s), resume (about 1 s), queue waits and the classical costs (160 and 768 GPU-hours,
-          200 GPU-hour cap, 64 fallback modules) are dc_sim assumptions. In our pod simulation, parking and holding cost within 0.5% of each other at this
-          call volume; parking matters when GPU memory is tight or QPU calls are frequent. Only a few of a task’s 80 steps are shown.
+          small chemistry call. LLM step (6 s), tool call (8 s), park (0.2 s), resume (about 1 s) and the queue waits are dc_sim assumptions. Tool calls run
+          outside the nodes drawn here; the session waits in the context-memory pool meanwhile. In our pod simulation, parking and holding cost within 0.5% of
+          each other at this call volume; parking matters when GPU memory is tight or QPU calls are frequent. Only a few of a task’s 80 steps are shown.
         </p>
       </div>
     </section>
