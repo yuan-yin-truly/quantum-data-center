@@ -1,0 +1,2 @@
+INFEASIBLE: 100k projected transmons cannot run chemistry_small (needs ~588k physical qubits in quantum_arch). quantum.feasible=false, metrics penalised.
+LOCAL-ONLY: not leaderboard comparable.

@@ -1,0 +1,2 @@
+AUGMENT: G3 is re-declared as a decoder/controller host chiplet (up to 8 RT decoder ASICs); the quantum decoder bank is placed on it. G3's GPU work is redistributed over G0-G2 (conservative). No offload fraction.
+LOCAL-ONLY: not leaderboard comparable.

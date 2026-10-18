@@ -1,0 +1,2 @@
+COMBINED: G3 becomes the decoder host and G0-G2 offload 25% (15% in memory_stream) of their compute; G3's own load is redistributed.
+LOCAL-ONLY: not leaderboard comparable.

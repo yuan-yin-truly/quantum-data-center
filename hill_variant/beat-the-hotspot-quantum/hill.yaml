@@ -1,0 +1,27 @@
+spec_version: 3
+# LOCAL-ONLY VARIANT of czaja107/beat-the-hotspot v0.2.0. Never publish, push or submit this hill;
+# its results are NOT comparable with the official leaderboard (quantum hardware is not allowed there).
+name: beat-the-hotspot-quantum
+version: 0.2.0-quantum.local1
+
+# Ranked lexicographically in this order. `score` is the worst-case temperature
+# rise normalized against the seeded random baseline at the same mesh; the two
+# raw peaks break ties between layouts that normalize to the same score.
+metrics:
+  - {name: score, direction: min}
+  - {name: worst_gpu_c, direction: min}
+  - {name: worst_hbm_c, direction: min}
+
+# Hard kill for a hung simulator only. The official clock is the 1800 s
+# per-workload cap inside eval.py; the five workloads run concurrently, so a
+# healthy 128x128 finalist pass finishes far inside this.
+watchdog_timeout_s: 14400
+
+# The evaluator runs inside this image rather than the hill's uv environment.
+# The pinned HotSpot build imports GLIBC_2.34 symbols, and AutoLab's rented
+# nodes ship an older glibc, so a scored run died at the loader until this was
+# pinned. Debian 12 provides glibc 2.36. Built from the Dockerfile beside this
+# file, and verified in CI by scoring the baseline layout inside this exact
+# digest: 104.59 C GPU and 97.68 C memory, matching private/reference_64.json.
+environment:
+  image: ghcr.io/czaja107/beat-the-hotspot-eval@sha256:24de527e2981db6d950e32fb02ac12a52705d491689e27d78d4d27ee2daa7ec6

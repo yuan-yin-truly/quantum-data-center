@@ -1,0 +1,4 @@
+vendor/
+__pycache__/
+.pytest_cache/
+out.json

@@ -1,0 +1,2 @@
+REPLACE: 10% of every GPU's compute is declared offloaded (input assumption) to a 100-qubit room-temperature-controlled superconducting machine running vqe_50q. 80% of GPU power scales with the offload; link traffic falls by 0.5 x fraction.
+LOCAL-ONLY: not leaderboard comparable.

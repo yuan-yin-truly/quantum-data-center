@@ -1,0 +1,9 @@
+[project]
+name = "beat-the-hotspot"
+version = "0.1.0"
+description = "Evaluation environment for beat-the-hotspot"
+requires-python = ">=3.11,<3.15"
+dependencies = ["numpy==2.3.5"]
+
+[dependency-groups]
+dev = ["pytest>=8.0"]

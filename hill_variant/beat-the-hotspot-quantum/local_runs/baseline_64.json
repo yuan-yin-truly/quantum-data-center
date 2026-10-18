@@ -1,0 +1,268 @@
+{
+  "grid": 64,
+  "final": false,
+  "thermal": {
+    "status": "ok",
+    "runtime": "docker",
+    "image": "ghcr.io/czaja107/beat-the-hotspot-eval@sha256:24de527e2981db6d950e32fb02ac12a52705d491689e27d78d4d27ee2daa7ec6",
+    "grid": 64,
+    "hotspot": "pinned HotSpot build via the original judge"
+  },
+  "layout": {
+    "legal": true,
+    "weighted_route_gb_s_mm": 8728.5,
+    "route_limit_gb_s_mm": 13500.0,
+    "minimum_die_separation_mm": 1.276,
+    "die_edge_margin_mm": 2.856
+  },
+  "classical": {
+    "path": "original_judge",
+    "score": 1.0,
+    "worst_gpu_c": 104.59,
+    "worst_hbm_c": 97.68,
+    "reference_c": {
+      "grid": 64,
+      "worst_gpu_c": 104.59,
+      "worst_hbm_c": 97.68,
+      "source": "published in README.md of czaja107/beat-the-hotspot v0.2.0; the original private/ copies are empty in this local pull"
+    },
+    "per_workload": {
+      "tensor_training": {
+        "gpu_peak_c": 102.21,
+        "hbm_peak_c": 87.05,
+        "total_w": 402.634765,
+        "per_die_peak_c": {
+          "G0": 100.05,
+          "H0": 87.05,
+          "G1": 102.21,
+          "H1": 81.41,
+          "G2": 99.23,
+          "H2": 86.57,
+          "G3": 100.79,
+          "H3": 81.05
+        }
+      },
+      "skewed_compute": {
+        "gpu_peak_c": 104.59,
+        "hbm_peak_c": 81.97,
+        "total_w": 345.305948,
+        "per_die_peak_c": {
+          "G0": 104.59,
+          "H0": 81.97,
+          "G1": 82.94,
+          "H1": 75.03,
+          "G2": 98.67,
+          "H2": 78.95,
+          "G3": 79.21,
+          "H3": 76.25
+        }
+      },
+      "attention_decode": {
+        "gpu_peak_c": 86.01,
+        "hbm_peak_c": 79.73,
+        "total_w": 321.536735,
+        "per_die_peak_c": {
+          "G0": 84.48,
+          "H0": 79.36,
+          "G1": 86.01,
+          "H1": 74.86,
+          "G2": 83.62,
+          "H2": 79.73,
+          "G3": 85.59,
+          "H3": 74.62
+        }
+      },
+      "memory_stream": {
+        "gpu_peak_c": 96.89,
+        "hbm_peak_c": 97.68,
+        "total_w": 392.754902,
+        "per_die_peak_c": {
+          "G0": 94.98,
+          "H0": 97.68,
+          "G1": 94.97,
+          "H1": 93.03,
+          "G2": 93.57,
+          "H2": 96.73,
+          "G3": 96.89,
+          "H3": 95.97
+        }
+      },
+      "mixed_serving": {
+        "gpu_peak_c": 94.23,
+        "hbm_peak_c": 83.77,
+        "total_w": 350.240173,
+        "per_die_peak_c": {
+          "G0": 92.4,
+          "H0": 83.77,
+          "G1": 94.23,
+          "H1": 75.94,
+          "G2": 85.19,
+          "H2": 82.07,
+          "G3": 88.92,
+          "H3": 77.99
+        }
+      }
+    },
+    "hotspot_sha256": "5c3fcad8ae63144b218d2fc1de28ea862f5c6d3751e7ab381d576e5c00cab4bb"
+  },
+  "quantum": {
+    "present": false
+  },
+  "system": {
+    "hybrid_feasible": true,
+    "infeasible_reasons": [],
+    "credit": "no quantum block: identical to the classical core",
+    "power_by_workload": {
+      "tensor_training": {
+        "package_w_with_offload": 402.634765,
+        "package_w_classical": 402.634765,
+        "package_w_delta": 0.0,
+        "quantum_side_outside_package_w": 0.0,
+        "total_electrical_w": 402.634765,
+        "facility_w": 402.634765,
+        "energy_per_task_j": null
+      },
+      "skewed_compute": {
+        "package_w_with_offload": 345.305948,
+        "package_w_classical": 345.305948,
+        "package_w_delta": 0.0,
+        "quantum_side_outside_package_w": 0.0,
+        "total_electrical_w": 345.305948,
+        "facility_w": 345.305948,
+        "energy_per_task_j": null
+      },
+      "attention_decode": {
+        "package_w_with_offload": 321.536735,
+        "package_w_classical": 321.536735,
+        "package_w_delta": 0.0,
+        "quantum_side_outside_package_w": 0.0,
+        "total_electrical_w": 321.536735,
+        "facility_w": 321.536735,
+        "energy_per_task_j": null
+      },
+      "memory_stream": {
+        "package_w_with_offload": 392.754902,
+        "package_w_classical": 392.754902,
+        "package_w_delta": 0.0,
+        "quantum_side_outside_package_w": 0.0,
+        "total_electrical_w": 392.754902,
+        "facility_w": 392.754902,
+        "energy_per_task_j": null
+      },
+      "mixed_serving": {
+        "package_w_with_offload": 350.240173,
+        "package_w_classical": 350.240173,
+        "package_w_delta": 0.0,
+        "quantum_side_outside_package_w": 0.0,
+        "total_electrical_w": 350.240173,
+        "facility_w": 350.240173,
+        "energy_per_task_j": null
+      }
+    },
+    "package": {
+      "label": "package peak temperatures with the quantum offload applied",
+      "score_vs_official_reference_INFORMATIONAL": 1.0,
+      "worst_gpu_c": 104.59,
+      "worst_hbm_c": 97.68,
+      "per_workload": {
+        "tensor_training": {
+          "gpu_peak_c": 102.21,
+          "hbm_peak_c": 87.05,
+          "per_die_peak_c": {
+            "G0": 100.05,
+            "H0": 87.05,
+            "G1": 102.21,
+            "H1": 81.41,
+            "G2": 99.23,
+            "H2": 86.57,
+            "G3": 100.79,
+            "H3": 81.05
+          }
+        },
+        "skewed_compute": {
+          "gpu_peak_c": 104.59,
+          "hbm_peak_c": 81.97,
+          "per_die_peak_c": {
+            "G0": 104.59,
+            "H0": 81.97,
+            "G1": 82.94,
+            "H1": 75.03,
+            "G2": 98.67,
+            "H2": 78.95,
+            "G3": 79.21,
+            "H3": 76.25
+          }
+        },
+        "attention_decode": {
+          "gpu_peak_c": 86.01,
+          "hbm_peak_c": 79.73,
+          "per_die_peak_c": {
+            "G0": 84.48,
+            "H0": 79.36,
+            "G1": 86.01,
+            "H1": 74.86,
+            "G2": 83.62,
+            "H2": 79.73,
+            "G3": 85.59,
+            "H3": 74.62
+          }
+        },
+        "memory_stream": {
+          "gpu_peak_c": 96.89,
+          "hbm_peak_c": 97.68,
+          "per_die_peak_c": {
+            "G0": 94.98,
+            "H0": 97.68,
+            "G1": 94.97,
+            "H1": 93.03,
+            "G2": 93.57,
+            "H2": 96.73,
+            "G3": 96.89,
+            "H3": 95.97
+          }
+        },
+        "mixed_serving": {
+          "gpu_peak_c": 94.23,
+          "hbm_peak_c": 83.77,
+          "per_die_peak_c": {
+            "G0": 92.4,
+            "H0": 83.77,
+            "G1": 94.23,
+            "H1": 75.94,
+            "G2": 85.19,
+            "H2": 82.07,
+            "G3": 88.92,
+            "H3": 77.99
+          }
+        }
+      },
+      "support_chiplets": {},
+      "replaced_dies": []
+    }
+  },
+  "declared_assumptions": null,
+  "modifiers": null,
+  "passed": true,
+  "status": "ok",
+  "reason": null,
+  "metrics": [
+    {
+      "name": "score",
+      "value": 1.0,
+      "direction": "min"
+    },
+    {
+      "name": "worst_gpu_c",
+      "value": 104.59,
+      "direction": "min"
+    },
+    {
+      "name": "worst_hbm_c",
+      "value": 97.68,
+      "direction": "min"
+    }
+  ],
+  "variant": "beat-the-hotspot-quantum",
+  "leaderboard_comparable": false,
+  "notice": "LOCAL-ONLY VARIANT. These results use quantum hardware and a modified power model and must NOT be compared with, or submitted to, the official beat-the-hotspot leaderboard (quantum hardware there would be unfair). The original hill is unchanged and remains the only valid reference for ranking."
+}

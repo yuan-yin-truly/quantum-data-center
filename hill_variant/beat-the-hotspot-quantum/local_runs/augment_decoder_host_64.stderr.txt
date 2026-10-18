@@ -1,0 +1,9 @@
+==============================================================================
+LOCAL-ONLY quantum variant. NOT LEADERBOARD COMPARABLE. Do not submit.
+==============================================================================
+status: ok  passed: True  mesh: 64
+classical (original workloads): GPU 104.59 C  HBM 97.68 C  score 1.0
+quantum: feasible=True  arch=sc_cryo_cmos_100k  task=vqe_50q  runtime=32.2 s  logical qubits=18  rQOPS=7.54e+05
+  cryostat: 27 fridge unit(s), wall power 2.7e+06 W
+system package with offload: GPU 121.48 C  HBM 105.91 C
+system energy per task: 8.822e+07 J

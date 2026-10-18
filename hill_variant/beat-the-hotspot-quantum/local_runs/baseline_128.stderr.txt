@@ -1,0 +1,10 @@
+==============================================================================
+LOCAL-ONLY quantum variant. NOT LEADERBOARD COMPARABLE. Do not submit.
+==============================================================================
+status: ok  passed: True  mesh: 128
+classical (original workloads): GPU 104.74 C  HBM 97.70 C  score 1.0
+system package with offload: GPU 104.74 C  HBM 97.70 C
+real 781.53
+user 0.30
+sys 0.21
+fin

@@ -1,0 +1,576 @@
+{
+  "grid": 64,
+  "final": false,
+  "thermal": {
+    "status": "ok",
+    "runtime": "docker",
+    "image": "ghcr.io/czaja107/beat-the-hotspot-eval@sha256:24de527e2981db6d950e32fb02ac12a52705d491689e27d78d4d27ee2daa7ec6",
+    "grid": 64,
+    "hotspot": "pinned HotSpot build via the original judge"
+  },
+  "layout": {
+    "legal": true,
+    "weighted_route_gb_s_mm": 8728.5,
+    "route_limit_gb_s_mm": 13500.0,
+    "minimum_die_separation_mm": 1.276,
+    "die_edge_margin_mm": 2.856
+  },
+  "classical": {
+    "path": "original_judge",
+    "score": 1.0,
+    "worst_gpu_c": 104.59,
+    "worst_hbm_c": 97.68,
+    "reference_c": {
+      "grid": 64,
+      "worst_gpu_c": 104.59,
+      "worst_hbm_c": 97.68,
+      "source": "published in README.md of czaja107/beat-the-hotspot v0.2.0; the original private/ copies are empty in this local pull"
+    },
+    "per_workload": {
+      "tensor_training": {
+        "gpu_peak_c": 102.21,
+        "hbm_peak_c": 87.05,
+        "total_w": 402.634765,
+        "per_die_peak_c": {
+          "G0": 100.05,
+          "H0": 87.05,
+          "G1": 102.21,
+          "H1": 81.41,
+          "G2": 99.23,
+          "H2": 86.57,
+          "G3": 100.79,
+          "H3": 81.05
+        }
+      },
+      "skewed_compute": {
+        "gpu_peak_c": 104.59,
+        "hbm_peak_c": 81.97,
+        "total_w": 345.305948,
+        "per_die_peak_c": {
+          "G0": 104.59,
+          "H0": 81.97,
+          "G1": 82.94,
+          "H1": 75.03,
+          "G2": 98.67,
+          "H2": 78.95,
+          "G3": 79.21,
+          "H3": 76.25
+        }
+      },
+      "attention_decode": {
+        "gpu_peak_c": 86.01,
+        "hbm_peak_c": 79.73,
+        "total_w": 321.536735,
+        "per_die_peak_c": {
+          "G0": 84.48,
+          "H0": 79.36,
+          "G1": 86.01,
+          "H1": 74.86,
+          "G2": 83.62,
+          "H2": 79.73,
+          "G3": 85.59,
+          "H3": 74.62
+        }
+      },
+      "memory_stream": {
+        "gpu_peak_c": 96.89,
+        "hbm_peak_c": 97.68,
+        "total_w": 392.754902,
+        "per_die_peak_c": {
+          "G0": 94.98,
+          "H0": 97.68,
+          "G1": 94.97,
+          "H1": 93.03,
+          "G2": 93.57,
+          "H2": 96.73,
+          "G3": 96.89,
+          "H3": 95.97
+        }
+      },
+      "mixed_serving": {
+        "gpu_peak_c": 94.23,
+        "hbm_peak_c": 83.77,
+        "total_w": 350.240173,
+        "per_die_peak_c": {
+          "G0": 92.4,
+          "H0": 83.77,
+          "G1": 94.23,
+          "H1": 75.94,
+          "G2": 85.19,
+          "H2": 82.07,
+          "G3": 88.92,
+          "H3": 77.99
+        }
+      }
+    },
+    "hotspot_sha256": "5c3fcad8ae63144b218d2fc1de28ea862f5c6d3751e7ab381d576e5c00cab4bb"
+  },
+  "quantum": {
+    "present": true,
+    "valid": true,
+    "feasible": true,
+    "infeasible_reasons": [],
+    "architecture": {
+      "name": "sc_rt_direct_100q",
+      "source": "example:sc_rt_direct_100q",
+      "modality": "Superconducting transmons",
+      "scheme": "Room-temperature electronics, one coax per control line (Krinner-style)",
+      "profile": "today",
+      "n_physical_qubits": 100,
+      "code": "Rotated surface code"
+    },
+    "capability": {
+      "error_corrected": false,
+      "reason": "100 physical qubits are fewer than one logical qubit at d=89 (15841 each, x2.0 layout)",
+      "code_distance": 89,
+      "logical_qubits": 0,
+      "lambda": 1.9417475728155342,
+      "logical_clock_hz": 0.0,
+      "rqops": 0.0,
+      "logical_error_per_op": null,
+      "target_logical_error": 1e-12
+    },
+    "task": {
+      "workload": "vqe_50q",
+      "label": "Variational solver, 50 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.16492949338259735,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 1.9e-06,
+      "quantum_time_per_iter_s": 0.038,
+      "classical_time_per_iter_s": 0.029411764705882353,
+      "runtime_s": 34.205882352941174,
+      "runtime": "34.2 s",
+      "classical_duty": 0.4299226139294927,
+      "power_w": 24200.011177987963,
+      "energy_j": 827782.7352941176,
+      "energy": "0.23 kWh"
+    },
+    "decoder": {
+      "decoder": null,
+      "placement": {
+        "room_temperature": 0,
+        "package": {},
+        "total_devices": 0
+      }
+    },
+    "cryostat": {
+      "type": "Dry dilution refrigerator (XLD400-class)",
+      "fridge_units": 2,
+      "units_for_heat": 2,
+      "units_for_lines": 1,
+      "n_lines": 414,
+      "wall_power_w": 20000.0,
+      "carnot_floor_w": 89.39160744713577,
+      "stages": [
+        {
+          "stage": "50K",
+          "target_k": 45.0,
+          "settles_at_k": 45.0,
+          "load_w": 10.818820165981256,
+          "capacity_w": 30.0,
+          "utilisation": 0.36062733886604187,
+          "overloaded": false,
+          "fridge_units_for_this_stage": 1
+        },
+        {
+          "stage": "4K",
+          "target_k": 4.2,
+          "settles_at_k": 4.2,
+          "load_w": 0.380157892104769,
+          "capacity_w": 1.4999999999999998,
+          "utilisation": 0.2534385947365127,
+          "overloaded": false,
+          "fridge_units_for_this_stage": 1
+        },
+        {
+          "stage": "Still",
+          "target_k": 1.2,
+          "settles_at_k": 1.2,
+          "load_w": 0.0018838523344603994,
+          "capacity_w": 0.04,
+          "utilisation": 0.047096308361509985,
+          "overloaded": false,
+          "fridge_units_for_this_stage": 1
+        },
+        {
+          "stage": "CP",
+          "target_k": 0.14,
+          "settles_at_k": 0.16399273162049258,
+          "load_w": 0.0003132900904683271,
+          "capacity_w": 0.0002,
+          "utilisation": 1.5664504523416354,
+          "overloaded": true,
+          "fridge_units_for_this_stage": 2
+        },
+        {
+          "stage": "MXC",
+          "target_k": 0.02,
+          "settles_at_k": 0.02,
+          "load_w": 1.7941170170116815e-05,
+          "capacity_w": 1.9e-05,
+          "utilisation": 0.9442721142166745,
+          "overloaded": false,
+          "fridge_units_for_this_stage": 1
+        }
+      ]
+    },
+    "power_w": {
+      "quantum_arch_total": 23883.0,
+      "hosted_on_package": 0.0,
+      "outside_package": 23883.0,
+      "breakdown": {
+        "cryostat (installed)": 20000.0,
+        "room-temperature control electronics": 2435.0,
+        "classical host / optimiser": 1448.0
+      },
+      "pue": 1.2,
+      "facility_power_w_quantum_arch": 28659.6
+    },
+    "classical_blocks": [
+      {
+        "role": "host",
+        "device": "96-core server CPU",
+        "count": 2,
+        "location": "RT",
+        "utilisation": 0.3,
+        "power_w": 356.0,
+        "keeps_up": true
+      },
+      {
+        "role": "optimizer",
+        "device": "H100-class GPU",
+        "count": 4,
+        "location": "RT",
+        "utilisation": 0.3,
+        "power_w": 1092.0,
+        "keeps_up": true
+      }
+    ],
+    "warnings": [
+      "CP stage overloaded: 313 \u00b5W against 200 \u00b5W at 0.14 K (would settle at 0.164 K); needs 2 fridge units",
+      "heat load needs 2 fridge units for one processor",
+      "no error-corrected computing: 100 physical qubits are fewer than one logical qubit at d=89 (15841 each, x2.0 layout)"
+    ]
+  },
+  "system": {
+    "hybrid_feasible": true,
+    "infeasible_reasons": [],
+    "credit": "temperatures reflect the declared offload; they are credible only if hybrid_feasible",
+    "power_by_workload": {
+      "tensor_training": {
+        "package_w_with_offload": 373.813027,
+        "package_w_classical": 402.634765,
+        "package_w_delta": -28.821738,
+        "quantum_side_outside_package_w": 23883.0,
+        "total_electrical_w": 24256.813027,
+        "facility_w": 29108.175632399998,
+        "energy_per_task_j": 829725.6926588529
+      },
+      "skewed_compute": {
+        "package_w_with_offload": 321.140651,
+        "package_w_classical": 345.305948,
+        "package_w_delta": -24.165297,
+        "quantum_side_outside_package_w": 23883.0,
+        "total_electrical_w": 24204.140651,
+        "facility_w": 29044.9687812,
+        "energy_per_task_j": 827923.9875621471
+      },
+      "attention_decode": {
+        "package_w_with_offload": 303.909898,
+        "package_w_classical": 321.536735,
+        "package_w_delta": -17.626837,
+        "quantum_side_outside_package_w": 23883.0,
+        "total_electrical_w": 24186.909898,
+        "facility_w": 29024.2918776,
+        "energy_per_task_j": 827334.5944521765
+      },
+      "memory_stream": {
+        "package_w_with_offload": 377.867157,
+        "package_w_classical": 392.754902,
+        "package_w_delta": -14.887745,
+        "quantum_side_outside_package_w": 23883.0,
+        "total_electrical_w": 24260.867157,
+        "facility_w": 29113.0405884,
+        "energy_per_task_j": 829864.3677526765
+      },
+      "mixed_serving": {
+        "package_w_with_offload": 328.488164,
+        "package_w_classical": 350.240173,
+        "package_w_delta": -21.752009,
+        "quantum_side_outside_package_w": 23883.0,
+        "total_electrical_w": 24211.488164,
+        "facility_w": 29053.7857968,
+        "energy_per_task_j": 828175.3157274117
+      }
+    },
+    "task": {
+      "quantum_workload": "vqe_50q",
+      "runtime_s": 34.205882352941174,
+      "package_workload_during_task": "mixed_serving",
+      "energy_per_task_j": 828175.3157274117,
+      "energy_definition": "(quantum side outside package + package power with offload for the declared package_workload) x quantum task runtime; no comparison with an all-classical run is made (that would need an assumed speedup)",
+      "cryostat_wall_power_w": 20000.0
+    },
+    "pue": 1.2,
+    "package_hosted_decoder_w": 0.0,
+    "package": {
+      "label": "package peak temperatures with the quantum offload applied",
+      "score_vs_official_reference_INFORMATIONAL": 0.97041827,
+      "worst_gpu_c": 98.62,
+      "worst_hbm_c": 95.53,
+      "per_workload": {
+        "tensor_training": {
+          "gpu_peak_c": 96.42,
+          "hbm_peak_c": 82.72,
+          "per_die_peak_c": {
+            "G0": 94.43,
+            "H0": 82.72,
+            "G1": 96.42,
+            "H1": 77.54,
+            "G2": 93.69,
+            "H2": 82.3,
+            "G3": 95.11,
+            "H3": 77.2
+          }
+        },
+        "skewed_compute": {
+          "gpu_peak_c": 98.62,
+          "hbm_peak_c": 78.14,
+          "per_die_peak_c": {
+            "G0": 98.62,
+            "H0": 78.14,
+            "G1": 78.69,
+            "H1": 71.65,
+            "G2": 93.17,
+            "H2": 75.33,
+            "G3": 75.26,
+            "H3": 72.77
+          }
+        },
+        "attention_decode": {
+          "gpu_peak_c": 82.35,
+          "hbm_peak_c": 76.96,
+          "per_die_peak_c": {
+            "G0": 80.93,
+            "H0": 76.55,
+            "G1": 82.35,
+            "H1": 72.59,
+            "G2": 80.17,
+            "H2": 76.96,
+            "G3": 81.96,
+            "H3": 72.17
+          }
+        },
+        "memory_stream": {
+          "gpu_peak_c": 93.71,
+          "hbm_peak_c": 95.53,
+          "per_die_peak_c": {
+            "G0": 91.97,
+            "H0": 95.53,
+            "G1": 91.92,
+            "H1": 91.24,
+            "G2": 90.63,
+            "H2": 94.57,
+            "G3": 93.71,
+            "H3": 94.12
+          }
+        },
+        "mixed_serving": {
+          "gpu_peak_c": 89.56,
+          "hbm_peak_c": 80.2,
+          "per_die_peak_c": {
+            "G0": 87.93,
+            "H0": 80.2,
+            "G1": 89.56,
+            "H1": 72.97,
+            "G2": 81.35,
+            "H2": 78.86,
+            "G3": 84.81,
+            "H3": 74.91
+          }
+        }
+      },
+      "support_chiplets": {},
+      "replaced_dies": []
+    }
+  },
+  "declared_assumptions": {
+    "offload": {
+      "fractions": {
+        "tensor_training": {
+          "G0": 0.1,
+          "G1": 0.1,
+          "G2": 0.1,
+          "G3": 0.1
+        },
+        "skewed_compute": {
+          "G0": 0.1,
+          "G1": 0.1,
+          "G2": 0.1,
+          "G3": 0.1
+        },
+        "attention_decode": {
+          "G0": 0.1,
+          "G1": 0.1,
+          "G2": 0.1,
+          "G3": 0.1
+        },
+        "memory_stream": {
+          "G0": 0.1,
+          "G1": 0.1,
+          "G2": 0.1,
+          "G3": 0.1
+        },
+        "mixed_serving": {
+          "G0": 0.1,
+          "G1": 0.1,
+          "G2": 0.1,
+          "G3": 0.1
+        }
+      },
+      "dynamic_power_fraction": 0.8,
+      "traffic_coupling": 0.5,
+      "replaced_die_work": "redistributed",
+      "active_in": [
+        "tensor_training",
+        "skewed_compute",
+        "attention_decode",
+        "memory_stream",
+        "mixed_serving"
+      ],
+      "any_fraction": true
+    },
+    "package_hosts": {
+      "device": null,
+      "dies": {}
+    },
+    "task": {
+      "workload": "vqe_50q",
+      "package_workload": "mixed_serving"
+    },
+    "limits": {
+      "max_fridge_units": null,
+      "max_total_power_w": null
+    },
+    "honesty_rule": "offload fractions are INPUTS; quantum_arch only decides feasibility and cost of the offloaded task; no quantum speedup or advantage is assumed or reported"
+  },
+  "modifiers": {
+    "die_power_scale": {
+      "tensor_training": {
+        "G0": 0.92,
+        "G1": 0.92,
+        "G2": 0.92,
+        "G3": 0.92
+      },
+      "skewed_compute": {
+        "G0": 0.92,
+        "G1": 0.92,
+        "G2": 0.92,
+        "G3": 0.92
+      },
+      "attention_decode": {
+        "G0": 0.92,
+        "G1": 0.92,
+        "G2": 0.92,
+        "G3": 0.92
+      },
+      "memory_stream": {
+        "G0": 0.92,
+        "G1": 0.92,
+        "G2": 0.92,
+        "G3": 0.92
+      },
+      "mixed_serving": {
+        "G0": 0.92,
+        "G1": 0.92,
+        "G2": 0.92,
+        "G3": 0.92
+      }
+    },
+    "die_power_override_w": {
+      "tensor_training": {},
+      "skewed_compute": {},
+      "attention_decode": {},
+      "memory_stream": {},
+      "mixed_serving": {}
+    },
+    "link_utilization_scale": {
+      "tensor_training": {
+        "P0": 0.95,
+        "P1": 0.95,
+        "P2": 0.95,
+        "P3": 0.95,
+        "S0": 0.95,
+        "S1": 0.95,
+        "S2": 0.95,
+        "S3": 0.95
+      },
+      "skewed_compute": {
+        "P0": 0.95,
+        "P1": 0.95,
+        "P2": 0.95,
+        "P3": 0.95,
+        "S0": 0.95,
+        "S1": 0.95,
+        "S2": 0.95,
+        "S3": 0.95
+      },
+      "attention_decode": {
+        "P0": 0.95,
+        "P1": 0.95,
+        "P2": 0.95,
+        "P3": 0.95,
+        "S0": 0.95,
+        "S1": 0.95,
+        "S2": 0.95,
+        "S3": 0.95
+      },
+      "memory_stream": {
+        "P0": 0.95,
+        "P1": 0.95,
+        "P2": 0.95,
+        "P3": 0.95,
+        "S0": 0.95,
+        "S1": 0.95,
+        "S2": 0.95,
+        "S3": 0.95
+      },
+      "mixed_serving": {
+        "P0": 0.95,
+        "P1": 0.95,
+        "P2": 0.95,
+        "P3": 0.95,
+        "S0": 0.95,
+        "S1": 0.95,
+        "S2": 0.95,
+        "S3": 0.95
+      }
+    },
+    "replaced_dies": []
+  },
+  "passed": true,
+  "status": "ok",
+  "reason": null,
+  "metrics": [
+    {
+      "name": "score",
+      "value": 0.97041827,
+      "direction": "min"
+    },
+    {
+      "name": "worst_gpu_c",
+      "value": 98.62,
+      "direction": "min"
+    },
+    {
+      "name": "worst_hbm_c",
+      "value": 95.53,
+      "direction": "min"
+    }
+  ],
+  "variant": "beat-the-hotspot-quantum",
+  "leaderboard_comparable": false,
+  "notice": "LOCAL-ONLY VARIANT. These results use quantum hardware and a modified power model and must NOT be compared with, or submitted to, the official beat-the-hotspot leaderboard (quantum hardware there would be unfair). The original hill is unchanged and remains the only valid reference for ranking."
+}

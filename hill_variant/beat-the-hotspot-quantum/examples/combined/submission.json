@@ -1,0 +1,66 @@
+{
+  "placements_mm": {
+    "G0": [
+      7.563,
+      3.259
+    ],
+    "H0": [
+      20.934,
+      3.584
+    ],
+    "G1": [
+      33.272,
+      2.856
+    ],
+    "H1": [
+      34.12,
+      15.888
+    ],
+    "G2": [
+      33.072,
+      27.366
+    ],
+    "H2": [
+      20.77,
+      27.311
+    ],
+    "G3": [
+      7.994,
+      27.611
+    ],
+    "H3": [
+      8.748,
+      15.163
+    ]
+  },
+  "quantum": {
+    "architecture_example": "sc_cryo_cmos_100k",
+    "task": {
+      "workload": "vqe_50q",
+      "package_workload": "mixed_serving"
+    },
+    "package_hosts": {
+      "device": "asic_decoder_rt",
+      "dies": {
+        "G3": {
+          "max_devices": 8,
+          "extra_power_w": 3.0,
+          "traffic_scale": 0.0,
+          "max_junction_c": 110
+        }
+      }
+    },
+    "offload": {
+      "fractions": {
+        "*": 0.25,
+        "memory_stream": 0.15
+      },
+      "dynamic_power_fraction": 0.8,
+      "traffic_coupling": 0.5,
+      "replaced_die_work": "redistributed"
+    },
+    "limits": {
+      "max_fridge_units": 30
+    }
+  }
+}

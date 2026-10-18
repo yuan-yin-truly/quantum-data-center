@@ -1,0 +1,9 @@
+# Shipped upstream verbatim. No end-of-line conversion, so the pinned HotSpot
+# build still matches the SHA-256 the evaluator checks for.
+vendor/** -text
+vendor/HotSpot/hotspot binary
+vendor/HotSpot/hotfloorplan binary
+vendor/HotSpot/libhotspot.a binary
+
+# Organizer-owned fixed data. Byte-for-byte stable across platforms.
+*.json -text

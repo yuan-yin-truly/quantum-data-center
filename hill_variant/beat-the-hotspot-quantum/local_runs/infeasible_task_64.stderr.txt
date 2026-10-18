@@ -1,0 +1,11 @@
+==============================================================================
+LOCAL-ONLY quantum variant. NOT LEADERBOARD COMPARABLE. Do not submit.
+==============================================================================
+status: hybrid_infeasible  passed: False  mesh: 64
+reason: task 'chemistry_small' cannot run: 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 200 plus a 15-tile factory; a reference design (10 factories) needs about 588,350 physical qubits
+classical (original workloads): GPU 104.59 C  HBM 97.68 C  score 1.0
+quantum: feasible=False  arch=sc_cryo_cmos_100k  task=chemistry_small  runtime=n/a  logical qubits=18  rQOPS=7.54e+05
+  cryostat: 27 fridge unit(s), wall power 2.7e+06 W
+  - task 'chemistry_small' cannot run: 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 200 plus a 15-tile factory; a reference design (10 factories) needs about 588,350 physical qubits
+system package with offload: GPU 85.36 C  HBM 89.97 C  [HYPOTHETICAL: hybrid infeasible]
+system energy per task: n/a (task cannot run)

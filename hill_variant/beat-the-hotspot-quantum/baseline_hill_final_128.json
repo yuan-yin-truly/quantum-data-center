@@ -1,0 +1,390 @@
+{
+  "passed": true,
+  "metrics": [
+    {
+      "name": "score",
+      "value": 1.0,
+      "direction": "min"
+    },
+    {
+      "name": "worst_gpu_c",
+      "value": 104.74,
+      "direction": "min"
+    },
+    {
+      "name": "worst_hbm_c",
+      "value": 97.7,
+      "direction": "min"
+    }
+  ],
+  "config": [
+    {
+      "name": "thermal_grid",
+      "value": "128x128",
+      "primary": true
+    },
+    {
+      "name": "hotspot_sha256",
+      "value": "5c3fcad8ae63144b218d2fc1de28ea862f5c6d3751e7ab381d576e5c00cab4bb",
+      "primary": true
+    }
+  ],
+  "details": {
+    "constraint_report": {
+      "passed": true,
+      "die_edge_margin_mm": 2.856,
+      "minimum_die_separation_mm": 1.276,
+      "weighted_route_gb_s_mm": 8728.5,
+      "route_limit_gb_s_mm": 13500.0,
+      "die_edge_capacity": {
+        "G0.right": {
+          "reserved_mm_including_gaps": 4.0,
+          "available_mm": 6.3
+        },
+        "H0.left": {
+          "reserved_mm_including_gaps": 4.0,
+          "available_mm": 6.12
+        },
+        "G1.top": {
+          "reserved_mm_including_gaps": 4.0,
+          "available_mm": 6.9
+        },
+        "H1.bottom": {
+          "reserved_mm_including_gaps": 4.0,
+          "available_mm": 6.3
+        },
+        "G2.left": {
+          "reserved_mm_including_gaps": 4.0,
+          "available_mm": 6.3
+        },
+        "H2.right": {
+          "reserved_mm_including_gaps": 4.0,
+          "available_mm": 6.12
+        },
+        "G3.bottom": {
+          "reserved_mm_including_gaps": 4.0,
+          "available_mm": 6.9
+        },
+        "H3.top": {
+          "reserved_mm_including_gaps": 4.0,
+          "available_mm": 6.3
+        },
+        "G0.top": {
+          "reserved_mm_including_gaps": 2.0,
+          "available_mm": 6.9
+        },
+        "H3.bottom": {
+          "reserved_mm_including_gaps": 2.0,
+          "available_mm": 6.3
+        },
+        "G1.left": {
+          "reserved_mm_including_gaps": 2.0,
+          "available_mm": 6.3
+        },
+        "H0.right": {
+          "reserved_mm_including_gaps": 2.0,
+          "available_mm": 6.12
+        },
+        "G2.bottom": {
+          "reserved_mm_including_gaps": 2.0,
+          "available_mm": 6.9
+        },
+        "H1.top": {
+          "reserved_mm_including_gaps": 2.0,
+          "available_mm": 6.3
+        },
+        "G3.right": {
+          "reserved_mm_including_gaps": 2.0,
+          "available_mm": 6.3
+        },
+        "H2.left": {
+          "reserved_mm_including_gaps": 2.0,
+          "available_mm": 6.12
+        }
+      },
+      "links": {
+        "P0": {
+          "route_length_mm": 2.178,
+          "max_route_mm": 5.0,
+          "required_port_each_end_mm": 4.0,
+          "from_port_mm": [
+            19.063,
+            8.509
+          ],
+          "to_port_mm": [
+            20.934,
+            8.684
+          ],
+          "route_grid": [
+            [
+              39,
+              17
+            ],
+            [
+              40,
+              17
+            ]
+          ]
+        },
+        "P1": {
+          "route_length_mm": 2.88,
+          "max_route_mm": 5.0,
+          "required_port_each_end_mm": 4.0,
+          "from_port_mm": [
+            39.022,
+            13.356
+          ],
+          "to_port_mm": [
+            39.37,
+            15.888
+          ],
+          "route_grid": [
+            [
+              78,
+              28
+            ],
+            [
+              78,
+              29
+            ],
+            [
+              78,
+              30
+            ]
+          ]
+        },
+        "P2": {
+          "route_length_mm": 2.597,
+          "max_route_mm": 5.0,
+          "required_port_each_end_mm": 4.0,
+          "from_port_mm": [
+            33.072,
+            32.616
+          ],
+          "to_port_mm": [
+            31.27,
+            32.411
+          ],
+          "route_grid": [
+            [
+              64,
+              65
+            ],
+            [
+              63,
+              65
+            ],
+            [
+              63,
+              64
+            ]
+          ]
+        },
+        "P3": {
+          "route_length_mm": 2.502,
+          "max_route_mm": 5.0,
+          "required_port_each_end_mm": 4.0,
+          "from_port_mm": [
+            13.744,
+            27.611
+          ],
+          "to_port_mm": [
+            13.997999999999998,
+            25.363
+          ],
+          "route_grid": [
+            [
+              27,
+              53
+            ],
+            [
+              27,
+              52
+            ]
+          ]
+        },
+        "S0": {
+          "route_length_mm": 2.215,
+          "max_route_mm": 6.0,
+          "required_port_each_end_mm": 2.0,
+          "from_port_mm": [
+            13.312999999999999,
+            13.759
+          ],
+          "to_port_mm": [
+            13.997999999999998,
+            15.163
+          ],
+          "route_grid": [
+            [
+              26,
+              28
+            ],
+            [
+              27,
+              28
+            ]
+          ]
+        },
+        "S1": {
+          "route_length_mm": 2.548,
+          "max_route_mm": 6.0,
+          "required_port_each_end_mm": 2.0,
+          "from_port_mm": [
+            33.272,
+            8.106
+          ],
+          "to_port_mm": [
+            31.434,
+            8.684
+          ],
+          "route_grid": [
+            [
+              65,
+              16
+            ],
+            [
+              64,
+              16
+            ],
+            [
+              64,
+              17
+            ]
+          ]
+        },
+        "S2": {
+          "route_length_mm": 1.97,
+          "max_route_mm": 6.0,
+          "required_port_each_end_mm": 2.0,
+          "from_port_mm": [
+            38.822,
+            27.366
+          ],
+          "to_port_mm": [
+            39.37,
+            26.088
+          ],
+          "route_grid": [
+            [
+              77,
+              53
+            ],
+            [
+              78,
+              53
+            ]
+          ]
+        },
+        "S3": {
+          "route_length_mm": 2.048,
+          "max_route_mm": 6.0,
+          "required_port_each_end_mm": 2.0,
+          "from_port_mm": [
+            19.494,
+            32.861000000000004
+          ],
+          "to_port_mm": [
+            20.77,
+            32.411
+          ],
+          "route_grid": [
+            [
+              40,
+              65
+            ],
+            [
+              40,
+              64
+            ]
+          ]
+        }
+      }
+    },
+    "per_workload": {
+      "tensor_training": {
+        "gpu_peak_c": 102.41,
+        "hbm_peak_c": 87.51,
+        "per_die_peak_c": {
+          "G0": 100.03,
+          "H0": 86.9,
+          "G1": 102.41,
+          "H1": 81.78,
+          "G2": 99.49,
+          "H2": 87.51,
+          "G3": 100.93,
+          "H3": 81.41
+        },
+        "total_w": 402.634765
+      },
+      "skewed_compute": {
+        "gpu_peak_c": 104.74,
+        "hbm_peak_c": 82.53,
+        "per_die_peak_c": {
+          "G0": 104.74,
+          "H0": 82.53,
+          "G1": 83.11,
+          "H1": 75.42,
+          "G2": 98.95,
+          "H2": 80.21,
+          "G3": 79.3,
+          "H3": 76.69
+        },
+        "total_w": 345.305948
+      },
+      "attention_decode": {
+        "gpu_peak_c": 86.06,
+        "hbm_peak_c": 80.03,
+        "per_die_peak_c": {
+          "G0": 84.58,
+          "H0": 79.49,
+          "G1": 86.06,
+          "H1": 75.0,
+          "G2": 83.73,
+          "H2": 80.03,
+          "G3": 85.62,
+          "H3": 74.64
+        },
+        "total_w": 321.536735
+      },
+      "memory_stream": {
+        "gpu_peak_c": 96.89,
+        "hbm_peak_c": 97.7,
+        "per_die_peak_c": {
+          "G0": 95.08,
+          "H0": 97.7,
+          "G1": 95.03,
+          "H1": 93.01,
+          "G2": 93.72,
+          "H2": 96.9,
+          "G3": 96.89,
+          "H3": 95.98
+        },
+        "total_w": 392.754902
+      },
+      "mixed_serving": {
+        "gpu_peak_c": 94.43,
+        "hbm_peak_c": 83.71,
+        "per_die_peak_c": {
+          "G0": 92.48,
+          "H0": 83.71,
+          "G1": 94.43,
+          "H1": 76.2,
+          "G2": 85.33,
+          "H2": 82.51,
+          "G3": 88.96,
+          "H3": 78.25
+        },
+        "total_w": 350.240173
+      }
+    },
+    "reference": {
+      "grid": 128,
+      "worst_gpu_c": 104.74,
+      "worst_hbm_c": 97.7,
+      "layout": "random_layout",
+      "note": "High-resolution finalist baseline using the identical five workload sources and pinned HotSpot executable."
+    },
+    "final": true
+  }
+}
