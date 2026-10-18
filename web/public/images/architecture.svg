@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
   <title id="t">Hybrid data center: how work flows</title>
-  <desc id="d">Agent developers send work to a task router. LLM steps go to classical token serving: GPU racks, LPU racks and a context-memory tier. Agent tool calls go to a CPU sandbox, a GPU sandbox for classical simulation, or a QPU wing for chemistry and materials.</desc>
+  <desc id="d">Agent developers send work to a task router. LLM steps go to token serving on GPUs and LPUs: GPU racks, LPU racks and a context-memory tier. Agent tool calls go to a CPU sandbox, a GPU sandbox for classical simulation, or a QPU wing for chemistry and materials.</desc>
   <defs>
     <marker id="a-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#22d3ee"/></marker>
     <marker id="a-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8691aa"/></marker>
@@ -11,7 +11,7 @@
 
   <!-- Heading -->
   <text x="40" y="50" fill="#ebeff7" font-size="22" font-weight="700">How work flows in the hybrid data center</text>
-  <text x="40" y="76" fill="#b3bccf" font-size="14">Tokens stay on classical chips. The router sends each agent tool call to the machine that answers it for the least energy and cost.</text>
+  <text x="40" y="76" fill="#b3bccf" font-size="14">Tokens stay on GPUs and LPUs. The router sends each agent tool call to the machine that answers it for the least energy and cost.</text>
 
   <!-- Users -->
   <rect x="40" y="262" width="200" height="116" rx="12" fill="#111828" stroke="rgba(255,255,255,0.14)"/>
@@ -44,7 +44,7 @@
   <!-- Token serving -->
   <rect x="640" y="104" width="520" height="196" rx="14" fill="none" stroke="rgba(34,211,238,0.35)" stroke-dasharray="2 0"/>
   <text x="660" y="132" fill="#22d3ee" font-size="12" font-weight="700" letter-spacing="1.2">TOKEN SERVING</text>
-  <text x="790" y="132" fill="#8691aa" font-size="12">limited by memory bandwidth · classical only</text>
+  <text x="790" y="132" fill="#8691aa" font-size="12">limited by memory bandwidth · no quantum</text>
 
   <rect x="656" y="150" width="152" height="130" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
   <text x="672" y="180" fill="#ebeff7" font-size="15" font-weight="650">GPU racks</text>
@@ -75,7 +75,7 @@
 
   <rect x="656" y="456" width="488" height="68" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
   <text x="674" y="484" fill="#ebeff7" font-size="15" font-weight="650">GPU sandbox <tspan fill="#8691aa" font-weight="400" font-size="13">· status quo, and the fallback</tspan></text>
-  <text x="674" y="507" fill="#b3bccf" font-size="13">Classical chemistry simulation: ~768 GPU-hours per high-accuracy call</text>
+  <text x="674" y="507" fill="#b3bccf" font-size="13">Chemistry simulation on GPUs: ~768 GPU-hours per high-accuracy call</text>
 
   <rect x="656" y="532" width="488" height="68" rx="10" fill="#1a1230" stroke="#d946ef" stroke-width="1.5"/>
   <text x="674" y="560" fill="#ebeff7" font-size="15" font-weight="650">QPU wing <tspan fill="#e9a8f5" font-weight="400" font-size="13">· our addition</tspan></text>

@@ -1,14 +1,15 @@
 import { useState } from 'react';
-import { CASES, COOLING, LIMITS, WORKLOADS, type CaseId } from '../model/brief.ts';
+import { CASES, COOLING, GPU_RACK, LIMITS, WORKLOADS, type CaseId } from '../model/brief.ts';
 import { NO_LEVERS, computeFleet, type Scenario } from '../model/fleet.ts';
-import { CAT_QPU, CHEM_TOOL, scienceToolFleets } from '../model/quantum.ts';
+import { CAT_QPU, CHEM_TOOL, USD_PER_KWH, breakEvenGpuHours, scienceToolFleets } from '../model/quantum.ts';
 import { compact, mw, usd } from '../format.ts';
 import { Meter, StatusChip } from './Meter.tsx';
 
 // Status quo: 2035 GPU racks, direct liquid cooling at a cold site.
 const SITE = { cooling: 'directLiquid', climate: 'cold' } as const;
 const PUE = COOLING[SITE.cooling].pue[SITE.climate];
-// The brief's own levers that cut decode power (Brief p.6). Routing chat to gpt-oss-120b is left
+const BREAK_EVEN = breakEvenGpuHours(PUE);
+// The brief's efficiency settings that cut decode power (Brief p.6). Routing chat to gpt-oss-120b is left
 // off: it stores more cache per token, so it adds power.
 const BRIEF_LEVERS = { ...NO_LEVERS, bgAtSlo: true, subAgents: true };
 
@@ -19,15 +20,15 @@ const SHARES = [1e7, 1e6, 1e5];
 const CASE_GAP: Record<CaseId, { slot: boolean; text: string }> = {
   A: {
     slot: false,
-    text: 'Chat only. None of the brief’s levers help, and only speculative decoding (our assumption) gets under the cap. There are no tool calls, so there is no place for a QPU.',
+    text: 'Chat only. None of the efficiency settings help, and only speculative decoding (our assumption) gets under the cap. There are no tool calls, so there is no place for a QPU.',
   },
   B: {
     slot: true,
-    text: 'Fits with the brief’s levers. Background agents run their tools in a sandbox in our building, with 4 h per task. That sandbox is where science tools, and a QPU, would go.',
+    text: 'Fits with the efficiency settings. Background agents run their tools in a sandbox in our building, with 4 h per task. That sandbox is where science tools, and a QPU, would go.',
   },
   C: {
     slot: true,
-    text: 'Fits with the brief’s levers. It has a QPU slot too: background tasks are fewer per user, but there are more users.',
+    text: 'Fits with the efficiency settings. It has a QPU slot too: background tasks are fewer per user, but there are more users.',
   },
 };
 
@@ -61,7 +62,7 @@ export function ProblemStatement() {
         </h1>
         <p className="lede">
           In 2035, {compact(CASES.B.users, 0)} agent developers launch <strong>{compact(bgTasks, 1)} background agent tasks a day</strong>. A
-          classical fleet can serve all of their tokens in {mw(tokens.facilityMw)}. But suppose just one task in a million calls a
+          GPU-only data center can serve all of their tokens in {mw(tokens.facilityMw)}. But suppose just one task in a million calls a
           high-accuracy chemistry tool. At {CHEM_TOOL.gpuHoursPerCall} GPU-hours per call, the GPU sandbox needs another{' '}
           <strong>
             {compact(ref.gpu.units, 0)} GPUs: {mw(ref.gpu.facilityMw)} and {usd(ref.gpu.capexUsd)}
@@ -109,6 +110,7 @@ export function ProblemStatement() {
               cap={LIMITS.gridMw}
               capLabel="500 MW cap"
               baseline={tokens.facilityMw}
+              baselineLabel="tokens only"
               format={mw}
               note={`Tool calls alone: ${mw(gpu.facilityMw)} and ${usd(gpu.capexUsd)} in racks.`}
             />
@@ -127,6 +129,7 @@ export function ProblemStatement() {
               cap={LIMITS.gridMw}
               capLabel="500 MW cap"
               baseline={tokens.facilityMw}
+              baselineLabel="tokens only"
               format={mw}
               note={`Tool calls alone: ${qpu.facilityMw.toFixed(1)} MW and ${usd(qpu.capexUsd)}, ${Math.round(gpu.facilityMw / qpu.facilityMw)}× less power than the GPU sandbox.`}
             />
@@ -159,12 +162,17 @@ export function ProblemStatement() {
               <li>
                 An idle cryostat draws almost full power, so a QPU only pays off with enough calls to keep it busy.
               </li>
+              <li>
+                A QPU only wins when the classical method is expensive. A call has to cost more than about{' '}
+                <strong>{Math.round(BREAK_EVEN.cost)} GPU-hours</strong> for the QPU to be cheaper, and more than about{' '}
+                {Math.round(BREAK_EVEN.energy)} GPU-hours for it to use less energy. We assume {CHEM_TOOL.gpuHoursPerCall}.
+              </li>
             </ul>
           </div>
         </div>
         <p className="fine">
-          Assumptions: {CHEM_TOOL.gpuHoursPerCall} GPU-hours per classical call and {usd(CAT_QPU.usd)} per QPU are dc_sim inputs. QPU power and
-          throughput come from quantum_arch’s mid-2030s base scenario. Tool calls are spread over the day, which the 4 h deadline allows.
+          Assumptions: {CHEM_TOOL.gpuHoursPerCall} GPU-hours per call on GPUs and {usd(CAT_QPU.usd)} per QPU are dc_sim inputs. QPU power and
+          throughput come from quantum_arch’s mid-2030s base scenario. Tool calls are spread over the day, which the 4 h deadline allows. Break-even uses 5-year amortisation and ${USD_PER_KWH}/kWh (EIA 2025 US industrial average).
           Direct liquid cooling at a cold site, PUE {PUE}.
         </p>
       </div>
@@ -188,11 +196,8 @@ function StatusQuo() {
   return (
     <section id="status-quo" className="status-quo" aria-labelledby="sq-title">
       <div className="section-head">
-        <h2 id="sq-title">Status quo: a classical fleet in each case</h2>
-        <p>
-          All-GPU 2035 racks serving decode, with the brief’s levers on: background agents at 30 tok/s, and half the agent steps on Qwen3.5-122B
-          sub-agents. Direct liquid cooling at a cold site (PUE {PUE}).
-        </p>
+        <h2 id="sq-title">Status quo: a GPU-only data center for each case</h2>
+        <p>What it takes to serve each case with GPUs alone, using the brief’s 2035 chips and its efficiency settings. The key assumptions are listed below the cards.</p>
       </div>
       <div className="sq-grid">
         {(Object.keys(CASES) as CaseId[]).map((id) => {
@@ -219,11 +224,12 @@ function StatusQuo() {
                 cap={LIMITS.gridMw}
                 capLabel="500 MW"
                 baseline={naive.facilityMw}
+                baselineLabel="no settings"
                 format={mw}
               />
               <dl className="sq-stats">
                 <div>
-                  <dt>Without levers</dt>
+                  <dt>No efficiency settings</dt>
                   <dd>{mw(naive.facilityMw)}</dd>
                 </div>
                 <div>
@@ -231,7 +237,7 @@ function StatusQuo() {
                   <dd>{mw(spec.facilityMw)}</dd>
                 </div>
                 <div>
-                  <dt>Rack capex</dt>
+                  <dt>Rack cost</dt>
                   <dd>
                     {usd(levered.rackCapexUsd)} <span className="muted">of {usd(LIMITS.budgetUsd)}</span>
                   </dd>
@@ -246,6 +252,33 @@ function StatusQuo() {
             </article>
           );
         })}
+      </div>
+      <div className="sq-notes">
+        <h3>Key assumptions</h3>
+        <ul>
+          <li>
+            <strong>GPU-only data center:</strong> every rack is the brief’s 2035 GPU rack ({GPU_RACK.chips} GPUs, {GPU_RACK.kw} kW,{' '}
+            {usd(GPU_RACK.usd)}), with no LPUs and no quantum hardware. These GPUs read memory about 15× faster than today’s (120 vs 8 TB/s), and that
+            speed sets how many users each one can serve.
+          </li>
+          <li>
+            <strong>Efficiency settings (from the brief):</strong> background agents run at the 30 tokens/s they promise instead of 100, and half of all
+            agent steps go to a smaller sub-agent model (Qwen3.5-122B on a 32k context). Sending chat to gpt-oss-120b is left off, because it stores
+            more memory per token and adds power.
+          </li>
+          <li>
+            <strong>Speculative decoding is our assumption</strong> (2 tokens accepted per memory read), so it is shown as a separate line, not in the
+            meter.
+          </li>
+          <li>
+            <strong>Only writing tokens (decode) is counted.</strong> Prefill, spare racks for failures and bursts, buildings and energy bills are not,
+            so real figures are higher.
+          </li>
+          <li>
+            <strong>Cooling and demand:</strong> direct liquid cooling at a cold site (PUE {PUE}: {Math.round((PUE - 1) * 100)}% on top of chip power), and
+            the brief’s peak tokens per second per user, served at its speed targets.
+          </li>
+        </ul>
       </div>
     </section>
   );

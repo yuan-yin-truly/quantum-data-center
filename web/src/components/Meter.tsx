@@ -21,12 +21,13 @@ interface MeterProps {
   cap: number;
   capLabel: string;
   format: (n: number) => string;
-  // The no-levers value, drawn as a tick so progress stays visible while levers change.
+  // A reference value drawn as a labelled tick, e.g. the fleet before any efficiency settings.
   baseline?: number;
+  baselineLabel?: string;
   note?: string;
 }
 
-export function Meter({ label, value, cap, capLabel, format, baseline, note }: MeterProps) {
+export function Meter({ label, value, cap, capLabel, format, baseline, baselineLabel = 'baseline', note }: MeterProps) {
   const max = Math.max(value, cap, baseline ?? 0) * 1.06;
   const at = (n: number) => `${(n / max) * 100}%`;
   // Labels near either end of the track anchor inward instead of centering, so they never spill out.
@@ -52,7 +53,9 @@ export function Meter({ label, value, cap, capLabel, format, baseline, note }: M
         </div>
         {showBaseline && (
           <div className={`meter-baseline${edge(baseline!)}`} style={{ left: at(baseline!) }}>
-            <span>baseline {format(baseline!)}</span>
+            <span>
+              {baselineLabel} {format(baseline!)}
+            </span>
           </div>
         )}
       </div>

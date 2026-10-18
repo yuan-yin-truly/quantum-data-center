@@ -516,7 +516,7 @@ h2 {
 }
 .sq-stats {
   align-self: stretch;
-  margin: 16px 0 0;
+  margin: 30px 0 0;
   font-size: 13.5px;
 }
 .sq-stats > div {
@@ -533,6 +533,29 @@ h2 {
   margin: 0;
   text-align: right;
   font-variant-numeric: tabular-nums;
+}
+.sq-notes {
+  margin-top: 16px;
+  padding: 16px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+}
+.sq-notes h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+}
+.sq-notes ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--text-2);
+  font-size: 14px;
+}
+.sq-notes li {
+  margin-bottom: 6px;
+}
+.sq-notes strong {
+  color: var(--text);
 }
 .sq-gap {
   flex: 1;
