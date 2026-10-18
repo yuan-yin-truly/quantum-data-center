@@ -1,0 +1,653 @@
+{
+ "format": "dc_sim.tasks/1",
+ "name": "case_C_knowledge",
+ "seed": 1,
+ "tasks": [
+  {
+   "id": "know026",
+   "arrival_s": 1030.7111849333469,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 29830.711184933345,
+   "home_region": "apac",
+   "data_gb": 53.0,
+   "size": {
+    "module_hours": 121.0,
+    "modules": 32,
+    "ctx_gb": 58.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know023",
+   "arrival_s": 1886.5549871457072,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 30686.554987145708,
+   "home_region": "emea",
+   "data_gb": 68.0,
+   "size": {
+    "module_hours": 183.0,
+    "modules": 32,
+    "ctx_gb": 48.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know008",
+   "arrival_s": 3295.894088985556,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 32095.894088985555,
+   "home_region": "americas",
+   "data_gb": 95.0,
+   "size": {
+    "module_hours": 59.0,
+    "modules": 32,
+    "ctx_gb": 10.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know003",
+   "arrival_s": 3365.2447797174636,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 32165.244779717465,
+   "home_region": "apac",
+   "data_gb": 159.0,
+   "size": {
+    "module_hours": 21.0,
+    "modules": 64,
+    "ctx_gb": 32.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know034",
+   "arrival_s": 5622.5853864539495,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 34422.58538645395,
+   "home_region": "americas",
+   "data_gb": 116.0,
+   "size": {
+    "module_hours": 92.0,
+    "modules": 32,
+    "ctx_gb": 59.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know005",
+   "arrival_s": 6509.873614384284,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 35309.87361438428,
+   "home_region": "americas",
+   "data_gb": 63.0,
+   "size": {
+    "module_hours": 139.0,
+    "modules": 64,
+    "ctx_gb": 56.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know022",
+   "arrival_s": 9334.779182993834,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 38134.779182993836,
+   "home_region": "emea",
+   "data_gb": 130.0,
+   "size": {
+    "module_hours": 94.0,
+    "modules": 64,
+    "ctx_gb": 38.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know017",
+   "arrival_s": 15195.807671339955,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 43995.80767133996,
+   "home_region": "apac",
+   "data_gb": 112.0,
+   "size": {
+    "module_hours": 101.0,
+    "modules": 32,
+    "ctx_gb": 44.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know014",
+   "arrival_s": 15202.937100307869,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 44002.93710030787,
+   "home_region": "emea",
+   "data_gb": 112.0,
+   "size": {
+    "module_hours": 168.0,
+    "modules": 64,
+    "ctx_gb": 30.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know039",
+   "arrival_s": 17115.353913525472,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 45915.35391352547,
+   "home_region": "americas",
+   "data_gb": 95.0,
+   "size": {
+    "module_hours": 84.0,
+    "modules": 64,
+    "ctx_gb": 11.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know012",
+   "arrival_s": 17289.92526597651,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 46089.92526597651,
+   "home_region": "americas",
+   "data_gb": 129.0,
+   "size": {
+    "module_hours": 66.0,
+    "modules": 64,
+    "ctx_gb": 32.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know021",
+   "arrival_s": 19983.150195265043,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 48783.15019526504,
+   "home_region": "americas",
+   "data_gb": 28.0,
+   "size": {
+    "module_hours": 91.0,
+    "modules": 32,
+    "ctx_gb": 20.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know031",
+   "arrival_s": 22184.777425931385,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 50984.77742593139,
+   "home_region": "apac",
+   "data_gb": 25.0,
+   "size": {
+    "module_hours": 171.0,
+    "modules": 64,
+    "ctx_gb": 25.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know030",
+   "arrival_s": 24349.767412967514,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 53149.767412967514,
+   "home_region": "apac",
+   "data_gb": 89.0,
+   "size": {
+    "module_hours": 136.0,
+    "modules": 64,
+    "ctx_gb": 31.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know032",
+   "arrival_s": 26327.550790671645,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 55127.550790671645,
+   "home_region": "americas",
+   "data_gb": 96.0,
+   "size": {
+    "module_hours": 152.0,
+    "modules": 64,
+    "ctx_gb": 56.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know016",
+   "arrival_s": 28519.582653657533,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 57319.58265365753,
+   "home_region": "apac",
+   "data_gb": 70.0,
+   "size": {
+    "module_hours": 77.0,
+    "modules": 32,
+    "ctx_gb": 44.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know009",
+   "arrival_s": 30047.071010123684,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 58847.071010123684,
+   "home_region": "apac",
+   "data_gb": 27.0,
+   "size": {
+    "module_hours": 182.0,
+    "modules": 32,
+    "ctx_gb": 40.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know020",
+   "arrival_s": 32941.3087729971,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 61741.3087729971,
+   "home_region": "americas",
+   "data_gb": 171.0,
+   "size": {
+    "module_hours": 60.0,
+    "modules": 64,
+    "ctx_gb": 21.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know015",
+   "arrival_s": 34580.5663510313,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 63380.5663510313,
+   "home_region": "apac",
+   "data_gb": 86.0,
+   "size": {
+    "module_hours": 118.0,
+    "modules": 32,
+    "ctx_gb": 59.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know037",
+   "arrival_s": 35513.136074411865,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 64313.136074411865,
+   "home_region": "apac",
+   "data_gb": 177.0,
+   "size": {
+    "module_hours": 140.0,
+    "modules": 64,
+    "ctx_gb": 24.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know000",
+   "arrival_s": 36122.97139886369,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 64922.97139886369,
+   "home_region": "americas",
+   "data_gb": 150.0,
+   "size": {
+    "module_hours": 151.0,
+    "modules": 64,
+    "ctx_gb": 10.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know033",
+   "arrival_s": 36332.041845943255,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 65132.041845943255,
+   "home_region": "americas",
+   "data_gb": 198.0,
+   "size": {
+    "module_hours": 193.0,
+    "modules": 32,
+    "ctx_gb": 21.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know004",
+   "arrival_s": 36365.15546398276,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 65165.15546398276,
+   "home_region": "americas",
+   "data_gb": 111.0,
+   "size": {
+    "module_hours": 174.0,
+    "modules": 64,
+    "ctx_gb": 49.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know011",
+   "arrival_s": 37503.83168301139,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 66303.83168301139,
+   "home_region": "emea",
+   "data_gb": 196.0,
+   "size": {
+    "module_hours": 32.0,
+    "modules": 32,
+    "ctx_gb": 19.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know036",
+   "arrival_s": 40286.92712844473,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 69086.92712844473,
+   "home_region": "apac",
+   "data_gb": 168.0,
+   "size": {
+    "module_hours": 60.0,
+    "modules": 64,
+    "ctx_gb": 39.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know018",
+   "arrival_s": 40340.34054134443,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 69140.34054134443,
+   "home_region": "emea",
+   "data_gb": 151.0,
+   "size": {
+    "module_hours": 104.0,
+    "modules": 64,
+    "ctx_gb": 10.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know001",
+   "arrival_s": 43383.23836677832,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 72183.23836677833,
+   "home_region": "emea",
+   "data_gb": 151.0,
+   "size": {
+    "module_hours": 91.0,
+    "modules": 32,
+    "ctx_gb": 24.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know024",
+   "arrival_s": 48226.642055825396,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 77026.64205582539,
+   "home_region": "emea",
+   "data_gb": 163.0,
+   "size": {
+    "module_hours": 171.0,
+    "modules": 32,
+    "ctx_gb": 18.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know038",
+   "arrival_s": 49771.8554298915,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 78571.8554298915,
+   "home_region": "apac",
+   "data_gb": 115.0,
+   "size": {
+    "module_hours": 44.0,
+    "modules": 32,
+    "ctx_gb": 10.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know027",
+   "arrival_s": 51470.260637167354,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 80270.26063716735,
+   "home_region": "apac",
+   "data_gb": 178.0,
+   "size": {
+    "module_hours": 169.0,
+    "modules": 64,
+    "ctx_gb": 28.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know019",
+   "arrival_s": 52461.64776747803,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 81261.64776747803,
+   "home_region": "emea",
+   "data_gb": 195.0,
+   "size": {
+    "module_hours": 35.0,
+    "modules": 32,
+    "ctx_gb": 30.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know010",
+   "arrival_s": 53482.79962370795,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 82282.79962370795,
+   "home_region": "americas",
+   "data_gb": 85.0,
+   "size": {
+    "module_hours": 187.0,
+    "modules": 64,
+    "ctx_gb": 26.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know028",
+   "arrival_s": 54138.78345011794,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 82938.78345011795,
+   "home_region": "americas",
+   "data_gb": 42.0,
+   "size": {
+    "module_hours": 187.0,
+    "modules": 64,
+    "ctx_gb": 15.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know006",
+   "arrival_s": 55118.89334380903,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 83918.89334380903,
+   "home_region": "americas",
+   "data_gb": 171.0,
+   "size": {
+    "module_hours": 42.0,
+    "modules": 64,
+    "ctx_gb": 57.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know002",
+   "arrival_s": 55191.365338214826,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 83991.36533821482,
+   "home_region": "apac",
+   "data_gb": 63.0,
+   "size": {
+    "module_hours": 44.0,
+    "modules": 32,
+    "ctx_gb": 24.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know025",
+   "arrival_s": 57073.40181577156,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 85873.40181577156,
+   "home_region": "emea",
+   "data_gb": 46.0,
+   "size": {
+    "module_hours": 130.0,
+    "modules": 32,
+    "ctx_gb": 49.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know007",
+   "arrival_s": 58985.7737217648,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 87785.7737217648,
+   "home_region": "apac",
+   "data_gb": 131.0,
+   "size": {
+    "module_hours": 31.0,
+    "modules": 64,
+    "ctx_gb": 32.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know035",
+   "arrival_s": 60674.63926291066,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 89474.63926291067,
+   "home_region": "americas",
+   "data_gb": 185.0,
+   "size": {
+    "module_hours": 55.0,
+    "modules": 32,
+    "ctx_gb": 20.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know029",
+   "arrival_s": 62203.798720790255,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 91003.79872079025,
+   "home_region": "apac",
+   "data_gb": 120.0,
+   "size": {
+    "module_hours": 60.0,
+    "modules": 64,
+    "ctx_gb": 54.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "know013",
+   "arrival_s": 63414.5358430492,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 92214.5358430492,
+   "home_region": "emea",
+   "data_gb": 186.0,
+   "size": {
+    "module_hours": 76.0,
+    "modules": 64,
+    "ctx_gb": 30.0
+   },
+   "min_success": 0.95
+  }
+ ],
+ "events": [],
+ "description": "Case C alone for 24 h (mass traffic of that case) with a small discrete overlay.",
+ "horizon_s": 86400.0,
+ "start_utc_hour": 0.0,
+ "case": "C",
+ "demand_scale": 1.0
+}

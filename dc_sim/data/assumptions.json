@@ -1,0 +1,84 @@
+{
+  "_note": "ALL numbers in this file are ASSUMPTIONS unless a 'source' says they come from quantum_arch or a cited reference. They are illustrative inputs of a scenario model for the mid-2030s, not forecasts, quotes or measurements. Entries flagged 'FROM quantum_arch' are read from quantum_arch at run time, not stored here.",
+  "challenge": {
+    "budget_usd": 30e9,
+    "grid_total_mw": 500,
+    "amortisation_years": 5,
+    "launch_cost_usd_per_kg": 200,
+    "note": "Challenge constraints (image 1.png). Earth-only: launches, orbit, Moon and Mars are NOT modelled (launch cost kept in the config only so a later extension has a place for it)."
+  },
+  "engine": {
+    "profile": "mid2030s",
+    "tick_s": 60,
+    "tick_note": "Time resolution: the engine advances in fixed ticks (default 60 s). Task arrivals, completions, QPU calibration windows, failures and cap changes are EVENTS with exact times (a heap); the scheduler runs, and fluid demand and power are sampled, once per tick (state at tick start, piecewise-constant over the tick).",
+    "network_overhead_fraction": 0.05,
+    "network_overhead_note": "Site network and support power as a fraction of IT (system boundary) power. ASSUMPTION; quantum_arch's datacenter model uses 0.08 for its own illustrative cases.",
+    "rho_slo": 0.90,
+    "rho_slo_note": "Highest module utilisation at which the mass-LLM traffic still meets its SLO (headroom for bursts). ASSUMPTION; quantum_arch baselines use 0.7 as its default operating point.",
+    "model_cost_x": 10.0,
+    "model_cost_note": "Per-token compute and memory-traffic cost of the SERVED model relative to quantum_arch's 70B-class reference (llm_inference_70b). 10 stands for a frontier-class sparse model with long reasoning traces. ASSUMPTION, large uncertainty.",
+    "fluid_protect": 0.0,
+    "fluid_displace_usd_per_module_s": 0.02,
+    "fluid_displace_note": "Penalty used by the optimising policies when a discrete task takes GPU modules the mass traffic needs (shed demand costs revenue and breaks SLOs). ASSUMPTION.",
+    "decision_latency": {"base_s": 0.05, "per_task_s": 0.002, "milp_base_s": 0.4, "milp_per_option_s": 0.0005,
+                          "note": "Modelled decision latency of the single scheduling node (not wall-clock): decisions take effect this many seconds after the tick."},
+    "lan_gbps": 400,
+    "wan_usd_per_gb": 0.02,
+    "task_edge_gbps": 100,
+    "network_note": "WAN egress cost, intra-site bandwidth and the user-edge bandwidth per transfer. ASSUMPTIONS."
+  },
+  "cooling": {
+    "_note": "pue = pue_base + pue_per_k * max(0, T_ambient - free_cooling_c). rack_kw_limit caps the system power of one rack (rack density effect: modules per rack = min(node max, limit / module system power)). capex_usd_per_kw_it = building + power + cooling plant per kW of the site's power cap. ALL ASSUMPTIONS (orders of magnitude from public 2024-26 build-cost ranges, extrapolated).",
+    "air":       {"pue_base": 1.30, "pue_per_k": 0.012, "free_cooling_c": 15, "rack_kw_limit": 100,  "capex_usd_per_kw_it": 11000},
+    "liquid":    {"pue_base": 1.12, "pue_per_k": 0.004, "free_cooling_c": 18, "rack_kw_limit": 600,  "capex_usd_per_kw_it": 13500},
+    "immersion": {"pue_base": 1.06, "pue_per_k": 0.002, "free_cooling_c": 20, "rack_kw_limit": 900,  "capex_usd_per_kw_it": 15000}
+  },
+  "node_types": {
+    "_note": "kind gpu/lpu/prefill nodes are RACKS made of 'modules' (accelerator modules). Power per module and the server overhead ratio come from quantum_arch's gpu_2035 device (FROM quantum_arch); other accelerator classes are scaled from it with the factors below (ASSUMPTIONS). speeds are relative to a GPU module (1.0).",
+    "gpu_rack":     {"kind": "gpu", "label": "GPU rack (decode and prefill)", "device": "gpu_2035", "modules_max": 64, "prefill_speed": 1.0, "decode_speed": 1.0, "power_scale": 1.0, "capex_per_module_usd": 112000, "capex_note": "module about 70k USD plus server, network and rack overhead 60 percent: ASSUMPTION"},
+    "lpu_rack":     {"kind": "lpu", "label": "LPU rack (decode-optimised, SRAM-style)", "device": "gpu_2035", "modules_max": 64, "prefill_speed": 0.0, "decode_speed": 1.6, "power_scale": 1.0, "capex_per_module_usd": 85000, "capex_note": "ASSUMPTION: 1.6x decode tokens per module-equivalent of power, decode only; no vendor figure used"},
+    "prefill_rack": {"kind": "prefill", "label": "Prefill card rack (air-coolable)", "device": "gpu_2035", "modules_max": 32, "prefill_speed": 0.6, "decode_speed": 0.0, "power_scale": 0.3, "capex_per_module_usd": 30000, "capex_note": "ASSUMPTION: compute-dense, low-power prefill cards, 0.6x prefill speed at 0.3x power of a module"},
+    "ctxmem_pool":  {"kind": "ctxmem", "label": "Context-memory pool (KV cache store)", "capacity_tb": 5000, "system_power_w": 20000, "capex_usd": 14000000, "capex_note": "ASSUMPTION: 5 PB flash/CXL-class KV store, 20 kW, 14 M USD"},
+    "qpu_cat40k":   {"kind": "qpu", "label": "QPU, 40k cat qubits (repetition code)", "architecture": "dc2035_cat_40k", "capex_usd": 120000000, "queue_max": 8, "calibration": {"interval_s": 28800, "duration_s": 1200}, "capex_note": "capex and calibration windows: ASSUMPTION; power, runtimes, feasibility FROM quantum_arch (mid2030s base)"},
+    "qpu_sc300k":   {"kind": "qpu", "label": "QPU, 300k transmons (surface code, MW-scale cryo)", "architecture": "dc2035_sc_surface_300k", "capex_usd": 450000000, "queue_max": 8, "calibration": {"interval_s": 43200, "duration_s": 2700}, "capex_note": "ASSUMPTION; power etc. FROM quantum_arch"},
+    "qpu_ion40k":   {"kind": "qpu", "label": "QPU, 40k trapped ions (qLDPC)", "architecture": "dc2035_ions_40k", "capex_usd": 200000000, "queue_max": 8, "calibration": {"interval_s": 86400, "duration_s": 3600}, "capex_note": "ASSUMPTION; power etc. FROM quantum_arch"},
+    "qpu_annealer": {"kind": "annealer", "label": "Quantum annealer (D-Wave Advantage2 class)", "annealer": "advantage2_class", "capex_usd": 40000000, "queue_max": 16, "calibration": {"interval_s": 86400, "duration_s": 1800}, "capex_note": "ASSUMPTION; power and sample times FROM quantum_arch annealers catalog"},
+    "mixed_cat":    {"kind": "mixed", "label": "Mixed node: 16 GPU modules + 40k cat-qubit QPU on a low-latency link", "architecture": "dc2035_cat_40k", "device": "gpu_2035", "modules_max": 16, "prefill_speed": 1.0, "decode_speed": 1.0, "power_scale": 1.0, "capex_per_module_usd": 112000, "capex_usd": 130000000, "link_us": 10, "queue_max": 8, "calibration": {"interval_s": 28800, "duration_s": 1200}, "capex_note": "GPU part like gpu_rack; QPU part like qpu_cat40k plus 10 M USD for the co-location link; link latency 10 us is an ASSUMPTION"}
+  },
+  "regions": {
+    "_note": "User regions, their centroid (used for RTT = 4 ms + great-circle km / 66 per ms, fibre with a 1.5 route factor) and time-zone offset. ASSUMPTIONS.",
+    "americas": {"lat": 30.0, "lon": -90.0, "utc_offset": -6},
+    "emea":     {"lat": 45.0, "lon": 15.0,  "utc_offset": 1},
+    "apac":     {"lat": 20.0, "lon": 105.0, "utc_offset": 7}
+  },
+  "demand": {
+    "_note": "TWO-LEVEL MODEL. These are the FLUID classes (mass LLM traffic) - aggregate token rates per user region, never per-user simulation. Discrete tasks (task-spec files) are the second level. ALL ASSUMPTIONS. Token counts are per request/step; cached_ctx_tokens are reused from context memory on a hit and recomputed as prefill on a miss; ctx_gb is KV-cache memory per ACTIVE user session (FP8, GQA-class); active_frac is the share of users with a live session at the diurnal factor 1.",
+    "A": {"label": "Prompters", "users": 4e9, "region_share": {"americas": 0.17, "emea": 0.30, "apac": 0.53},
+          "req_per_user_day": 4.5, "prefill_new_tokens": 2000, "cached_ctx_tokens": 6000, "decode_tokens": 800,
+          "ttft_slo_s": 0.20, "tokens_per_s_slo": 30, "diurnal": "evening", "active_frac": 0.015, "ctx_gb": 0.4, "weight": 1.0},
+    "B": {"label": "Agent developers", "users": 50e6, "region_share": {"americas": 0.35, "emea": 0.25, "apac": 0.40},
+          "req_per_user_day": 140, "prefill_new_tokens": 6000, "cached_ctx_tokens": 40000, "decode_tokens": 700,
+          "ttft_slo_s": 2.0, "tokens_per_s_slo": 50, "diurnal": "workday", "active_frac": 0.35, "ctx_gb": 3.0, "weight": 1.0},
+    "C": {"label": "Knowledge workers", "users": 400e6, "region_share": {"americas": 0.30, "emea": 0.30, "apac": 0.40},
+          "req_per_user_day": 20, "prefill_new_tokens": 4000, "cached_ctx_tokens": 12000, "decode_tokens": 600,
+          "ttft_slo_s": 1.0, "tokens_per_s_slo": 30, "diurnal": "workday", "active_frac": 0.12, "ctx_gb": 1.0, "weight": 1.0},
+    "diurnal": {
+      "evening": {"type": "cosine", "peak_hour": 20.0, "amplitude": 0.45},
+      "workday": {"type": "bell", "centre_hour": 13.5, "sd_hours": 3.2, "floor": 0.2}
+    },
+    "queue_margin_s": 0.05,
+    "replica_modules": 8
+  },
+  "energy_price_note": "Energy prices per site are in the fleet file (ASSUMPTIONS).",
+  "classical_fallback_defaults": {
+    "_note": "ASSUMED cost of the best classical method at the SAME accuracy, in GPU-module-hours (2035 module), for the quantum_arch workloads. The scheduler compares these with quantum_arch's quantum time/energy; they are the single largest uncertainty of any quantum offload result. null = no classical method exists at that accuracy.",
+    "chemistry_small": {"module_hours": 768, "modules": 64, "accuracy_ok": true, "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"},
+    "vqe_50q": {"module_hours": 160, "modules": 32, "accuracy_ok": true, "note": "tensor-network / approximate classical simulation; ASSUMPTION"},
+    "vqe_20q": {"module_hours": 0.4, "modules": 4, "accuracy_ok": true, "note": "2^20 state vector: trivial on one module; ASSUMPTION"},
+    "qla_scalar_explicit_1m": {"module_hours": 0.05, "modules": 8, "accuracy_ok": true, "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"},
+    "qla_full_vector_1m": {"module_hours": 0.05, "modules": 8, "accuracy_ok": true, "note": "ASSUMPTION"},
+    "qla_scalar_implicit_1e12": {"module_hours": null, "modules": 1, "accuracy_ok": false, "note": "N=2^40 with an oracle input: no classical method assumed; ASSUMPTION"},
+    "femoco_thc": {"module_hours": 2000000, "modules": 4096, "accuracy_ok": false, "note": "classical cost at this accuracy assumed unreachable; ASSUMPTION"},
+    "shor_rsa2048": {"module_hours": null, "modules": 1, "accuracy_ok": false, "note": "quantum_arch lists 6e35 classical ops: not feasible"}
+  }
+}

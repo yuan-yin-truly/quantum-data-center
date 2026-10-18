@@ -1,0 +1,6869 @@
+{
+ "format": "dc_sim.tasks/1",
+ "name": "quantum_heavy_research",
+ "seed": 1,
+ "tasks": [
+  {
+   "id": "q085",
+   "arrival_s": 960.8408006165191,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 11760.84080061652,
+   "home_region": "emea",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q081",
+   "arrival_s": 986.9207786724868,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 11786.920778672487,
+   "home_region": "americas",
+   "data_gb": 10.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q053",
+   "arrival_s": 1248.1361123263923,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 15648.136112326392,
+   "home_region": "apac",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q010",
+   "arrival_s": 1315.8149106069056,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 8515.814910606905,
+   "home_region": "emea",
+   "data_gb": 8.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "hyb001",
+   "arrival_s": 1529.817971518612,
+   "type": "hybrid_pipeline",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 23129.817971518612,
+   "home_region": "apac",
+   "data_gb": 124.0,
+   "stages": [
+    {
+     "name": "GPU prep (integrals, active space)",
+     "kind": "gpu",
+     "module_hours": 14.0,
+     "modules": 32,
+     "ctx_gb": 0,
+     "out_gb": 214.0
+    },
+    {
+     "name": "QPU (chemistry_small)",
+     "kind": "quantum",
+     "out_gb": 17.0,
+     "quantum": {
+      "kind": "gate",
+      "workload": "chemistry_small",
+      "repeats": 1,
+      "prep_s": 60,
+      "post_s": 60,
+      "mapping_quality": 0.9,
+      "max_attempts": 2
+     },
+     "classical_fallback": {
+      "module_hours": 768,
+      "modules": 64,
+      "accuracy_ok": true,
+      "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+     }
+    },
+    {
+     "name": "GPU postprocess (analysis)",
+     "kind": "gpu",
+     "module_hours": 3.0,
+     "modules": 16,
+     "ctx_gb": 0,
+     "out_gb": 1.0
+    }
+   ],
+   "min_success": 0.95,
+   "size": {}
+  },
+  {
+   "id": "qo018",
+   "arrival_s": 1534.904831575811,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 3334.904831575811,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q152",
+   "arrival_s": 1711.3101847293312,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 16111.310184729331,
+   "home_region": "apac",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q106",
+   "arrival_s": 1761.874633711626,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 16161.874633711626,
+   "home_region": "americas",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q124",
+   "arrival_s": 1833.02065831821,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 12633.02065831821,
+   "home_region": "emea",
+   "data_gb": 11.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q070",
+   "arrival_s": 1967.3579117770514,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 9167.357911777051,
+   "home_region": "apac",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "know008",
+   "arrival_s": 2202.289058707911,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 31002.28905870791,
+   "home_region": "apac",
+   "data_gb": 61.0,
+   "size": {
+    "module_hours": 91.0,
+    "modules": 64,
+    "ctx_gb": 12.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q061",
+   "arrival_s": 2220.3195222171375,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 16620.319522217138,
+   "home_region": "americas",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q161",
+   "arrival_s": 2266.792666584127,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 16666.792666584126,
+   "home_region": "apac",
+   "data_gb": 18.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q159",
+   "arrival_s": 2496.8784851996984,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 16896.878485199697,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q019",
+   "arrival_s": 2657.0392183750337,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 13457.039218375034,
+   "home_region": "americas",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q074",
+   "arrival_s": 2680.0737264046966,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 17080.0737264047,
+   "home_region": "apac",
+   "data_gb": 13.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q098",
+   "arrival_s": 2861.2586012124307,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 17261.25860121243,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 5,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo041",
+   "arrival_s": 2914.696245135171,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 4714.696245135171,
+   "home_region": "apac",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q078",
+   "arrival_s": 2945.120991469851,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 10145.120991469852,
+   "home_region": "emea",
+   "data_gb": 13.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q107",
+   "arrival_s": 2981.4054632843354,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 10181.405463284336,
+   "home_region": "emea",
+   "data_gb": 15.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 5,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo047",
+   "arrival_s": 3014.2876802368496,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 4814.28768023685,
+   "home_region": "americas",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q108",
+   "arrival_s": 3267.2079795353498,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 10467.20797953535,
+   "home_region": "apac",
+   "data_gb": 1.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q169",
+   "arrival_s": 3305.968259298399,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 10505.968259298399,
+   "home_region": "emea",
+   "data_gb": 15.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q018",
+   "arrival_s": 3308.544620881013,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 14108.544620881014,
+   "home_region": "emea",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q047",
+   "arrival_s": 3334.2143805919472,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 17734.214380591948,
+   "home_region": "americas",
+   "data_gb": 5.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q012",
+   "arrival_s": 3447.798054632396,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 14247.798054632396,
+   "home_region": "americas",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "know000",
+   "arrival_s": 3449.006879338464,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 32249.006879338463,
+   "home_region": "apac",
+   "data_gb": 106.0,
+   "size": {
+    "module_hours": 70.0,
+    "modules": 64,
+    "ctx_gb": 47.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q013",
+   "arrival_s": 3480.0532502297333,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 17880.053250229732,
+   "home_region": "apac",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "know011",
+   "arrival_s": 3510.6260403085175,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 32310.626040308518,
+   "home_region": "apac",
+   "data_gb": 82.0,
+   "size": {
+    "module_hours": 118.0,
+    "modules": 64,
+    "ctx_gb": 28.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q049",
+   "arrival_s": 3518.4252389921307,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 10718.425238992131,
+   "home_region": "emea",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q030",
+   "arrival_s": 3545.8559679373884,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 10745.855967937388,
+   "home_region": "americas",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo012",
+   "arrival_s": 3573.7786582111394,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 5373.778658211139,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo007",
+   "arrival_s": 3799.408121690215,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 5599.408121690215,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "hyb006",
+   "arrival_s": 3809.065811192106,
+   "type": "hybrid_pipeline",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 25409.065811192108,
+   "home_region": "americas",
+   "data_gb": 63.0,
+   "stages": [
+    {
+     "name": "GPU prep (integrals, active space)",
+     "kind": "gpu",
+     "module_hours": 23.0,
+     "modules": 32,
+     "ctx_gb": 0,
+     "out_gb": 384.0
+    },
+    {
+     "name": "QPU (vqe_50q)",
+     "kind": "quantum",
+     "out_gb": 22.0,
+     "quantum": {
+      "kind": "gate",
+      "workload": "vqe_50q",
+      "repeats": 1,
+      "prep_s": 60,
+      "post_s": 60,
+      "mapping_quality": 0.9,
+      "max_attempts": 2
+     },
+     "classical_fallback": {
+      "module_hours": 160,
+      "modules": 32,
+      "accuracy_ok": true,
+      "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+     }
+    },
+    {
+     "name": "GPU postprocess (analysis)",
+     "kind": "gpu",
+     "module_hours": 10.0,
+     "modules": 16,
+     "ctx_gb": 0,
+     "out_gb": 1.0
+    }
+   ],
+   "min_success": 0.95,
+   "size": {}
+  },
+  {
+   "id": "qo003",
+   "arrival_s": 3897.1363817590445,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 5697.1363817590445,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q126",
+   "arrival_s": 3906.704261497398,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 14706.704261497398,
+   "home_region": "americas",
+   "data_gb": 10.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo021",
+   "arrival_s": 3969.39055941625,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 5769.39055941625,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q139",
+   "arrival_s": 4008.442968030461,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 18408.44296803046,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo035",
+   "arrival_s": 4119.781954737395,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 5919.781954737395,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q046",
+   "arrival_s": 4119.836564553363,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 18519.836564553363,
+   "home_region": "americas",
+   "data_gb": 18.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q088",
+   "arrival_s": 4138.8498751415045,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 18538.849875141503,
+   "home_region": "americas",
+   "data_gb": 13.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q054",
+   "arrival_s": 4249.545563223189,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 11449.54556322319,
+   "home_region": "americas",
+   "data_gb": 8.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo030",
+   "arrival_s": 4338.762411459818,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 6138.762411459818,
+   "home_region": "americas",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q135",
+   "arrival_s": 4427.450498163044,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 11627.450498163045,
+   "home_region": "apac",
+   "data_gb": 18.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q129",
+   "arrival_s": 4614.2531811514855,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 15414.253181151485,
+   "home_region": "americas",
+   "data_gb": 5.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q123",
+   "arrival_s": 4845.834713522062,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 15645.834713522061,
+   "home_region": "emea",
+   "data_gb": 5.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 5,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q067",
+   "arrival_s": 4995.581768707151,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 12195.58176870715,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "hyb000",
+   "arrival_s": 5396.644910816976,
+   "type": "hybrid_pipeline",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 26996.644910816976,
+   "home_region": "emea",
+   "data_gb": 136.0,
+   "stages": [
+    {
+     "name": "GPU prep (integrals, active space)",
+     "kind": "gpu",
+     "module_hours": 21.0,
+     "modules": 32,
+     "ctx_gb": 0,
+     "out_gb": 162.0
+    },
+    {
+     "name": "QPU (chemistry_small)",
+     "kind": "quantum",
+     "out_gb": 38.0,
+     "quantum": {
+      "kind": "gate",
+      "workload": "chemistry_small",
+      "repeats": 1,
+      "prep_s": 60,
+      "post_s": 60,
+      "mapping_quality": 0.9,
+      "max_attempts": 2
+     },
+     "classical_fallback": {
+      "module_hours": 768,
+      "modules": 64,
+      "accuracy_ok": true,
+      "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+     }
+    },
+    {
+     "name": "GPU postprocess (analysis)",
+     "kind": "gpu",
+     "module_hours": 2.0,
+     "modules": 16,
+     "ctx_gb": 0,
+     "out_gb": 1.0
+    }
+   ],
+   "min_success": 0.95,
+   "size": {}
+  },
+  {
+   "id": "know001",
+   "arrival_s": 5607.104887732848,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 34407.10488773285,
+   "home_region": "americas",
+   "data_gb": 140.0,
+   "size": {
+    "module_hours": 137.0,
+    "modules": 32,
+    "ctx_gb": 38.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q089",
+   "arrival_s": 5777.32621842495,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 12977.32621842495,
+   "home_region": "apac",
+   "data_gb": 14.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_full_vector_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION"
+   }
+  },
+  {
+   "id": "q014",
+   "arrival_s": 5819.226956790889,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 20219.226956790888,
+   "home_region": "emea",
+   "data_gb": 11.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q141",
+   "arrival_s": 5937.419169768886,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 13137.419169768886,
+   "home_region": "americas",
+   "data_gb": 13.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_full_vector_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION"
+   }
+  },
+  {
+   "id": "q122",
+   "arrival_s": 6013.782332320641,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 20413.78233232064,
+   "home_region": "emea",
+   "data_gb": 5.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q115",
+   "arrival_s": 6021.226072095663,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 20421.226072095662,
+   "home_region": "americas",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "know002",
+   "arrival_s": 6068.486921594545,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 34868.486921594544,
+   "home_region": "americas",
+   "data_gb": 109.0,
+   "size": {
+    "module_hours": 20.0,
+    "modules": 64,
+    "ctx_gb": 27.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "hyb002",
+   "arrival_s": 6227.356987473212,
+   "type": "hybrid_pipeline",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 27827.356987473213,
+   "home_region": "americas",
+   "data_gb": 86.0,
+   "stages": [
+    {
+     "name": "GPU prep (integrals, active space)",
+     "kind": "gpu",
+     "module_hours": 17.0,
+     "modules": 32,
+     "ctx_gb": 0,
+     "out_gb": 266.0
+    },
+    {
+     "name": "QPU (chemistry_small)",
+     "kind": "quantum",
+     "out_gb": 17.0,
+     "quantum": {
+      "kind": "gate",
+      "workload": "chemistry_small",
+      "repeats": 1,
+      "prep_s": 60,
+      "post_s": 60,
+      "mapping_quality": 0.9,
+      "max_attempts": 2
+     },
+     "classical_fallback": {
+      "module_hours": 768,
+      "modules": 64,
+      "accuracy_ok": true,
+      "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+     }
+    },
+    {
+     "name": "GPU postprocess (analysis)",
+     "kind": "gpu",
+     "module_hours": 5.0,
+     "modules": 16,
+     "ctx_gb": 0,
+     "out_gb": 1.0
+    }
+   ],
+   "min_success": 0.95,
+   "size": {}
+  },
+  {
+   "id": "q036",
+   "arrival_s": 6275.603304575263,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 20675.603304575263,
+   "home_region": "apac",
+   "data_gb": 15.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q004",
+   "arrival_s": 6342.671198034477,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 20742.671198034477,
+   "home_region": "emea",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q112",
+   "arrival_s": 6454.5753129850455,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 13654.575312985045,
+   "home_region": "emea",
+   "data_gb": 2.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q119",
+   "arrival_s": 6532.04600737263,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 13732.04600737263,
+   "home_region": "emea",
+   "data_gb": 14.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_full_vector_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION"
+   }
+  },
+  {
+   "id": "q137",
+   "arrival_s": 6546.226133741115,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 17346.226133741115,
+   "home_region": "americas",
+   "data_gb": 11.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q128",
+   "arrival_s": 6633.965308365492,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 21033.965308365492,
+   "home_region": "apac",
+   "data_gb": 15.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q077",
+   "arrival_s": 6766.039679182058,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 13966.039679182057,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q076",
+   "arrival_s": 6793.114769032317,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 13993.114769032316,
+   "home_region": "emea",
+   "data_gb": 10.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q003",
+   "arrival_s": 7095.110385238482,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 21495.110385238484,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q072",
+   "arrival_s": 7119.339111925116,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 21519.339111925117,
+   "home_region": "apac",
+   "data_gb": 17.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q008",
+   "arrival_s": 7167.587720061633,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 17967.587720061634,
+   "home_region": "americas",
+   "data_gb": 17.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 5,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "hyb004",
+   "arrival_s": 7241.1465261302255,
+   "type": "hybrid_pipeline",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 28841.146526130226,
+   "home_region": "apac",
+   "data_gb": 78.0,
+   "stages": [
+    {
+     "name": "GPU prep (integrals, active space)",
+     "kind": "gpu",
+     "module_hours": 4.0,
+     "modules": 32,
+     "ctx_gb": 0,
+     "out_gb": 296.0
+    },
+    {
+     "name": "QPU (vqe_50q)",
+     "kind": "quantum",
+     "out_gb": 32.0,
+     "quantum": {
+      "kind": "gate",
+      "workload": "vqe_50q",
+      "repeats": 1,
+      "prep_s": 60,
+      "post_s": 60,
+      "mapping_quality": 0.9,
+      "max_attempts": 2
+     },
+     "classical_fallback": {
+      "module_hours": 160,
+      "modules": 32,
+      "accuracy_ok": true,
+      "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+     }
+    },
+    {
+     "name": "GPU postprocess (analysis)",
+     "kind": "gpu",
+     "module_hours": 7.0,
+     "modules": 16,
+     "ctx_gb": 0,
+     "out_gb": 1.0
+    }
+   ],
+   "min_success": 0.95,
+   "size": {}
+  },
+  {
+   "id": "qo029",
+   "arrival_s": 7655.296458997984,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 9455.296458997984,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q117",
+   "arrival_s": 7781.143098274879,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 18581.14309827488,
+   "home_region": "apac",
+   "data_gb": 8.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q094",
+   "arrival_s": 7799.147098850215,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 14999.147098850215,
+   "home_region": "apac",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q100",
+   "arrival_s": 8011.673730294001,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 18811.673730294002,
+   "home_region": "emea",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "hyb003",
+   "arrival_s": 8062.200140720217,
+   "type": "hybrid_pipeline",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 29662.20014072022,
+   "home_region": "americas",
+   "data_gb": 147.0,
+   "stages": [
+    {
+     "name": "GPU prep (integrals, active space)",
+     "kind": "gpu",
+     "module_hours": 9.0,
+     "modules": 32,
+     "ctx_gb": 0,
+     "out_gb": 269.0
+    },
+    {
+     "name": "QPU (chemistry_small)",
+     "kind": "quantum",
+     "out_gb": 6.0,
+     "quantum": {
+      "kind": "gate",
+      "workload": "chemistry_small",
+      "repeats": 1,
+      "prep_s": 60,
+      "post_s": 60,
+      "mapping_quality": 0.9,
+      "max_attempts": 2
+     },
+     "classical_fallback": {
+      "module_hours": 768,
+      "modules": 64,
+      "accuracy_ok": true,
+      "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+     }
+    },
+    {
+     "name": "GPU postprocess (analysis)",
+     "kind": "gpu",
+     "module_hours": 2.0,
+     "modules": 16,
+     "ctx_gb": 0,
+     "out_gb": 1.0
+    }
+   ],
+   "min_success": 0.95,
+   "size": {}
+  },
+  {
+   "id": "q131",
+   "arrival_s": 8317.036103367107,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 15517.036103367107,
+   "home_region": "americas",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q153",
+   "arrival_s": 8494.761226913926,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 19294.761226913928,
+   "home_region": "emea",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "femoco_thc",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 2000000,
+    "modules": 4096,
+    "accuracy_ok": false,
+    "note": "classical cost at this accuracy assumed unreachable; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q118",
+   "arrival_s": 8547.162552472535,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 19347.162552472535,
+   "home_region": "americas",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "know005",
+   "arrival_s": 8554.375527762944,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 37354.375527762946,
+   "home_region": "americas",
+   "data_gb": 173.0,
+   "size": {
+    "module_hours": 87.0,
+    "modules": 32,
+    "ctx_gb": 39.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q071",
+   "arrival_s": 8559.21317031957,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 15759.21317031957,
+   "home_region": "apac",
+   "data_gb": 13.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q024",
+   "arrival_s": 8567.205114556567,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 15767.205114556567,
+   "home_region": "americas",
+   "data_gb": 18.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q091",
+   "arrival_s": 8748.319005295452,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 15948.319005295452,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q145",
+   "arrival_s": 8893.45165286845,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 16093.45165286845,
+   "home_region": "americas",
+   "data_gb": 1.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 5,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q087",
+   "arrival_s": 8907.948620711775,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 23307.948620711773,
+   "home_region": "apac",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q059",
+   "arrival_s": 8995.121003227738,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 23395.121003227738,
+   "home_region": "americas",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q116",
+   "arrival_s": 9020.747505722422,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 23420.747505722422,
+   "home_region": "americas",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_full_vector_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION"
+   }
+  },
+  {
+   "id": "q065",
+   "arrival_s": 9449.498252948131,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 23849.49825294813,
+   "home_region": "americas",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "femoco_thc",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 2000000,
+    "modules": 4096,
+    "accuracy_ok": false,
+    "note": "classical cost at this accuracy assumed unreachable; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q040",
+   "arrival_s": 9528.333435989549,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 20328.33343598955,
+   "home_region": "americas",
+   "data_gb": 8.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "know003",
+   "arrival_s": 9583.30405048531,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 38383.30405048531,
+   "home_region": "apac",
+   "data_gb": 31.0,
+   "size": {
+    "module_hours": 183.0,
+    "modules": 32,
+    "ctx_gb": 56.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q149",
+   "arrival_s": 9620.03006229773,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 16820.03006229773,
+   "home_region": "apac",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q048",
+   "arrival_s": 9626.637419076103,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 24026.637419076105,
+   "home_region": "apac",
+   "data_gb": 5.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo056",
+   "arrival_s": 9694.914899228555,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 11494.914899228555,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q164",
+   "arrival_s": 9720.494541021792,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 16920.49454102179,
+   "home_region": "apac",
+   "data_gb": 10.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo002",
+   "arrival_s": 9736.55533109842,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 11536.55533109842,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q044",
+   "arrival_s": 9750.480568188936,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 20550.480568188934,
+   "home_region": "apac",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q151",
+   "arrival_s": 9907.526056330882,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 24307.526056330884,
+   "home_region": "apac",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q086",
+   "arrival_s": 10575.29101452428,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 17775.29101452428,
+   "home_region": "emea",
+   "data_gb": 10.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q101",
+   "arrival_s": 10804.63891954237,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 25204.63891954237,
+   "home_region": "emea",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q147",
+   "arrival_s": 10839.754096037757,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 21639.75409603776,
+   "home_region": "americas",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q052",
+   "arrival_s": 11085.976736437395,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 18285.976736437395,
+   "home_region": "apac",
+   "data_gb": 17.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo057",
+   "arrival_s": 11127.19710422316,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 12927.19710422316,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q165",
+   "arrival_s": 11156.81376972456,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 21956.813769724562,
+   "home_region": "americas",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q148",
+   "arrival_s": 11196.751469563822,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 18396.751469563824,
+   "home_region": "americas",
+   "data_gb": 8.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "know004",
+   "arrival_s": 11360.030020699709,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 40160.030020699705,
+   "home_region": "americas",
+   "data_gb": 97.0,
+   "size": {
+    "module_hours": 187.0,
+    "modules": 32,
+    "ctx_gb": 29.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q157",
+   "arrival_s": 11528.716903111046,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 22328.716903111046,
+   "home_region": "apac",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q105",
+   "arrival_s": 11638.104066146245,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 18838.104066146247,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q099",
+   "arrival_s": 11692.1123385505,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 22492.112338550498,
+   "home_region": "apac",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q007",
+   "arrival_s": 11703.196079416806,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 18903.196079416804,
+   "home_region": "apac",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q154",
+   "arrival_s": 11913.299338215593,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 19113.29933821559,
+   "home_region": "apac",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 5,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo039",
+   "arrival_s": 11968.169330555422,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 13768.169330555422,
+   "home_region": "emea",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q097",
+   "arrival_s": 12140.206803744706,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 26540.206803744706,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q084",
+   "arrival_s": 12268.880380703877,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 26668.88038070388,
+   "home_region": "apac",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "shor_rsa2048",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": null,
+    "modules": 1,
+    "accuracy_ok": false,
+    "note": "quantum_arch lists 6e35 classical ops: not feasible"
+   }
+  },
+  {
+   "id": "q069",
+   "arrival_s": 12526.781383808753,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 26926.781383808753,
+   "home_region": "apac",
+   "data_gb": 18.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q114",
+   "arrival_s": 12568.50650726668,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 19768.50650726668,
+   "home_region": "emea",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q064",
+   "arrival_s": 12972.672187429444,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 27372.672187429445,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q104",
+   "arrival_s": 12988.26210552452,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 23788.262105524518,
+   "home_region": "americas",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo036",
+   "arrival_s": 13076.69603823471,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 14876.69603823471,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo024",
+   "arrival_s": 13124.235182841792,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 14924.235182841792,
+   "home_region": "apac",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q017",
+   "arrival_s": 13280.595616460356,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 27680.595616460356,
+   "home_region": "emea",
+   "data_gb": 13.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo013",
+   "arrival_s": 13783.13337955972,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 15583.13337955972,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q032",
+   "arrival_s": 13878.413307842591,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 24678.41330784259,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q051",
+   "arrival_s": 14014.893203594487,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 24814.89320359449,
+   "home_region": "apac",
+   "data_gb": 13.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "know007",
+   "arrival_s": 14566.64439280894,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 43366.64439280894,
+   "home_region": "apac",
+   "data_gb": 85.0,
+   "size": {
+    "module_hours": 166.0,
+    "modules": 32,
+    "ctx_gb": 25.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "qo049",
+   "arrival_s": 14763.362799322313,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 16563.362799322313,
+   "home_region": "americas",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "hyb007",
+   "arrival_s": 14771.807653901558,
+   "type": "hybrid_pipeline",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 36371.80765390156,
+   "home_region": "apac",
+   "data_gb": 21.0,
+   "stages": [
+    {
+     "name": "GPU prep (integrals, active space)",
+     "kind": "gpu",
+     "module_hours": 18.0,
+     "modules": 32,
+     "ctx_gb": 0,
+     "out_gb": 234.0
+    },
+    {
+     "name": "QPU (chemistry_small)",
+     "kind": "quantum",
+     "out_gb": 33.0,
+     "quantum": {
+      "kind": "gate",
+      "workload": "chemistry_small",
+      "repeats": 1,
+      "prep_s": 60,
+      "post_s": 60,
+      "mapping_quality": 0.9,
+      "max_attempts": 2
+     },
+     "classical_fallback": {
+      "module_hours": 768,
+      "modules": 64,
+      "accuracy_ok": true,
+      "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+     }
+    },
+    {
+     "name": "GPU postprocess (analysis)",
+     "kind": "gpu",
+     "module_hours": 6.0,
+     "modules": 16,
+     "ctx_gb": 0,
+     "out_gb": 1.0
+    }
+   ],
+   "min_success": 0.95,
+   "size": {}
+  },
+  {
+   "id": "q127",
+   "arrival_s": 14893.29516707761,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 29293.29516707761,
+   "home_region": "apac",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q083",
+   "arrival_s": 14924.941491238342,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 22124.941491238344,
+   "home_region": "emea",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "hyb005",
+   "arrival_s": 15048.512510396497,
+   "type": "hybrid_pipeline",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 36648.5125103965,
+   "home_region": "americas",
+   "data_gb": 65.0,
+   "stages": [
+    {
+     "name": "GPU prep (integrals, active space)",
+     "kind": "gpu",
+     "module_hours": 25.0,
+     "modules": 32,
+     "ctx_gb": 0,
+     "out_gb": 121.0
+    },
+    {
+     "name": "QPU (chemistry_small)",
+     "kind": "quantum",
+     "out_gb": 24.0,
+     "quantum": {
+      "kind": "gate",
+      "workload": "chemistry_small",
+      "repeats": 1,
+      "prep_s": 60,
+      "post_s": 60,
+      "mapping_quality": 0.9,
+      "max_attempts": 2
+     },
+     "classical_fallback": {
+      "module_hours": 768,
+      "modules": 64,
+      "accuracy_ok": true,
+      "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+     }
+    },
+    {
+     "name": "GPU postprocess (analysis)",
+     "kind": "gpu",
+     "module_hours": 9.0,
+     "modules": 16,
+     "ctx_gb": 0,
+     "out_gb": 1.0
+    }
+   ],
+   "min_success": 0.95,
+   "size": {}
+  },
+  {
+   "id": "q022",
+   "arrival_s": 15054.28446898526,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 22254.28446898526,
+   "home_region": "emea",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo010",
+   "arrival_s": 15160.230723159206,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 16960.230723159206,
+   "home_region": "apac",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo051",
+   "arrival_s": 15205.748194377476,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 17005.748194377476,
+   "home_region": "americas",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q025",
+   "arrival_s": 15281.264119583559,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 22481.26411958356,
+   "home_region": "emea",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q016",
+   "arrival_s": 15382.820392778649,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 29782.82039277865,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q158",
+   "arrival_s": 15439.295411261468,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 22639.295411261468,
+   "home_region": "americas",
+   "data_gb": 1.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo054",
+   "arrival_s": 15520.462166172232,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 17320.462166172234,
+   "home_region": "americas",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q055",
+   "arrival_s": 15568.346132596329,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 29968.34613259633,
+   "home_region": "americas",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q011",
+   "arrival_s": 15688.791608174275,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 22888.791608174273,
+   "home_region": "emea",
+   "data_gb": 10.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q027",
+   "arrival_s": 15729.120201198793,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 22929.12020119879,
+   "home_region": "emea",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q133",
+   "arrival_s": 15811.259769385551,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 23011.25976938555,
+   "home_region": "apac",
+   "data_gb": 17.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "femoco_thc",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 2000000,
+    "modules": 4096,
+    "accuracy_ok": false,
+    "note": "classical cost at this accuracy assumed unreachable; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q170",
+   "arrival_s": 15908.827178735532,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 23108.827178735533,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q073",
+   "arrival_s": 15938.155642717658,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 30338.15564271766,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q043",
+   "arrival_s": 16480.22972902666,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 27280.22972902666,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q001",
+   "arrival_s": 16651.711133015036,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 23851.711133015036,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q033",
+   "arrival_s": 16655.96606535526,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 23855.96606535526,
+   "home_region": "americas",
+   "data_gb": 14.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q050",
+   "arrival_s": 16658.626606097696,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 31058.626606097696,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 5,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q113",
+   "arrival_s": 16869.632608278473,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 24069.632608278473,
+   "home_region": "emea",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q160",
+   "arrival_s": 17101.800860816995,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 24301.800860816995,
+   "home_region": "apac",
+   "data_gb": 5.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q111",
+   "arrival_s": 17166.62537733392,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 31566.62537733392,
+   "home_region": "emea",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q058",
+   "arrival_s": 17184.919052252786,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 27984.919052252786,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo011",
+   "arrival_s": 17331.684310608485,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 19131.684310608485,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo019",
+   "arrival_s": 17361.613122977586,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 19161.613122977586,
+   "home_region": "emea",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q042",
+   "arrival_s": 17713.69005357194,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 32113.69005357194,
+   "home_region": "americas",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q102",
+   "arrival_s": 18062.254785634777,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 25262.254785634777,
+   "home_region": "emea",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q090",
+   "arrival_s": 18193.20674375955,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 25393.20674375955,
+   "home_region": "americas",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q060",
+   "arrival_s": 18217.131797109792,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 25417.131797109792,
+   "home_region": "americas",
+   "data_gb": 5.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q171",
+   "arrival_s": 18235.471673793607,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 25435.471673793607,
+   "home_region": "apac",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "know006",
+   "arrival_s": 18419.475656108803,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 47219.4756561088,
+   "home_region": "apac",
+   "data_gb": 29.0,
+   "size": {
+    "module_hours": 133.0,
+    "modules": 32,
+    "ctx_gb": 26.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q038",
+   "arrival_s": 18428.001959151425,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 32828.00195915143,
+   "home_region": "emea",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q063",
+   "arrival_s": 18428.120520580112,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 29228.120520580112,
+   "home_region": "americas",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q134",
+   "arrival_s": 18437.90597811934,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 25637.90597811934,
+   "home_region": "emea",
+   "data_gb": 1.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q041",
+   "arrival_s": 18451.029712958214,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 32851.02971295822,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q155",
+   "arrival_s": 18497.165311493696,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 29297.165311493696,
+   "home_region": "apac",
+   "data_gb": 8.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q062",
+   "arrival_s": 18789.807736372695,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 33189.80773637269,
+   "home_region": "americas",
+   "data_gb": 13.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q093",
+   "arrival_s": 18895.247787680204,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 29695.247787680204,
+   "home_region": "apac",
+   "data_gb": 14.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo000",
+   "arrival_s": 18952.873667538584,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 20752.873667538584,
+   "home_region": "emea",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo028",
+   "arrival_s": 19299.457434563552,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 21099.457434563552,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q167",
+   "arrival_s": 19498.05025631856,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 33898.05025631856,
+   "home_region": "americas",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo046",
+   "arrival_s": 19549.425696145343,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 21349.425696145343,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q138",
+   "arrival_s": 19617.678640196693,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 26817.678640196693,
+   "home_region": "emea",
+   "data_gb": 14.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q005",
+   "arrival_s": 19716.47427751889,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 26916.47427751889,
+   "home_region": "emea",
+   "data_gb": 15.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q162",
+   "arrival_s": 19800.443970218577,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 30600.443970218577,
+   "home_region": "apac",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q021",
+   "arrival_s": 20131.266105988267,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 34531.26610598827,
+   "home_region": "emea",
+   "data_gb": 10.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q166",
+   "arrival_s": 20213.434787589616,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 27413.434787589616,
+   "home_region": "americas",
+   "data_gb": 15.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q015",
+   "arrival_s": 20303.9697726062,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 34703.9697726062,
+   "home_region": "americas",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo014",
+   "arrival_s": 20570.37004163836,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 22370.37004163836,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q000",
+   "arrival_s": 20581.052822072324,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 31381.052822072324,
+   "home_region": "emea",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "know010",
+   "arrival_s": 20654.984076260807,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 49454.98407626081,
+   "home_region": "americas",
+   "data_gb": 81.0,
+   "size": {
+    "module_hours": 62.0,
+    "modules": 32,
+    "ctx_gb": 32.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q079",
+   "arrival_s": 20661.00699204855,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 35061.006992048555,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 2,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q066",
+   "arrival_s": 20707.304545676852,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 31507.304545676852,
+   "home_region": "emea",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 5,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q034",
+   "arrival_s": 20740.323885007478,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 35140.32388500748,
+   "home_region": "emea",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q082",
+   "arrival_s": 20890.649568774126,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 35290.649568774126,
+   "home_region": "emea",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo053",
+   "arrival_s": 20981.32870792739,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 22781.32870792739,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo042",
+   "arrival_s": 21053.140546962717,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 22853.140546962717,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q132",
+   "arrival_s": 21069.857963226383,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 35469.857963226386,
+   "home_region": "emea",
+   "data_gb": 18.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q068",
+   "arrival_s": 21172.466658822126,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 28372.466658822126,
+   "home_region": "emea",
+   "data_gb": 1.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q037",
+   "arrival_s": 21236.1008747554,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 28436.1008747554,
+   "home_region": "emea",
+   "data_gb": 1.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "femoco_thc",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 2000000,
+    "modules": 4096,
+    "accuracy_ok": false,
+    "note": "classical cost at this accuracy assumed unreachable; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q096",
+   "arrival_s": 21253.497704141177,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 32053.497704141177,
+   "home_region": "emea",
+   "data_gb": 11.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo059",
+   "arrival_s": 21513.033507018878,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 23313.033507018878,
+   "home_region": "emea",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q144",
+   "arrival_s": 21580.353580164683,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 28780.353580164683,
+   "home_region": "emea",
+   "data_gb": 14.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "know009",
+   "arrival_s": 21588.994794468912,
+   "type": "knowledge_job",
+   "case": "C",
+   "priority": 3,
+   "deadline_s": 50388.99479446891,
+   "home_region": "americas",
+   "data_gb": 95.0,
+   "size": {
+    "module_hours": 38.0,
+    "modules": 32,
+    "ctx_gb": 53.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "q009",
+   "arrival_s": 21704.031879862192,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 28904.031879862192,
+   "home_region": "emea",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo037",
+   "arrival_s": 21788.706701322604,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 23588.706701322604,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo033",
+   "arrival_s": 21979.469880486322,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 23779.469880486322,
+   "home_region": "emea",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q143",
+   "arrival_s": 22049.217640743027,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 32849.21764074302,
+   "home_region": "americas",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "shor_rsa2048",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": null,
+    "modules": 1,
+    "accuracy_ok": false,
+    "note": "quantum_arch lists 6e35 classical ops: not feasible"
+   }
+  },
+  {
+   "id": "q080",
+   "arrival_s": 22146.224016388704,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 32946.2240163887,
+   "home_region": "emea",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q140",
+   "arrival_s": 22155.18410569153,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 29355.18410569153,
+   "home_region": "americas",
+   "data_gb": 7.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q020",
+   "arrival_s": 22346.960965401035,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 33146.960965401035,
+   "home_region": "americas",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo052",
+   "arrival_s": 22831.735804542084,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 24631.735804542084,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo031",
+   "arrival_s": 23054.400860189355,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 24854.400860189355,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q095",
+   "arrival_s": 23363.04216746765,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 34163.04216746765,
+   "home_region": "americas",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q103",
+   "arrival_s": 23375.944355761258,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 34175.944355761254,
+   "home_region": "apac",
+   "data_gb": 18.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo026",
+   "arrival_s": 23558.129250958995,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 25358.129250958995,
+   "home_region": "emea",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q075",
+   "arrival_s": 23613.300050986833,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 30813.300050986833,
+   "home_region": "apac",
+   "data_gb": 8.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_full_vector_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION"
+   }
+  },
+  {
+   "id": "q110",
+   "arrival_s": 23678.43530857717,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 30878.43530857717,
+   "home_region": "apac",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q023",
+   "arrival_s": 23702.665296019113,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 30902.665296019113,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q130",
+   "arrival_s": 23719.51030287451,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 38119.51030287451,
+   "home_region": "emea",
+   "data_gb": 2.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q006",
+   "arrival_s": 23743.177944895033,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 38143.17794489503,
+   "home_region": "emea",
+   "data_gb": 14.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo005",
+   "arrival_s": 23813.4009619134,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 25613.4009619134,
+   "home_region": "apac",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo022",
+   "arrival_s": 23844.486498100716,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 25644.486498100716,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q150",
+   "arrival_s": 23974.704267821504,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 31174.704267821504,
+   "home_region": "americas",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo043",
+   "arrival_s": 23996.429832173526,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 25796.429832173526,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q031",
+   "arrival_s": 24021.105832974015,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 38421.10583297402,
+   "home_region": "emea",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q156",
+   "arrival_s": 24092.703820447652,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 34892.703820447656,
+   "home_region": "emea",
+   "data_gb": 14.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q109",
+   "arrival_s": 24425.041920923413,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 38825.04192092341,
+   "home_region": "americas",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q057",
+   "arrival_s": 24576.57380383423,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 35376.57380383423,
+   "home_region": "apac",
+   "data_gb": 16.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q168",
+   "arrival_s": 24652.225054095634,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 35452.22505409563,
+   "home_region": "apac",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q029",
+   "arrival_s": 25044.29702418047,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 35844.29702418047,
+   "home_region": "americas",
+   "data_gb": 13.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q146",
+   "arrival_s": 25082.199105433985,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 2,
+   "deadline_s": 39482.19910543399,
+   "home_region": "apac",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q092",
+   "arrival_s": 25383.432177293755,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 32583.432177293755,
+   "home_region": "americas",
+   "data_gb": 15.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_scalar_explicit_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "sparse 1M-dimension solve: classical iterative solver is fast; quantum_arch states no advantage; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo045",
+   "arrival_s": 25523.091166762722,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 27323.091166762722,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q120",
+   "arrival_s": 25534.06172628477,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 32734.06172628477,
+   "home_region": "apac",
+   "data_gb": 8.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q142",
+   "arrival_s": 25579.977726017052,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 39979.97772601705,
+   "home_region": "apac",
+   "data_gb": 5.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo055",
+   "arrival_s": 25588.919084059173,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 27388.919084059173,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q045",
+   "arrival_s": 25674.127360618484,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 40074.127360618484,
+   "home_region": "emea",
+   "data_gb": 9.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q121",
+   "arrival_s": 25678.44719195279,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 36478.447191952786,
+   "home_region": "emea",
+   "data_gb": 6.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q163",
+   "arrival_s": 25694.663187204827,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 36494.66318720483,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 4,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q125",
+   "arrival_s": 25749.58682872531,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 40149.58682872531,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo015",
+   "arrival_s": 25859.93908414081,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 27659.93908414081,
+   "home_region": "emea",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo025",
+   "arrival_s": 26025.156932682094,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 27825.156932682094,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q039",
+   "arrival_s": 26178.897202352073,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 36978.89720235208,
+   "home_region": "emea",
+   "data_gb": 19.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 5,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo017",
+   "arrival_s": 26827.86331875233,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 28627.86331875233,
+   "home_region": "emea",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q026",
+   "arrival_s": 26998.72722604293,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 34198.72722604293,
+   "home_region": "emea",
+   "data_gb": 12.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo044",
+   "arrival_s": 27483.888482730938,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 29283.888482730938,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q136",
+   "arrival_s": 27581.668764753882,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 38381.66876475388,
+   "home_region": "americas",
+   "data_gb": 8.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_50q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 160,
+    "modules": 32,
+    "accuracy_ok": true,
+    "note": "tensor-network / approximate classical simulation; ASSUMPTION"
+   }
+  },
+  {
+   "id": "q035",
+   "arrival_s": 27948.59620231345,
+   "type": "quantum_linear_algebra",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 38748.59620231345,
+   "home_region": "apac",
+   "data_gb": 5.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "qla_full_vector_1m",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.05,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION"
+   }
+  },
+  {
+   "id": "q028",
+   "arrival_s": 28442.604219759196,
+   "type": "quantum_variational",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 35642.604219759196,
+   "home_region": "apac",
+   "data_gb": 17.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "vqe_20q",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 0.4,
+    "modules": 4,
+    "accuracy_ok": true,
+    "note": "2^20 state vector: trivial on one module; ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo048",
+   "arrival_s": 28479.44052266505,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 30279.44052266505,
+   "home_region": "americas",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "q002",
+   "arrival_s": 28617.97348211028,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 43017.973482110276,
+   "home_region": "apac",
+   "data_gb": 1.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 3,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "q056",
+   "arrival_s": 28721.215179916657,
+   "type": "quantum_fault_tolerant",
+   "case": "Q",
+   "priority": 4,
+   "deadline_s": 39521.21517991666,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.95,
+   "quantum": {
+    "kind": "gate",
+    "workload": "chemistry_small",
+    "repeats": 1,
+    "prep_s": 120,
+    "post_s": 120,
+    "mapping_quality": 0.9,
+    "max_attempts": 2
+   },
+   "size": {},
+   "classical_fallback": {
+    "module_hours": 768,
+    "modules": 64,
+    "accuracy_ok": true,
+    "note": "same figure as quantum_arch's dc2035_research example (64 modules x 12 h), ASSUMPTION"
+   }
+  },
+  {
+   "id": "qo001",
+   "arrival_s": 28945.592769553885,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 30745.592769553885,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo038",
+   "arrival_s": 29307.581555251487,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 31107.581555251487,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo006",
+   "arrival_s": 29315.63228905302,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 31115.63228905302,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo020",
+   "arrival_s": 30076.663311068576,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 31876.663311068576,
+   "home_region": "emea",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo016",
+   "arrival_s": 30658.72013646666,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 32458.72013646666,
+   "home_region": "apac",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo009",
+   "arrival_s": 31130.22207365114,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 32930.22207365114,
+   "home_region": "emea",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo004",
+   "arrival_s": 31228.037644119093,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 33028.03764411909,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo034",
+   "arrival_s": 31469.0336683828,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 33269.0336683828,
+   "home_region": "americas",
+   "data_gb": 1.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo008",
+   "arrival_s": 32816.99371445418,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 34616.99371445418,
+   "home_region": "americas",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo050",
+   "arrival_s": 32948.64277301,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 34748.64277301,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.005,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo040",
+   "arrival_s": 33300.380103649135,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 35100.380103649135,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo027",
+   "arrival_s": 33480.20550716219,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 35280.20550716219,
+   "home_region": "americas",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 1.0,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo058",
+   "arrival_s": 33911.67489111109,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 35711.67489111109,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.002,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo023",
+   "arrival_s": 34277.2934561828,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 36077.2934561828,
+   "home_region": "americas",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.03,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  },
+  {
+   "id": "qo032",
+   "arrival_s": 35035.38326914966,
+   "type": "quantum_optimisation",
+   "case": "Q",
+   "priority": 3,
+   "deadline_s": 36835.38326914966,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "min_success": 0.9,
+   "quantum": {
+    "kind": "annealer",
+    "p_success_per_read": 0.01,
+    "confidence": 0.99,
+    "prep_s": 5.0,
+    "post_s": 2.0,
+    "mapping_quality": 0.8,
+    "max_attempts": 2
+   },
+   "classical_fallback": {
+    "module_hours": 0.2,
+    "modules": 8,
+    "accuracy_ok": true,
+    "note": "ASSUMPTION: classical heuristic/exact solver on GPUs at the same target quality"
+   },
+   "size": {}
+  }
+ ],
+ "events": [],
+ "description": "Quantum-heavy research batch: knowledge-worker traffic (case C) plus 12 h of chemistry/materials, variational, linear-algebra and optimisation jobs, including jobs that are infeasible on every QPU (FeMoco, RSA-2048).",
+ "horizon_s": 43200.0,
+ "start_utc_hour": 8.0,
+ "case": "C",
+ "demand_scale": 0.8
+}

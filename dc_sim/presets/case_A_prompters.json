@@ -1,0 +1,333 @@
+{
+ "format": "dc_sim.tasks/1",
+ "name": "case_A_prompters",
+ "seed": 1,
+ "tasks": [
+  {
+   "id": "llmp005",
+   "arrival_s": 5202.9853436865105,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 12402.98534368651,
+   "home_region": "emea",
+   "data_gb": 27.0,
+   "size": {
+    "requests": 600000,
+    "prefill_tokens": 4000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd002",
+   "arrival_s": 6792.349367157639,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 13992.34936715764,
+   "home_region": "emea",
+   "data_gb": 3.0,
+   "size": {
+    "requests": 800000,
+    "decode_tokens": 500,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd014",
+   "arrival_s": 11356.432089310154,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 18556.432089310154,
+   "home_region": "apac",
+   "data_gb": 9.0,
+   "size": {
+    "requests": 600000,
+    "decode_tokens": 2000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd012",
+   "arrival_s": 12245.01348056323,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 19445.01348056323,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "size": {
+    "requests": 700000,
+    "decode_tokens": 2000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmp019",
+   "arrival_s": 12820.94956370436,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 20020.94956370436,
+   "home_region": "emea",
+   "data_gb": 18.0,
+   "size": {
+    "requests": 800000,
+    "prefill_tokens": 4000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmp001",
+   "arrival_s": 13203.04462605114,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 20403.044626051138,
+   "home_region": "americas",
+   "data_gb": 10.0,
+   "size": {
+    "requests": 400000,
+    "prefill_tokens": 4000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmp015",
+   "arrival_s": 14626.369403447614,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 21826.369403447614,
+   "home_region": "americas",
+   "data_gb": 47.0,
+   "size": {
+    "requests": 900000,
+    "prefill_tokens": 4000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd000",
+   "arrival_s": 20891.036581148193,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 28091.036581148193,
+   "home_region": "apac",
+   "data_gb": 13.0,
+   "size": {
+    "requests": 400000,
+    "decode_tokens": 500,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmp013",
+   "arrival_s": 28979.076616505274,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 36179.07661650528,
+   "home_region": "americas",
+   "data_gb": 19.0,
+   "size": {
+    "requests": 500000,
+    "prefill_tokens": 2000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd010",
+   "arrival_s": 29909.32805298151,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 37109.32805298151,
+   "home_region": "apac",
+   "data_gb": 17.0,
+   "size": {
+    "requests": 600000,
+    "decode_tokens": 500,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmp007",
+   "arrival_s": 29917.028474849372,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 37117.02847484937,
+   "home_region": "apac",
+   "data_gb": 48.0,
+   "size": {
+    "requests": 200000,
+    "prefill_tokens": 8000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd016",
+   "arrival_s": 34748.265781746544,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 41948.265781746544,
+   "home_region": "apac",
+   "data_gb": 1.0,
+   "size": {
+    "requests": 600000,
+    "decode_tokens": 2000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd004",
+   "arrival_s": 37292.5678144732,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 44492.5678144732,
+   "home_region": "americas",
+   "data_gb": 11.0,
+   "size": {
+    "requests": 400000,
+    "decode_tokens": 500,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd008",
+   "arrival_s": 52294.38135413793,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 59494.38135413793,
+   "home_region": "emea",
+   "data_gb": 11.0,
+   "size": {
+    "requests": 600000,
+    "decode_tokens": 1000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmp003",
+   "arrival_s": 54238.84234684067,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 61438.84234684067,
+   "home_region": "emea",
+   "data_gb": 6.0,
+   "size": {
+    "requests": 200000,
+    "prefill_tokens": 4000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmp017",
+   "arrival_s": 56135.21169180112,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 63335.21169180112,
+   "home_region": "apac",
+   "data_gb": 18.0,
+   "size": {
+    "requests": 300000,
+    "prefill_tokens": 4000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmp009",
+   "arrival_s": 59749.29311766861,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 66949.29311766861,
+   "home_region": "emea",
+   "data_gb": 43.0,
+   "size": {
+    "requests": 900000,
+    "prefill_tokens": 8000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmp011",
+   "arrival_s": 67523.98070320042,
+   "type": "llm_prefill_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 74723.98070320042,
+   "home_region": "emea",
+   "data_gb": 54.0,
+   "size": {
+    "requests": 800000,
+    "prefill_tokens": 2000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd006",
+   "arrival_s": 70965.72264363022,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 78165.72264363022,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "size": {
+    "requests": 600000,
+    "decode_tokens": 2000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "llmd018",
+   "arrival_s": 71341.5553211539,
+   "type": "llm_decode_batch",
+   "case": "A",
+   "priority": 2,
+   "deadline_s": 78541.5553211539,
+   "home_region": "americas",
+   "data_gb": 5.0,
+   "size": {
+    "requests": 300000,
+    "decode_tokens": 1000,
+    "max_modules": 64
+   },
+   "min_success": 0.95
+  }
+ ],
+ "events": [],
+ "description": "Case A alone for 24 h (mass traffic of that case) with a small discrete overlay.",
+ "horizon_s": 86400.0,
+ "start_utc_hour": 0.0,
+ "case": "A",
+ "demand_scale": 1.0
+}

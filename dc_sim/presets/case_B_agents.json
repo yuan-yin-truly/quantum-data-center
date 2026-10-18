@@ -1,0 +1,2293 @@
+{
+ "format": "dc_sim.tasks/1",
+ "name": "case_B_agents",
+ "seed": 1,
+ "tasks": [
+  {
+   "id": "agent050",
+   "arrival_s": 351.5548851400254,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 11151.554885140025,
+   "home_region": "apac",
+   "data_gb": 23.0,
+   "size": {
+    "steps": 594,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 117.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent055",
+   "arrival_s": 909.3859971464857,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 11709.385997146486,
+   "home_region": "apac",
+   "data_gb": 24.0,
+   "size": {
+    "steps": 179,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 127.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent085",
+   "arrival_s": 1807.7570927035688,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 12607.757092703569,
+   "home_region": "emea",
+   "data_gb": 36.0,
+   "size": {
+    "steps": 309,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 126.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent081",
+   "arrival_s": 3831.084627764642,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 14631.084627764641,
+   "home_region": "emea",
+   "data_gb": 27.0,
+   "size": {
+    "steps": 467,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 52.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent051",
+   "arrival_s": 3844.867474336862,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 14644.867474336861,
+   "home_region": "emea",
+   "data_gb": 33.0,
+   "size": {
+    "steps": 336,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 40.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent080",
+   "arrival_s": 4345.2533806220035,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 15145.253380622004,
+   "home_region": "americas",
+   "data_gb": 35.0,
+   "size": {
+    "steps": 475,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 124.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent079",
+   "arrival_s": 4356.039120937449,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 15156.03912093745,
+   "home_region": "apac",
+   "data_gb": 16.0,
+   "size": {
+    "steps": 393,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 111.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent013",
+   "arrival_s": 5313.493918084858,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 16113.493918084858,
+   "home_region": "apac",
+   "data_gb": 25.0,
+   "size": {
+    "steps": 178,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 53.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent108",
+   "arrival_s": 5422.2032004671855,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 16222.203200467186,
+   "home_region": "americas",
+   "data_gb": 35.0,
+   "size": {
+    "steps": 187,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 86.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent119",
+   "arrival_s": 5706.611083956088,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 16506.611083956086,
+   "home_region": "americas",
+   "data_gb": 19.0,
+   "size": {
+    "steps": 563,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 50.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent044",
+   "arrival_s": 6690.697786456207,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 17490.697786456207,
+   "home_region": "americas",
+   "data_gb": 21.0,
+   "size": {
+    "steps": 162,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 90.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent008",
+   "arrival_s": 7297.836347205157,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 18097.836347205157,
+   "home_region": "emea",
+   "data_gb": 36.0,
+   "size": {
+    "steps": 313,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 96.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent082",
+   "arrival_s": 8495.736208324408,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 19295.736208324408,
+   "home_region": "americas",
+   "data_gb": 19.0,
+   "size": {
+    "steps": 397,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 86.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent104",
+   "arrival_s": 8598.393634457665,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 19398.393634457665,
+   "home_region": "emea",
+   "data_gb": 25.0,
+   "size": {
+    "steps": 383,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 109.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent111",
+   "arrival_s": 9414.657535868284,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 20214.657535868282,
+   "home_region": "americas",
+   "data_gb": 13.0,
+   "size": {
+    "steps": 507,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 67.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent036",
+   "arrival_s": 10023.03921809129,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 20823.03921809129,
+   "home_region": "emea",
+   "data_gb": 27.0,
+   "size": {
+    "steps": 331,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 92.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent003",
+   "arrival_s": 11164.78857234927,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 21964.788572349273,
+   "home_region": "apac",
+   "data_gb": 14.0,
+   "size": {
+    "steps": 249,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 136.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent062",
+   "arrival_s": 12121.50247021633,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 22921.50247021633,
+   "home_region": "emea",
+   "data_gb": 22.0,
+   "size": {
+    "steps": 212,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 47.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent117",
+   "arrival_s": 12969.308179439959,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 23769.30817943996,
+   "home_region": "emea",
+   "data_gb": 22.0,
+   "size": {
+    "steps": 515,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 77.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent115",
+   "arrival_s": 13224.867496885892,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 24024.86749688589,
+   "home_region": "emea",
+   "data_gb": 31.0,
+   "size": {
+    "steps": 412,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 49.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent057",
+   "arrival_s": 13502.576117012413,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 24302.576117012413,
+   "home_region": "apac",
+   "data_gb": 3.0,
+   "size": {
+    "steps": 222,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 118.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent031",
+   "arrival_s": 14338.419577392795,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 25138.419577392793,
+   "home_region": "apac",
+   "data_gb": 34.0,
+   "size": {
+    "steps": 319,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 103.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent011",
+   "arrival_s": 14505.452779065654,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 25305.452779065654,
+   "home_region": "americas",
+   "data_gb": 13.0,
+   "size": {
+    "steps": 370,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 43.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent022",
+   "arrival_s": 16216.959536092301,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 27016.9595360923,
+   "home_region": "emea",
+   "data_gb": 3.0,
+   "size": {
+    "steps": 343,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 137.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent105",
+   "arrival_s": 16467.177884506513,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 27267.177884506513,
+   "home_region": "americas",
+   "data_gb": 24.0,
+   "size": {
+    "steps": 278,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 121.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent107",
+   "arrival_s": 17555.39904069843,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 28355.39904069843,
+   "home_region": "apac",
+   "data_gb": 32.0,
+   "size": {
+    "steps": 312,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 135.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent026",
+   "arrival_s": 17699.968699715188,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 28499.968699715188,
+   "home_region": "apac",
+   "data_gb": 28.0,
+   "size": {
+    "steps": 159,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 73.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent088",
+   "arrival_s": 18616.21979452605,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 29416.21979452605,
+   "home_region": "emea",
+   "data_gb": 4.0,
+   "size": {
+    "steps": 518,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 48.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent106",
+   "arrival_s": 18927.802037545913,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 29727.802037545913,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "size": {
+    "steps": 550,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 115.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent066",
+   "arrival_s": 20011.348825225843,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 30811.348825225843,
+   "home_region": "americas",
+   "data_gb": 8.0,
+   "size": {
+    "steps": 269,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 120.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent043",
+   "arrival_s": 20118.234585881943,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 30918.234585881943,
+   "home_region": "americas",
+   "data_gb": 14.0,
+   "size": {
+    "steps": 300,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 63.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent076",
+   "arrival_s": 20232.265652295635,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 31032.265652295635,
+   "home_region": "americas",
+   "data_gb": 13.0,
+   "size": {
+    "steps": 175,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 117.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent046",
+   "arrival_s": 21369.00478454879,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 32169.00478454879,
+   "home_region": "americas",
+   "data_gb": 22.0,
+   "size": {
+    "steps": 326,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 88.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent021",
+   "arrival_s": 21867.24947540074,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 32667.24947540074,
+   "home_region": "apac",
+   "data_gb": 25.0,
+   "size": {
+    "steps": 302,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 76.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent025",
+   "arrival_s": 21941.206928773874,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 32741.206928773874,
+   "home_region": "americas",
+   "data_gb": 6.0,
+   "size": {
+    "steps": 449,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 49.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent059",
+   "arrival_s": 22190.732782390318,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 32990.73278239032,
+   "home_region": "americas",
+   "data_gb": 12.0,
+   "size": {
+    "steps": 461,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 41.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent052",
+   "arrival_s": 24910.425740219984,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 35710.42574021999,
+   "home_region": "americas",
+   "data_gb": 33.0,
+   "size": {
+    "steps": 216,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 95.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent084",
+   "arrival_s": 25117.025131779686,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 35917.02513177969,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "size": {
+    "steps": 227,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 102.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent037",
+   "arrival_s": 25383.648642019733,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 36183.64864201973,
+   "home_region": "emea",
+   "data_gb": 26.0,
+   "size": {
+    "steps": 274,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 136.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent030",
+   "arrival_s": 25638.453882942307,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 36438.45388294231,
+   "home_region": "emea",
+   "data_gb": 34.0,
+   "size": {
+    "steps": 427,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 42.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent019",
+   "arrival_s": 25920.283741333795,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 36720.2837413338,
+   "home_region": "americas",
+   "data_gb": 11.0,
+   "size": {
+    "steps": 192,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 110.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent020",
+   "arrival_s": 26022.16582749207,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 36822.16582749207,
+   "home_region": "emea",
+   "data_gb": 29.0,
+   "size": {
+    "steps": 273,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 40.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent087",
+   "arrival_s": 26216.354764555825,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 37016.35476455583,
+   "home_region": "americas",
+   "data_gb": 11.0,
+   "size": {
+    "steps": 319,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 117.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent095",
+   "arrival_s": 26562.83619940753,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 37362.83619940753,
+   "home_region": "emea",
+   "data_gb": 16.0,
+   "size": {
+    "steps": 245,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 61.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent045",
+   "arrival_s": 26962.306601575343,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 37762.30660157534,
+   "home_region": "emea",
+   "data_gb": 12.0,
+   "size": {
+    "steps": 360,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 52.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent035",
+   "arrival_s": 27118.306413766204,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 37918.3064137662,
+   "home_region": "apac",
+   "data_gb": 23.0,
+   "size": {
+    "steps": 338,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 60.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent072",
+   "arrival_s": 27734.078010393485,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 38534.07801039348,
+   "home_region": "emea",
+   "data_gb": 31.0,
+   "size": {
+    "steps": 599,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 87.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent005",
+   "arrival_s": 28346.40234417226,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 39146.40234417226,
+   "home_region": "apac",
+   "data_gb": 23.0,
+   "size": {
+    "steps": 304,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 115.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent077",
+   "arrival_s": 28710.68597429871,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 39510.685974298714,
+   "home_region": "emea",
+   "data_gb": 34.0,
+   "size": {
+    "steps": 176,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 137.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent116",
+   "arrival_s": 30737.91394782972,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 41537.913947829715,
+   "home_region": "apac",
+   "data_gb": 16.0,
+   "size": {
+    "steps": 508,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 128.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent092",
+   "arrival_s": 31039.08326880292,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 41839.08326880292,
+   "home_region": "americas",
+   "data_gb": 21.0,
+   "size": {
+    "steps": 441,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 95.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent094",
+   "arrival_s": 31194.77660644952,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 41994.77660644952,
+   "home_region": "apac",
+   "data_gb": 15.0,
+   "size": {
+    "steps": 156,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 74.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent065",
+   "arrival_s": 31701.511026612305,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 42501.51102661231,
+   "home_region": "apac",
+   "data_gb": 15.0,
+   "size": {
+    "steps": 321,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 65.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent028",
+   "arrival_s": 32012.0630162096,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 42812.0630162096,
+   "home_region": "apac",
+   "data_gb": 21.0,
+   "size": {
+    "steps": 318,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 83.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent029",
+   "arrival_s": 32625.074024048306,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 43425.07402404831,
+   "home_region": "emea",
+   "data_gb": 17.0,
+   "size": {
+    "steps": 204,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 107.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent102",
+   "arrival_s": 32838.91163353139,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 43638.91163353139,
+   "home_region": "emea",
+   "data_gb": 8.0,
+   "size": {
+    "steps": 160,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 49.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent093",
+   "arrival_s": 33119.815841302596,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 43919.815841302596,
+   "home_region": "americas",
+   "data_gb": 11.0,
+   "size": {
+    "steps": 572,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 123.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent001",
+   "arrival_s": 33173.73738838938,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 43973.73738838938,
+   "home_region": "apac",
+   "data_gb": 7.0,
+   "size": {
+    "steps": 525,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 67.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent113",
+   "arrival_s": 34640.743647957715,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 45440.743647957715,
+   "home_region": "americas",
+   "data_gb": 9.0,
+   "size": {
+    "steps": 206,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 72.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent069",
+   "arrival_s": 35270.11637602478,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 46070.11637602478,
+   "home_region": "emea",
+   "data_gb": 14.0,
+   "size": {
+    "steps": 419,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 61.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent002",
+   "arrival_s": 35418.396346265545,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 46218.396346265545,
+   "home_region": "apac",
+   "data_gb": 28.0,
+   "size": {
+    "steps": 408,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 81.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent010",
+   "arrival_s": 35585.98979617701,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 46385.98979617701,
+   "home_region": "emea",
+   "data_gb": 9.0,
+   "size": {
+    "steps": 303,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 112.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent009",
+   "arrival_s": 36197.40163986653,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 46997.40163986653,
+   "home_region": "americas",
+   "data_gb": 2.0,
+   "size": {
+    "steps": 195,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 53.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent056",
+   "arrival_s": 36728.64405249618,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 47528.64405249618,
+   "home_region": "emea",
+   "data_gb": 8.0,
+   "size": {
+    "steps": 453,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 45.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent091",
+   "arrival_s": 37548.08115017029,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 48348.08115017029,
+   "home_region": "emea",
+   "data_gb": 9.0,
+   "size": {
+    "steps": 197,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 52.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent023",
+   "arrival_s": 38582.33401094398,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 49382.33401094398,
+   "home_region": "apac",
+   "data_gb": 9.0,
+   "size": {
+    "steps": 182,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 110.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent071",
+   "arrival_s": 40852.43596549406,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 51652.43596549406,
+   "home_region": "americas",
+   "data_gb": 25.0,
+   "size": {
+    "steps": 250,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 44.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent027",
+   "arrival_s": 41017.447109843546,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 51817.447109843546,
+   "home_region": "apac",
+   "data_gb": 2.0,
+   "size": {
+    "steps": 216,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 58.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent075",
+   "arrival_s": 41965.799801381436,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 52765.799801381436,
+   "home_region": "americas",
+   "data_gb": 11.0,
+   "size": {
+    "steps": 598,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 68.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent078",
+   "arrival_s": 42186.64354890899,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 52986.64354890899,
+   "home_region": "apac",
+   "data_gb": 32.0,
+   "size": {
+    "steps": 404,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 61.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent017",
+   "arrival_s": 42204.12983668735,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 53004.12983668735,
+   "home_region": "apac",
+   "data_gb": 33.0,
+   "size": {
+    "steps": 369,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 103.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent034",
+   "arrival_s": 42746.134264257416,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 53546.134264257416,
+   "home_region": "americas",
+   "data_gb": 7.0,
+   "size": {
+    "steps": 547,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 82.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent100",
+   "arrival_s": 43201.4578333786,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 54001.4578333786,
+   "home_region": "americas",
+   "data_gb": 28.0,
+   "size": {
+    "steps": 557,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 76.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent114",
+   "arrival_s": 44605.553013559576,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 55405.553013559576,
+   "home_region": "americas",
+   "data_gb": 36.0,
+   "size": {
+    "steps": 353,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 135.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent112",
+   "arrival_s": 48285.752823079005,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 59085.752823079005,
+   "home_region": "americas",
+   "data_gb": 18.0,
+   "size": {
+    "steps": 174,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 133.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent096",
+   "arrival_s": 48369.04052067775,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 59169.04052067775,
+   "home_region": "americas",
+   "data_gb": 27.0,
+   "size": {
+    "steps": 428,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 72.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent086",
+   "arrival_s": 48792.487315842016,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 59592.487315842016,
+   "home_region": "emea",
+   "data_gb": 5.0,
+   "size": {
+    "steps": 434,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 73.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent000",
+   "arrival_s": 49095.140351277216,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 59895.140351277216,
+   "home_region": "apac",
+   "data_gb": 34.0,
+   "size": {
+    "steps": 501,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 55.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent053",
+   "arrival_s": 49667.35215689085,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 60467.35215689085,
+   "home_region": "emea",
+   "data_gb": 27.0,
+   "size": {
+    "steps": 486,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 90.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent039",
+   "arrival_s": 49959.272205830894,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 60759.272205830894,
+   "home_region": "americas",
+   "data_gb": 9.0,
+   "size": {
+    "steps": 422,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 49.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent097",
+   "arrival_s": 50163.23338801596,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 60963.23338801596,
+   "home_region": "apac",
+   "data_gb": 39.0,
+   "size": {
+    "steps": 542,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 80.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent083",
+   "arrival_s": 50545.852080009296,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 61345.852080009296,
+   "home_region": "americas",
+   "data_gb": 12.0,
+   "size": {
+    "steps": 529,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 76.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent109",
+   "arrival_s": 50568.713441193184,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 61368.713441193184,
+   "home_region": "americas",
+   "data_gb": 11.0,
+   "size": {
+    "steps": 498,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 111.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent067",
+   "arrival_s": 51079.65347374559,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 61879.65347374559,
+   "home_region": "apac",
+   "data_gb": 11.0,
+   "size": {
+    "steps": 420,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 88.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent110",
+   "arrival_s": 51578.31736934574,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 62378.31736934574,
+   "home_region": "emea",
+   "data_gb": 8.0,
+   "size": {
+    "steps": 211,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 87.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent063",
+   "arrival_s": 51739.21420896019,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 62539.21420896019,
+   "home_region": "emea",
+   "data_gb": 8.0,
+   "size": {
+    "steps": 508,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 82.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent103",
+   "arrival_s": 53753.81586945096,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 64553.81586945096,
+   "home_region": "americas",
+   "data_gb": 19.0,
+   "size": {
+    "steps": 319,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 62.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent042",
+   "arrival_s": 54039.48975042815,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 64839.48975042815,
+   "home_region": "emea",
+   "data_gb": 5.0,
+   "size": {
+    "steps": 213,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 137.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent015",
+   "arrival_s": 54994.28222632277,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 65794.28222632277,
+   "home_region": "americas",
+   "data_gb": 38.0,
+   "size": {
+    "steps": 301,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 77.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent073",
+   "arrival_s": 55821.37779438017,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 66621.37779438017,
+   "home_region": "apac",
+   "data_gb": 27.0,
+   "size": {
+    "steps": 364,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 98.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent007",
+   "arrival_s": 56606.33956717991,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 67406.33956717991,
+   "home_region": "americas",
+   "data_gb": 13.0,
+   "size": {
+    "steps": 170,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 128.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent004",
+   "arrival_s": 57384.9593203288,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 68184.95932032881,
+   "home_region": "americas",
+   "data_gb": 4.0,
+   "size": {
+    "steps": 555,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 131.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent041",
+   "arrival_s": 57419.852627917826,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 68219.85262791783,
+   "home_region": "emea",
+   "data_gb": 15.0,
+   "size": {
+    "steps": 362,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 121.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent047",
+   "arrival_s": 58008.425666149495,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 68808.4256661495,
+   "home_region": "apac",
+   "data_gb": 26.0,
+   "size": {
+    "steps": 481,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 41.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent089",
+   "arrival_s": 58079.21263034325,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 68879.21263034325,
+   "home_region": "americas",
+   "data_gb": 39.0,
+   "size": {
+    "steps": 494,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 125.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent014",
+   "arrival_s": 58798.22932515669,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 69598.22932515669,
+   "home_region": "emea",
+   "data_gb": 11.0,
+   "size": {
+    "steps": 384,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 112.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent058",
+   "arrival_s": 58925.37656699237,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 69725.37656699237,
+   "home_region": "apac",
+   "data_gb": 32.0,
+   "size": {
+    "steps": 475,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 49.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent090",
+   "arrival_s": 59325.4411948351,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 70125.44119483509,
+   "home_region": "americas",
+   "data_gb": 26.0,
+   "size": {
+    "steps": 195,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 73.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent118",
+   "arrival_s": 59564.42072239367,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 70364.42072239367,
+   "home_region": "apac",
+   "data_gb": 27.0,
+   "size": {
+    "steps": 297,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 44.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent101",
+   "arrival_s": 60693.17667093637,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 71493.17667093637,
+   "home_region": "apac",
+   "data_gb": 30.0,
+   "size": {
+    "steps": 467,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 92.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent054",
+   "arrival_s": 61269.14900431703,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 72069.14900431703,
+   "home_region": "americas",
+   "data_gb": 19.0,
+   "size": {
+    "steps": 492,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 41.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent018",
+   "arrival_s": 61773.32921261091,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 72573.3292126109,
+   "home_region": "americas",
+   "data_gb": 10.0,
+   "size": {
+    "steps": 413,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 139.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent012",
+   "arrival_s": 61996.66252493946,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 72796.66252493946,
+   "home_region": "emea",
+   "data_gb": 31.0,
+   "size": {
+    "steps": 354,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 98.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent048",
+   "arrival_s": 62493.59983964047,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 73293.59983964046,
+   "home_region": "apac",
+   "data_gb": 35.0,
+   "size": {
+    "steps": 531,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 137.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent068",
+   "arrival_s": 63058.27639122972,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 73858.27639122972,
+   "home_region": "apac",
+   "data_gb": 30.0,
+   "size": {
+    "steps": 535,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 76.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent038",
+   "arrival_s": 63361.57404148118,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 74161.57404148119,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "size": {
+    "steps": 467,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 59.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent040",
+   "arrival_s": 64046.41604804668,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 74846.41604804668,
+   "home_region": "emea",
+   "data_gb": 35.0,
+   "size": {
+    "steps": 340,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 88.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent060",
+   "arrival_s": 64177.421835732115,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 74977.42183573212,
+   "home_region": "apac",
+   "data_gb": 12.0,
+   "size": {
+    "steps": 518,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 64.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent049",
+   "arrival_s": 64593.06877054262,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 75393.06877054262,
+   "home_region": "emea",
+   "data_gb": 22.0,
+   "size": {
+    "steps": 454,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 58.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent024",
+   "arrival_s": 65284.91283465569,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 76084.9128346557,
+   "home_region": "emea",
+   "data_gb": 9.0,
+   "size": {
+    "steps": 360,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 111.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent061",
+   "arrival_s": 65403.412976389765,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 76203.41297638977,
+   "home_region": "americas",
+   "data_gb": 22.0,
+   "size": {
+    "steps": 385,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 43.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent064",
+   "arrival_s": 65576.15922049238,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 76376.15922049238,
+   "home_region": "emea",
+   "data_gb": 28.0,
+   "size": {
+    "steps": 534,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 6.0,
+    "modules": 8,
+    "ctx_gb": 111.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent099",
+   "arrival_s": 66407.205410826,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 77207.205410826,
+   "home_region": "emea",
+   "data_gb": 25.0,
+   "size": {
+    "steps": 510,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 59.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent032",
+   "arrival_s": 67716.00945562821,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 78516.00945562821,
+   "home_region": "apac",
+   "data_gb": 4.0,
+   "size": {
+    "steps": 465,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 7.0,
+    "modules": 8,
+    "ctx_gb": 43.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent033",
+   "arrival_s": 67800.0280803989,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 78600.0280803989,
+   "home_region": "apac",
+   "data_gb": 24.0,
+   "size": {
+    "steps": 299,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 130.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent006",
+   "arrival_s": 69830.51880922652,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 80630.51880922652,
+   "home_region": "apac",
+   "data_gb": 15.0,
+   "size": {
+    "steps": 330,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 116.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent074",
+   "arrival_s": 69835.12656681347,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 80635.12656681347,
+   "home_region": "apac",
+   "data_gb": 28.0,
+   "size": {
+    "steps": 258,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 61.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent070",
+   "arrival_s": 69895.81894749863,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 80695.81894749863,
+   "home_region": "americas",
+   "data_gb": 36.0,
+   "size": {
+    "steps": 349,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 5.0,
+    "modules": 8,
+    "ctx_gb": 73.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent016",
+   "arrival_s": 69989.55725067503,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 80789.55725067503,
+   "home_region": "americas",
+   "data_gb": 25.0,
+   "size": {
+    "steps": 185,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 3.0,
+    "modules": 8,
+    "ctx_gb": 57.0
+   },
+   "min_success": 0.95
+  },
+  {
+   "id": "agent098",
+   "arrival_s": 70366.83524478671,
+   "type": "agent_job",
+   "case": "B",
+   "priority": 3,
+   "deadline_s": 81166.83524478671,
+   "home_region": "americas",
+   "data_gb": 3.0,
+   "size": {
+    "steps": 187,
+    "prefill_tokens_per_step": 6000,
+    "decode_tokens_per_step": 700,
+    "tool_wait_s_per_step": 4.0,
+    "modules": 8,
+    "ctx_gb": 127.0
+   },
+   "min_success": 0.95
+  }
+ ],
+ "events": [],
+ "description": "Case B alone for 24 h (mass traffic of that case) with a small discrete overlay.",
+ "horizon_s": 86400.0,
+ "start_utc_hour": 0.0,
+ "case": "B",
+ "demand_scale": 1.0
+}

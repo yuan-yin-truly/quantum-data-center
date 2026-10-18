@@ -1,0 +1,131 @@
+{
+ "format": "dc_sim.fleet/1",
+ "name": "default_6site",
+ "grid_total_mw": 500,
+ "description": "6 Earth sites sharing a 500 MW grid (asymmetric split, different cooling and energy prices). ALL node counts, prices and climates are ASSUMPTIONS; QPU/GPU power and QPU feasibility come from quantum_arch (mid2030s base).",
+ "sites": [
+  {
+   "id": "us_east",
+   "name": "US East (Virginia)",
+   "region": "americas",
+   "lat": 38.9,
+   "lon": -77.4,
+   "power_cap_mw": 85,
+   "cooling": "liquid",
+   "ambient_c_mean": 14,
+   "ambient_c_amp": 9,
+   "energy_usd_per_mwh": 78,
+   "wan_gbps": 1200,
+   "nodes": {
+    "ctxmem_pool": 12,
+    "lpu_rack": 10,
+    "qpu_cat40k": 2,
+    "mixed_cat": 3,
+    "qpu_annealer": 1,
+    "gpu_rack": 144
+   }
+  },
+  {
+   "id": "us_south",
+   "name": "US South (Texas)",
+   "region": "americas",
+   "lat": 32.8,
+   "lon": -97.0,
+   "power_cap_mw": 80,
+   "cooling": "liquid",
+   "ambient_c_mean": 21,
+   "ambient_c_amp": 10,
+   "energy_usd_per_mwh": 52,
+   "wan_gbps": 1000,
+   "nodes": {
+    "ctxmem_pool": 10,
+    "lpu_rack": 8,
+    "qpu_cat40k": 1,
+    "qpu_sc300k": 1,
+    "gpu_rack": 130
+   }
+  },
+  {
+   "id": "eu_north",
+   "name": "EU North (Sweden)",
+   "region": "emea",
+   "lat": 65.6,
+   "lon": 22.1,
+   "power_cap_mw": 85,
+   "cooling": "immersion",
+   "ambient_c_mean": 3,
+   "ambient_c_amp": 8,
+   "energy_usd_per_mwh": 36,
+   "wan_gbps": 1000,
+   "nodes": {
+    "ctxmem_pool": 12,
+    "lpu_rack": 6,
+    "qpu_cat40k": 2,
+    "mixed_cat": 3,
+    "qpu_ion40k": 1,
+    "gpu_rack": 160
+   }
+  },
+  {
+   "id": "eu_west",
+   "name": "EU West (Ireland, legacy air-cooled)",
+   "region": "emea",
+   "lat": 53.3,
+   "lon": -6.3,
+   "power_cap_mw": 60,
+   "cooling": "air",
+   "ambient_c_mean": 10,
+   "ambient_c_amp": 6,
+   "energy_usd_per_mwh": 118,
+   "wan_gbps": 800,
+   "nodes": {
+    "ctxmem_pool": 8,
+    "prefill_rack": 60,
+    "qpu_cat40k": 1,
+    "gpu_rack": 401
+   }
+  },
+  {
+   "id": "me_gulf",
+   "name": "Gulf (UAE, solar-backed)",
+   "region": "emea",
+   "lat": 24.5,
+   "lon": 54.4,
+   "power_cap_mw": 85,
+   "cooling": "immersion",
+   "ambient_c_mean": 33,
+   "ambient_c_amp": 7,
+   "energy_usd_per_mwh": 40,
+   "wan_gbps": 800,
+   "nodes": {
+    "ctxmem_pool": 10,
+    "lpu_rack": 8,
+    "qpu_cat40k": 1,
+    "mixed_cat": 2,
+    "qpu_annealer": 1,
+    "gpu_rack": 154
+   }
+  },
+  {
+   "id": "apac",
+   "name": "APAC (Singapore/Japan)",
+   "region": "apac",
+   "lat": 1.35,
+   "lon": 103.8,
+   "power_cap_mw": 105,
+   "cooling": "liquid",
+   "ambient_c_mean": 28,
+   "ambient_c_amp": 4,
+   "energy_usd_per_mwh": 105,
+   "wan_gbps": 1200,
+   "nodes": {
+    "ctxmem_pool": 14,
+    "lpu_rack": 12,
+    "qpu_cat40k": 2,
+    "mixed_cat": 3,
+    "qpu_annealer": 1,
+    "gpu_rack": 174
+   }
+  }
+ ]
+}

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DC Sim Scheduler</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="brand">GPU / QPU data-centre simulator <span class="sub">6 Earth sites, one scheduling node (illustrative model)</span></div>
+  <div class="ctrl">
+    <label>Scenario <select id="preset"></select></label>
+    <label>Policy <select id="policy"></select></label>
+    <button id="btnReset" title="Reload the scenario from t=0">Reset</button>
+    <button id="btnPlay">Play</button>
+    <button id="btnStep" title="One tick">Step</button>
+    <button id="btnStep10" title="Ten ticks">+10</button>
+    <label>Speed <input id="speed" type="range" min="1" max="60" value="8"><span id="speedLbl">8 ticks/s</span></label>
+    <span id="clock" class="clock">t = 0</span>
+  </div>
+</header>
+<div id="banner" class="banner" hidden></div>
+<main>
+  <section id="stage">
+    <div id="sites"></div>
+    <div id="hub">
+      <div class="hubTitle">Scheduling node</div>
+      <div id="hubInfo">policy -</div>
+      <div id="hubQueue"></div>
+    </div>
+    <svg id="flows" width="100%" height="100%"></svg>
+    <div class="legend" id="legend"></div>
+  </section>
+  <aside>
+    <nav id="tabs"><button data-tab="metrics" class="on">Metrics</button><button data-tab="inject">Inject</button><button data-tab="log">Assignments</button><button data-tab="compare">Compare</button></nav>
+    <div id="tab-metrics" class="tab"></div>
+    <div id="tab-inject" class="tab" hidden></div>
+    <div id="tab-log" class="tab" hidden></div>
+    <div id="tab-compare" class="tab" hidden></div>
+  </aside>
+</main>
+<div id="tip" class="tip" hidden></div>
+<noscript>This page needs JavaScript. The numerical simulator works without it: python -m dc_sim compare</noscript>
+<script src="/app.js"></script>
+</body>
+</html>
