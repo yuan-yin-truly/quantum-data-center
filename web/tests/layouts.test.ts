@@ -1,7 +1,7 @@
 // Run: node --test --experimental-strip-types tests/layouts.test.ts
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { TASK_MIX, makeTasks, simulate, stateAt, type LayoutId } from '../src/model/layouts.ts';
+import { MEMORY_OPTIONS, TASK_MIX, makeTasks, panelAt, simulate, stateAt, type LayoutId } from '../src/model/layouts.ts';
 import { buildFlow, totals } from '../src/model/taskflow.ts';
 
 const IDS: LayoutId[] = ['current', 'noPark', 'mixed'];
@@ -45,4 +45,25 @@ test('single-task flow: parking frees the GPU, holding does not; a long queue st
   assert.ok(park.parked > hold.parked + 40);   // tool calls park the session in both; only parking also covers the QPU wait
   assert.equal(totals(buildFlow('inference', 'park', 'short')).qpuBusy, 0);
   assert.ok(totals(buildFlow('mixed', 'park', 'long')).elapsed > 1500 && totals(buildFlow('mixed', 'park', 'short')).elapsed < 200);
+});
+
+test('panel view: slots never exceed capacity, parking holds none, no parking holds some, roomy memory removes blocking', () => {
+  const mem = MEMORY_OPTIONS.tight;
+  const burst = makeTasks('burst');
+  const park = simulate('current', burst, mem);
+  const hold = simulate('noPark', burst, mem);
+  let maxHeld = 0;
+  for (let t = 0; t < hold.makespan; t += 15) {
+    for (const [run, isPark] of [[park, true], [hold, false]] as const) {
+      for (const g of panelAt(run, t, mem)) {
+        assert.ok(g.mem.running + g.mem.held <= g.mem.cap + 1e-9, 'memory slots over capacity');
+        assert.ok(g.qpu.busy <= g.qpu.cap + 1e-9, 'QPUs over capacity');
+        if (isPark) assert.equal(g.mem.held, 0);
+        else maxHeld = Math.max(maxHeld, g.mem.held);
+      }
+    }
+  }
+  assert.ok(maxHeld >= mem - 1, 'without parking the held sessions should fill the GPU memory');
+  const roomy = simulate('noPark', burst, MEMORY_OPTIONS.roomy);
+  assert.ok(roomy.summary.waitTotals.llmMemory === 0 && roomy.summary.meanBy.inference < 1.2 * roomy.summary.unloadedBy.inference);
 });

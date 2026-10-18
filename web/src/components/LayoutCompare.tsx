@@ -1,8 +1,57 @@
-import { useMemo, useState } from 'react';
-import { LAYOUTS, TASK_MIX, TOY_CAPACITY, makeTasks, simulate, stateAt, type ArrivalPattern, type LayoutId, type LayoutRun, type SegState } from '../model/layouts.ts';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  CAT_TEXT,
+  LAYOUTS,
+  MEMORY_OPTIONS,
+  TASK_MIX,
+  TOY_CAPACITY,
+  makeTasks,
+  panelAt,
+  simulate,
+  type ArrivalPattern,
+  type Cat,
+  type LayoutId,
+  type LayoutRun,
+  type SegState,
+} from '../model/layouts.ts';
 import { TASKS, secsLabel, type TaskKind } from '../model/taskflow.ts';
 
+const PLAY_SECONDS = 26;
+const ORDER: LayoutId[] = ['current', 'noPark', 'mixed'];
+const TITLE: Record<LayoutId, string> = { current: 'Current layout: parking', noPark: 'No parking', mixed: 'Mixed nodes' };
+const ONE_LINE: Record<LayoutId, string> = {
+  current: 'One shared pool. A session that waits for a QPU parks in context memory and frees its GPU memory slot.',
+  noPark: 'Same shared pool, but a session keeps its GPU memory slot while its QPU job waits or runs.',
+  mixed: 'Three separate nodes, each with its own GPUs and one QPU. A task stays on its node and keeps its slot.',
+};
+const ARCHE_LETTER: Record<TaskKind, string> = { inference: 'I', mixed: 'M', sim: 'S' };
+const ARCHE_NAME: Record<TaskKind, string> = { inference: 'inference', mixed: 'mixed', sim: 'sim-heavy' };
 const C = { gpu: '#22d3ee', tool: '#8691aa', qpu: '#d946ef', amber: '#e69f00', red: '#f07575' };
+
+// Colour of a task square by what it is doing right now.
+const CAT_CLASS: Record<Cat, string> = {
+  pending: 'sq-pending',
+  gpu: 'sq-gpu',
+  tool: 'sq-tool',
+  qpu: 'sq-qpu',
+  waitqpu: 'sq-waitqpu',
+  held: 'sq-held',
+  blockmem: 'sq-block',
+  waitgpu: 'sq-block',
+  waittool: 'sq-block',
+  done: 'sq-done',
+};
+const LEGEND: Array<[string, string]> = [
+  ['sq-gpu', 'LLM step on a GPU'],
+  ['sq-tool', 'tool running'],
+  ['sq-qpu', 'running on a QPU'],
+  ['sq-waitqpu', 'parked, waiting for a QPU'],
+  ['sq-held', 'waiting for a QPU while holding GPU memory'],
+  ['sq-block', 'blocked: no GPU memory free'],
+  ['sq-done', 'done'],
+  ['sq-pending', 'not arrived yet'],
+];
+
 const SEG_COLOR: Record<SegState, string> = {
   'run-llm': C.gpu,
   'run-tool': C.tool,
@@ -13,40 +62,77 @@ const SEG_COLOR: Record<SegState, string> = {
   'wait-qpu': 'url(#stripe-qpu)',
   'held-wait-qpu': 'url(#stripe-held)',
 };
-const LEGEND: Array<[string, string]> = [
-  ['LLM step on a GPU', C.gpu],
-  ['tool in the CPU sandbox', C.tool],
-  ['running on a QPU', C.qpu],
-  ['waiting in the QPU queue (parked)', 'url(#stripe-qpu)'],
-  ['waiting in the QPU queue, holding a GPU memory slot', 'url(#stripe-held)'],
-  ['waiting: GPU memory held by others', 'url(#stripe-mem)'],
-  ['waiting for a free GPU', C.red],
-];
-const ARCHE_SHORT: Record<TaskKind, string> = { inference: 'inference', mixed: 'mixed', sim: 'sim-heavy' };
-const ORDER: LayoutId[] = ['current', 'noPark', 'mixed'];
 
 export function LayoutCompare() {
-  const [pattern, setPattern] = useState<ArrivalPattern>('spread');
-  const [layout, setLayout] = useState<LayoutId>('current');
-  const [cursor, setCursor] = useState(0.5);
+  const [pattern, setPattern] = useState<ArrivalPattern>('burst');
+  const [memory, setMemory] = useState<'tight' | 'roomy'>('tight');
+  const [detail, setDetail] = useState<LayoutId>('noPark');
+  const [pos, setPos] = useState(0); // fraction of the horizon
+  const [playing, setPlaying] = useState(false);
+  const raf = useRef<number | null>(null);
 
+  const memSlots = MEMORY_OPTIONS[memory];
   const runs = useMemo(() => {
     const tasks = makeTasks(pattern);
-    return Object.fromEntries(ORDER.map((id) => [id, simulate(id, tasks)])) as Record<LayoutId, LayoutRun>;
-  }, [pattern]);
-  const horizon = Math.max(...ORDER.map((id) => runs[id].makespan));
-  const run = runs[layout];
-  const t = cursor * horizon;
-  const qMax = Math.max(4, ...ORDER.flatMap((id) => runs[id].samples.map((s) => Math.max(s.qLlm, s.qQpu, s.qTool, s.memHeldIdle))));
+    return Object.fromEntries(ORDER.map((id) => [id, simulate(id, tasks, memSlots)])) as Record<LayoutId, LayoutRun>;
+  }, [pattern, memSlots]);
+  const horizon = Math.max(...ORDER.map((id) => runs[id].makespan)) * 1.02;
+  const t = pos * horizon;
+  const finished = pos >= 1 - 1e-6;
 
+  useEffect(() => {
+    setPos(0);
+    setPlaying(false);
+  }, [pattern, memory]);
+
+  useEffect(() => {
+    if (!playing) return;
+    let last = performance.now();
+    const tick = (now: number) => {
+      const dt = (now - last) / 1000;
+      last = now;
+      setPos((p) => {
+        const np = p + dt / PLAY_SECONDS;
+        if (np >= 1) {
+          setPlaying(false);
+          return 1;
+        }
+        return np;
+      });
+      raf.current = requestAnimationFrame(tick);
+    };
+    raf.current = requestAnimationFrame(tick);
+    return () => {
+      if (raf.current) cancelAnimationFrame(raf.current);
+    };
+  }, [playing]);
+
+  const sum = (id: LayoutId) => runs[id].summary;
+  const infX = (id: LayoutId) => sum(id).meanBy.inference / sum(id).unloadedBy.inference;
+  const takeaways: string[] = [];
+  if (infX('noPark') > 1.2) {
+    takeaways.push(
+      `Parking matters here: without it, pure-inference tasks take ${infX('noPark').toFixed(1)}× their unloaded time (${infX('current').toFixed(1)}× with parking), because sessions waiting for a QPU keep their GPU memory slots and the inference tasks cannot get one.`,
+    );
+  } else {
+    takeaways.push(
+      `With this much GPU memory, parking changes almost nothing (inference tasks take ${infX('noPark').toFixed(1)}× their unloaded time with or without it). Parking only helps when GPU memory is tight.`,
+    );
+  }
+  takeaways.push(
+    `Mixed nodes finish after ${secsLabel(runs.mixed.makespan)} instead of ${secsLabel(runs.current.makespan)}: a QPU sits idle for ${secsLabel(sum('mixed').strandedQpuSecs)} in total while another node’s queue is waiting, because a task cannot use another node’s QPU.`,
+  );
+
+  // ---- detailed timeline (collapsed)
+  const run = runs[detail];
   const GX = 112;
   const GW = 1200 - GX - 16;
   const x = (sec: number) => GX + (sec / horizon) * GW;
   const ROW = 13;
   const wfH = run.tasks.length * ROW + 26;
   const chartH = 150;
+  const qMax = Math.max(4, ...ORDER.flatMap((id) => runs[id].samples.map((s) => Math.max(s.qLlm, s.qQpu, s.memHeldIdle))));
   const y = (v: number) => chartH - 22 - (v / qMax) * (chartH - 56);
-
   const line = (pick: (s: LayoutRun['samples'][number]) => number) => {
     let d = '';
     let prev = 0;
@@ -58,17 +144,6 @@ export function LayoutCompare() {
     });
     return d + ` L${x(horizon)} ${y(prev)}`;
   };
-
-  const now = stateAt(run, t);
-  const counts = {
-    run: now.filter((s) => s.kind === 'run').length,
-    waitQpu: now.filter((s) => s.state.includes('QPU queue') && s.kind === 'wait').length,
-    held: now.filter((s) => s.kind === 'held').length,
-    waitGpuMem: now.filter((s) => s.state.includes('memory is held')).length,
-    waitGpu: now.filter((s) => s.state === 'waiting for a free GPU').length,
-    waitTool: now.filter((s) => s.state === 'waiting for the CPU sandbox').length,
-    done: now.filter((s) => s.kind === 'done').length,
-  };
   const stuck = [...run.tasks]
     .map((r) => ({ r, total: r.wait.llm + r.wait.tool + r.wait.qpu }))
     .sort((a, b) => b.total - a.total)
@@ -77,226 +152,251 @@ export function LayoutCompare() {
   return (
     <section className="flow" aria-labelledby="layout-title">
       <div className="section-head">
-        <h2 id="layout-title">Where do tasks get stuck? Three layouts, the same 24 tasks</h2>
+        <h2 id="layout-title">Why parking matters: the same 24 tasks on three layouts</h2>
         <p>
-          A toy simulation with {TOY_CAPACITY.gpuCompute} GPU slots, {TOY_CAPACITY.gpuMemory} GPU memory slots, {TOY_CAPACITY.cpu} CPU sandbox slots and {TOY_CAPACITY.qpu} QPUs in
-          every layout, fed {TASK_MIX.inference} pure-inference, {TASK_MIX.mixed} mixed and {TASK_MIX.sim} simulation-heavy tasks. Capacities are toy values chosen to make
-          contention visible; the mechanisms, not the sizes, are the point.
+          Press play. Each square is one task ({TASK_MIX.inference} pure inference “I”, {TASK_MIX.mixed} mixed “M”, {TASK_MIX.sim} simulation-heavy “S”). Watch the GPU memory slots
+          and the QPUs: where squares turn red, tasks are stuck. This is a toy with {TOY_CAPACITY.qpu} QPUs and a few GPU slots, built to show the mechanism, not real sizes.
         </p>
       </div>
 
       <div className="card flow-card">
         <div className="flow-controls">
-          <div className="seg" role="radiogroup" aria-label="Arrival pattern">
-            {(['spread', 'burst'] as ArrivalPattern[]).map((p) => (
-              <button key={p} role="radio" aria-checked={pattern === p} className={`seg-btn${pattern === p ? ' is-on' : ''}`} onClick={() => setPattern(p)}>
-                <span className="seg-text">
-                  {p === 'spread' ? 'Tasks spread over 8 min' : 'Tasks arrive within 2 min'}
-                  <small>{p === 'spread' ? 'steady load' : 'burst'}</small>
-                </span>
-              </button>
-            ))}
+          <div className="flow-opts">
+            <div className="seg" role="radiogroup" aria-label="How tasks arrive">
+              {(['burst', 'spread'] as ArrivalPattern[]).map((p) => (
+                <button key={p} role="radio" aria-checked={pattern === p} className={`seg-btn${pattern === p ? ' is-on' : ''}`} onClick={() => setPattern(p)}>
+                  <span className="seg-text">
+                    {p === 'burst' ? 'Burst' : 'Steady'}
+                    <small>{p === 'burst' ? 'all tasks arrive within 2 min' : 'tasks arrive over 8 min'}</small>
+                  </span>
+                </button>
+              ))}
+            </div>
+            <div className="seg" role="radiogroup" aria-label="GPU memory">
+              {(['tight', 'roomy'] as const).map((m) => (
+                <button key={m} role="radio" aria-checked={memory === m} className={`seg-btn${memory === m ? ' is-on' : ''}`} onClick={() => setMemory(m)}>
+                  <span className="seg-text">
+                    GPU memory {m}
+                    <small>{MEMORY_OPTIONS[m]} slots in the pod</small>
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="table-wrap">
-          <table className="flow-table">
-            <thead>
-              <tr>
-                <th>Layout</th>
-                <th>All done after</th>
-                <th>Inference task, mean</th>
-                <th>Mixed task, mean</th>
-                <th>Sim-heavy task, mean</th>
-                <th>Peak QPU queue</th>
-                <th>Peak GPU queue</th>
-                <th>QPU busy</th>
-                <th>QPU idle while another queue waits</th>
-                <th>Main bottleneck</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ORDER.map((id) => {
-                const s = runs[id].summary;
-                const slow = s.meanBy.inference / s.unloadedBy.inference;
-                return (
-                  <tr key={id} className={id === layout ? 'is-on' : undefined}>
-                    <th scope="row">
-                      <button className="link-btn" onClick={() => setLayout(id)}>
-                        {LAYOUTS[id].label}
-                      </button>
-                    </th>
-                    <td>{secsLabel(runs[id].makespan)}</td>
-                    <td>
-                      {secsLabel(s.meanBy.inference)} <small className="muted">({slow.toFixed(1)}× its unloaded time)</small>
-                    </td>
-                    <td>{secsLabel(s.meanBy.mixed)}</td>
-                    <td>{secsLabel(s.meanBy.sim)}</td>
-                    <td>{s.peakQQpu}</td>
-                    <td>{s.peakQLlm}</td>
-                    <td>{Math.round(s.qpuUtil * 100)}%</td>
-                    <td>{secsLabel(s.strandedQpuSecs)}</td>
-                    <td>{s.bottleneck}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div className="lc-grid">
+          {ORDER.map((id) => {
+            const groups = panelAt(runs[id], t, memSlots);
+            return (
+              <div key={id} className="lc-panel">
+                <h3>{TITLE[id]}</h3>
+                <p className="lc-line">{ONE_LINE[id]}</p>
+                <div className="lc-nodes">
+                  {groups.map((g, gi) => (
+                    <div key={gi} className="lc-node">
+                      {groups.length > 1 && <div className="lc-node-title">Node {gi + 1}</div>}
+                      <div className="lc-row">
+                        <span className="lc-label">QPU</span>
+                        <span className="lc-icons">
+                          {Array.from({ length: Math.round(g.qpu.cap) }, (_, i) => (
+                            <span key={i} className={`qpu-icon${i < g.qpu.busy ? ' is-busy' : ''}`} title={i < g.qpu.busy ? 'QPU busy' : 'QPU idle'} />
+                          ))}
+                        </span>
+                        <span className="lc-count">{g.qpu.queued > 0 ? `${g.qpu.queued} waiting` : g.qpu.busy ? 'no queue' : 'idle'}</span>
+                      </div>
+                      <div className="lc-row">
+                        <span className="lc-label">GPU memory</span>
+                        <span className="lc-icons">
+                          {Array.from({ length: Math.round(g.mem.cap) }, (_, i) => {
+                            const cls = i < g.mem.held ? 'mem-held' : i < g.mem.held + g.mem.running ? 'mem-run' : 'mem-free';
+                            return <span key={i} className={`mem-icon ${cls}`} title={cls === 'mem-held' ? 'held by a session waiting for / running on a QPU' : cls === 'mem-run' ? 'serving an LLM step' : 'free'} />;
+                          })}
+                        </span>
+                        <span className="lc-count">{g.mem.held > 0 ? `${g.mem.held} held` : ''}</span>
+                      </div>
+                      <div className="lc-squares">
+                        {g.tasks.map((tk) => (
+                          <span key={tk.id} className={`sq ${CAT_CLASS[tk.cat]}`} title={`#${tk.id} ${TASKS[tk.arche].label}: ${CAT_TEXT[tk.cat]}`}>
+                            {ARCHE_LETTER[tk.arche]}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="lc-stats">
+                  <div>
+                    <span>Blocked now</span>
+                    <strong>{groups.reduce((a, g) => a + g.tasks.filter((tk) => tk.cat === 'blockmem' || tk.cat === 'waitgpu').length, 0)}</strong>
+                  </div>
+                  <div>
+                    <span>Done</span>
+                    <strong>
+                      {groups.reduce((a, g) => a + g.tasks.filter((tk) => tk.cat === 'done').length, 0)} / {runs[id].tasks.length}
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
-
-        <div className="seg" role="tablist" aria-label="Layout to inspect" style={{ marginTop: 16 }}>
-          {ORDER.map((id) => (
-            <button key={id} role="tab" aria-selected={layout === id} className={`seg-btn${layout === id ? ' is-on' : ''}`} onClick={() => setLayout(id)}>
-              <span className="seg-text">
-                {LAYOUTS[id].label}
-                <small>{LAYOUTS[id].blurb}</small>
-              </span>
-            </button>
-          ))}
-        </div>
-
-        <svg className="flow-gantt" viewBox={`0 0 1200 ${chartH}`} role="img" aria-label="Queue lengths over time">
-          <defs>
-            <pattern id="stripe-mem" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <rect width="6" height="6" fill="#4a1f1f" />
-              <rect width="3" height="6" fill="#f07575" />
-            </pattern>
-            <pattern id="stripe-qpu" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <rect width="6" height="6" fill="#2a1233" />
-              <rect width="3" height="6" fill="#d946ef" opacity="0.7" />
-            </pattern>
-            <pattern id="stripe-held" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-              <rect width="6" height="6" fill="#3a2a05" />
-              <rect width="3" height="6" fill="#e69f00" opacity="0.8" />
-            </pattern>
-          </defs>
-          <text x="8" y="16" fill="#b3bccf" fontSize="12" fontWeight="600">
-            Queue length over time
-          </text>
-          <rect x={GX} y={y(qMax)} width={GW} height={y(0) - y(qMax)} fill="#0f1626" rx="4" />
-          {[0, Math.round(qMax / 2), qMax].map((v) => (
-            <g key={v}>
-              <line x1={GX} x2={GX + GW} y1={y(v)} y2={y(v)} stroke="rgba(255,255,255,0.07)" />
-              <text x={GX - 6} y={y(v) + 4} fill="#8691aa" fontSize="11" textAnchor="end">
-                {v}
-              </text>
-            </g>
-          ))}
-          <path d={line((s) => s.memHeldIdle)} fill="none" stroke={C.amber} strokeWidth="2" strokeDasharray="5 3" />
-          <path d={line((s) => s.qTool)} fill="none" stroke={C.tool} strokeWidth="2" />
-          <path d={line((s) => s.qLlm)} fill="none" stroke={C.gpu} strokeWidth="2.5" />
-          <path d={line((s) => s.qQpu)} fill="none" stroke={C.qpu} strokeWidth="2.5" />
-          <g fontSize="11">
-            <text x={GX + 8} y={chartH - 4} fill={C.qpu}>
-              ━ waiting for a QPU
-            </text>
-            <text x={GX + 150} y={chartH - 4} fill={C.gpu}>
-              ━ waiting for a GPU
-            </text>
-            <text x={GX + 290} y={chartH - 4} fill={C.tool}>
-              ━ waiting for the CPU sandbox
-            </text>
-            <text x={GX + 480} y={chartH - 4} fill={C.amber}>
-              ┅ sessions holding a GPU memory slot while their QPU job waits or runs
-            </text>
-          </g>
-          <line x1={x(t)} x2={x(t)} y1={y(qMax)} y2={y(0)} stroke="#ebeff7" strokeWidth="1.5" />
-        </svg>
-
-        <svg className="flow-gantt" viewBox={`0 0 1200 ${wfH}`} role="img" aria-label="Timeline of every task and where it waits">
-          <text x="8" y="14" fill="#b3bccf" fontSize="12" fontWeight="600">
-            Every task, left to right: running or waiting
-          </text>
-          {run.tasks.map((r, i) => (
-            <g key={r.spec.id}>
-              <text x="8" y={32 + i * ROW} fill="#8691aa" fontSize="10.5">
-                #{r.spec.id} {ARCHE_SHORT[r.spec.arche]}
-                {LAYOUTS[layout].groups > 1 ? ` · node ${r.group + 1}` : ''}
-              </text>
-              <rect x={GX} y={22 + i * ROW} width={GW} height={ROW - 3} fill="#0f1626" />
-              {r.segs.map((s, j) => (
-                <rect key={j} x={x(s.t0)} y={22 + i * ROW} width={Math.max(1, x(s.t1) - x(s.t0))} height={ROW - 3} fill={SEG_COLOR[s.state]} />
-              ))}
-              <rect x={x(r.spec.arrival) - 1} y={22 + i * ROW} width="2" height={ROW - 3} fill="#ebeff7" opacity="0.6" />
-            </g>
-          ))}
-          <line x1={x(t)} x2={x(t)} y1="20" y2={wfH - 4} stroke="#ebeff7" strokeWidth="1.5" />
-        </svg>
 
         <div className="flow-legend">
-          {LEGEND.map(([label, fill]) => (
-            <span key={label}>
-              <svg width="14" height="10" aria-hidden="true">
-                <rect width="14" height="10" fill={fill} />
-              </svg>
+          {LEGEND.map(([cls, label]) => (
+            <span key={cls}>
+              <i className={`sq sq-key ${cls}`} aria-hidden="true" />
               {label}
             </span>
           ))}
           <span>
-            <svg width="14" height="10" aria-hidden="true">
-              <rect width="2" height="10" x="6" fill="#ebeff7" />
-            </svg>
-            task arrives
+            <i className="mem-icon mem-held" aria-hidden="true" />
+            memory slot held by a session waiting for a QPU
+          </span>
+          <span>
+            <i className="mem-icon mem-run" aria-hidden="true" />
+            slot serving an LLM step
           </span>
         </div>
 
         <div className="flow-bar">
-          <span className="muted">Time</span>
-          <input type="range" min={0} max={1} step={0.002} value={cursor} aria-label="Move through time" onChange={(e) => setCursor(Number(e.target.value))} />
+          <button className="flow-btn" onClick={() => (finished ? (setPos(0), setPlaying(true)) : setPlaying(!playing))}>
+            {finished ? 'Replay' : playing ? 'Pause' : 'Play'}
+          </button>
+          <input
+            type="range"
+            min={0}
+            max={1}
+            step={0.002}
+            value={pos}
+            aria-label="Move through time"
+            onChange={(e) => {
+              setPlaying(false);
+              setPos(Number(e.target.value));
+            }}
+          />
           <strong className="flow-time">t = {secsLabel(t)}</strong>
         </div>
 
-        <div className="flow-tiles">
-          <div className="tile">
-            <span>Running</span>
-            <strong>{counts.run}</strong>
-          </div>
-          <div className="tile">
-            <span>Waiting for a QPU (parked)</span>
-            <strong>{counts.waitQpu}</strong>
-          </div>
-          <div className="tile">
-            <span>Waiting for a QPU, holding GPU memory</span>
-            <strong>{counts.held}</strong>
-          </div>
-          <div className="tile">
-            <span>Blocked by held GPU memory</span>
-            <strong>{counts.waitGpuMem}</strong>
-          </div>
-          <div className="tile">
-            <span>Waiting for a free GPU / CPU</span>
-            <strong>
-              {counts.waitGpu} / {counts.waitTool}
-            </strong>
-          </div>
-          <div className="tile">
-            <span>Done</span>
-            <strong>
-              {counts.done} of {now.length}
-            </strong>
-          </div>
-        </div>
-
-        <h3 className="panel-title" style={{ marginTop: 18 }}>
-          Most stuck tasks in “{LAYOUTS[layout].label}”
+        <h3 className="panel-title" style={{ marginTop: 22 }}>
+          What it adds up to
         </h3>
+        <div className="lc-score">
+          {ORDER.map((id) => (
+            <div key={id} className="lc-card">
+              <h4>{TITLE[id]}</h4>
+              <dl>
+                <dt>All 24 tasks done after</dt>
+                <dd className={runs[id].makespan > 1.1 * runs.current.makespan ? 'bad' : undefined}>{secsLabel(runs[id].makespan)}</dd>
+                <dt>Inference tasks take on average</dt>
+                <dd className={infX(id) > 1.2 ? 'bad' : undefined}>
+                  {secsLabel(sum(id).meanBy.inference)} <small>({infX(id).toFixed(1)}× unloaded)</small>
+                </dd>
+                <dt>Simulation-heavy tasks take on average</dt>
+                <dd className={sum(id).meanBy.sim > 1.1 * sum('current').meanBy.sim ? 'bad' : undefined}>{secsLabel(sum(id).meanBy.sim)}</dd>
+                <dt>QPU idle while another queue waits</dt>
+                <dd className={sum(id).strandedQpuSecs > 300 ? 'bad' : undefined}>{secsLabel(sum(id).strandedQpuSecs)}</dd>
+              </dl>
+            </div>
+          ))}
+        </div>
         <ul className="flow-stuck">
-          {stuck.map(({ r, total }) => (
-            <li key={r.spec.id}>
-              <strong>
-                #{r.spec.id} {TASKS[r.spec.arche].label.toLowerCase()}
-              </strong>
-              : waited {secsLabel(total)} in total, mostly for {r.stuckAt}
-              {r.heldIdle > 0 ? ` (held a GPU memory slot idle for ${secsLabel(r.heldIdle)})` : ''}.
-            </li>
+          {takeaways.map((tk) => (
+            <li key={tk}>{tk}</li>
           ))}
         </ul>
 
+        <details className="flow-log">
+          <summary>Detailed timeline: every task and every queue</summary>
+          <div className="seg" role="tablist" aria-label="Layout to inspect" style={{ marginTop: 12 }}>
+            {ORDER.map((id) => (
+              <button key={id} role="tab" aria-selected={detail === id} className={`seg-btn${detail === id ? ' is-on' : ''}`} onClick={() => setDetail(id)}>
+                <span className="seg-text">{TITLE[id]}</span>
+              </button>
+            ))}
+          </div>
+          <svg className="flow-gantt" viewBox={`0 0 1200 ${chartH}`} role="img" aria-label="Queue lengths over time">
+            <defs>
+              <pattern id="stripe-mem" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <rect width="6" height="6" fill="#4a1f1f" />
+                <rect width="3" height="6" fill="#f07575" />
+              </pattern>
+              <pattern id="stripe-qpu" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <rect width="6" height="6" fill="#2a1233" />
+                <rect width="3" height="6" fill="#d946ef" opacity="0.7" />
+              </pattern>
+              <pattern id="stripe-held" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                <rect width="6" height="6" fill="#3a2a05" />
+                <rect width="3" height="6" fill="#e69f00" opacity="0.8" />
+              </pattern>
+            </defs>
+            <text x="8" y="16" fill="#b3bccf" fontSize="12" fontWeight="600">
+              Queue length over time
+            </text>
+            <rect x={GX} y={y(qMax)} width={GW} height={y(0) - y(qMax)} fill="#0f1626" rx="4" />
+            {[0, Math.round(qMax / 2), qMax].map((v) => (
+              <g key={v}>
+                <line x1={GX} x2={GX + GW} y1={y(v)} y2={y(v)} stroke="rgba(255,255,255,0.07)" />
+                <text x={GX - 6} y={y(v) + 4} fill="#8691aa" fontSize="11" textAnchor="end">
+                  {v}
+                </text>
+              </g>
+            ))}
+            <path d={line((s) => s.memHeldIdle)} fill="none" stroke={C.amber} strokeWidth="2" strokeDasharray="5 3" />
+            <path d={line((s) => s.qLlm)} fill="none" stroke={C.gpu} strokeWidth="2.5" />
+            <path d={line((s) => s.qQpu)} fill="none" stroke={C.qpu} strokeWidth="2.5" />
+            <g fontSize="11">
+              <text x={GX + 8} y={chartH - 4} fill={C.qpu}>
+                ━ waiting for a QPU
+              </text>
+              <text x={GX + 150} y={chartH - 4} fill={C.gpu}>
+                ━ waiting for a GPU (or its memory)
+              </text>
+              <text x={GX + 360} y={chartH - 4} fill={C.amber}>
+                ┅ sessions holding a GPU memory slot while their QPU job waits or runs
+              </text>
+            </g>
+            <line x1={x(t)} x2={x(t)} y1={y(qMax)} y2={y(0)} stroke="#ebeff7" strokeWidth="1.5" />
+          </svg>
+          <svg className="flow-gantt" viewBox={`0 0 1200 ${wfH}`} role="img" aria-label="Timeline of every task and where it waits">
+            <text x="8" y="14" fill="#b3bccf" fontSize="12" fontWeight="600">
+              Every task, left to right: running or waiting
+            </text>
+            {run.tasks.map((r, i) => (
+              <g key={r.spec.id}>
+                <text x="8" y={32 + i * ROW} fill="#8691aa" fontSize="10.5">
+                  #{r.spec.id} {ARCHE_NAME[r.spec.arche]}
+                  {LAYOUTS[detail].groups > 1 ? ` · node ${r.group + 1}` : ''}
+                </text>
+                <rect x={GX} y={22 + i * ROW} width={GW} height={ROW - 3} fill="#0f1626" />
+                {r.segs.map((s, j) => (
+                  <rect key={j} x={x(s.t0)} y={22 + i * ROW} width={Math.max(1, x(s.t1) - x(s.t0))} height={ROW - 3} fill={SEG_COLOR[s.state]} />
+                ))}
+                <rect x={x(r.spec.arrival) - 1} y={22 + i * ROW} width="2" height={ROW - 3} fill="#ebeff7" opacity="0.6" />
+              </g>
+            ))}
+            <line x1={x(t)} x2={x(t)} y1="20" y2={wfH - 4} stroke="#ebeff7" strokeWidth="1.5" />
+          </svg>
+          <h4 className="panel-title" style={{ marginTop: 14 }}>
+            Most delayed tasks in “{TITLE[detail]}”
+          </h4>
+          <ul className="flow-stuck">
+            {stuck.map(({ r, total }) => (
+              <li key={r.spec.id}>
+                <strong>
+                  #{r.spec.id} {TASKS[r.spec.arche].label.toLowerCase()}
+                </strong>
+                : waited {secsLabel(total)} in total, mostly for {r.stuckAt}.
+              </li>
+            ))}
+          </ul>
+        </details>
+
         <p className="fine">
-          Toy model: each layout has the same total capacity. “Current layout” frees a task’s GPU memory slot while it waits for a QPU; “No parking” keeps it;
-          “Mixed nodes” splits the pod into three nodes, each with one QPU, and a task can only use its own node’s QPU. A QPU queue longer than 30 minutes would
-          be run classically instead; that rule is not modelled here. At pod scale our simulation found parking and holding within 0.5% of each other, because
-          only a tiny share of sessions wait on a QPU at any moment; this toy exaggerates that share so the mechanism is visible.
+          Toy model: every layout has the same total capacity ({TOY_CAPACITY.gpuCompute} GPU slots, {TOY_CAPACITY.cpu} tool slots, {TOY_CAPACITY.qpu} QPUs, and {memSlots} GPU memory slots).
+          A task needs one memory slot while an LLM step runs. With parking it gives the slot back while it waits for a QPU; without parking, and on the mixed nodes, it keeps it. A
+          QPU queue longer than 30 minutes would be run classically; that is not modelled here. At pod scale our simulation found parking and holding within 0.5% of each other, because only
+          a tiny share of sessions wait on a QPU at any moment; this toy makes that share large, and GPU memory scarce, so the mechanism shows.
         </p>
       </div>
     </section>

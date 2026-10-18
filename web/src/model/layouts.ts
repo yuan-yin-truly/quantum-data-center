@@ -16,7 +16,9 @@ export const LAYOUTS: Record<LayoutId, { label: string; blurb: string; groups: n
 };
 
 /** Toy capacities of the WHOLE pod (split evenly over the groups of a layout). */
-export const TOY_CAPACITY = { gpuCompute: 6, gpuMemory: 12, cpu: 6, qpu: 3 };
+export const TOY_CAPACITY = { gpuCompute: 6, gpuMemory: 9, cpu: 6, qpu: 3 };
+/** GPU memory slots of the whole pod: tight makes held sessions hurt, roomy hides the effect. */
+export const MEMORY_OPTIONS = { tight: 9, roomy: 24 } as const;
 
 export interface Op {
   kind: ResKind;
@@ -129,13 +131,13 @@ interface Live {
   start: number;
 }
 
-export function simulate(layout: LayoutId, tasks: TaskSpec[]): LayoutRun {
+export function simulate(layout: LayoutId, tasks: TaskSpec[], memorySlots: number = TOY_CAPACITY.gpuMemory): LayoutRun {
   const cfg = LAYOUTS[layout];
   const n = cfg.groups;
   const groups: Group[] = Array.from({ length: n }, () => {
     const cap = {
       gpu: TOY_CAPACITY.gpuCompute / n,
-      mem: TOY_CAPACITY.gpuMemory / n,
+      mem: memorySlots / n,
       cpu: TOY_CAPACITY.cpu / n,
       qpu: TOY_CAPACITY.qpu / n,
     };
@@ -357,25 +359,70 @@ export function simulate(layout: LayoutId, tasks: TaskSpec[]): LayoutRun {
   };
 }
 
-export function stateAt(run: LayoutRun, t: number): Array<{ id: number; arche: TaskKind; state: string; kind: 'pending' | 'run' | 'wait' | 'held' | 'done' }> {
+export type Cat = 'pending' | 'gpu' | 'tool' | 'qpu' | 'waitqpu' | 'held' | 'blockmem' | 'waitgpu' | 'waittool' | 'done';
+
+const CAT_OF: Record<SegState, Cat> = {
+  'run-llm': 'gpu',
+  'run-tool': 'tool',
+  'run-qpu': 'qpu',
+  'wait-llm-compute': 'waitgpu',
+  'wait-llm-memory': 'blockmem',
+  'wait-tool': 'waittool',
+  'wait-qpu': 'waitqpu',
+  'held-wait-qpu': 'held',
+};
+export const CAT_TEXT: Record<Cat, string> = {
+  pending: 'not yet arrived',
+  gpu: 'running an LLM step on a GPU',
+  tool: 'running a tool (session waits in context memory)',
+  qpu: 'running on a QPU',
+  waitqpu: 'parked, waiting in the QPU queue',
+  held: 'holding a GPU memory slot, waiting in the QPU queue',
+  blockmem: 'blocked: GPU memory is held by sessions waiting for a QPU',
+  waitgpu: 'waiting for a free GPU',
+  waittool: 'waiting for a tool slot',
+  done: 'done',
+};
+
+export function stateAt(run: LayoutRun, t: number): Array<{ id: number; arche: TaskKind; group: number; cat: Cat; state: string; kind: 'pending' | 'run' | 'wait' | 'held' | 'done' }> {
   return run.tasks.map((r) => {
-    if (t < r.spec.arrival) return { id: r.spec.id, arche: r.spec.arche, state: 'not yet arrived', kind: 'pending' as const };
-    if (t >= r.end) return { id: r.spec.id, arche: r.spec.arche, state: 'done', kind: 'done' as const };
-    const sg = r.segs.find((s) => t >= s.t0 && t < s.t1);
-    if (!sg) return { id: r.spec.id, arche: r.spec.arche, state: 'between steps', kind: 'run' as const };
-    const map: Record<SegState, [string, 'run' | 'wait' | 'held']> = {
-      'run-llm': ['running an LLM step on a GPU', 'run'],
-      'run-tool': ['running a tool in the CPU sandbox', 'run'],
-      'run-qpu': ['running on a QPU', 'run'],
-      'wait-llm-compute': ['waiting for a free GPU', 'wait'],
-      'wait-llm-memory': ['waiting: GPU memory is held by other sessions', 'wait'],
-      'wait-tool': ['waiting for the CPU sandbox', 'wait'],
-      'wait-qpu': ['parked, waiting in the QPU queue', 'wait'],
-      'held-wait-qpu': ['holding a GPU memory slot, waiting in the QPU queue', 'held'],
-    };
-    const [state, kind] = map[sg.state];
-    return { id: r.spec.id, arche: r.spec.arche, state, kind };
+    let cat: Cat;
+    if (t < r.spec.arrival) cat = 'pending';
+    else if (t >= r.end) cat = 'done';
+    else {
+      const sg = r.segs.find((s) => t >= s.t0 && t < s.t1);
+      cat = sg ? CAT_OF[sg.state] : 'gpu';
+    }
+    const kind = cat === 'pending' ? 'pending' : cat === 'done' ? 'done' : cat === 'held' ? 'held' : cat === 'gpu' || cat === 'tool' || cat === 'qpu' ? 'run' : 'wait';
+    return { id: r.spec.id, arche: r.spec.arche, group: r.group, cat, state: CAT_TEXT[cat], kind };
   });
+}
+
+export interface PanelGroup {
+  tasks: Array<{ id: number; arche: TaskKind; cat: Cat }>;
+  mem: { cap: number; running: number; held: number };
+  qpu: { cap: number; busy: number; queued: number };
+}
+
+/** State of each node group at time t: the tasks pinned to it, GPU-memory use and QPU use. */
+export function panelAt(run: LayoutRun, t: number, memorySlots: number): PanelGroup[] {
+  const n = LAYOUTS[run.layout].groups;
+  const st = stateAt(run, t);
+  const groups: PanelGroup[] = Array.from({ length: n }, () => ({
+    tasks: [],
+    mem: { cap: memorySlots / n, running: 0, held: 0 },
+    qpu: { cap: TOY_CAPACITY.qpu / n, busy: 0, queued: 0 },
+  }));
+  const holds = !LAYOUTS[run.layout].park;
+  st.forEach((s, i) => {
+    const g = groups[run.tasks[i]!.group]!;
+    g.tasks.push({ id: s.id, arche: s.arche, cat: s.cat });
+    if (s.cat === 'gpu') g.mem.running++;
+    if (s.cat === 'held' || (holds && s.cat === 'qpu')) g.mem.held++;
+    if (s.cat === 'qpu') g.qpu.busy++;
+    if (s.cat === 'waitqpu' || s.cat === 'held') g.qpu.queued++;
+  });
+  return groups;
 }
 
 export { PARK_S };
