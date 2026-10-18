@@ -103,6 +103,15 @@ def cmd_replay(a) -> int:
     return 0
 
 
+def cmd_arch_study(a) -> int:
+    from . import arch_study
+    res = arch_study.run_study(a.out, quick=a.quick)
+    print(arch_study.study_markdown(res))
+    if a.out:
+        print(f"wrote result.json, summary.md and figures to {a.out}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="dc_sim", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -143,6 +152,10 @@ def main(argv: list[str] | None = None) -> int:
     rp.add_argument("--out", required=True)
     rp.add_argument("--every", type=int, default=5, help="record a frame every N ticks")
     rp.set_defaults(fn=cmd_replay)
+    st = sub.add_parser("arch-study", help="use case B: specialised vs integrated vs mixed GPU/CPU/QPU nodes against the GPU-only reference (about 10 min; --quick about 1.5 min)")
+    st.add_argument("--out", default=None)
+    st.add_argument("--quick", action="store_true")
+    st.set_defaults(fn=cmd_arch_study)
     a = p.parse_args(argv)
     return a.fn(a)
 

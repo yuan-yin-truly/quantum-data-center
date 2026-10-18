@@ -1,0 +1,60 @@
+{
+  "_note": "Inputs of dc_sim.arch_study (use case B node-composition study). EVERYTHING here is an ASSUMPTION unless it says FROM quantum_arch / FROM dc_sim assumptions. Use case B numbers follow the Sundai Hack 145 slides (first workload version: Kimi K3-class model); the per-step compute cost uses dc_sim's model_cost_x proxy, NOT the slides' bandwidth step-time model (not imported yet).",
+  "pod": {
+    "users": 1000000,
+    "cap_mw": 50,
+    "note": "One site slice. Users are the case-B agent developers served by the pod (all three regions, time-zone mixed). The pod cap is a FACILITY power cap, as in the challenge."
+  },
+  "case_b": {
+    "interactive_tasks_per_user_day": 12,
+    "background_tasks_per_user_day": 30,
+    "steps_per_task": 80,
+    "prefill_new_tokens_per_step": 6000,
+    "decode_tokens_per_step": 500,
+    "bg_tool_s_per_step": 8.0,
+    "bg_tool_cores": 2.0,
+    "interactive_tool_dc_core_s_per_step": 0.0,
+    "interactive_note": "Slides: interactive tools run on the user's laptop, so they use no data-centre CPU here (orchestration ignored). Background tools run in a sandbox next to the model. Tool time 8 s and 2 cores per step are ASSUMPTIONS (the slides give 8 s only for the laptop case).",
+    "rho": 0.9,
+    "rho_note": "Highest accelerator utilisation at which interactive steps still meet their latency target (headroom for bursts); same value as dc_sim's rho_slo.",
+    "bg_wait_slo_s": 7200,
+    "bg_wait_note": "Background compute may wait this long for spare accelerator capacity (the slides give 4 h per background task; half of it is kept as slack). ASSUMPTION.",
+    "tick_s": 300
+  },
+  "cpu": {
+    "device": "cpu_2035",
+    "cores_per_socket": 512,
+    "system_overhead": 1.5,
+    "idle_fraction": 0.4,
+    "capex_usd_per_socket": 20000,
+    "util": 0.7,
+    "host_sockets_per_gpu_module": 0.125,
+    "host_cpu_spare_fraction": 0.5,
+    "note": "TDP 800 W FROM quantum_arch classical.cpu_2035 (about 512 cores). Overhead, idle share, capex, target utilisation, host CPUs per GPU module (one socket per 8 modules, already inside the GPU server overhead) and the share of host-CPU cores free for sandboxes are ASSUMPTIONS."
+  },
+  "economics": {
+    "energy_usd_per_mwh": 52,
+    "amortisation_years": 5,
+    "cooling": "liquid",
+    "network_overhead": 0.05,
+    "note": "Price: dc_sim's US South site. PUE, facility capex per kW and the GPU capex come from dc_sim's assumptions (liquid cooling; gpu_rack capex per module). Facility capex is charged on PEAK facility power."
+  },
+  "quantum": {
+    "node_type": "qpu_cat40k",
+    "workload": "vqe_50q",
+    "host_core_s_per_call": 300,
+    "duration_cv": 0.5,
+    "iterations_per_call": 10000,
+    "local_rtt_s": 1e-05,
+    "pool_rtt_s": 0.0002,
+    "max_wait_s": 1800,
+    "local_ok_wait_s": 60,
+    "note": "QPU power, runtime, acceptance probability and capex-independent feasibility FROM quantum_arch (via dc_sim.qfeas, mid2030s base); capex and calibration windows FROM dc_sim node_types (ASSUMPTION). A call is one quantum-eligible tool call of a background agent. Iterations per call (classical optimiser round trips) and the two link round-trip times are ASSUMPTIONS: a pooled QPU pays iterations x (pool_rtt - local_rtt) extra per call. A call whose predicted wait exceeds max_wait_s is run classically instead (the overflow rule of the scheduler)."
+  },
+  "grid": {
+    "calls_per_bg_task": [0.0, 0.0001, 0.0003, 0.001, 0.003, 0.01],
+    "classical_module_hours": [0.03, 0.1, 0.3, 1.0, 3.0, 10.0, 30.0, 100.0],
+    "node_gpu_modules": [16, 64, 256, 1024, 4096],
+    "note": "The two unknowns that decide everything: how many background tasks contain a quantum-eligible call, and what the BEST CLASSICAL method costs for that call at the same accuracy (GPU module-hours). Nobody knows either for agent workloads; the study maps the whole range and reports break-even lines instead of picking a value."
+  }
+}
