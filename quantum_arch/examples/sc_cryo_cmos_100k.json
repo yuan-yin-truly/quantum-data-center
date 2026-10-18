@@ -1,0 +1,27 @@
+{
+  "name": "sc_cryo_cmos_100k",
+  "description": "100k transmons, cryo-CMOS at 4 K, projected hardware, 10x cryoplatform",
+  "modality": "superconducting",
+  "profile": "projected",
+  "scheme": "cryo_cmos_4k",
+  "n_qubits": 100000,
+  "cryostat": {
+    "capacity_scale": 10.0
+  },
+  "classical": [
+    {
+      "role": "host",
+      "device": "cpu_epyc_96c",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "gpu_h100",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ]
+}

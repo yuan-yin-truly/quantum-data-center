@@ -1,0 +1,264 @@
+{
+  "name": "spin_cmos_10k",
+  "modality": "Silicon spin qubits",
+  "scheme": "Cryo-CMOS controller at 4 K, flex cabling to the cold plate",
+  "profile": "projected",
+  "n_qubits": 10000,
+  "error_budget": {
+    "syndrome_cycle_s": 2.6e-06,
+    "p_eff": 0.0033500000000000005,
+    "lambda": 2.9850746268656714,
+    "parts": {
+      "two_qubit": 0.001,
+      "single_qubit": 0.0001,
+      "measurement": 0.0005,
+      "reset": 0.0005,
+      "idle": 0.0012500000000000002
+    }
+  },
+  "computing": {
+    "feasible": false,
+    "reason": "10,000 physical qubits are fewer than one logical qubit at d=53 (5617 each, x2.0 layout)",
+    "code": "Rotated surface code",
+    "distance": 53,
+    "logical_qubits": 0,
+    "logical_clock_hz": 0.0,
+    "rqops": 0.0,
+    "logical_error_per_op": null,
+    "target_logical_error": 1e-12
+  },
+  "decoder": {
+    "decoder": null
+  },
+  "power_w": {
+    "cryostat (installed)": 700000.0,
+    "room-temperature control electronics": 3756.0,
+    "classical host / optimiser": 1448.0
+  },
+  "total_power_w": 705204.0,
+  "facility_power_w": 846244.7999999999,
+  "metrics": {
+    "physical_qubits": 10000,
+    "syndrome_cycle_s": 2.6e-06,
+    "p_eff": 0.0033500000000000005,
+    "lambda": 2.9850746268656714,
+    "peak_2q_gate_rate_hz": 49999999999.99999,
+    "energy_per_2q_gate_j": 1.4104080000000001e-05,
+    "total_power_w": 705204.0,
+    "facility_power_w": 846244.7999999999,
+    "logical_qubits": 0,
+    "code_distance": 53,
+    "logical_clock_hz": 0.0,
+    "rqops": 0.0,
+    "logical_error_per_op": null,
+    "energy_per_logical_op_j": null,
+    "n_lines": 313,
+    "fridge_units": 7
+  },
+  "classical_blocks": [
+    {
+      "role": "host",
+      "device": "96-core server CPU",
+      "count": 2,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 356.0,
+      "keeps_up": true
+    },
+    {
+      "role": "optimizer",
+      "device": "H100-class GPU",
+      "count": 4,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 1092.0,
+      "keeps_up": true
+    }
+  ],
+  "line_counts": {
+    "digital_link": 313,
+    "dc_gates": 30000,
+    "mw_drive": 2500,
+    "readout_in": 1250,
+    "readout_out": 1250
+  },
+  "workloads": {
+    "shor_rsa2048": {
+      "label": "Shor, RSA-2048",
+      "type": "fault_tolerant",
+      "feasible": false,
+      "reason": "10,000 qubits hold only 0 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory; a reference design (10 factories) needs about 23,414,150 physical qubits",
+      "reference_qubits": 23414150,
+      "classical_ops": 6e+35,
+      "classical_energy_j": 2.9999999999999996e+25,
+      "classical_energy": "8.33e+12 GWh"
+    },
+    "femoco_thc": {
+      "label": "FeMoco ground-state energy (THC qubitization)",
+      "type": "fault_tolerant",
+      "feasible": false,
+      "reason": "10,000 qubits hold only 0 tiles at d=101; the algorithm needs 4,392 plus a 15-tile factory; a reference design (10 factories) needs about 36,049,854 physical qubits",
+      "reference_qubits": 36049854
+    },
+    "chemistry_small": {
+      "label": "Small active-space chemistry (100 logical qubits)",
+      "type": "fault_tolerant",
+      "feasible": false,
+      "reason": "10,000 qubits hold only 0 tiles at d=101; the algorithm needs 200 plus a 15-tile factory; a reference design (10 factories) needs about 1,820,350 physical qubits",
+      "reference_qubits": 1820350
+    },
+    "vqe_50q": {
+      "label": "Variational solver, 50 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.4491626070603663,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 6.000000000000001e-06,
+      "quantum_time_per_iter_s": 0.12000000000000002,
+      "classical_time_per_iter_s": 0.029411764705882353,
+      "runtime_s": 75.20588235294119,
+      "runtime": "75.2 s",
+      "classical_duty": 0.1955416503715291,
+      "power_w": 704949.1216269066,
+      "energy_j": 53016320.70588236,
+      "energy": "14.7 kWh",
+      "classical_sim_memory_bytes": 1.8014398509481984e+16,
+      "classical_note": "state-vector simulation needs 1.8e+04 TB, more than the 1.5 TB reference node"
+    },
+    "vqe_20q": {
+      "label": "Variational solver, 20 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.8351916267849123,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 4.000000000000001e-06,
+      "quantum_time_per_iter_s": 0.04000000000000001,
+      "classical_time_per_iter_s": 0.007352941176470588,
+      "runtime_s": 24.1764705882353,
+      "runtime": "24.2 s",
+      "classical_duty": 0.15206812652068122,
+      "power_w": 704843.0462287104,
+      "energy_j": 17040617.176470593,
+      "energy": "4.73 kWh",
+      "classical_sim_memory_bytes": 16777216.0,
+      "classical_ops": 1363148800000.0,
+      "classical_energy_j": 68.15744,
+      "classical_energy": "68.2 J",
+      "energy_advantage": 3.9997048988407935e-06
+    }
+  },
+  "warnings": [
+    "4K stage overloaded: 90 W against 15 W at 4.2 K (would settle at 11 K); needs 7 fridge units",
+    "heat load needs 7 fridge units for one processor",
+    "no error-corrected computing: 10,000 physical qubits are fewer than one logical qubit at d=53 (5617 each, x2.0 layout)"
+  ],
+  "cryostat": {
+    "type": "Dry dilution refrigerator (XLD400-class)",
+    "units_needed": 7,
+    "units_for_heat": 7,
+    "units_for_lines": 1,
+    "n_lines": 313,
+    "wall_power_w": 700000.0,
+    "carnot_floor_w": 2376.8418655879977,
+    "stages": [
+      {
+        "name": "50K",
+        "target_k": 45.0,
+        "temperature_k": 45.0,
+        "load_w": 0.016034972710129197,
+        "capacity_w": 300.0,
+        "utilisation": 5.344990903376399e-05,
+        "passive_w": 0.016034972710129197,
+        "active_w": 0,
+        "components_w": 0.0,
+        "sources_w": {
+          "passive: digital_link": 0.016034972710129197
+        }
+      },
+      {
+        "name": "4K",
+        "target_k": 4.2,
+        "temperature_k": 10.950051409465733,
+        "load_w": 90.00057121628592,
+        "capacity_w": 14.999999999999998,
+        "utilisation": 6.000038081085728,
+        "passive_w": 0.0005711646929440589,
+        "active_w": 5.1592976674383224e-08,
+        "components_w": 90.0,
+        "sources_w": {
+          "component: cryo-CMOS controller (gate DACs + MW + readout)": 80.0,
+          "component: cryogenic RF amplifiers (reflectometry)": 10.0,
+          "passive: digital_link": 0.0005711646929440589,
+          "active: mw_drive": 5.15671930778443e-08,
+          "active: readout_in": 2.5783596538922146e-11
+        }
+      },
+      {
+        "name": "Still",
+        "target_k": 1.2,
+        "temperature_k": 1.2,
+        "load_w": 0.0039922654416972726,
+        "capacity_w": 0.4,
+        "utilisation": 0.00998066360424318,
+        "passive_w": 0.003992213848720599,
+        "active_w": 5.1592976674383224e-08,
+        "components_w": -4.994847410840202e-19,
+        "sources_w": {
+          "passive: dc_gates": 0.0003642763864811947,
+          "passive: mw_drive": 3.0356365540099558e-05,
+          "active: mw_drive": 5.15671930778443e-08,
+          "passive: readout_in": 1.5178182770049779e-05,
+          "active: readout_in": 2.5783596538922146e-11,
+          "passive: readout_out": 0.0035824029139292545
+        }
+      },
+      {
+        "name": "CP",
+        "target_k": 0.14,
+        "temperature_k": 0.14,
+        "load_w": 0,
+        "capacity_w": 0.002,
+        "utilisation": 0.0,
+        "passive_w": 0,
+        "active_w": 0,
+        "components_w": 0,
+        "sources_w": {}
+      },
+      {
+        "name": "MXC",
+        "target_k": 0.02,
+        "temperature_k": 0.02,
+        "load_w": 0,
+        "capacity_w": 0.00019,
+        "utilisation": 0.0,
+        "passive_w": 0,
+        "active_w": 0,
+        "components_w": 0,
+        "sources_w": {}
+      }
+    ]
+  },
+  "plates": [
+    {
+      "name": "cold electronics @ 4K",
+      "stage_k": 10.950051409465733,
+      "t_max_k": 11.810199660095066,
+      "rise_max_k": 0.860148250629333,
+      "rise_mean_k": 0.29988415123269796,
+      "peak_power_density_w_per_cm2": 13.115899136110086,
+      "injected_w": 90.0,
+      "removed_w": 89.99999759082687
+    },
+    {
+      "name": "qubit chip @ Still",
+      "stage_k": 1.2,
+      "t_max_k": 1.200001761068845,
+      "rise_max_k": 1.7610688449742895e-06,
+      "rise_mean_k": 8.443788737100277e-07,
+      "peak_power_density_w_per_cm2": 1.749685816959081e-07,
+      "injected_w": 2.50125e-07,
+      "removed_w": 2.501250001393315e-07
+    }
+  ],
+  "plate_notes": []
+}

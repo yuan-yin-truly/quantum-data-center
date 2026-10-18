@@ -1,0 +1,42 @@
+{
+  "random_layout": {
+    "random_seed": 20261017,
+    "sampling": "uniform \u00b10.65 mm per coordinate around ring_center; reject illegal layouts",
+    "attempt": 2,
+    "placements_mm": {
+      "G0": [
+        7.563,
+        3.259
+      ],
+      "H0": [
+        20.934,
+        3.584
+      ],
+      "G1": [
+        33.272,
+        2.856
+      ],
+      "H1": [
+        34.12,
+        15.888
+      ],
+      "G2": [
+        33.072,
+        27.366
+      ],
+      "H2": [
+        20.77,
+        27.311
+      ],
+      "G3": [
+        7.994,
+        27.611
+      ],
+      "H3": [
+        8.748,
+        15.163
+      ]
+    },
+    "weighted_route_gb_s_mm": 8728.5
+  }
+}

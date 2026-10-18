@@ -1,0 +1,33 @@
+{
+  "_note": "Classical compute devices. int_ops / fp64_flops / fp16_flops are peak rates; 'sustained' fractions are applied by the model. Power: idle_w at zero load, tdp_w at full load, linear in between. Public vendor-class figures rounded; cryogenic and ASIC entries are ASSUMPTIONS for design exploration, not products.",
+  "cpu_epyc_96c": {
+    "label": "96-core server CPU", "kind": "cpu",
+    "tdp_w": 360, "idle_w": 100, "int_ops": 4.0e12, "fp64_flops": 3.6e12, "fp16_flops": 7.0e12,
+    "latency_factor": 10.0, "locations": ["RT"]
+  },
+  "gpu_h100": {
+    "label": "H100-class GPU", "kind": "gpu",
+    "tdp_w": 700, "idle_w": 90, "int_ops": 3.3e13, "fp64_flops": 3.4e13, "fp16_flops": 9.9e14,
+    "latency_factor": 20.0, "locations": ["RT"]
+  },
+  "gpu_b200": {
+    "label": "B200-class GPU", "kind": "gpu",
+    "tdp_w": 1000, "idle_w": 150, "int_ops": 4.0e13, "fp64_flops": 4.0e13, "fp16_flops": 2.25e15,
+    "latency_factor": 20.0, "locations": ["RT"]
+  },
+  "fpga_large": {
+    "label": "Large FPGA (decoder fabric)", "kind": "fpga",
+    "tdp_w": 120, "idle_w": 30, "int_ops": 1.5e13, "fp64_flops": 2.0e11, "fp16_flops": 2.0e13,
+    "latency_factor": 1.0, "locations": ["RT"]
+  },
+  "asic_decoder_rt": {
+    "label": "Room-temperature decoder ASIC (assumption)", "kind": "asic",
+    "tdp_w": 20, "idle_w": 2, "int_ops": 2.0e13, "fp64_flops": 0.0, "fp16_flops": 0.0,
+    "latency_factor": 0.3, "locations": ["RT"]
+  },
+  "asic_decoder_4k": {
+    "label": "Cryo-CMOS decoder ASIC at 4 K (assumption)", "kind": "asic",
+    "tdp_w": 0.5, "idle_w": 0.05, "int_ops": 2.0e12, "fp64_flops": 0.0, "fp16_flops": 0.0,
+    "latency_factor": 0.2, "locations": ["4K"]
+  }
+}

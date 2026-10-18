@@ -1,0 +1,932 @@
+{
+  "tensor_training": {
+    "link_breakdown": {
+      "P0": {
+        "utilization": 0.38,
+        "active_gb_s": 228.0,
+        "route_mm": 2.178,
+        "phy_w": 0.3648,
+        "phy_inside_die_w": 0.1824,
+        "phy_outside_die_w": 0.1824,
+        "from_port_rectangle_mm": [
+          18.063,
+          6.509,
+          20.063,
+          10.509
+        ],
+        "to_port_rectangle_mm": [
+          19.934,
+          6.683999999999999,
+          21.934,
+          10.684
+        ],
+        "wire_w": 0.317814,
+        "total_w": 0.682614
+      },
+      "P1": {
+        "utilization": 0.45,
+        "active_gb_s": 270.0,
+        "route_mm": 2.88,
+        "phy_w": 0.432,
+        "phy_inside_die_w": 0.216,
+        "phy_outside_die_w": 0.216,
+        "from_port_rectangle_mm": [
+          37.022,
+          12.356,
+          41.022,
+          14.356
+        ],
+        "to_port_rectangle_mm": [
+          37.37,
+          14.888,
+          41.37,
+          16.887999999999998
+        ],
+        "wire_w": 0.497664,
+        "total_w": 0.929664
+      },
+      "P2": {
+        "utilization": 0.33,
+        "active_gb_s": 198.0,
+        "route_mm": 2.597,
+        "phy_w": 0.3168,
+        "phy_inside_die_w": 0.1584,
+        "phy_outside_die_w": 0.1584,
+        "from_port_rectangle_mm": [
+          32.072,
+          30.616,
+          34.072,
+          34.616
+        ],
+        "to_port_rectangle_mm": [
+          30.27,
+          30.411,
+          32.269999999999996,
+          34.411
+        ],
+        "wire_w": 0.329092,
+        "total_w": 0.645892
+      },
+      "P3": {
+        "utilization": 0.4,
+        "active_gb_s": 240.0,
+        "route_mm": 2.502,
+        "phy_w": 0.384,
+        "phy_inside_die_w": 0.192,
+        "phy_outside_die_w": 0.192,
+        "from_port_rectangle_mm": [
+          11.744,
+          26.611,
+          15.744,
+          28.611
+        ],
+        "to_port_rectangle_mm": [
+          11.997999999999998,
+          24.363,
+          15.997999999999998,
+          26.363
+        ],
+        "wire_w": 0.384307,
+        "total_w": 0.768307
+      },
+      "S0": {
+        "utilization": 0.15,
+        "active_gb_s": 45.0,
+        "route_mm": 2.215,
+        "phy_w": 0.072,
+        "phy_inside_die_w": 0.036,
+        "phy_outside_die_w": 0.036,
+        "from_port_rectangle_mm": [
+          12.312999999999999,
+          12.759,
+          14.312999999999999,
+          14.759
+        ],
+        "to_port_rectangle_mm": [
+          12.997999999999998,
+          14.163,
+          14.997999999999998,
+          16.163
+        ],
+        "wire_w": 0.063792,
+        "total_w": 0.135792
+      },
+      "S1": {
+        "utilization": 0.22,
+        "active_gb_s": 66.0,
+        "route_mm": 2.548,
+        "phy_w": 0.1056,
+        "phy_inside_die_w": 0.0528,
+        "phy_outside_die_w": 0.0528,
+        "from_port_rectangle_mm": [
+          32.272,
+          7.106,
+          34.272,
+          9.106
+        ],
+        "to_port_rectangle_mm": [
+          30.434,
+          7.683999999999999,
+          32.434,
+          9.684
+        ],
+        "wire_w": 0.107628,
+        "total_w": 0.213228
+      },
+      "S2": {
+        "utilization": 0.18,
+        "active_gb_s": 54.0,
+        "route_mm": 1.97,
+        "phy_w": 0.0864,
+        "phy_inside_die_w": 0.0432,
+        "phy_outside_die_w": 0.0432,
+        "from_port_rectangle_mm": [
+          37.822,
+          26.366,
+          39.822,
+          28.366
+        ],
+        "to_port_rectangle_mm": [
+          38.37,
+          25.088,
+          40.37,
+          27.088
+        ],
+        "wire_w": 0.068083,
+        "total_w": 0.154483
+      },
+      "S3": {
+        "utilization": 0.12,
+        "active_gb_s": 36.0,
+        "route_mm": 2.048,
+        "phy_w": 0.0576,
+        "phy_inside_die_w": 0.0288,
+        "phy_outside_die_w": 0.0288,
+        "from_port_rectangle_mm": [
+          18.494,
+          31.861000000000004,
+          20.494,
+          33.861000000000004
+        ],
+        "to_port_rectangle_mm": [
+          19.77,
+          31.411,
+          21.77,
+          33.411
+        ],
+        "wire_w": 0.047186,
+        "total_w": 0.104786
+      }
+    },
+    "base_w": 399.000000019,
+    "phy_w": 1.8192,
+    "phy_inside_die_w": 0.9095999999999549,
+    "phy_outside_die_w": 0.9095994399999996,
+    "wire_w": 1.815566,
+    "total_w": 402.634765459
+  },
+  "skewed_compute": {
+    "link_breakdown": {
+      "P0": {
+        "utilization": 0.6,
+        "active_gb_s": 360.0,
+        "route_mm": 2.178,
+        "phy_w": 0.576,
+        "phy_inside_die_w": 0.288,
+        "phy_outside_die_w": 0.288,
+        "from_port_rectangle_mm": [
+          18.063,
+          6.509,
+          20.063,
+          10.509
+        ],
+        "to_port_rectangle_mm": [
+          19.934,
+          6.683999999999999,
+          21.934,
+          10.684
+        ],
+        "wire_w": 0.501811,
+        "total_w": 1.077811
+      },
+      "P1": {
+        "utilization": 0.2,
+        "active_gb_s": 120.0,
+        "route_mm": 2.88,
+        "phy_w": 0.192,
+        "phy_inside_die_w": 0.096,
+        "phy_outside_die_w": 0.096,
+        "from_port_rectangle_mm": [
+          37.022,
+          12.356,
+          41.022,
+          14.356
+        ],
+        "to_port_rectangle_mm": [
+          37.37,
+          14.888,
+          41.37,
+          16.887999999999998
+        ],
+        "wire_w": 0.221184,
+        "total_w": 0.413184
+      },
+      "P2": {
+        "utilization": 0.5,
+        "active_gb_s": 300.0,
+        "route_mm": 2.597,
+        "phy_w": 0.48,
+        "phy_inside_die_w": 0.24,
+        "phy_outside_die_w": 0.24,
+        "from_port_rectangle_mm": [
+          32.072,
+          30.616,
+          34.072,
+          34.616
+        ],
+        "to_port_rectangle_mm": [
+          30.27,
+          30.411,
+          32.269999999999996,
+          34.411
+        ],
+        "wire_w": 0.498624,
+        "total_w": 0.978624
+      },
+      "P3": {
+        "utilization": 0.16,
+        "active_gb_s": 96.0,
+        "route_mm": 2.502,
+        "phy_w": 0.1536,
+        "phy_inside_die_w": 0.0768,
+        "phy_outside_die_w": 0.0768,
+        "from_port_rectangle_mm": [
+          11.744,
+          26.611,
+          15.744,
+          28.611
+        ],
+        "to_port_rectangle_mm": [
+          11.997999999999998,
+          24.363,
+          15.997999999999998,
+          26.363
+        ],
+        "wire_w": 0.153723,
+        "total_w": 0.307323
+      },
+      "S0": {
+        "utilization": 0.22,
+        "active_gb_s": 66.0,
+        "route_mm": 2.215,
+        "phy_w": 0.1056,
+        "phy_inside_die_w": 0.0528,
+        "phy_outside_die_w": 0.0528,
+        "from_port_rectangle_mm": [
+          12.312999999999999,
+          12.759,
+          14.312999999999999,
+          14.759
+        ],
+        "to_port_rectangle_mm": [
+          12.997999999999998,
+          14.163,
+          14.997999999999998,
+          16.163
+        ],
+        "wire_w": 0.093562,
+        "total_w": 0.199162
+      },
+      "S1": {
+        "utilization": 0.1,
+        "active_gb_s": 30.0,
+        "route_mm": 2.548,
+        "phy_w": 0.048,
+        "phy_inside_die_w": 0.024,
+        "phy_outside_die_w": 0.024,
+        "from_port_rectangle_mm": [
+          32.272,
+          7.106,
+          34.272,
+          9.106
+        ],
+        "to_port_rectangle_mm": [
+          30.434,
+          7.683999999999999,
+          32.434,
+          9.684
+        ],
+        "wire_w": 0.048922,
+        "total_w": 0.096922
+      },
+      "S2": {
+        "utilization": 0.19,
+        "active_gb_s": 57.0,
+        "route_mm": 1.97,
+        "phy_w": 0.0912,
+        "phy_inside_die_w": 0.0456,
+        "phy_outside_die_w": 0.0456,
+        "from_port_rectangle_mm": [
+          37.822,
+          26.366,
+          39.822,
+          28.366
+        ],
+        "to_port_rectangle_mm": [
+          38.37,
+          25.088,
+          40.37,
+          27.088
+        ],
+        "wire_w": 0.071866,
+        "total_w": 0.163066
+      },
+      "S3": {
+        "utilization": 0.08,
+        "active_gb_s": 24.0,
+        "route_mm": 2.048,
+        "phy_w": 0.0384,
+        "phy_inside_die_w": 0.0192,
+        "phy_outside_die_w": 0.0192,
+        "from_port_rectangle_mm": [
+          18.494,
+          31.861000000000004,
+          20.494,
+          33.861000000000004
+        ],
+        "to_port_rectangle_mm": [
+          19.77,
+          31.411,
+          21.77,
+          33.411
+        ],
+        "wire_w": 0.031457,
+        "total_w": 0.069857
+      }
+    },
+    "base_w": 341.999999993,
+    "phy_w": 1.6847999999999999,
+    "phy_inside_die_w": 0.8423999999999978,
+    "phy_outside_die_w": 0.8423991599999994,
+    "wire_w": 1.621149,
+    "total_w": 345.30594815300003
+  },
+  "attention_decode": {
+    "link_breakdown": {
+      "P0": {
+        "utilization": 0.78,
+        "active_gb_s": 468.0,
+        "route_mm": 2.178,
+        "phy_w": 0.7488,
+        "phy_inside_die_w": 0.3744,
+        "phy_outside_die_w": 0.3744,
+        "from_port_rectangle_mm": [
+          18.063,
+          6.509,
+          20.063,
+          10.509
+        ],
+        "to_port_rectangle_mm": [
+          19.934,
+          6.683999999999999,
+          21.934,
+          10.684
+        ],
+        "wire_w": 0.652355,
+        "total_w": 1.401155
+      },
+      "P1": {
+        "utilization": 0.92,
+        "active_gb_s": 552.0,
+        "route_mm": 2.88,
+        "phy_w": 0.8832,
+        "phy_inside_die_w": 0.4416,
+        "phy_outside_die_w": 0.4416,
+        "from_port_rectangle_mm": [
+          37.022,
+          12.356,
+          41.022,
+          14.356
+        ],
+        "to_port_rectangle_mm": [
+          37.37,
+          14.888,
+          41.37,
+          16.887999999999998
+        ],
+        "wire_w": 1.017446,
+        "total_w": 1.900646
+      },
+      "P2": {
+        "utilization": 0.8,
+        "active_gb_s": 480.0,
+        "route_mm": 2.597,
+        "phy_w": 0.768,
+        "phy_inside_die_w": 0.384,
+        "phy_outside_die_w": 0.384,
+        "from_port_rectangle_mm": [
+          32.072,
+          30.616,
+          34.072,
+          34.616
+        ],
+        "to_port_rectangle_mm": [
+          30.27,
+          30.411,
+          32.269999999999996,
+          34.411
+        ],
+        "wire_w": 0.797798,
+        "total_w": 1.565798
+      },
+      "P3": {
+        "utilization": 0.86,
+        "active_gb_s": 516.0,
+        "route_mm": 2.502,
+        "phy_w": 0.8256,
+        "phy_inside_die_w": 0.4128,
+        "phy_outside_die_w": 0.4128,
+        "from_port_rectangle_mm": [
+          11.744,
+          26.611,
+          15.744,
+          28.611
+        ],
+        "to_port_rectangle_mm": [
+          11.997999999999998,
+          24.363,
+          15.997999999999998,
+          26.363
+        ],
+        "wire_w": 0.82626,
+        "total_w": 1.65186
+      },
+      "S0": {
+        "utilization": 0.48,
+        "active_gb_s": 144.0,
+        "route_mm": 2.215,
+        "phy_w": 0.2304,
+        "phy_inside_die_w": 0.1152,
+        "phy_outside_die_w": 0.1152,
+        "from_port_rectangle_mm": [
+          12.312999999999999,
+          12.759,
+          14.312999999999999,
+          14.759
+        ],
+        "to_port_rectangle_mm": [
+          12.997999999999998,
+          14.163,
+          14.997999999999998,
+          16.163
+        ],
+        "wire_w": 0.204134,
+        "total_w": 0.434534
+      },
+      "S1": {
+        "utilization": 0.65,
+        "active_gb_s": 195.0,
+        "route_mm": 2.548,
+        "phy_w": 0.312,
+        "phy_inside_die_w": 0.156,
+        "phy_outside_die_w": 0.156,
+        "from_port_rectangle_mm": [
+          32.272,
+          7.106,
+          34.272,
+          9.106
+        ],
+        "to_port_rectangle_mm": [
+          30.434,
+          7.683999999999999,
+          32.434,
+          9.684
+        ],
+        "wire_w": 0.31799,
+        "total_w": 0.62999
+      },
+      "S2": {
+        "utilization": 0.52,
+        "active_gb_s": 156.0,
+        "route_mm": 1.97,
+        "phy_w": 0.2496,
+        "phy_inside_die_w": 0.1248,
+        "phy_outside_die_w": 0.1248,
+        "from_port_rectangle_mm": [
+          37.822,
+          26.366,
+          39.822,
+          28.366
+        ],
+        "to_port_rectangle_mm": [
+          38.37,
+          25.088,
+          40.37,
+          27.088
+        ],
+        "wire_w": 0.196685,
+        "total_w": 0.446285
+      },
+      "S3": {
+        "utilization": 0.58,
+        "active_gb_s": 174.0,
+        "route_mm": 2.048,
+        "phy_w": 0.2784,
+        "phy_inside_die_w": 0.1392,
+        "phy_outside_die_w": 0.1392,
+        "from_port_rectangle_mm": [
+          18.494,
+          31.861000000000004,
+          20.494,
+          33.861000000000004
+        ],
+        "to_port_rectangle_mm": [
+          19.77,
+          31.411,
+          21.77,
+          33.411
+        ],
+        "wire_w": 0.228065,
+        "total_w": 0.506465
+      }
+    },
+    "base_w": 313.000000005,
+    "phy_w": 4.296,
+    "phy_inside_die_w": 2.1480000000000246,
+    "phy_outside_die_w": 2.148001719999998,
+    "wire_w": 4.2407330000000005,
+    "total_w": 321.53673472500003
+  },
+  "memory_stream": {
+    "link_breakdown": {
+      "P0": {
+        "utilization": 0.95,
+        "active_gb_s": 570.0,
+        "route_mm": 2.178,
+        "phy_w": 0.912,
+        "phy_inside_die_w": 0.456,
+        "phy_outside_die_w": 0.456,
+        "from_port_rectangle_mm": [
+          18.063,
+          6.509,
+          20.063,
+          10.509
+        ],
+        "to_port_rectangle_mm": [
+          19.934,
+          6.683999999999999,
+          21.934,
+          10.684
+        ],
+        "wire_w": 0.794534,
+        "total_w": 1.706534
+      },
+      "P1": {
+        "utilization": 0.88,
+        "active_gb_s": 528.0,
+        "route_mm": 2.88,
+        "phy_w": 0.8448,
+        "phy_inside_die_w": 0.4224,
+        "phy_outside_die_w": 0.4224,
+        "from_port_rectangle_mm": [
+          37.022,
+          12.356,
+          41.022,
+          14.356
+        ],
+        "to_port_rectangle_mm": [
+          37.37,
+          14.888,
+          41.37,
+          16.887999999999998
+        ],
+        "wire_w": 0.97321,
+        "total_w": 1.81801
+      },
+      "P2": {
+        "utilization": 0.93,
+        "active_gb_s": 558.0,
+        "route_mm": 2.597,
+        "phy_w": 0.8928,
+        "phy_inside_die_w": 0.4464,
+        "phy_outside_die_w": 0.4464,
+        "from_port_rectangle_mm": [
+          32.072,
+          30.616,
+          34.072,
+          34.616
+        ],
+        "to_port_rectangle_mm": [
+          30.27,
+          30.411,
+          32.269999999999996,
+          34.411
+        ],
+        "wire_w": 0.927441,
+        "total_w": 1.820241
+      },
+      "P3": {
+        "utilization": 1.0,
+        "active_gb_s": 600.0,
+        "route_mm": 2.502,
+        "phy_w": 0.96,
+        "phy_inside_die_w": 0.48,
+        "phy_outside_die_w": 0.48,
+        "from_port_rectangle_mm": [
+          11.744,
+          26.611,
+          15.744,
+          28.611
+        ],
+        "to_port_rectangle_mm": [
+          11.997999999999998,
+          24.363,
+          15.997999999999998,
+          26.363
+        ],
+        "wire_w": 0.960768,
+        "total_w": 1.920768
+      },
+      "S0": {
+        "utilization": 0.68,
+        "active_gb_s": 204.0,
+        "route_mm": 2.215,
+        "phy_w": 0.3264,
+        "phy_inside_die_w": 0.1632,
+        "phy_outside_die_w": 0.1632,
+        "from_port_rectangle_mm": [
+          12.312999999999999,
+          12.759,
+          14.312999999999999,
+          14.759
+        ],
+        "to_port_rectangle_mm": [
+          12.997999999999998,
+          14.163,
+          14.997999999999998,
+          16.163
+        ],
+        "wire_w": 0.28919,
+        "total_w": 0.61559
+      },
+      "S1": {
+        "utilization": 0.62,
+        "active_gb_s": 186.0,
+        "route_mm": 2.548,
+        "phy_w": 0.2976,
+        "phy_inside_die_w": 0.1488,
+        "phy_outside_die_w": 0.1488,
+        "from_port_rectangle_mm": [
+          32.272,
+          7.106,
+          34.272,
+          9.106
+        ],
+        "to_port_rectangle_mm": [
+          30.434,
+          7.683999999999999,
+          32.434,
+          9.684
+        ],
+        "wire_w": 0.303314,
+        "total_w": 0.600914
+      },
+      "S2": {
+        "utilization": 0.72,
+        "active_gb_s": 216.0,
+        "route_mm": 1.97,
+        "phy_w": 0.3456,
+        "phy_inside_die_w": 0.1728,
+        "phy_outside_die_w": 0.1728,
+        "from_port_rectangle_mm": [
+          37.822,
+          26.366,
+          39.822,
+          28.366
+        ],
+        "to_port_rectangle_mm": [
+          38.37,
+          25.088,
+          40.37,
+          27.088
+        ],
+        "wire_w": 0.272333,
+        "total_w": 0.617933
+      },
+      "S3": {
+        "utilization": 0.75,
+        "active_gb_s": 225.0,
+        "route_mm": 2.048,
+        "phy_w": 0.36,
+        "phy_inside_die_w": 0.18,
+        "phy_outside_die_w": 0.18,
+        "from_port_rectangle_mm": [
+          18.494,
+          31.861000000000004,
+          20.494,
+          33.861000000000004
+        ],
+        "to_port_rectangle_mm": [
+          19.77,
+          31.411,
+          21.77,
+          33.411
+        ],
+        "wire_w": 0.294912,
+        "total_w": 0.654912
+      }
+    },
+    "base_w": 383.000000018,
+    "phy_w": 4.9392,
+    "phy_inside_die_w": 2.469600000000014,
+    "phy_outside_die_w": 2.4695997599999995,
+    "wire_w": 4.815702,
+    "total_w": 392.754901778
+  },
+  "mixed_serving": {
+    "link_breakdown": {
+      "P0": {
+        "utilization": 0.65,
+        "active_gb_s": 390.0,
+        "route_mm": 2.178,
+        "phy_w": 0.624,
+        "phy_inside_die_w": 0.312,
+        "phy_outside_die_w": 0.312,
+        "from_port_rectangle_mm": [
+          18.063,
+          6.509,
+          20.063,
+          10.509
+        ],
+        "to_port_rectangle_mm": [
+          19.934,
+          6.683999999999999,
+          21.934,
+          10.684
+        ],
+        "wire_w": 0.543629,
+        "total_w": 1.167629
+      },
+      "P1": {
+        "utilization": 0.72,
+        "active_gb_s": 432.0,
+        "route_mm": 2.88,
+        "phy_w": 0.6912,
+        "phy_inside_die_w": 0.3456,
+        "phy_outside_die_w": 0.3456,
+        "from_port_rectangle_mm": [
+          37.022,
+          12.356,
+          41.022,
+          14.356
+        ],
+        "to_port_rectangle_mm": [
+          37.37,
+          14.888,
+          41.37,
+          16.887999999999998
+        ],
+        "wire_w": 0.796262,
+        "total_w": 1.487462
+      },
+      "P2": {
+        "utilization": 0.48,
+        "active_gb_s": 288.0,
+        "route_mm": 2.597,
+        "phy_w": 0.4608,
+        "phy_inside_die_w": 0.2304,
+        "phy_outside_die_w": 0.2304,
+        "from_port_rectangle_mm": [
+          32.072,
+          30.616,
+          34.072,
+          34.616
+        ],
+        "to_port_rectangle_mm": [
+          30.27,
+          30.411,
+          32.269999999999996,
+          34.411
+        ],
+        "wire_w": 0.478679,
+        "total_w": 0.939479
+      },
+      "P3": {
+        "utilization": 0.58,
+        "active_gb_s": 348.0,
+        "route_mm": 2.502,
+        "phy_w": 0.5568,
+        "phy_inside_die_w": 0.2784,
+        "phy_outside_die_w": 0.2784,
+        "from_port_rectangle_mm": [
+          11.744,
+          26.611,
+          15.744,
+          28.611
+        ],
+        "to_port_rectangle_mm": [
+          11.997999999999998,
+          24.363,
+          15.997999999999998,
+          26.363
+        ],
+        "wire_w": 0.557245,
+        "total_w": 1.114045
+      },
+      "S0": {
+        "utilization": 0.38,
+        "active_gb_s": 114.0,
+        "route_mm": 2.215,
+        "phy_w": 0.1824,
+        "phy_inside_die_w": 0.0912,
+        "phy_outside_die_w": 0.0912,
+        "from_port_rectangle_mm": [
+          12.312999999999999,
+          12.759,
+          14.312999999999999,
+          14.759
+        ],
+        "to_port_rectangle_mm": [
+          12.997999999999998,
+          14.163,
+          14.997999999999998,
+          16.163
+        ],
+        "wire_w": 0.161606,
+        "total_w": 0.344006
+      },
+      "S1": {
+        "utilization": 0.36,
+        "active_gb_s": 108.0,
+        "route_mm": 2.548,
+        "phy_w": 0.1728,
+        "phy_inside_die_w": 0.0864,
+        "phy_outside_die_w": 0.0864,
+        "from_port_rectangle_mm": [
+          32.272,
+          7.106,
+          34.272,
+          9.106
+        ],
+        "to_port_rectangle_mm": [
+          30.434,
+          7.683999999999999,
+          32.434,
+          9.684
+        ],
+        "wire_w": 0.176118,
+        "total_w": 0.348918
+      },
+      "S2": {
+        "utilization": 0.56,
+        "active_gb_s": 168.0,
+        "route_mm": 1.97,
+        "phy_w": 0.2688,
+        "phy_inside_die_w": 0.1344,
+        "phy_outside_die_w": 0.1344,
+        "from_port_rectangle_mm": [
+          37.822,
+          26.366,
+          39.822,
+          28.366
+        ],
+        "to_port_rectangle_mm": [
+          38.37,
+          25.088,
+          40.37,
+          27.088
+        ],
+        "wire_w": 0.211814,
+        "total_w": 0.480614
+      },
+      "S3": {
+        "utilization": 0.41,
+        "active_gb_s": 123.0,
+        "route_mm": 2.048,
+        "phy_w": 0.1968,
+        "phy_inside_die_w": 0.0984,
+        "phy_outside_die_w": 0.0984,
+        "from_port_rectangle_mm": [
+          18.494,
+          31.861000000000004,
+          20.494,
+          33.861000000000004
+        ],
+        "to_port_rectangle_mm": [
+          19.77,
+          31.411,
+          21.77,
+          33.411
+        ],
+        "wire_w": 0.161219,
+        "total_w": 0.358019
+      }
+    },
+    "base_w": 344.000000004,
+    "phy_w": 3.1536,
+    "phy_inside_die_w": 1.5767999999999915,
+    "phy_outside_die_w": 1.5768007999999987,
+    "wire_w": 3.086572,
+    "total_w": 350.240172804
+  }
+}

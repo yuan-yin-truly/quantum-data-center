@@ -1,0 +1,25 @@
+{
+  "_note": "Error-correcting code models. Logical error per round: p_L = prefactor * (p_eff/threshold)^exponent(d). 'phys_per_logical' counts data + syndrome qubits of one logical patch. layout_overhead multiplies the patch count for routing space (lattice surgery). These are generic textbook-level fits, not a replacement for a circuit-level simulation.",
+  "surface": {
+    "label": "Rotated surface code",
+    "distances": "odd",
+    "prefactor": 0.1, "threshold": 0.01, "exponent": "(d+1)/2",
+    "phys_per_logical": "2*d*d - 1",
+    "logical_per_block": 1,
+    "needs_nonlocal": false,
+    "layout_overhead": 2.0,
+    "ccz_factory_tiles": 15, "ccz_factory_cycles_per_d": 5.5,
+    "source": "Fowler et al., PRA 86, 032324 (2012): p_L ~ 0.1 (p/p_th)^((d+1)/2), p_th ~ 1 %. 2d^2-1 qubits per rotated patch. CCZ factory footprint/time: order-of-magnitude from Gidney & Fowler (2019)."
+  },
+  "bivariate_bicycle": {
+    "label": "Bivariate-bicycle qLDPC ('gross' family)",
+    "distances": [6, 10, 12, 18],
+    "blocks": {"6": {"n": 72, "k": 12}, "10": {"n": 90, "k": 8}, "12": {"n": 144, "k": 12}, "18": {"n": 288, "k": 12}},
+    "prefactor": 0.1, "threshold": 0.008, "exponent": "d/2",
+    "phys_per_logical": "2*n/k",
+    "needs_nonlocal": true,
+    "layout_overhead": 1.5,
+    "ccz_factory_tiles": 15, "ccz_factory_cycles_per_d": 5.5,
+    "source": "Bravyi et al., Nature 627, 778 (2024): [[144,12,12]] gross code, 288 physical qubits for 12 logical. Threshold and prefactor are rough fits; needs long-range connectivity."
+  }
+}

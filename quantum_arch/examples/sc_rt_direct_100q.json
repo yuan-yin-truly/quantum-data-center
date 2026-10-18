@@ -1,0 +1,24 @@
+{
+  "name": "sc_rt_direct_100q",
+  "description": "Krinner-style transmon array, one coax per line, today's hardware",
+  "modality": "superconducting",
+  "profile": "today",
+  "scheme": "rt_direct",
+  "n_qubits": 100,
+  "classical": [
+    {
+      "role": "host",
+      "device": "cpu_epyc_96c",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "gpu_h100",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ]
+}

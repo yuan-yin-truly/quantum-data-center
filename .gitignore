@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Virtual environments (run_gui.bat creates .venv here)
+.venv/
+venv/
+env/
+
+# Tooling caches
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+
+# Simulation output. Runs are reproducible from a saved design, and each run
+# folder holds ~1 MB of HotSpot grids, so they do not belong in the history.
+gui_runs/
+*.grid
+*.steady
+*.sha256
+
+# ...but the challenge package ships reference results that must stay.
+!chiplet_thermal_continuous/example_outputs/**
+!chiplet_thermal_continuous/random_example/**
+
+# HotSpot build artefacts, in case a checkout is placed inside this tree
+hotspot
+hotspot.exe
+*.o
+*.a
+
+# Editors and OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Team page (web/) and local challenge files
+node_modules/
+data/

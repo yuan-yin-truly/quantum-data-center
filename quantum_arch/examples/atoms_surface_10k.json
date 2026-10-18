@@ -1,0 +1,24 @@
+{
+  "name": "atoms_surface_10k",
+  "description": "10k neutral atoms with the surface code, projected hardware",
+  "modality": "neutral_atom",
+  "profile": "projected",
+  "scheme": "ambient",
+  "n_qubits": 10000,
+  "classical": [
+    {
+      "role": "host",
+      "device": "cpu_epyc_96c",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "gpu_h100",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ]
+}

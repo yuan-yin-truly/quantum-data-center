@@ -1,0 +1,12 @@
+# Store everything with LF and check it out with LF, so the HotSpot input and
+# reference files stay byte-stable on every platform and do not churn in diffs.
+* text=auto eol=lf
+
+# Windows batch files are the exception: cmd.exe wants CRLF.
+*.bat text eol=crlf
+
+# Binary assets
+*.png binary
+*.jpg binary
+*.pdf binary
+*.zip binary

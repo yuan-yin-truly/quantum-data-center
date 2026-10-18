@@ -1,0 +1,485 @@
+{
+  "version": "prototype-4",
+  "description": "Synthetic challenge; die powers are base activity, link heat is added from per-workload traffic and route length; all technology coefficients are benchmark assumptions.",
+  "interposer_mm": [
+    52.0,
+    42.0
+  ],
+  "edge_clearance_mm": 1.0,
+  "minimum_die_gap_mm": 1.0,
+  "port_rule": {
+    "density_gb_s_per_mm": 150.0,
+    "usable_center_fraction_of_each_die_side": 0.6,
+    "minimum_gap_between_ports_mm": 0.4,
+    "route_grid_pitch_mm": 0.5,
+    "route_clearance_mm": 0.2,
+    "total_bandwidth_weighted_route_limit_gb_s_mm": 13500.0
+  },
+  "thermal_model": {
+    "ambient_c": 25.0,
+    "interposer_si_thickness_um": 500,
+    "die_si_thickness_um": 150,
+    "tim_thickness_um": 20,
+    "thermal_resistivity_si_mK_per_W": 0.0076923,
+    "thermal_resistivity_gap_mK_per_W": 2.0,
+    "thermal_resistivity_tim_mK_per_W": 0.25,
+    "cooling_contact_rect_mm": [
+      4.0,
+      4.0,
+      44.0,
+      34.0
+    ],
+    "outside_contact_resistivity_mK_per_W": 2.0,
+    "spreader_side_mm": 55,
+    "sink_side_mm": 60,
+    "cooling_resistance_K_per_W": 0.08,
+    "boundary_note": "Fixed 44 x 34 mm central high-conductance top contact; outside it, TIM has 2 m K/W resistivity. No additional side-edge or bottom convection. Synthetic contact heterogeneity, not a measured cooler."
+  },
+  "power_pixels_per_die_side": 16,
+  "reference_objectives_c": {
+    "worst_gpu_c": 104.59,
+    "worst_hbm_c": 97.68
+  },
+  "dies": {
+    "G0": {
+      "kind": "GPU",
+      "size_mm": [
+        11.5,
+        10.5
+      ],
+      "compute_hotspot_xy": [
+        0.25,
+        0.28
+      ],
+      "interface_hotspot_xy": [
+        0.8,
+        0.71
+      ]
+    },
+    "G1": {
+      "kind": "GPU",
+      "size_mm": [
+        11.5,
+        10.5
+      ],
+      "compute_hotspot_xy": [
+        0.73,
+        0.25
+      ],
+      "interface_hotspot_xy": [
+        0.18,
+        0.69
+      ]
+    },
+    "G2": {
+      "kind": "GPU",
+      "size_mm": [
+        11.5,
+        10.5
+      ],
+      "compute_hotspot_xy": [
+        0.7,
+        0.75
+      ],
+      "interface_hotspot_xy": [
+        0.22,
+        0.31
+      ]
+    },
+    "G3": {
+      "kind": "GPU",
+      "size_mm": [
+        11.5,
+        10.5
+      ],
+      "compute_hotspot_xy": [
+        0.27,
+        0.73
+      ],
+      "interface_hotspot_xy": [
+        0.77,
+        0.27
+      ]
+    },
+    "H0": {
+      "kind": "HBM",
+      "size_mm": [
+        10.5,
+        10.2
+      ],
+      "bank_hotspot_xy": [
+        0.35,
+        0.34
+      ],
+      "io_hotspot_xy": [
+        0.81,
+        0.62
+      ]
+    },
+    "H1": {
+      "kind": "HBM",
+      "size_mm": [
+        10.5,
+        10.2
+      ],
+      "bank_hotspot_xy": [
+        0.65,
+        0.31
+      ],
+      "io_hotspot_xy": [
+        0.2,
+        0.69
+      ]
+    },
+    "H2": {
+      "kind": "HBM",
+      "size_mm": [
+        10.5,
+        10.2
+      ],
+      "bank_hotspot_xy": [
+        0.63,
+        0.72
+      ],
+      "io_hotspot_xy": [
+        0.18,
+        0.34
+      ]
+    },
+    "H3": {
+      "kind": "HBM",
+      "size_mm": [
+        10.5,
+        10.2
+      ],
+      "bank_hotspot_xy": [
+        0.34,
+        0.68
+      ],
+      "io_hotspot_xy": [
+        0.82,
+        0.29
+      ]
+    }
+  },
+  "links": [
+    {
+      "id": "P0",
+      "from": "G0",
+      "to": "H0",
+      "gb_s": 600,
+      "max_route_mm": 5.0
+    },
+    {
+      "id": "P1",
+      "from": "G1",
+      "to": "H1",
+      "gb_s": 600,
+      "max_route_mm": 5.0
+    },
+    {
+      "id": "P2",
+      "from": "G2",
+      "to": "H2",
+      "gb_s": 600,
+      "max_route_mm": 5.0
+    },
+    {
+      "id": "P3",
+      "from": "G3",
+      "to": "H3",
+      "gb_s": 600,
+      "max_route_mm": 5.0
+    },
+    {
+      "id": "S0",
+      "from": "G0",
+      "to": "H3",
+      "gb_s": 300,
+      "max_route_mm": 6.0
+    },
+    {
+      "id": "S1",
+      "from": "G1",
+      "to": "H0",
+      "gb_s": 300,
+      "max_route_mm": 6.0
+    },
+    {
+      "id": "S2",
+      "from": "G2",
+      "to": "H1",
+      "gb_s": 300,
+      "max_route_mm": 6.0
+    },
+    {
+      "id": "S3",
+      "from": "G3",
+      "to": "H2",
+      "gb_s": 300,
+      "max_route_mm": 6.0
+    }
+  ],
+  "workloads": {
+    "tensor_training": {
+      "profile": "compute-heavy sustained tensor math",
+      "gpu_w": [
+        88,
+        94,
+        86,
+        90
+      ],
+      "hbm_w": [
+        10,
+        11,
+        10,
+        10
+      ],
+      "compute_hotspot_weight": 2.3,
+      "interface_hotspot_weight": 0.8,
+      "bank_hotspot_weight": 0.9,
+      "io_hotspot_weight": 0.7,
+      "link_utilization": {
+        "P0": 0.38,
+        "P1": 0.45,
+        "P2": 0.33,
+        "P3": 0.4,
+        "S0": 0.15,
+        "S1": 0.22,
+        "S2": 0.18,
+        "S3": 0.12
+      }
+    },
+    "skewed_compute": {
+      "profile": "compute-heavy asymmetric GPU allocation",
+      "gpu_w": [
+        104,
+        56,
+        92,
+        48
+      ],
+      "hbm_w": [
+        12,
+        10,
+        11,
+        9
+      ],
+      "compute_hotspot_weight": 3.0,
+      "interface_hotspot_weight": 0.6,
+      "bank_hotspot_weight": 1.0,
+      "io_hotspot_weight": 0.6,
+      "link_utilization": {
+        "P0": 0.6,
+        "P1": 0.2,
+        "P2": 0.5,
+        "P3": 0.16,
+        "S0": 0.22,
+        "S1": 0.1,
+        "S2": 0.19,
+        "S3": 0.08
+      }
+    },
+    "attention_decode": {
+      "profile": "memory-heavy token decode",
+      "gpu_w": [
+        53,
+        57,
+        50,
+        55
+      ],
+      "hbm_w": [
+        24,
+        26,
+        25,
+        23
+      ],
+      "compute_hotspot_weight": 0.9,
+      "interface_hotspot_weight": 2.0,
+      "bank_hotspot_weight": 2.4,
+      "io_hotspot_weight": 1.8,
+      "link_utilization": {
+        "P0": 0.78,
+        "P1": 0.92,
+        "P2": 0.8,
+        "P3": 0.86,
+        "S0": 0.48,
+        "S1": 0.65,
+        "S2": 0.52,
+        "S3": 0.58
+      }
+    },
+    "memory_stream": {
+      "profile": "memory-heavy streaming and cache misses",
+      "gpu_w": [
+        44,
+        46,
+        42,
+        48
+      ],
+      "hbm_w": [
+        51,
+        49,
+        50,
+        53
+      ],
+      "compute_hotspot_weight": 0.5,
+      "interface_hotspot_weight": 2.4,
+      "bank_hotspot_weight": 2.8,
+      "io_hotspot_weight": 2.0,
+      "link_utilization": {
+        "P0": 0.95,
+        "P1": 0.88,
+        "P2": 0.93,
+        "P3": 1.0,
+        "S0": 0.68,
+        "S1": 0.62,
+        "S2": 0.72,
+        "S3": 0.75
+      }
+    },
+    "mixed_serving": {
+      "profile": "asymmetric mixed compute and memory service",
+      "gpu_w": [
+        72,
+        79,
+        54,
+        63
+      ],
+      "hbm_w": [
+        18,
+        15,
+        24,
+        19
+      ],
+      "compute_hotspot_weight": 1.5,
+      "interface_hotspot_weight": 1.6,
+      "bank_hotspot_weight": 1.8,
+      "io_hotspot_weight": 1.2,
+      "link_utilization": {
+        "P0": 0.65,
+        "P1": 0.72,
+        "P2": 0.48,
+        "P3": 0.58,
+        "S0": 0.38,
+        "S1": 0.36,
+        "S2": 0.56,
+        "S3": 0.41
+      }
+    }
+  },
+  "example_layouts_mm": {
+    "ring_compact": {
+      "G0": [
+        7.0,
+        3.0
+      ],
+      "H0": [
+        20.2,
+        3.0
+      ],
+      "G1": [
+        32.4,
+        3.0
+      ],
+      "H1": [
+        33.4,
+        15.2
+      ],
+      "G2": [
+        32.4,
+        27.5
+      ],
+      "H2": [
+        20.2,
+        27.8
+      ],
+      "G3": [
+        7.0,
+        27.5
+      ],
+      "H3": [
+        7.5,
+        15.2
+      ]
+    },
+    "ring_center": {
+      "G0": [
+        8.0,
+        3.5
+      ],
+      "H0": [
+        21.0,
+        3.5
+      ],
+      "G1": [
+        33.0,
+        3.5
+      ],
+      "H1": [
+        33.5,
+        15.5
+      ],
+      "G2": [
+        33.0,
+        27.0
+      ],
+      "H2": [
+        21.0,
+        27.3
+      ],
+      "G3": [
+        8.0,
+        27.0
+      ],
+      "H3": [
+        8.4,
+        15.5
+      ]
+    },
+    "ring_spread": {
+      "G0": [
+        5.0,
+        2.0
+      ],
+      "H0": [
+        19.5,
+        2.0
+      ],
+      "G1": [
+        34.5,
+        2.0
+      ],
+      "H1": [
+        35.0,
+        14.8
+      ],
+      "G2": [
+        34.5,
+        29.0
+      ],
+      "H2": [
+        19.5,
+        29.1
+      ],
+      "G3": [
+        5.0,
+        29.0
+      ],
+      "H3": [
+        4.8,
+        14.8
+      ]
+    }
+  },
+  "interconnect_model": {
+    "phy_energy_total_pj_per_bit": 0.2,
+    "wire_energy_pj_per_bit_per_mm": 0.08,
+    "phy_split_gpu_fraction": 0.5,
+    "interposer_heat_tiles": [
+      52,
+      42
+    ],
+    "assumption": "Each endpoint PHY uniformly heats a reserved-length by 2 mm rectangle centered on its die edge, 1 mm inside and 1 mm outside; half of its PHY watts go into die-plane pixels and half into interposer tiles outside the die. Routed wire energy is uniform per route mm including port-to-track access and deposited into the interposer tile layer. Coefficients are synthetic.",
+    "port_heat_depth_each_side_mm": 1.0
+  }
+}

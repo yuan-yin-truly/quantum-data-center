@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" role="img" aria-label="Chiplet Thermal Studio: the Layout, Wires, Power traces and Simulation setup tabs all edit one design, which is validated by the challenge's own judge modules and solved by HotSpot into the Results tab.">
+  <title>Chiplet Thermal Studio workflow</title>
+  <defs>
+    <style>
+      .bg    { fill: #1b1b1f; }
+      .card  { fill: #26262c; stroke: #3d3d46; stroke-width: 1; }
+      .accent{ fill: #27343f; stroke: #3f5a70; stroke-width: 1; }
+      .judge { fill: #1f2b24; stroke: #3c5a46; stroke-width: 1; }
+      .h     { fill: #e4e4ea; font: 600 15px -apple-system, "Segoe UI", Roboto, sans-serif; }
+      .t     { fill: #d6d6dd; font: 600 13px -apple-system, "Segoe UI", Roboto, sans-serif; }
+      .s     { fill: #9a9aa4; font: 11px -apple-system, "Segoe UI", Roboto, sans-serif; }
+      .m     { fill: #8fd3a8; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .b     { fill: #7fb6e8; font: 600 11px -apple-system, "Segoe UI", Roboto, sans-serif; }
+      .arrow { stroke: #5a5a66; stroke-width: 1.5; fill: none; }
+    </style>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#5a5a66"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="900" height="300" rx="8"/>
+  <text class="h" x="30" y="36">Chiplet Thermal Studio</text>
+  <text class="s" x="30" y="55">One design: 4 GPU + 4 HBM chiplets on a 52 × 42 mm interposer</text>
+
+  <!-- the four editing tabs -->
+  <g>
+    <rect class="card" x="30" y="76" width="196" height="76" rx="6"/>
+    <text class="t" x="44" y="99">Layout</text>
+    <text class="s" x="44" y="118">drag chiplets, live legality,</text>
+    <text class="s" x="44" y="134">power and heat overlays</text>
+
+    <rect class="card" x="240" y="76" width="196" height="76" rx="6"/>
+    <text class="t" x="254" y="99">Wires</text>
+    <text class="s" x="254" y="118">draw routes on the 0.5 mm</text>
+    <text class="s" x="254" y="134">grid; reach and budget</text>
+
+    <rect class="card" x="450" y="76" width="196" height="76" rx="6"/>
+    <text class="t" x="464" y="99">Power traces</text>
+    <text class="s" x="464" y="118">per-die watts, hotspots,</text>
+    <text class="s" x="464" y="134">traffic, 16 × 16 maps</text>
+
+    <rect class="card" x="660" y="76" width="196" height="76" rx="6"/>
+    <text class="t" x="674" y="99">Simulation setup</text>
+    <text class="s" x="674" y="118">thermal stack, cooling,</text>
+    <text class="s" x="674" y="134">link energy, grid, jobs</text>
+  </g>
+
+  <path class="arrow" d="M 128 152 L 128 180" marker-end="url(#a)"/>
+  <path class="arrow" d="M 338 152 L 338 180" marker-end="url(#a)"/>
+  <path class="arrow" d="M 548 152 L 548 180" marker-end="url(#a)"/>
+  <path class="arrow" d="M 758 152 L 758 180" marker-end="url(#a)"/>
+
+  <rect class="judge" x="30" y="182" width="826" height="50" rx="6"/>
+  <text class="b" x="44" y="203">The challenge's own judge modules — not reimplemented</text>
+  <text class="m" x="44" y="221">geometry.py · interconnect.py · generate_workloads.py · run_simulations.py</text>
+
+  <path class="arrow" d="M 443 232 L 443 254" marker-end="url(#a)"/>
+
+  <rect class="accent" x="30" y="256" width="396" height="32" rx="6"/>
+  <text class="t" x="44" y="277">HotSpot</text>
+  <text class="s" x="114" y="277">5 workloads in parallel — ~85 s, not ~7 min</text>
+
+  <rect class="accent" x="460" y="256" width="396" height="32" rx="6"/>
+  <text class="t" x="474" y="277">Results</text>
+  <text class="s" x="542" y="277">worst GPU / worst HBM, score, Pareto</text>
+
+  <path class="arrow" d="M 426 272 L 454 272" marker-end="url(#a)"/>
+</svg>

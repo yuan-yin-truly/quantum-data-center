@@ -1,0 +1,489 @@
+{
+  "thermal_grid": 64,
+  "units": "temperatures are Celsius; routes are GB/s\u00b7mm",
+  "interconnect_enabled": true,
+  "interconnect_model": {
+    "phy_energy_total_pj_per_bit": 0.2,
+    "wire_energy_pj_per_bit_per_mm": 0.08,
+    "phy_split_gpu_fraction": 0.5,
+    "interposer_heat_tiles": [
+      52,
+      42
+    ],
+    "assumption": "Each endpoint PHY uniformly heats a reserved-length by 2 mm rectangle centered on its die edge, 1 mm inside and 1 mm outside; half of its PHY watts go into die-plane pixels and half into interposer tiles outside the die. Routed wire energy is uniform per route mm including port-to-track access and deposited into the interposer tile layer. Coefficients are synthetic.",
+    "port_heat_depth_each_side_mm": 1.0
+  },
+  "reference_objectives_c": {
+    "worst_gpu_c": 104.59,
+    "worst_hbm_c": 97.68
+  },
+  "note": "Base powers, link traffic, electrical coefficients and cooling parameters are synthetic challenge assumptions.",
+  "objectives": {
+    "random_layout": {
+      "worst_gpu_c": 104.59,
+      "worst_hbm_c": 97.68,
+      "weighted_route_gb_s_mm": 8728.5,
+      "leaderboard_score": 1.0
+    }
+  },
+  "per_layout_workload": {
+    "random_layout": {
+      "tensor_training": {
+        "gpu_peak_c": 102.21,
+        "hbm_peak_c": 87.05,
+        "die_peak_c": {
+          "G0": 100.05,
+          "H0": 87.05,
+          "G1": 102.21,
+          "H1": 81.41,
+          "G2": 99.23,
+          "H2": 86.57,
+          "G3": 100.79,
+          "H3": 81.05
+        },
+        "base_power_w": 399.0,
+        "total_power_w": 402.634765459,
+        "interconnect_phy_w": 1.8192,
+        "phy_inside_die_w": 0.9095999999999549,
+        "phy_outside_die_w": 0.9095994399999996,
+        "interconnect_wire_w": 1.815566
+      },
+      "skewed_compute": {
+        "gpu_peak_c": 104.59,
+        "hbm_peak_c": 81.97,
+        "die_peak_c": {
+          "G0": 104.59,
+          "H0": 81.97,
+          "G1": 82.94,
+          "H1": 75.03,
+          "G2": 98.67,
+          "H2": 78.95,
+          "G3": 79.21,
+          "H3": 76.25
+        },
+        "base_power_w": 342.0,
+        "total_power_w": 345.30594815300003,
+        "interconnect_phy_w": 1.6847999999999999,
+        "phy_inside_die_w": 0.8423999999999978,
+        "phy_outside_die_w": 0.8423991599999994,
+        "interconnect_wire_w": 1.621149
+      },
+      "attention_decode": {
+        "gpu_peak_c": 86.01,
+        "hbm_peak_c": 79.73,
+        "die_peak_c": {
+          "G0": 84.48,
+          "H0": 79.36,
+          "G1": 86.01,
+          "H1": 74.86,
+          "G2": 83.62,
+          "H2": 79.73,
+          "G3": 85.59,
+          "H3": 74.62
+        },
+        "base_power_w": 313.0,
+        "total_power_w": 321.53673472500003,
+        "interconnect_phy_w": 4.296,
+        "phy_inside_die_w": 2.1480000000000246,
+        "phy_outside_die_w": 2.148001719999998,
+        "interconnect_wire_w": 4.2407330000000005
+      },
+      "memory_stream": {
+        "gpu_peak_c": 96.89,
+        "hbm_peak_c": 97.68,
+        "die_peak_c": {
+          "G0": 94.98,
+          "H0": 97.68,
+          "G1": 94.97,
+          "H1": 93.03,
+          "G2": 93.57,
+          "H2": 96.73,
+          "G3": 96.89,
+          "H3": 95.97
+        },
+        "base_power_w": 383.0,
+        "total_power_w": 392.754901778,
+        "interconnect_phy_w": 4.9392,
+        "phy_inside_die_w": 2.469600000000014,
+        "phy_outside_die_w": 2.4695997599999995,
+        "interconnect_wire_w": 4.815702
+      },
+      "mixed_serving": {
+        "gpu_peak_c": 94.23,
+        "hbm_peak_c": 83.77,
+        "die_peak_c": {
+          "G0": 92.4,
+          "H0": 83.77,
+          "G1": 94.23,
+          "H1": 75.94,
+          "G2": 85.19,
+          "H2": 82.07,
+          "G3": 88.92,
+          "H3": 77.99
+        },
+        "base_power_w": 344.0,
+        "total_power_w": 350.240172804,
+        "interconnect_phy_w": 3.1536,
+        "phy_inside_die_w": 1.5767999999999915,
+        "phy_outside_die_w": 1.5768007999999987,
+        "interconnect_wire_w": 3.086572
+      },
+      "routing": {
+        "routes": {
+          "P0": {
+            "from": "G0",
+            "to": "H0",
+            "bandwidth_gb_s": 600,
+            "required_port_mm": 4.0,
+            "from_port": [
+              19.063,
+              8.509
+            ],
+            "to_port": [
+              20.934,
+              8.684
+            ],
+            "from_normal": [
+              1,
+              0
+            ],
+            "to_normal": [
+              -1,
+              0
+            ],
+            "route_length_mm": 2.178,
+            "limit_mm": 5.0,
+            "path_grid": [
+              [
+                39,
+                17
+              ],
+              [
+                40,
+                17
+              ]
+            ]
+          },
+          "P1": {
+            "from": "G1",
+            "to": "H1",
+            "bandwidth_gb_s": 600,
+            "required_port_mm": 4.0,
+            "from_port": [
+              39.022,
+              13.356
+            ],
+            "to_port": [
+              39.37,
+              15.888
+            ],
+            "from_normal": [
+              0,
+              1
+            ],
+            "to_normal": [
+              0,
+              -1
+            ],
+            "route_length_mm": 2.88,
+            "limit_mm": 5.0,
+            "path_grid": [
+              [
+                78,
+                28
+              ],
+              [
+                78,
+                29
+              ],
+              [
+                78,
+                30
+              ]
+            ]
+          },
+          "P2": {
+            "from": "G2",
+            "to": "H2",
+            "bandwidth_gb_s": 600,
+            "required_port_mm": 4.0,
+            "from_port": [
+              33.072,
+              32.616
+            ],
+            "to_port": [
+              31.27,
+              32.411
+            ],
+            "from_normal": [
+              -1,
+              0
+            ],
+            "to_normal": [
+              1,
+              0
+            ],
+            "route_length_mm": 2.597,
+            "limit_mm": 5.0,
+            "path_grid": [
+              [
+                64,
+                65
+              ],
+              [
+                63,
+                65
+              ],
+              [
+                63,
+                64
+              ]
+            ]
+          },
+          "P3": {
+            "from": "G3",
+            "to": "H3",
+            "bandwidth_gb_s": 600,
+            "required_port_mm": 4.0,
+            "from_port": [
+              13.744,
+              27.611
+            ],
+            "to_port": [
+              13.997999999999998,
+              25.363
+            ],
+            "from_normal": [
+              0,
+              -1
+            ],
+            "to_normal": [
+              0,
+              1
+            ],
+            "route_length_mm": 2.502,
+            "limit_mm": 5.0,
+            "path_grid": [
+              [
+                27,
+                53
+              ],
+              [
+                27,
+                52
+              ]
+            ]
+          },
+          "S0": {
+            "from": "G0",
+            "to": "H3",
+            "bandwidth_gb_s": 300,
+            "required_port_mm": 2.0,
+            "from_port": [
+              13.312999999999999,
+              13.759
+            ],
+            "to_port": [
+              13.997999999999998,
+              15.163
+            ],
+            "from_normal": [
+              0,
+              1
+            ],
+            "to_normal": [
+              0,
+              -1
+            ],
+            "route_length_mm": 2.215,
+            "limit_mm": 6.0,
+            "path_grid": [
+              [
+                26,
+                28
+              ],
+              [
+                27,
+                28
+              ]
+            ]
+          },
+          "S1": {
+            "from": "G1",
+            "to": "H0",
+            "bandwidth_gb_s": 300,
+            "required_port_mm": 2.0,
+            "from_port": [
+              33.272,
+              8.106
+            ],
+            "to_port": [
+              31.434,
+              8.684
+            ],
+            "from_normal": [
+              -1,
+              0
+            ],
+            "to_normal": [
+              1,
+              0
+            ],
+            "route_length_mm": 2.548,
+            "limit_mm": 6.0,
+            "path_grid": [
+              [
+                65,
+                16
+              ],
+              [
+                64,
+                16
+              ],
+              [
+                64,
+                17
+              ]
+            ]
+          },
+          "S2": {
+            "from": "G2",
+            "to": "H1",
+            "bandwidth_gb_s": 300,
+            "required_port_mm": 2.0,
+            "from_port": [
+              38.822,
+              27.366
+            ],
+            "to_port": [
+              39.37,
+              26.088
+            ],
+            "from_normal": [
+              0,
+              -1
+            ],
+            "to_normal": [
+              0,
+              1
+            ],
+            "route_length_mm": 1.97,
+            "limit_mm": 6.0,
+            "path_grid": [
+              [
+                77,
+                53
+              ],
+              [
+                78,
+                53
+              ]
+            ]
+          },
+          "S3": {
+            "from": "G3",
+            "to": "H2",
+            "bandwidth_gb_s": 300,
+            "required_port_mm": 2.0,
+            "from_port": [
+              19.494,
+              32.861000000000004
+            ],
+            "to_port": [
+              20.77,
+              32.411
+            ],
+            "from_normal": [
+              1,
+              0
+            ],
+            "to_normal": [
+              -1,
+              0
+            ],
+            "route_length_mm": 2.048,
+            "limit_mm": 6.0,
+            "path_grid": [
+              [
+                40,
+                65
+              ],
+              [
+                40,
+                64
+              ]
+            ]
+          }
+        },
+        "die_edge_capacity": {
+          "G0.right": {
+            "reserved_mm_including_gaps": 4.0,
+            "available_mm": 6.3
+          },
+          "H0.left": {
+            "reserved_mm_including_gaps": 4.0,
+            "available_mm": 6.12
+          },
+          "G1.top": {
+            "reserved_mm_including_gaps": 4.0,
+            "available_mm": 6.9
+          },
+          "H1.bottom": {
+            "reserved_mm_including_gaps": 4.0,
+            "available_mm": 6.3
+          },
+          "G2.left": {
+            "reserved_mm_including_gaps": 4.0,
+            "available_mm": 6.3
+          },
+          "H2.right": {
+            "reserved_mm_including_gaps": 4.0,
+            "available_mm": 6.12
+          },
+          "G3.bottom": {
+            "reserved_mm_including_gaps": 4.0,
+            "available_mm": 6.9
+          },
+          "H3.top": {
+            "reserved_mm_including_gaps": 4.0,
+            "available_mm": 6.3
+          },
+          "G0.top": {
+            "reserved_mm_including_gaps": 2.0,
+            "available_mm": 6.9
+          },
+          "H3.bottom": {
+            "reserved_mm_including_gaps": 2.0,
+            "available_mm": 6.3
+          },
+          "G1.left": {
+            "reserved_mm_including_gaps": 2.0,
+            "available_mm": 6.3
+          },
+          "H0.right": {
+            "reserved_mm_including_gaps": 2.0,
+            "available_mm": 6.12
+          },
+          "G2.bottom": {
+            "reserved_mm_including_gaps": 2.0,
+            "available_mm": 6.9
+          },
+          "H1.top": {
+            "reserved_mm_including_gaps": 2.0,
+            "available_mm": 6.3
+          },
+          "G3.right": {
+            "reserved_mm_including_gaps": 2.0,
+            "available_mm": 6.3
+          },
+          "H2.left": {
+            "reserved_mm_including_gaps": 2.0,
+            "available_mm": 6.12
+          }
+        },
+        "weighted_route_gb_s_mm": 8728.5,
+        "route_limit_gb_s_mm": 13500.0
+      }
+    }
+  }
+}

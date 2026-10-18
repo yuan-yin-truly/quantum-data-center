@@ -1,0 +1,24 @@
+{
+  "name": "ion_qccd_100q",
+  "description": "100 trapped ions, room-temperature UHV trap, today's hardware",
+  "modality": "trapped_ion",
+  "profile": "today",
+  "scheme": "ambient",
+  "n_qubits": 100,
+  "classical": [
+    {
+      "role": "host",
+      "device": "cpu_epyc_96c",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "gpu_h100",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ]
+}

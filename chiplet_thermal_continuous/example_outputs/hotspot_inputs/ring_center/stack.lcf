@@ -1,0 +1,22 @@
+# LCF order: Si interposer, heterogeneous active die plane, TIM to top heat sink
+0
+Y
+N
+1.75e6
+0.0076923
+0.0005
+interposer.flp
+1
+Y
+Y
+1.75e6
+0.0076923
+0.00015
+chiplets.flp
+2
+Y
+N
+4.0e6
+0.25
+2e-05
+tim.flp

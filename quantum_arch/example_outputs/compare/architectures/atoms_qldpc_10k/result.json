@@ -1,0 +1,148 @@
+{
+  "name": "atoms_qldpc_10k",
+  "modality": "Neutral atoms in optical tweezers (Rydberg gates)",
+  "scheme": "Room-temperature UHV cell, laser/AOD control",
+  "profile": "projected",
+  "n_qubits": 10000,
+  "error_budget": {
+    "syndrome_cycle_s": 0.0014036,
+    "p_eff": 0.002675,
+    "lambda": 2.990654205607477,
+    "parts": {
+      "two_qubit": 0.001,
+      "single_qubit": 0.0005,
+      "measurement": 0.0005,
+      "reset": 0.0005,
+      "idle": 0.000175
+    }
+  },
+  "computing": {
+    "feasible": false,
+    "reason": "target 1e-09 needs a distance above 101",
+    "code": "Bivariate-bicycle qLDPC ('gross' family)",
+    "distance": null,
+    "logical_qubits": 0,
+    "logical_clock_hz": 0.0,
+    "rqops": 0.0,
+    "logical_error_per_op": null,
+    "target_logical_error": 1e-09
+  },
+  "decoder": {
+    "decoder": null
+  },
+  "power_w": {
+    "classical host / optimiser": 1448.0,
+    "lasers, vacuum, apparatus": 20000.0
+  },
+  "total_power_w": 21448.0,
+  "facility_power_w": 25737.6,
+  "metrics": {
+    "physical_qubits": 10000,
+    "syndrome_cycle_s": 0.0014036,
+    "p_eff": 0.002675,
+    "lambda": 2.990654205607477,
+    "peak_2q_gate_rate_hz": 12499999999.999998,
+    "energy_per_2q_gate_j": 1.7158400000000002e-06,
+    "total_power_w": 21448.0,
+    "facility_power_w": 25737.6,
+    "logical_qubits": 0,
+    "code_distance": 0,
+    "logical_clock_hz": 0.0,
+    "rqops": 0.0,
+    "logical_error_per_op": null,
+    "energy_per_logical_op_j": null,
+    "n_lines": 0,
+    "fridge_units": 0
+  },
+  "classical_blocks": [
+    {
+      "role": "host",
+      "device": "96-core server CPU",
+      "count": 2,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 356.0,
+      "keeps_up": true
+    },
+    {
+      "role": "optimizer",
+      "device": "H100-class GPU",
+      "count": 4,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 1092.0,
+      "keeps_up": true
+    }
+  ],
+  "line_counts": {},
+  "workloads": {
+    "shor_rsa2048": {
+      "label": "Shor, RSA-2048",
+      "type": "fault_tolerant",
+      "feasible": false,
+      "reason": "10,000 qubits hold only 208 tiles at d=18; the algorithm needs 2,100 plus a 15-tile factory",
+      "reference_qubits": 0,
+      "classical_ops": 6e+35,
+      "classical_energy_j": 2.9999999999999996e+25,
+      "classical_energy": "8.33e+12 GWh"
+    },
+    "femoco_thc": {
+      "label": "FeMoco ground-state energy (THC qubitization)",
+      "type": "fault_tolerant",
+      "feasible": false,
+      "reason": "10,000 qubits hold only 208 tiles at d=18; the algorithm needs 3,294 plus a 15-tile factory",
+      "reference_qubits": 0
+    },
+    "chemistry_small": {
+      "label": "Small active-space chemistry (100 logical qubits)",
+      "type": "fault_tolerant",
+      "feasible": false,
+      "reason": "d=18: total logical error 3.36e+06 exceeds the budget 1e-01",
+      "reference_qubits": 0
+    },
+    "vqe_50q": {
+      "label": "Variational solver, 50 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.2017248509935864,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 0.002628,
+      "quantum_time_per_iter_s": 52.56,
+      "classical_time_per_iter_s": 0.029411764705882353,
+      "runtime_s": 26295.20588235294,
+      "runtime": "7.3 h",
+      "classical_duty": 0.0005592609701835606,
+      "power_w": 20717.36459676725,
+      "energy_j": 544767367.4117647,
+      "energy": "151 kWh",
+      "classical_sim_memory_bytes": 1.8014398509481984e+16,
+      "classical_note": "state-vector simulation needs 1.8e+04 TB, more than the 1.5 TB reference node"
+    },
+    "vqe_20q": {
+      "label": "Variational solver, 20 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.7116349900201143,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 0.0018640000000000002,
+      "quantum_time_per_iter_s": 18.64,
+      "classical_time_per_iter_s": 0.007352941176470588,
+      "runtime_s": 9324.176470588236,
+      "runtime": "2.59 h",
+      "classical_duty": 0.00039429440228122965,
+      "power_w": 20716.962078341567,
+      "energy_j": 193168610.3529412,
+      "energy": "53.7 kWh",
+      "classical_sim_memory_bytes": 16777216.0,
+      "classical_ops": 1363148800000.0,
+      "classical_energy_j": 68.15744,
+      "classical_energy": "68.2 J",
+      "energy_advantage": 3.528391071171892e-07
+    }
+  },
+  "warnings": [
+    "no error-corrected computing: target 1e-09 needs a distance above 101"
+  ],
+  "plates": [],
+  "plate_notes": []
+}

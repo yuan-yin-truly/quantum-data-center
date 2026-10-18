@@ -1,0 +1,24 @@
+{
+  "name": "ion_cryo4k_2k",
+  "description": "2k trapped ions on a 4 K surface trap, projected hardware",
+  "modality": "trapped_ion",
+  "profile": "projected",
+  "scheme": "cryo_4k",
+  "n_qubits": 2000,
+  "classical": [
+    {
+      "role": "host",
+      "device": "cpu_epyc_96c",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "gpu_h100",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ]
+}

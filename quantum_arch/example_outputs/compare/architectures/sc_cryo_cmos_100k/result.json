@@ -1,0 +1,302 @@
+{
+  "name": "sc_cryo_cmos_100k",
+  "modality": "Superconducting transmons",
+  "scheme": "Cryo-CMOS controller at 4 K, flex cabling to the mixing chamber",
+  "profile": "projected",
+  "n_qubits": 100000,
+  "error_budget": {
+    "syndrome_cycle_s": 7.7e-07,
+    "p_eff": 0.0015249999999999999,
+    "lambda": 6.557377049180329,
+    "parts": {
+      "two_qubit": 0.0005,
+      "single_qubit": 2.5e-05,
+      "measurement": 0.0005,
+      "reset": 0.00025,
+      "idle": 0.00025000000000000006
+    }
+  },
+  "computing": {
+    "feasible": true,
+    "reason": "ok",
+    "code": "Rotated surface code",
+    "distance": 31,
+    "logical_qubits": 18,
+    "logical_clock_hz": 41893.59028068706,
+    "rqops": 754084.6250523671,
+    "logical_error_per_op": 2.6526453661633676e-13,
+    "target_logical_error": 1e-12
+  },
+  "decoder": {
+    "decoder": "union_find",
+    "syndrome_bits_per_s": 64864935064.93506,
+    "required_ops_per_s": 19459480519480.516,
+    "latency_s": 6.2e-06,
+    "reaction_time_s": 6.9e-06
+  },
+  "power_w": {
+    "cryostat (installed)": 2700000.0,
+    "room-temperature control electronics": 37500.0,
+    "decoders": 411.8922077922077,
+    "classical host / optimiser": 1448.0,
+    "data links": 0.6486493506493506
+  },
+  "total_power_w": 2739360.540857143,
+  "facility_power_w": 3287232.6490285713,
+  "metrics": {
+    "physical_qubits": 100000,
+    "syndrome_cycle_s": 7.7e-07,
+    "p_eff": 0.0015249999999999999,
+    "lambda": 6.557377049180329,
+    "peak_2q_gate_rate_hz": 1666666666666.6665,
+    "energy_per_2q_gate_j": 1.6436163245142857e-06,
+    "total_power_w": 2739360.540857143,
+    "facility_power_w": 3287232.6490285713,
+    "logical_qubits": 18,
+    "code_distance": 31,
+    "logical_clock_hz": 41893.59028068706,
+    "rqops": 754084.6250523671,
+    "logical_error_per_op": 2.6526453661633676e-13,
+    "energy_per_logical_op_j": 3.6326964505699992,
+    "n_lines": 3125,
+    "fridge_units": 27
+  },
+  "classical_blocks": [
+    {
+      "role": "decoder",
+      "device": "Large FPGA (decoder fabric)",
+      "count": 4,
+      "location": "RT",
+      "utilisation": 0.8108116883116882,
+      "power_w": 411.8922077922077,
+      "keeps_up": true
+    },
+    {
+      "role": "host",
+      "device": "96-core server CPU",
+      "count": 2,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 356.0,
+      "keeps_up": true
+    },
+    {
+      "role": "optimizer",
+      "device": "H100-class GPU",
+      "count": 4,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 1092.0,
+      "keeps_up": true
+    }
+  ],
+  "line_counts": {
+    "digital_link": 3125,
+    "drive": 100000,
+    "flux": 100000,
+    "coupler": 175000,
+    "readout_in": 12500,
+    "readout_out": 12500,
+    "pump": 12500
+  },
+  "workloads": {
+    "shor_rsa2048": {
+      "label": "Shor, RSA-2048",
+      "type": "fault_tolerant",
+      "feasible": false,
+      "reason": "100,000 qubits hold only 4 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory; a reference design (10 factories) needs about 7,224,550 physical qubits",
+      "reference_qubits": 7224550,
+      "classical_ops": 6e+35,
+      "classical_energy_j": 2.9999999999999996e+25,
+      "classical_energy": "8.33e+12 GWh"
+    },
+    "femoco_thc": {
+      "label": "FeMoco ground-state energy (THC qubitization)",
+      "type": "fault_tolerant",
+      "feasible": false,
+      "reason": "100,000 qubits hold only 4 tiles at d=101; the algorithm needs 4,392 plus a 15-tile factory; a reference design (10 factories) needs about 12,431,454 physical qubits",
+      "reference_qubits": 12431454
+    },
+    "chemistry_small": {
+      "label": "Small active-space chemistry (100 logical qubits)",
+      "type": "fault_tolerant",
+      "feasible": false,
+      "reason": "100,000 qubits hold only 4 tiles at d=101; the algorithm needs 200 plus a 15-tile factory; a reference design (10 factories) needs about 588,350 physical qubits",
+      "reference_qubits": 588350
+    },
+    "vqe_50q": {
+      "label": "Variational solver, 50 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.6702101866231345,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 1.7000000000000002e-06,
+      "quantum_time_per_iter_s": 0.034,
+      "classical_time_per_iter_s": 0.029411764705882353,
+      "runtime_s": 32.20588235294118,
+      "runtime": "32.2 s",
+      "classical_duty": 0.45662100456620996,
+      "power_w": 2739742.6961082844,
+      "energy_j": 88235830.9481933,
+      "energy": "24.5 kWh",
+      "classical_sim_memory_bytes": 1.8014398509481984e+16,
+      "classical_note": "state-vector simulation needs 1.8e+04 TB, more than the 1.5 TB reference node"
+    },
+    "vqe_20q": {
+      "label": "Variational solver, 20 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.904789637014166,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 1.15e-06,
+      "quantum_time_per_iter_s": 0.0115,
+      "classical_time_per_iter_s": 0.007352941176470588,
+      "runtime_s": 9.926470588235293,
+      "runtime": "9.93 s",
+      "classical_duty": 0.3703703703703704,
+      "power_w": 2739532.2445608466,
+      "energy_j": 27193886.251155462,
+      "energy": "7.55 kWh",
+      "classical_sim_memory_bytes": 16777216.0,
+      "classical_ops": 1363148800000.0,
+      "classical_energy_j": 68.15744,
+      "classical_energy": "68.2 J",
+      "energy_advantage": 2.5063515883870407e-06
+    }
+  },
+  "warnings": [
+    "4K stage overloaded: 400 W against 15 W at 4.2 K (would settle at 38.9 K); needs 27 fridge units",
+    "CP stage overloaded: 9.92 mW against 2 mW at 0.14 K (would settle at 0.266 K); needs 5 fridge units",
+    "MXC stage overloaded: 2.15 mW against 190 \u00b5W at 0.02 K (would settle at 0.0645 K); needs 12 fridge units",
+    "heat load needs 27 fridge units for one processor"
+  ],
+  "cryostat": {
+    "type": "Dry dilution refrigerator (XLD400-class)",
+    "units_needed": 27,
+    "units_for_heat": 27,
+    "units_for_lines": 1,
+    "n_lines": 3125,
+    "wall_power_w": 2700000.0,
+    "carnot_floor_w": 2721.0764605647537,
+    "stages": [
+      {
+        "name": "50K",
+        "target_k": 45.0,
+        "temperature_k": 45.0,
+        "load_w": 0.16009357737748797,
+        "capacity_w": 300.0,
+        "utilisation": 0.0005336452579249599,
+        "passive_w": 0.16009357737748797,
+        "active_w": 0,
+        "components_w": 0.0,
+        "sources_w": {
+          "passive: digital_link": 0.16009357737748797
+        }
+      },
+      {
+        "name": "4K",
+        "target_k": 4.2,
+        "temperature_k": 38.85052056218701,
+        "load_w": 400.0057840243,
+        "capacity_w": 14.999999999999998,
+        "utilisation": 26.66705226828667,
+        "passive_w": 0.00570252289281209,
+        "active_w": 8.15014071742615e-05,
+        "components_w": 400.0,
+        "sources_w": {
+          "component: cryo-CMOS controller (drive + flux DACs + readout)": 300.0,
+          "component: HEMT amplifiers (1 per feedline)": 100.0,
+          "passive: digital_link": 0.00570252289281209,
+          "active: drive": 6.522791306706265e-05,
+          "active: readout_in": 5.144503851847341e-09,
+          "active: pump": 1.6268349603347012e-05
+        }
+      },
+      {
+        "name": "Still",
+        "target_k": 1.2,
+        "temperature_k": 1.2,
+        "load_w": 0.04082024761051312,
+        "capacity_w": 0.4,
+        "utilisation": 0.1020506190262828,
+        "passive_w": 0.04068104762570847,
+        "active_w": 0.0001391999848046551,
+        "components_w": -1.0299920638612292e-18,
+        "sources_w": {
+          "passive: drive": 0.0012142546216039824,
+          "active: drive": 0.00011140573914706469,
+          "passive: flux": 0.0012142546216039824,
+          "passive: coupler": 0.002124945587806969,
+          "passive: readout_in": 0.0001517818277004978,
+          "active: readout_in": 8.786533666510627e-09,
+          "passive: readout_out": 0.03582402913929254,
+          "passive: pump": 0.0001517818277004978,
+          "active: pump": 2.7785459123923893e-05
+        }
+      },
+      {
+        "name": "CP",
+        "target_k": 0.14,
+        "temperature_k": 0.2657365565763501,
+        "load_w": 0.0099241872477564,
+        "capacity_w": 0.002,
+        "utilisation": 4.9620936238782,
+        "passive_w": 0.005242294301470587,
+        "active_w": 0.004681892946285814,
+        "components_w": -8.673617379884035e-19,
+        "sources_w": {
+          "passive: drive": 0.00015666176470588233,
+          "active: drive": 7.886922338536336e-05,
+          "passive: flux": 0.00015666176470588233,
+          "active: flux": 0.0016666666666666663,
+          "passive: coupler": 0.00027415808823529406,
+          "active: coupler": 0.002916666666666666,
+          "passive: readout_in": 1.958272058823529e-05,
+          "active: readout_in": 1.9790913157058497e-08,
+          "passive: readout_out": 0.0046156472426470575,
+          "passive: pump": 1.958272058823529e-05,
+          "active: pump": 1.9670598653959704e-05
+        }
+      },
+      {
+        "name": "MXC",
+        "target_k": 0.02,
+        "temperature_k": 0.06449908422039582,
+        "load_w": 0.0021527061934100158,
+        "capacity_w": 0.00019,
+        "utilisation": 11.330032596894819,
+        "passive_w": 8.604642857142859e-05,
+        "active_w": 0.002066659764838587,
+        "components_w": 0.0,
+        "sources_w": {
+          "passive: drive": 2.5714285714285716e-06,
+          "active: drive": 0.00018959582335901172,
+          "passive: flux": 2.5714285714285716e-06,
+          "active: flux": 0.0006666666666666666,
+          "passive: coupler": 4.5e-06,
+          "active: coupler": 0.0011666666666666668,
+          "passive: readout_in": 3.2142857142857145e-07,
+          "active: readout_in": 1.4953359653892218e-09,
+          "passive: readout_out": 7.57607142857143e-05,
+          "passive: pump": 3.2142857142857145e-07,
+          "active: pump": 4.372911281027708e-05
+        }
+      }
+    ]
+  },
+  "plates": [
+    {
+      "name": "qubit chip @ MXC",
+      "stage_k": 0.06449908422039582,
+      "t_max_k": 0.06479578950395863,
+      "rise_max_k": 0.00029670528356280645,
+      "rise_mean_k": 0.00019626922220750131,
+      "peak_power_density_w_per_cm2": 7.75153991971939e-08,
+      "injected_w": 5.537752767671588e-06,
+      "removed_w": 5.537752914834342e-06
+    }
+  ],
+  "plate_notes": [
+    "4K: cold electronics (300 W) exceed 10x the stage capacity; spatial map skipped"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "atoms_qldpc_10k",
+  "description": "10k neutral atoms with a qLDPC code, BP+OSD decoder, projected hardware",
+  "modality": "neutral_atom",
+  "profile": "projected",
+  "scheme": "ambient",
+  "n_qubits": 10000,
+  "qec": {
+    "code": "bivariate_bicycle",
+    "decoder": "bp_osd",
+    "target_logical_error": 1e-09
+  },
+  "classical": [
+    {
+      "role": "host",
+      "device": "cpu_epyc_96c",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "gpu_h100",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ]
+}
