@@ -1,6 +1,6 @@
 // Napkin fleet model: users -> peak tokens/s -> GPUs -> racks -> MW -> $.
 // It follows the brief's own decode math (Brief p.10) so its numbers can be checked
-// by hand. It stands in for the organizers' score.py until we have it.
+// by hand.
 
 import {
   CASES,

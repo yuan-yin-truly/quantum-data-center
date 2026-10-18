@@ -1,6 +1,8 @@
 {
   "presets": [
-    "ui_demo"
+    "case_A_prompters",
+    "case_B_agents",
+    "case_C_knowledge"
   ],
   "profiles": [
     {
@@ -220,18 +222,12 @@
       "note": "Estimated throughput, not an observed queue result. 2035 anchor; no earlier quantum availability inferred."
     }
   ],
-  "generated_at": "2026-10-18T20:21:37.118156+00:00",
+  "generated_at": "2026-10-18T21:04:31.629288+00:00",
   "seed": 7,
-  "available_live_presets": [
-    "case_A_prompters",
-    "case_B_agents",
-    "case_C_knowledge",
-    "failure_overload_stress",
-    "mixed_hybrid_day",
-    "morning_peak",
-    "qpu_contention_burst",
-    "quantum_heavy_research",
-    "ui_demo"
-  ],
-  "mode": "saved-python-engine-results"
+  "cases": {
+    "A": "case_A_prompters",
+    "B": "case_B_agents",
+    "C": "case_C_knowledge"
+  },
+  "mode": "saved-model-results-not-measurements"
 }

@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <title id="t">Hybrid data center: how work flows</title>
+  <desc id="d">Agent developers send work to a task router. LLM steps go to classical token serving: GPU racks, LPU racks and a context-memory tier. Agent tool calls go to a CPU sandbox, a GPU sandbox for classical simulation, or a QPU wing for chemistry and materials.</desc>
+  <defs>
+    <marker id="a-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#22d3ee"/></marker>
+    <marker id="a-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8691aa"/></marker>
+    <marker id="a-mag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d946ef"/></marker>
+  </defs>
+
+  <rect width="1200" height="660" rx="18" fill="#0c111d"/>
+
+  <!-- Heading -->
+  <text x="40" y="50" fill="#ebeff7" font-size="22" font-weight="700">How work flows in the hybrid data center</text>
+  <text x="40" y="76" fill="#b3bccf" font-size="14">Tokens stay on classical chips. The router sends each agent tool call to the machine that answers it for the least energy and cost.</text>
+
+  <!-- Users -->
+  <rect x="40" y="262" width="200" height="116" rx="12" fill="#111828" stroke="rgba(255,255,255,0.14)"/>
+  <text x="60" y="296" fill="#ebeff7" font-size="16" font-weight="650">Agent developers</text>
+  <text x="60" y="320" fill="#b3bccf" font-size="13">50M users</text>
+  <text x="60" y="340" fill="#b3bccf" font-size="13">12 interactive + 30</text>
+  <text x="60" y="358" fill="#b3bccf" font-size="13">background tasks a day</text>
+  <path d="M240 320 H292" stroke="#8691aa" stroke-width="2" fill="none" marker-end="url(#a-grey)"/>
+
+  <!-- Router -->
+  <rect x="300" y="226" width="240" height="188" rx="12" fill="#111828" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="322" y="260" fill="#ebeff7" font-size="18" font-weight="700">Task router</text>
+  <text x="322" y="286" fill="#8691aa" font-size="13">For every step or tool call:</text>
+  <text x="322" y="312" fill="#b3bccf" font-size="13">• Can a QPU do it at all?</text>
+  <text x="322" y="334" fill="#b3bccf" font-size="13">• Energy per accepted answer</text>
+  <text x="322" y="356" fill="#b3bccf" font-size="13">• Dollars per answer</text>
+  <text x="322" y="378" fill="#b3bccf" font-size="13">• Deadline (4 h for background)</text>
+  <text x="322" y="400" fill="#8691aa" font-size="12">QPU queues fit inside that slack</text>
+
+  <!-- Trunk and branches -->
+  <path d="M540 320 H590" stroke="#8691aa" stroke-width="2" fill="none"/>
+  <path d="M590 200 V566" stroke="#8691aa" stroke-width="2" fill="none"/>
+  <path d="M590 200 H632" stroke="#22d3ee" stroke-width="2.5" fill="none" marker-end="url(#a-cyan)"/>
+  <text x="582" y="204" fill="#22d3ee" font-size="12" font-weight="600" text-anchor="end">LLM steps</text>
+  <path d="M590 414 H648" stroke="#8691aa" stroke-width="2" fill="none" marker-end="url(#a-grey)"/>
+  <text x="582" y="432" fill="#8691aa" font-size="12" font-weight="600" text-anchor="end">tool calls</text>
+  <path d="M590 490 H648" stroke="#8691aa" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-grey)"/>
+  <path d="M590 566 H648" stroke="#d946ef" stroke-width="3" fill="none" marker-end="url(#a-mag)"/>
+
+  <!-- Token serving -->
+  <rect x="640" y="104" width="520" height="196" rx="14" fill="none" stroke="rgba(34,211,238,0.35)" stroke-dasharray="2 0"/>
+  <text x="660" y="132" fill="#22d3ee" font-size="12" font-weight="700" letter-spacing="1.2">TOKEN SERVING</text>
+  <text x="790" y="132" fill="#8691aa" font-size="12">limited by memory bandwidth · classical only</text>
+
+  <rect x="656" y="150" width="152" height="130" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
+  <text x="672" y="180" fill="#ebeff7" font-size="15" font-weight="650">GPU racks</text>
+  <text x="672" y="204" fill="#b3bccf" font-size="13">prefill + decode</text>
+  <text x="672" y="226" fill="#8691aa" font-size="12">792 kW, 144 GPUs</text>
+  <text x="672" y="244" fill="#8691aa" font-size="12">3 TB at 120 TB/s each</text>
+
+  <rect x="824" y="150" width="152" height="130" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
+  <text x="840" y="180" fill="#ebeff7" font-size="15" font-weight="650">LPU racks</text>
+  <text x="840" y="204" fill="#b3bccf" font-size="13">fast decode</text>
+  <text x="840" y="226" fill="#8691aa" font-size="12">516 kW, 256 chips</text>
+  <text x="840" y="244" fill="#8691aa" font-size="12">160 GB at 200 TB/s</text>
+
+  <rect x="992" y="150" width="152" height="130" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
+  <text x="1008" y="180" fill="#ebeff7" font-size="15" font-weight="650">Context memory</text>
+  <text x="1008" y="204" fill="#b3bccf" font-size="13">KV caches parked</text>
+  <text x="1008" y="226" fill="#8691aa" font-size="12">while agents wait</text>
+  <text x="1008" y="244" fill="#8691aa" font-size="12">for tool results</text>
+
+  <!-- Tool calls -->
+  <rect x="640" y="334" width="520" height="276" rx="14" fill="none" stroke="rgba(217,70,239,0.35)"/>
+  <text x="660" y="362" fill="#d946ef" font-size="12" font-weight="700" letter-spacing="1.2">AGENT TOOL CALLS</text>
+  <text x="808" y="362" fill="#8691aa" font-size="12">the sandbox next to the model · router picks per call</text>
+
+  <rect x="656" y="380" width="488" height="68" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
+  <text x="674" y="408" fill="#ebeff7" font-size="15" font-weight="650">CPU sandbox</text>
+  <text x="674" y="431" fill="#b3bccf" font-size="13">Code, tests, browsing: most tool calls</text>
+
+  <rect x="656" y="456" width="488" height="68" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
+  <text x="674" y="484" fill="#ebeff7" font-size="15" font-weight="650">GPU sandbox <tspan fill="#8691aa" font-weight="400" font-size="13">· status quo, and the fallback</tspan></text>
+  <text x="674" y="507" fill="#b3bccf" font-size="13">Classical chemistry simulation: ~768 GPU-hours per high-accuracy call</text>
+
+  <rect x="656" y="532" width="488" height="68" rx="10" fill="#1a1230" stroke="#d946ef" stroke-width="1.5"/>
+  <text x="674" y="560" fill="#ebeff7" font-size="15" font-weight="650">QPU wing <tspan fill="#e9a8f5" font-weight="400" font-size="13">· our addition</tspan></text>
+  <text x="674" y="583" fill="#b3bccf" font-size="13">Chemistry and materials: 0.27 MW and ~12 calls an hour per QPU</text>
+
+  <!-- Footer -->
+  <text x="40" y="640" fill="#8691aa" font-size="12">Earth only · all sites ≤ 500 MW · ≤ $30B over 5 years. Rack figures: Track 1 brief. QPU figures: quantum_arch mid-2030s scenario; GPU-hours per call: dc_sim assumption.</text>
+</svg>
