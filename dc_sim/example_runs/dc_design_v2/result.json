@@ -1,0 +1,3303 @@
+{
+ "params": {
+  "_note": "Inputs of dc_sim.arch_study (use case B node-composition study). EVERYTHING here is an ASSUMPTION unless it says FROM quantum_arch / FROM dc_sim assumptions. Use case B numbers follow the Sundai Hack 145 slides (first workload version: Kimi K3-class model); the per-step compute cost uses dc_sim's model_cost_x proxy, NOT the slides' bandwidth step-time model (not imported yet).",
+  "pod": {
+   "users": 1000000,
+   "cap_mw": 50,
+   "note": "One site slice. Users are the case-B agent developers served by the pod (all three regions, time-zone mixed). The pod cap is a FACILITY power cap, as in the challenge."
+  },
+  "case_b": {
+   "interactive_tasks_per_user_day": 12,
+   "background_tasks_per_user_day": 30,
+   "steps_per_task": 80,
+   "prefill_new_tokens_per_step": 6000,
+   "decode_tokens_per_step": 500,
+   "bg_tool_s_per_step": 8.0,
+   "bg_tool_cores": 2.0,
+   "interactive_tool_dc_core_s_per_step": 0.0,
+   "interactive_note": "Slides: interactive tools run on the user's laptop, so they use no data-centre CPU here (orchestration ignored). Background tools run in a sandbox next to the model. Tool time 8 s and 2 cores per step are ASSUMPTIONS (the slides give 8 s only for the laptop case).",
+   "rho": 0.9,
+   "rho_note": "Highest accelerator utilisation at which interactive steps still meet their latency target (headroom for bursts); same value as dc_sim's rho_slo.",
+   "bg_wait_slo_s": 7200,
+   "bg_wait_note": "Background compute may wait this long for spare accelerator capacity (the slides give 4 h per background task; half of it is kept as slack). ASSUMPTION.",
+   "tick_s": 300
+  },
+  "cpu": {
+   "device": "cpu_2035",
+   "cores_per_socket": 512,
+   "system_overhead": 1.5,
+   "idle_fraction": 0.4,
+   "capex_usd_per_socket": 20000,
+   "util": 0.7,
+   "host_sockets_per_gpu_module": 0.125,
+   "host_cpu_spare_fraction": 0.5,
+   "note": "TDP 800 W FROM quantum_arch classical.cpu_2035 (about 512 cores). Overhead, idle share, capex, target utilisation, host CPUs per GPU module (one socket per 8 modules, already inside the GPU server overhead) and the share of host-CPU cores free for sandboxes are ASSUMPTIONS."
+  },
+  "economics": {
+   "energy_usd_per_mwh": 52,
+   "amortisation_years": 5,
+   "cooling": "liquid",
+   "network_overhead": 0.05,
+   "note": "Price: dc_sim's US South site. PUE, facility capex per kW and the GPU capex come from dc_sim's assumptions (liquid cooling; gpu_rack capex per module). Facility capex is charged on PEAK facility power."
+  },
+  "quantum": {
+   "node_type": "qpu_cat40k",
+   "workload": "vqe_50q",
+   "host_core_s_per_call": 300,
+   "duration_cv": 0.5,
+   "iterations_per_call": 10000,
+   "local_rtt_s": 1e-05,
+   "pool_rtt_s": 0.0002,
+   "max_wait_s": 1800,
+   "local_ok_wait_s": 60,
+   "note": "QPU power, runtime, acceptance probability and capex-independent feasibility FROM quantum_arch (via dc_sim.qfeas, mid2030s base); capex and calibration windows FROM dc_sim node_types (ASSUMPTION). A call is one quantum-eligible tool call of a background agent. Iterations per call (classical optimiser round trips) and the two link round-trip times are ASSUMPTIONS: a pooled QPU pays iterations x (pool_rtt - local_rtt) extra per call. A call whose predicted wait exceeds max_wait_s is run classically instead (the overflow rule of the scheduler)."
+  },
+  "grid": {
+   "calls_per_bg_task": [
+    0.0,
+    0.0001,
+    0.0003,
+    0.001,
+    0.003,
+    0.01
+   ],
+   "classical_module_hours": [
+    0.03,
+    0.1,
+    0.3,
+    1.0,
+    3.0,
+    10.0,
+    30.0,
+    100.0
+   ],
+   "node_gpu_modules": [
+    16,
+    64,
+    256,
+    1024,
+    4096
+   ],
+   "note": "The two unknowns that decide everything: how many background tasks contain a quantum-eligible call, and what the BEST CLASSICAL method costs for that call at the same accuracy (GPU module-hours). Nobody knows either for agent workloads; the study maps the whole range and reports break-even lines instead of picking a value."
+  },
+  "design": {
+   "_note": "Inputs of dc_sim.dc_design (architecture v2: pooled GPU nodes, CPU sandbox pool, context-memory pool, shared QPU service, agents PARK their session while a QPU sub-task runs). Shared sections (case_b, cpu, economics, quantum, pod) are read from arch_study.json. EVERYTHING here is an ASSUMPTION unless it says FROM quantum_arch / FROM dc_sim assumptions. The class mix and the quantum-eligible call densities are the scenario, not data: nobody has measured them.",
+   "classes": {
+    "coding_agents": {
+     "share": 0.55,
+     "interactive_tasks": 12,
+     "background_tasks": 30,
+     "steps": 80,
+     "step_scale": 1.0,
+     "tool_cores": 2.0,
+     "tool_s": 8.0,
+     "calls_per_bg_task": 0.0002,
+     "kernel": "vqe_20q",
+     "ctx_gb": 20,
+     "note": "case B (slides). Calls: a solver/optimiser tool that happens to be quantum-backed; rare."
+    },
+    "materials": {
+     "share": 0.1,
+     "interactive_tasks": 6,
+     "background_tasks": 12,
+     "steps": 60,
+     "step_scale": 0.7,
+     "tool_cores": 8.0,
+     "tool_s": 30.0,
+     "calls_per_bg_task": 0.01,
+     "kernel": "vqe_50q",
+     "ctx_gb": 10,
+     "note": "materials engineers: electronic-structure sub-problems"
+    },
+    "chemistry": {
+     "share": 0.1,
+     "interactive_tasks": 6,
+     "background_tasks": 12,
+     "steps": 60,
+     "step_scale": 0.7,
+     "tool_cores": 8.0,
+     "tool_s": 30.0,
+     "calls_per_bg_task": 0.01,
+     "kernel": "chemistry_small",
+     "ctx_gb": 10,
+     "note": "chemists: active-space chemistry"
+    },
+    "biology": {
+     "share": 0.07,
+     "interactive_tasks": 6,
+     "background_tasks": 12,
+     "steps": 60,
+     "step_scale": 0.7,
+     "tool_cores": 8.0,
+     "tool_s": 30.0,
+     "calls_per_bg_task": 0.005,
+     "kernel": "vqe_50q",
+     "ctx_gb": 10,
+     "note": "biologists: molecular binding sub-problems"
+    },
+    "mechanical": {
+     "share": 0.1,
+     "interactive_tasks": 8,
+     "background_tasks": 10,
+     "steps": 60,
+     "step_scale": 0.7,
+     "tool_cores": 8.0,
+     "tool_s": 30.0,
+     "calls_per_bg_task": 0.02,
+     "kernel": "vqe_20q",
+     "ctx_gb": 10,
+     "note": "mechanical engineers: optimisation sub-problems (small, classical is cheap)"
+    },
+    "finance": {
+     "share": 0.08,
+     "interactive_tasks": 8,
+     "background_tasks": 10,
+     "steps": 60,
+     "step_scale": 0.7,
+     "tool_cores": 4.0,
+     "tool_s": 20.0,
+     "calls_per_bg_task": 0.02,
+     "kernel": "qla_scalar_explicit_1m",
+     "ctx_gb": 10,
+     "note": "financial engineers: large linear-algebra sub-problems (quantum_arch states no advantage for this kernel)"
+    }
+   },
+   "classical_fallback_module_hours": {
+    "vqe_20q": 0.4,
+    "vqe_50q": 160,
+    "chemistry_small": 768,
+    "qla_scalar_explicit_1m": 0.05,
+    "note": "FROM dc_sim assumptions classical_fallback_defaults (ASSUMPTIONS there): cost of the best classical method at the same accuracy."
+   },
+   "classical_max_module_hours": 200,
+   "classical_max_note": "A call that would cost more than this classically is NOT SERVED by the GPU-only reference (about 64 modules for 3 hours). On a QPU it is served. Unserved calls are valued at this cap in the sizing objective. ASSUMPTION.",
+   "induced_demand_factors": [
+    1.0,
+    3.0,
+    10.0
+   ],
+   "induced_note": "Assumption 1 of the user: with QPUs available, more QPU tasks get created. The call densities above are multiplied by this factor in a scenario; the GPU-only reference faces the same calls (and cannot serve the expensive ones).",
+   "parking": {
+    "hbm_gb_per_module": 1024,
+    "recompute_share": 0.25,
+    "cached_ctx_tokens": 250000,
+    "transfer_gbps": 400,
+    "ctxmem_tb_per_pool": 5000,
+    "ctxmem_pool_kw": 20,
+    "ctxmem_pool_capex_usd": 14000000,
+    "note": "Park: the session context moves to the context-memory pool; on resume it is copied back (transfer_gbps) or, for recompute_share of the resumes, re-prefilled (cached_ctx_tokens). Hold: the session keeps its KV cache in GPU HBM (ctx_gb of hbm_gb_per_module) for the whole wait + run. Capacity, share and token numbers are ASSUMPTIONS; pool power and capex FROM dc_sim assumptions (ctxmem_pool)."
+   },
+   "pod_users_for_cap_search": [
+    200000.0,
+    3000000.0
+   ],
+   "classical_cost_scale": 1.0,
+   "classical_cost_scale_note": "Multiplies every classical fallback cost; used for sensitivities (the fallback costs are the least certain input)."
+  }
+ },
+ "hw": {
+  "gpu_capex": 112000.0,
+  "gpu_sys_idle_w": 945.0000000000001,
+  "gpu_sys_tdp_w": 6750.0,
+  "module_s_per_step": 0.13823760901935758,
+  "model_cost_x": 10.0,
+  "cpu_tdp_w": 800,
+  "pue": 1.12,
+  "net": 0.05,
+  "fac_capex_per_kw": 13500.0,
+  "qpu_busy_w": 269763.55225,
+  "qpu_standby_w": 257952.71045,
+  "qpu_capex": 120000000.0,
+  "qpu_cal_interval": 28800.0,
+  "qpu_cal_dur": 1200.0,
+  "qpu_runtime_s": 43.75,
+  "qpu_p_accept": 1.0,
+  "qpu_energy_j": 11683905.4109375,
+  "qpu_feasible": true,
+  "qpu_label": "dc2035_cat_40k"
+ },
+ "users": 1000000.0,
+ "usd_per_module_hour": 5.375219861187214,
+ "scenarios": {
+  "1.0": {
+   "gpu_only": {
+    "mode": "gpu_only",
+    "qpus": 0,
+    "admitted": [],
+    "gpu_modules": 124359,
+    "gpu_racks": 1944,
+    "cpu_sockets": 0,
+    "ctxmem_tb": 0.0,
+    "calls_day": 67500,
+    "calls_on_qpu": 0,
+    "calls_classical": 55500,
+    "calls_unserved": 12000,
+    "qpu_util": 0.0,
+    "wait_p95_s": 0.0,
+    "gpu_mean_mw": 767.2306800787649,
+    "cpu_mean_mw": 1.4,
+    "qpu_mean_mw": 0.0,
+    "ctx_mean_mw": 0.0,
+    "mean_facility_mw": 903.9096797726277,
+    "peak_facility_mw": 903.9122321880426,
+    "capex_hw_usd": 13928208000.0,
+    "usd_day": 15446448.121199293,
+    "usd_day_capex": 14318368.840843054,
+    "usd_day_energy": 1128079.2803562393,
+    "objective_usd_day": 28346975.78804861,
+    "tasks_day": 31200000.0,
+    "usd_per_task": 0.4950784654230543,
+    "j_per_task_facility": 2503134.497831892,
+    "extra_gpu_modules": 108421.66666666667,
+    "by_class": {
+     "coding_agents": {
+      "calls": 3300,
+      "on_qpu": 0,
+      "classical": 3300,
+      "unserved": 0,
+      "admitted": false
+     },
+     "materials": {
+      "calls": 12000,
+      "on_qpu": 0,
+      "classical": 12000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "chemistry": {
+      "calls": 12000,
+      "on_qpu": 0,
+      "classical": 0,
+      "unserved": 12000,
+      "admitted": false
+     },
+     "biology": {
+      "calls": 4200,
+      "on_qpu": 0,
+      "classical": 4200,
+      "unserved": 0,
+      "admitted": false
+     },
+     "mechanical": {
+      "calls": 20000,
+      "on_qpu": 0,
+      "classical": 20000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "finance": {
+      "calls": 16000,
+      "on_qpu": 0,
+      "classical": 16000,
+      "unserved": 0,
+      "admitted": false
+     }
+    }
+   },
+   "park": {
+    "mode": "park",
+    "qpus": 43,
+    "admitted": [
+     "materials",
+     "chemistry",
+     "biology"
+    ],
+    "gpu_modules": 4360,
+    "gpu_racks": 69,
+    "cpu_sockets": 2779,
+    "ctxmem_tb": 2.2119347125992026,
+    "calls_day": 67500,
+    "calls_on_qpu": 28197,
+    "calls_classical": 39300,
+    "calls_unserved": 3,
+    "qpu_util": 0.9416638088878224,
+    "wait_p95_s": 223.66532539252364,
+    "gpu_mean_mw": 26.894076069954956,
+    "cpu_mean_mw": 2.7340576806640624,
+    "qpu_mean_mw": 11.57020576719906,
+    "ctx_mean_mw": 8.847738850396809e-06,
+    "mean_facility_mw": 48.44925767789495,
+    "peak_facility_mw": 48.489913067581185,
+    "capex_hw_usd": 5703906193.417195,
+    "usd_day": 3544585.2323927204,
+    "usd_day_capex": 3484120.5588107076,
+    "usd_day_energy": 60464.6735820129,
+    "objective_usd_day": 3547810.364309433,
+    "tasks_day": 31200000.0,
+    "usd_per_task": 0.11360850103822821,
+    "j_per_task_facility": 134167.1751080168,
+    "extra_gpu_modules": 422.0888873697917,
+    "by_class": {
+     "coding_agents": {
+      "calls": 3300,
+      "on_qpu": 0,
+      "classical": 3300,
+      "unserved": 0,
+      "admitted": false
+     },
+     "materials": {
+      "calls": 12000,
+      "on_qpu": 12000,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "chemistry": {
+      "calls": 12000,
+      "on_qpu": 11997,
+      "classical": 0,
+      "unserved": 3,
+      "admitted": true
+     },
+     "biology": {
+      "calls": 4200,
+      "on_qpu": 4200,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "mechanical": {
+      "calls": 20000,
+      "on_qpu": 0,
+      "classical": 20000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "finance": {
+      "calls": 16000,
+      "on_qpu": 0,
+      "classical": 16000,
+      "unserved": 0,
+      "admitted": false
+     }
+    }
+   },
+   "hold": {
+    "mode": "hold",
+    "qpus": 43,
+    "admitted": [
+     "materials",
+     "chemistry",
+     "biology"
+    ],
+    "gpu_modules": 4360,
+    "gpu_racks": 69,
+    "cpu_sockets": 2779,
+    "ctxmem_tb": 0.0,
+    "calls_day": 67500,
+    "calls_on_qpu": 28197,
+    "calls_classical": 39300,
+    "calls_unserved": 3,
+    "qpu_util": 0.9416638088878224,
+    "wait_p95_s": 223.66532539252364,
+    "gpu_mean_mw": 26.895804857746498,
+    "cpu_mean_mw": 2.7340576806640624,
+    "qpu_mean_mw": 11.57020576719906,
+    "ctx_mean_mw": 0.0,
+    "mean_facility_mw": 48.451280327396915,
+    "peak_facility_mw": 48.4899026626403,
+    "capex_hw_usd": 5703900000.0,
+    "usd_day": 3544584.2860379857,
+    "usd_day_capex": 3484117.088189394,
+    "usd_day_energy": 60467.19784859135,
+    "objective_usd_day": 3547809.417954698,
+    "tasks_day": 31200000.0,
+    "usd_per_task": 0.1136084707063457,
+    "j_per_task_facility": 134172.776291253,
+    "extra_gpu_modules": 422.3866974975909,
+    "by_class": {
+     "coding_agents": {
+      "calls": 3300,
+      "on_qpu": 0,
+      "classical": 3300,
+      "unserved": 0,
+      "admitted": false
+     },
+     "materials": {
+      "calls": 12000,
+      "on_qpu": 12000,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "chemistry": {
+      "calls": 12000,
+      "on_qpu": 11997,
+      "classical": 0,
+      "unserved": 3,
+      "admitted": true
+     },
+     "biology": {
+      "calls": 4200,
+      "on_qpu": 4200,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "mechanical": {
+      "calls": 20000,
+      "on_qpu": 0,
+      "classical": 20000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "finance": {
+      "calls": 16000,
+      "on_qpu": 0,
+      "classical": 16000,
+      "unserved": 0,
+      "admitted": false
+     }
+    }
+   },
+   "best_mode": "hold"
+  },
+  "3.0": {
+   "gpu_only": {
+    "mode": "gpu_only",
+    "qpus": 0,
+    "admitted": [],
+    "gpu_modules": 365296,
+    "gpu_racks": 5708,
+    "cpu_sockets": 0,
+    "ctxmem_tb": 0.0,
+    "calls_day": 202500,
+    "calls_on_qpu": 0,
+    "calls_classical": 166500,
+    "calls_unserved": 36000,
+    "qpu_util": 0.0,
+    "wait_p95_s": 0.0,
+    "gpu_mean_mw": 2253.691695078763,
+    "cpu_mean_mw": 1.4,
+    "qpu_mean_mw": 0.0,
+    "ctx_mean_mw": 0.0,
+    "mean_facility_mw": 2651.9878334126256,
+    "peak_facility_mw": 2651.9901582721736,
+    "capex_hw_usd": 40913152000.0,
+    "usd_day": 45345307.74030408,
+    "usd_day_capex": 42035626.924205124,
+    "usd_day_energy": 3309680.8160989564,
+    "objective_usd_day": 84046890.74085203,
+    "tasks_day": 31200000.0,
+    "usd_per_task": 1.4533752480866693,
+    "j_per_task_facility": 7343966.307911887,
+    "extra_gpu_modules": 325265.0,
+    "by_class": {
+     "coding_agents": {
+      "calls": 9900,
+      "on_qpu": 0,
+      "classical": 9900,
+      "unserved": 0,
+      "admitted": false
+     },
+     "materials": {
+      "calls": 36000,
+      "on_qpu": 0,
+      "classical": 36000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "chemistry": {
+      "calls": 36000,
+      "on_qpu": 0,
+      "classical": 0,
+      "unserved": 36000,
+      "admitted": false
+     },
+     "biology": {
+      "calls": 12600,
+      "on_qpu": 0,
+      "classical": 12600,
+      "unserved": 0,
+      "admitted": false
+     },
+     "mechanical": {
+      "calls": 60000,
+      "on_qpu": 0,
+      "classical": 60000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "finance": {
+      "calls": 48000,
+      "on_qpu": 0,
+      "classical": 48000,
+      "unserved": 0,
+      "admitted": false
+     }
+    }
+   },
+   "park": {
+    "mode": "park",
+    "qpus": 128,
+    "admitted": [
+     "materials",
+     "chemistry",
+     "biology"
+    ],
+    "gpu_modules": 5298,
+    "gpu_racks": 83,
+    "cpu_sockets": 2779,
+    "ctxmem_tb": 10.104632022808884,
+    "calls_day": 202500,
+    "calls_on_qpu": 84569,
+    "calls_classical": 117900,
+    "calls_unserved": 31,
+    "qpu_util": 0.9506966066554631,
+    "wait_p95_s": 405.3620052724752,
+    "gpu_mean_mw": 32.68093613999424,
+    "cpu_mean_mw": 2.7343329345703125,
+    "qpu_mean_mw": 34.455198421888575,
+    "ctx_mean_mw": 4.041852809123554e-05,
+    "mean_facility_mw": 82.16771730801794,
+    "peak_facility_mw": 82.26133999233308,
+    "capex_hw_usd": 16008984292.969664,
+    "usd_day": 9483100.041538028,
+    "usd_day_capex": 9380554.730337622,
+    "usd_day_energy": 102545.3112004064,
+    "objective_usd_day": 9516426.40467739,
+    "tasks_day": 31200000.0,
+    "usd_per_task": 0.3039455141518599,
+    "j_per_task_facility": 227541.37100681892,
+    "extra_gpu_modules": 1266.2663326822915,
+    "by_class": {
+     "coding_agents": {
+      "calls": 9900,
+      "on_qpu": 0,
+      "classical": 9900,
+      "unserved": 0,
+      "admitted": false
+     },
+     "materials": {
+      "calls": 36000,
+      "on_qpu": 36000,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "chemistry": {
+      "calls": 36000,
+      "on_qpu": 35969,
+      "classical": 0,
+      "unserved": 31,
+      "admitted": true
+     },
+     "biology": {
+      "calls": 12600,
+      "on_qpu": 12600,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "mechanical": {
+      "calls": 60000,
+      "on_qpu": 0,
+      "classical": 60000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "finance": {
+      "calls": 48000,
+      "on_qpu": 0,
+      "classical": 48000,
+      "unserved": 0,
+      "admitted": false
+     }
+    }
+   },
+   "hold": {
+    "mode": "hold",
+    "qpus": 128,
+    "admitted": [
+     "materials",
+     "chemistry",
+     "biology"
+    ],
+    "gpu_modules": 5300,
+    "gpu_racks": 83,
+    "cpu_sockets": 2779,
+    "ctxmem_tb": 0.0,
+    "calls_day": 202500,
+    "calls_on_qpu": 84569,
+    "calls_classical": 117900,
+    "calls_unserved": 31,
+    "qpu_util": 0.9506966066554631,
+    "wait_p95_s": 405.3620052724752,
+    "gpu_mean_mw": 32.694569280886284,
+    "cpu_mean_mw": 2.7343329345703125,
+    "qpu_mean_mw": 34.455198421888575,
+    "ctx_mean_mw": 0.0,
+    "mean_facility_mw": 82.18370234951793,
+    "peak_facility_mw": 82.27580312414405,
+    "capex_hw_usd": 16009180000.0,
+    "usd_day": 9483334.215149155,
+    "usd_day_capex": 9380768.954616956,
+    "usd_day_energy": 102565.26053219837,
+    "objective_usd_day": 9516660.578288516,
+    "tasks_day": 31200000.0,
+    "usd_per_task": 0.30395301971631905,
+    "j_per_task_facility": 227585.6372755881,
+    "extra_gpu_modules": 1268.2892682365912,
+    "by_class": {
+     "coding_agents": {
+      "calls": 9900,
+      "on_qpu": 0,
+      "classical": 9900,
+      "unserved": 0,
+      "admitted": false
+     },
+     "materials": {
+      "calls": 36000,
+      "on_qpu": 36000,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "chemistry": {
+      "calls": 36000,
+      "on_qpu": 35969,
+      "classical": 0,
+      "unserved": 31,
+      "admitted": true
+     },
+     "biology": {
+      "calls": 12600,
+      "on_qpu": 12600,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "mechanical": {
+      "calls": 60000,
+      "on_qpu": 0,
+      "classical": 60000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "finance": {
+      "calls": 48000,
+      "on_qpu": 0,
+      "classical": 48000,
+      "unserved": 0,
+      "admitted": false
+     }
+    }
+   },
+   "best_mode": "park"
+  },
+  "10.0": {
+   "gpu_only": {
+    "mode": "gpu_only",
+    "qpus": 0,
+    "admitted": [],
+    "gpu_modules": 1208576,
+    "gpu_racks": 18884,
+    "cpu_sockets": 0,
+    "ctxmem_tb": 0.0,
+    "calls_day": 675000,
+    "calls_on_qpu": 0,
+    "calls_classical": 555000,
+    "calls_unserved": 120000,
+    "qpu_util": 0.0,
+    "wait_p95_s": 0.0,
+    "gpu_mean_mw": 7456.305720078716,
+    "cpu_mean_mw": 1.4,
+    "qpu_mean_mw": 0.0,
+    "ctx_mean_mw": 0.0,
+    "mean_facility_mw": 8770.26192681257,
+    "peak_facility_mw": 8770.266527232661,
+    "capex_hw_usd": 135360512000.0,
+    "usd_day": 149991374.62035576,
+    "usd_day_capex": 139046087.73569366,
+    "usd_day_energy": 10945286.884662088,
+    "objective_usd_day": 278996651.2888489,
+    "tasks_day": 31200000.0,
+    "usd_per_task": 4.807415853216531,
+    "j_per_task_facility": 24286879.181942504,
+    "extra_gpu_modules": 1084216.6666666667,
+    "by_class": {
+     "coding_agents": {
+      "calls": 33000,
+      "on_qpu": 0,
+      "classical": 33000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "materials": {
+      "calls": 120000,
+      "on_qpu": 0,
+      "classical": 120000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "chemistry": {
+      "calls": 120000,
+      "on_qpu": 0,
+      "classical": 0,
+      "unserved": 120000,
+      "admitted": false
+     },
+     "biology": {
+      "calls": 42000,
+      "on_qpu": 0,
+      "classical": 42000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "mechanical": {
+      "calls": 200000,
+      "on_qpu": 0,
+      "classical": 200000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "finance": {
+      "calls": 160000,
+      "on_qpu": 0,
+      "classical": 160000,
+      "unserved": 0,
+      "admitted": false
+     }
+    }
+   },
+   "park": {
+    "mode": "park",
+    "qpus": 422,
+    "admitted": [
+     "materials",
+     "chemistry",
+     "biology"
+    ],
+    "gpu_modules": 8588,
+    "gpu_racks": 135,
+    "cpu_sockets": 2781,
+    "ctxmem_tb": 33.14793995936757,
+    "calls_day": 675000,
+    "calls_on_qpu": 281820,
+    "calls_classical": 393001,
+    "calls_unserved": 179,
+    "qpu_util": 0.9593612912010099,
+    "wait_p95_s": 502.5256933881974,
+    "gpu_mean_mw": 52.98025695201602,
+    "cpu_mean_mw": 2.7362560742187503,
+    "qpu_mean_mw": 113.63766860333475,
+    "ctx_mean_mw": 0.00013259175983747028,
+    "mean_facility_mw": 199.16067352428334,
+    "peak_facility_mw": 199.40288188940556,
+    "capex_hw_usd": 51657568814.23189,
+    "usd_day": 30029104.69575768,
+    "usd_day_capex": 29780552.175199375,
+    "usd_day_energy": 248552.5205583056,
+    "objective_usd_day": 30221537.56678818,
+    "tasks_day": 31200000.0,
+    "usd_per_task": 0.9624713043512076,
+    "j_per_task_facility": 551521.8651441693,
+    "extra_gpu_modules": 4227.553294270833,
+    "by_class": {
+     "coding_agents": {
+      "calls": 33000,
+      "on_qpu": 0,
+      "classical": 33000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "materials": {
+      "calls": 120000,
+      "on_qpu": 119999,
+      "classical": 1,
+      "unserved": 0,
+      "admitted": true
+     },
+     "chemistry": {
+      "calls": 120000,
+      "on_qpu": 119821,
+      "classical": 0,
+      "unserved": 179,
+      "admitted": true
+     },
+     "biology": {
+      "calls": 42000,
+      "on_qpu": 42000,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "mechanical": {
+      "calls": 200000,
+      "on_qpu": 0,
+      "classical": 200000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "finance": {
+      "calls": 160000,
+      "on_qpu": 0,
+      "classical": 160000,
+      "unserved": 0,
+      "admitted": false
+     }
+    }
+   },
+   "hold": {
+    "mode": "hold",
+    "qpus": 422,
+    "admitted": [
+     "materials",
+     "chemistry",
+     "biology"
+    ],
+    "gpu_modules": 8595,
+    "gpu_racks": 135,
+    "cpu_sockets": 2781,
+    "ctxmem_tb": 0.0,
+    "calls_day": 675000,
+    "calls_on_qpu": 281820,
+    "calls_classical": 393001,
+    "calls_unserved": 179,
+    "qpu_util": 0.9593612912010099,
+    "wait_p95_s": 502.5256933881974,
+    "gpu_mean_mw": 53.0250130317243,
+    "cpu_mean_mw": 2.7362560742187503,
+    "qpu_mean_mw": 113.63766860333475,
+    "ctx_mean_mw": 0.0,
+    "mean_facility_mw": 199.2131507461107,
+    "peak_facility_mw": 199.45351328549597,
+    "capex_hw_usd": 51658260000.0,
+    "usd_day": 30029923.45287317,
+    "usd_day_capex": 29781305.440742023,
+    "usd_day_energy": 248618.01213114616,
+    "objective_usd_day": 30222356.323903672,
+    "tasks_day": 31200000.0,
+    "usd_per_task": 0.9624975465664478,
+    "j_per_task_facility": 551667.1866815373,
+    "extra_gpu_modules": 4234.12367837219,
+    "by_class": {
+     "coding_agents": {
+      "calls": 33000,
+      "on_qpu": 0,
+      "classical": 33000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "materials": {
+      "calls": 120000,
+      "on_qpu": 119999,
+      "classical": 1,
+      "unserved": 0,
+      "admitted": true
+     },
+     "chemistry": {
+      "calls": 120000,
+      "on_qpu": 119821,
+      "classical": 0,
+      "unserved": 179,
+      "admitted": true
+     },
+     "biology": {
+      "calls": 42000,
+      "on_qpu": 42000,
+      "classical": 0,
+      "unserved": 0,
+      "admitted": true
+     },
+     "mechanical": {
+      "calls": 200000,
+      "on_qpu": 0,
+      "classical": 200000,
+      "unserved": 0,
+      "admitted": false
+     },
+     "finance": {
+      "calls": 160000,
+      "on_qpu": 0,
+      "classical": 160000,
+      "unserved": 0,
+      "admitted": false
+     }
+    }
+   },
+   "best_mode": "park"
+  }
+ },
+ "sensitivity": [
+  {
+   "param": "quantum.capex_scale",
+   "value": 0.5,
+   "best_mode": "hold",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 124359,
+     "gpu_racks": 1944,
+     "cpu_sockets": 0,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 55500,
+     "calls_unserved": 12000,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 767.2306800787649,
+     "cpu_mean_mw": 1.4,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 903.9096797726277,
+     "peak_facility_mw": 903.9122321880426,
+     "capex_hw_usd": 13928208000.0,
+     "usd_day": 15446448.121199293,
+     "usd_day_capex": 14318368.840843054,
+     "usd_day_energy": 1128079.2803562393,
+     "objective_usd_day": 28346975.78804861,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.4950784654230543,
+     "j_per_task_facility": 2503134.497831892,
+     "extra_gpu_modules": 108421.66666666667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 0,
+       "unserved": 12000,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4360,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 2.2119347125992026,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39300,
+     "calls_unserved": 3,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 26.894076069954956,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 8.847738850396809e-06,
+     "mean_facility_mw": 48.44925767789495,
+     "peak_facility_mw": 48.489913067581185,
+     "capex_hw_usd": 3123906193.4171953,
+     "usd_day": 2130886.602255734,
+     "usd_day_capex": 2070421.9286737212,
+     "usd_day_energy": 60464.6735820129,
+     "objective_usd_day": 2134111.7341724467,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.06829764750819661,
+     "j_per_task_facility": 134167.1751080168,
+     "extra_gpu_modules": 422.0888873697917,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 0,
+       "unserved": 3,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4360,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39300,
+     "calls_unserved": 3,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 26.895804857746498,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 48.451280327396915,
+     "peak_facility_mw": 48.4899026626403,
+     "capex_hw_usd": 3123900000.0,
+     "usd_day": 2130885.655900999,
+     "usd_day_capex": 2070418.4580524077,
+     "usd_day_energy": 60467.19784859135,
+     "objective_usd_day": 2134110.7878177115,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.06829761717631407,
+     "j_per_task_facility": 134172.776291253,
+     "extra_gpu_modules": 422.3866974975909,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 0,
+       "unserved": 3,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    }
+   }
+  },
+  {
+   "param": "quantum.capex_scale",
+   "value": 2.0,
+   "best_mode": "park",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 124359,
+     "gpu_racks": 1944,
+     "cpu_sockets": 0,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 55500,
+     "calls_unserved": 12000,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 767.2306800787649,
+     "cpu_mean_mw": 1.4,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 903.9096797726277,
+     "peak_facility_mw": 903.9122321880426,
+     "capex_hw_usd": 13928208000.0,
+     "usd_day": 15446448.121199293,
+     "usd_day_capex": 14318368.840843054,
+     "usd_day_energy": 1128079.2803562393,
+     "objective_usd_day": 28346975.78804861,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.4950784654230543,
+     "j_per_task_facility": 2503134.497831892,
+     "extra_gpu_modules": 108421.66666666667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 0,
+       "unserved": 12000,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 42,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4567,
+     "gpu_racks": 72,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 5.217185918208749,
+     "calls_day": 67500,
+     "calls_on_qpu": 28072,
+     "calls_classical": 39328,
+     "calls_unserved": 100,
+     "qpu_util": 0.956483170238094,
+     "wait_p95_s": 581.0777218986896,
+     "gpu_mean_mw": 28.173280204476285,
+     "cpu_mean_mw": 2.7340570703125,
+     "qpu_mean_mw": 11.308482438037874,
+     "ctx_mean_mw": 2.0868743672834994e-05,
+     "mean_facility_mw": 49.645828523926724,
+     "peak_facility_mw": 49.674538273063426,
+     "capex_hw_usd": 10647098608.120571,
+     "usd_day": 6263440.117179738,
+     "usd_day_capex": 6201482.123181878,
+     "usd_day_energy": 61957.993997860554,
+     "objective_usd_day": 6370944.514403483,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.2007512858070429,
+     "j_per_task_facility": 137480.75591241248,
+     "extra_gpu_modules": 608.7536822916667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 11979,
+       "classical": 21,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11900,
+       "classical": 0,
+       "unserved": 100,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4193,
+       "classical": 7,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 42,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4568,
+     "gpu_racks": 72,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 28072,
+     "calls_classical": 39328,
+     "calls_unserved": 100,
+     "qpu_util": 0.956483170238094,
+     "wait_p95_s": 581.0777218986896,
+     "gpu_mean_mw": 28.181643725991144,
+     "cpu_mean_mw": 2.7340570703125,
+     "qpu_mean_mw": 11.308482438037874,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 49.655639483585624,
+     "peak_facility_mw": 49.681769063420866,
+     "capex_hw_usd": 10647196000.0,
+     "usd_day": 6263559.21470904,
+     "usd_day_capex": 6201588.9766335245,
+     "usd_day_energy": 61970.23807551486,
+     "objective_usd_day": 6371063.611932784,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.20075510303554614,
+     "j_per_task_facility": 137507.92472377556,
+     "extra_gpu_modules": 610.0316360410836,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 11979,
+       "classical": 21,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11900,
+       "classical": 0,
+       "unserved": 100,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4193,
+       "classical": 7,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    }
+   }
+  },
+  {
+   "param": "design.classical_max_module_hours",
+   "value": 50,
+   "best_mode": "park",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 4359,
+     "gpu_racks": 69,
+     "cpu_sockets": 2506,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 39300,
+     "calls_unserved": 28200,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 26.890680078773105,
+     "cpu_mean_mw": 2.6028800000000003,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 34.68442665263718,
+     "peak_facility_mw": 34.68697906800136,
+     "capex_hw_usd": 538328000.0,
+     "usd_day": 594849.0233216793,
+     "usd_day_capex": 551562.8588591882,
+     "usd_day_energy": 43286.1644624912,
+     "objective_usd_day": 8173909.027595652,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.0190656738244128,
+     "j_per_task_facility": 96049.18149961064,
+     "extra_gpu_modules": 421.6666666666667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 0,
+       "unserved": 12000,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 0,
+       "unserved": 12000,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 0,
+       "unserved": 4200,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 42,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4360,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 5.217185918208749,
+     "calls_day": 67500,
+     "calls_on_qpu": 28072,
+     "calls_classical": 39300,
+     "calls_unserved": 128,
+     "qpu_util": 0.956483170238094,
+     "wait_p95_s": 581.0777218986896,
+     "gpu_mean_mw": 26.894065204476444,
+     "cpu_mean_mw": 2.7340570703125,
+     "qpu_mean_mw": 11.308482438037874,
+     "ctx_mean_mw": 2.0868743672834994e-05,
+     "mean_facility_mw": 48.14147168392691,
+     "peak_facility_mw": 48.17268454906342,
+     "capex_hw_usd": 5583914608.120571,
+     "usd_day": 3476105.6796932817,
+     "usd_day_capex": 3416025.123031741,
+     "usd_day_energy": 60080.55666154078,
+     "objective_usd_day": 3510507.08680488,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.11141364357991287,
+     "j_per_task_facility": 133314.84466318222,
+     "extra_gpu_modules": 422.087015625,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 11979,
+       "classical": 0,
+       "unserved": 21,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11900,
+       "classical": 0,
+       "unserved": 100,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4193,
+       "classical": 0,
+       "unserved": 7,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 42,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4361,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 28072,
+     "calls_classical": 39300,
+     "calls_unserved": 128,
+     "qpu_util": 0.956483170238094,
+     "wait_p95_s": 581.0777218986896,
+     "gpu_mean_mw": 26.90242872599114,
+     "cpu_mean_mw": 2.7340570703125,
+     "qpu_mean_mw": 11.308482438037874,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 48.15128264358563,
+     "peak_facility_mw": 48.179915339420866,
+     "capex_hw_usd": 5584012000.0,
+     "usd_day": 3476224.777222582,
+     "usd_day_capex": 3416131.9764833874,
+     "usd_day_energy": 60092.80073919487,
+     "objective_usd_day": 3510626.1843341803,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.1114174608084161,
+     "j_per_task_facility": 133342.01347454483,
+     "extra_gpu_modules": 423.36496937441694,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 11979,
+       "classical": 0,
+       "unserved": 21,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11900,
+       "classical": 0,
+       "unserved": 100,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4193,
+       "classical": 0,
+       "unserved": 7,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    }
+   }
+  },
+  {
+   "param": "design.classical_max_module_hours",
+   "value": 1000,
+   "best_mode": "park",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 551026,
+     "gpu_racks": 8610,
+     "cpu_sockets": 0,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 67500,
+     "calls_unserved": 0,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 3399.55099507885,
+     "cpu_mean_mw": 1.4,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 3999.5183702127283,
+     "peak_facility_mw": 3999.5229706321734,
+     "capex_hw_usd": 61714912000.0,
+     "usd_day": 68393301.44851005,
+     "usd_day_capex": 63401902.52248456,
+     "usd_day_energy": 4991398.926025485,
+     "objective_usd_day": 68393301.44851005,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 2.1920929951445527,
+     "j_per_task_facility": 11075589.332896788,
+     "extra_gpu_modules": 492421.6666666667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4466,
+     "gpu_racks": 70,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 2.2119347125992026,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39303,
+     "calls_unserved": 0,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 27.55152606995487,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 8.847738850396809e-06,
+     "mean_facility_mw": 49.22241887789485,
+     "peak_facility_mw": 49.258978259581184,
+     "capex_hw_usd": 5715778193.417195,
+     "usd_day": 3557744.318442649,
+     "usd_day_capex": 3496314.739683036,
+     "usd_day_energy": 61429.57875961278,
+     "objective_usd_day": 3557744.318442649,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.11403026661675157,
+     "j_per_task_facility": 136308.23689263192,
+     "extra_gpu_modules": 518.0888873697917,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 3,
+       "unserved": 0,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4467,
+     "gpu_racks": 70,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39303,
+     "calls_unserved": 0,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 27.554199857746582,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 49.225552847397026,
+     "peak_facility_mw": 49.266223186640296,
+     "capex_hw_usd": 5715884000.0,
+     "usd_day": 3557859.798457466,
+     "usd_day_capex": 3496426.3085039146,
+     "usd_day_energy": 61433.48995355149,
+     "objective_usd_day": 3557859.798457466,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.11403396789927776,
+     "j_per_task_facility": 136316.91557740717,
+     "extra_gpu_modules": 518.3866974975908,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 3,
+       "unserved": 0,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    }
+   }
+  },
+  {
+   "param": "design.classical_cost_scale",
+   "value": 0.1,
+   "best_mode": "park",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 58604,
+     "gpu_racks": 916,
+     "cpu_sockets": 0,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 67500,
+     "calls_unserved": 0,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 361.555207578767,
+     "cpu_mean_mw": 1.4,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 426.8353241126301,
+     "peak_facility_mw": 426.8378765280216,
+     "capex_hw_usd": 6563648000.0,
+     "usd_day": 7286640.804014915,
+     "usd_day_capex": 6753950.319522352,
+     "usd_day_energy": 532690.4844925624,
+     "objective_usd_day": 7286640.804014915,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.23354617961586266,
+     "j_per_task_facility": 1182005.512927283,
+     "extra_gpu_modules": 49242.166666666664,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 42,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4314,
+     "gpu_racks": 68,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 5.217185918208749,
+     "calls_day": 67500,
+     "calls_on_qpu": 28072,
+     "calls_classical": 39428,
+     "calls_unserved": 0,
+     "qpu_util": 0.956483170238094,
+     "wait_p95_s": 581.0777218986896,
+     "gpu_mean_mw": 26.61355770447647,
+     "cpu_mean_mw": 2.7340570703125,
+     "qpu_mean_mw": 11.308482438037874,
+     "ctx_mean_mw": 2.0868743672834994e-05,
+     "mean_facility_mw": 47.81159486392694,
+     "peak_facility_mw": 47.838939277063425,
+     "capex_hw_usd": 5578762608.120571,
+     "usd_day": 3470402.1790811,
+     "usd_day_capex": 3410733.308690919,
+     "usd_day_energy": 59668.87039018083,
+     "objective_usd_day": 3470402.1790811,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.11123083907311218,
+     "j_per_task_facility": 132401.33962318228,
+     "extra_gpu_modules": 381.25368229166673,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 11979,
+       "classical": 21,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11900,
+       "classical": 100,
+       "unserved": 0,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4193,
+       "classical": 7,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 42,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4316,
+     "gpu_racks": 68,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 28072,
+     "calls_classical": 39428,
+     "calls_unserved": 0,
+     "qpu_util": 0.956483170238094,
+     "wait_p95_s": 581.0777218986896,
+     "gpu_mean_mw": 26.622866225991146,
+     "cpu_mean_mw": 2.7340570703125,
+     "qpu_mean_mw": 11.308482438037874,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 47.822517143585635,
+     "peak_facility_mw": 47.853425399420864,
+     "capex_hw_usd": 5578972000.0,
+     "usd_day": 3470637.7029799516,
+     "usd_day_capex": 3410955.201584757,
+     "usd_day_energy": 59682.50139519488,
+     "objective_usd_day": 3470637.7029799516,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.11123838791602408,
+     "j_per_task_facility": 132431.58593608328,
+     "extra_gpu_modules": 382.5316360410837,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 11979,
+       "classical": 21,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11900,
+       "classical": 100,
+       "unserved": 0,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4193,
+       "classical": 7,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    }
+   }
+  },
+  {
+   "param": "design.classical_cost_scale",
+   "value": 0.02,
+   "best_mode": "gpu_only",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 14833,
+     "gpu_racks": 232,
+     "cpu_sockets": 1851,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 67500,
+     "calls_unserved": 0,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 91.51099057877559,
+     "cpu_mean_mw": 2.28848,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 110.30817740064009,
+     "peak_facility_mw": 110.30959203600543,
+     "capex_hw_usd": 1698316000.0,
+     "usd_day": 1884237.4779911076,
+     "usd_day_capex": 1746572.8725951088,
+     "usd_day_energy": 137664.60539599883,
+     "objective_usd_day": 1884237.4779911076,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.06039222685868935,
+     "j_per_task_facility": 305468.7989556187,
+     "extra_gpu_modules": 9848.433333333332,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 14833,
+     "gpu_racks": 232,
+     "cpu_sockets": 1851,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 67500,
+     "calls_unserved": 0,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 91.51099057877559,
+     "cpu_mean_mw": 2.28848,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 110.30817740064009,
+     "peak_facility_mw": 110.30959203600543,
+     "capex_hw_usd": 1698316000.0,
+     "usd_day": 1884237.4779911076,
+     "usd_day_capex": 1746572.8725951088,
+     "usd_day_energy": 137664.60539599883,
+     "objective_usd_day": 1884237.4779911076,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.06039222685868935,
+     "j_per_task_facility": 305468.7989556187,
+     "extra_gpu_modules": 9848.433333333332,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     },
+     "note": "no QPU pays off"
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 14833,
+     "gpu_racks": 232,
+     "cpu_sockets": 1851,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 67500,
+     "calls_unserved": 0,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 91.51099057877559,
+     "cpu_mean_mw": 2.28848,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 110.30817740064009,
+     "peak_facility_mw": 110.30959203600543,
+     "capex_hw_usd": 1698316000.0,
+     "usd_day": 1884237.4779911076,
+     "usd_day_capex": 1746572.8725951088,
+     "usd_day_energy": 137664.60539599883,
+     "objective_usd_day": 1884237.4779911076,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.06039222685868935,
+     "j_per_task_facility": 305468.7989556187,
+     "extra_gpu_modules": 9848.433333333332,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     },
+     "note": "no QPU pays off"
+    }
+   }
+  },
+  {
+   "param": "quantum.max_wait_s",
+   "value": 300,
+   "best_mode": "hold",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 124359,
+     "gpu_racks": 1944,
+     "cpu_sockets": 0,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 55500,
+     "calls_unserved": 12000,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 767.2306800787649,
+     "cpu_mean_mw": 1.4,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 903.9096797726277,
+     "peak_facility_mw": 903.9122321880426,
+     "capex_hw_usd": 13928208000.0,
+     "usd_day": 15446448.121199293,
+     "usd_day_capex": 14318368.840843054,
+     "usd_day_energy": 1128079.2803562393,
+     "objective_usd_day": 28346975.78804861,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.4950784654230543,
+     "j_per_task_facility": 2503134.497831892,
+     "extra_gpu_modules": 108421.66666666667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 0,
+       "unserved": 12000,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 100,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 35174,
+     "gpu_racks": 550,
+     "cpu_sockets": 2778,
+     "ctxmem_tb": 0.9197864393464268,
+     "calls_day": 67500,
+     "calls_on_qpu": 20970,
+     "calls_classical": 43460,
+     "calls_unserved": 3070,
+     "qpu_util": 0.301932013577914,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 217.00467787144575,
+     "cpu_mean_mw": 2.733542392578125,
+     "qpu_mean_mw": 26.151878169672422,
+     "ctx_mean_mw": 3.679145757385707e-06,
+     "mean_facility_mw": 289.1667600847023,
+     "peak_facility_mw": 290.1378916929582,
+     "capex_hw_usd": 15995050575.40203,
+     "usd_day": 11271516.890973087,
+     "usd_day_capex": 10910636.774387378,
+     "usd_day_energy": 360880.11658570846,
+     "objective_usd_day": 14571901.885742037,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.3612665670183682,
+     "j_per_task_facility": 800769.4894653293,
+     "extra_gpu_modules": 28155.31400390625,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 8931,
+       "classical": 3069,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 8930,
+       "classical": 0,
+       "unserved": 3070,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 3109,
+       "classical": 1091,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 100,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 35174,
+     "gpu_racks": 550,
+     "cpu_sockets": 2778,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 20970,
+     "calls_classical": 43460,
+     "calls_unserved": 3070,
+     "qpu_util": 0.301932013577914,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 217.00459315178503,
+     "cpu_mean_mw": 2.733542392578125,
+     "qpu_mean_mw": 26.151878169672422,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 289.1666561277059,
+     "peak_facility_mw": 290.1378873662827,
+     "capex_hw_usd": 15995048000.0,
+     "usd_day": 11271515.318050016,
+     "usd_day_capex": 10910635.33120264,
+     "usd_day_energy": 360879.986847377,
+     "objective_usd_day": 14571900.312818965,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.36126651660416714,
+     "j_per_task_facility": 800769.2015844163,
+     "extra_gpu_modules": 28155.299409648225,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 8931,
+       "classical": 3069,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 8930,
+       "classical": 0,
+       "unserved": 3070,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 3109,
+       "classical": 1091,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    }
+   }
+  },
+  {
+   "param": "quantum.iterations_per_call",
+   "value": 1000000,
+   "best_mode": "hold",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 124359,
+     "gpu_racks": 1944,
+     "cpu_sockets": 0,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 55500,
+     "calls_unserved": 12000,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 767.2306800787649,
+     "cpu_mean_mw": 1.4,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 903.9096797726277,
+     "peak_facility_mw": 903.9122321880426,
+     "capex_hw_usd": 13928208000.0,
+     "usd_day": 15446448.121199293,
+     "usd_day_capex": 14318368.840843054,
+     "usd_day_energy": 1128079.2803562393,
+     "objective_usd_day": 28346975.78804861,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.4950784654230543,
+     "j_per_task_facility": 2503134.497831892,
+     "extra_gpu_modules": 108421.66666666667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 0,
+       "unserved": 12000,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4360,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 2.2119347125992026,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39300,
+     "calls_unserved": 3,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 26.894076069954956,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 8.847738850396809e-06,
+     "mean_facility_mw": 48.44925767789495,
+     "peak_facility_mw": 48.489913067581185,
+     "capex_hw_usd": 5703906193.417195,
+     "usd_day": 3544585.2323927204,
+     "usd_day_capex": 3484120.5588107076,
+     "usd_day_energy": 60464.6735820129,
+     "objective_usd_day": 3547810.364309433,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.11360850103822821,
+     "j_per_task_facility": 134167.1751080168,
+     "extra_gpu_modules": 422.0888873697917,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 0,
+       "unserved": 3,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4360,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39300,
+     "calls_unserved": 3,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 26.895804857746498,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 48.451280327396915,
+     "peak_facility_mw": 48.4899026626403,
+     "capex_hw_usd": 5703900000.0,
+     "usd_day": 3544584.2860379857,
+     "usd_day_capex": 3484117.088189394,
+     "usd_day_energy": 60467.19784859135,
+     "objective_usd_day": 3547809.417954698,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.1136084707063457,
+     "j_per_task_facility": 134172.776291253,
+     "extra_gpu_modules": 422.3866974975909,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 0,
+       "unserved": 3,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    }
+   }
+  },
+  {
+   "param": "parking.recompute_share",
+   "value": 1.0,
+   "best_mode": "hold",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 124359,
+     "gpu_racks": 1944,
+     "cpu_sockets": 0,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 55500,
+     "calls_unserved": 12000,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 767.2306800787649,
+     "cpu_mean_mw": 1.4,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 903.9096797726277,
+     "peak_facility_mw": 903.9122321880426,
+     "capex_hw_usd": 13928208000.0,
+     "usd_day": 15446448.121199293,
+     "usd_day_capex": 14318368.840843054,
+     "usd_day_energy": 1128079.2803562393,
+     "objective_usd_day": 28346975.78804861,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.4950784654230543,
+     "j_per_task_facility": 2503134.497831892,
+     "extra_gpu_modules": 108421.66666666667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 0,
+       "unserved": 12000,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4361,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 2.2119347125992026,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39300,
+     "calls_unserved": 3,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 26.90123735193737,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 8.847738850396809e-06,
+     "mean_facility_mw": 48.45767934550627,
+     "peak_facility_mw": 48.497168399581184,
+     "capex_hw_usd": 5704018193.417195,
+     "usd_day": 3544710.7820760915,
+     "usd_day_capex": 3484235.5982528995,
+     "usd_day_energy": 60475.18382319182,
+     "objective_usd_day": 3547935.913992804,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.11361252506654139,
+     "j_per_task_facility": 134190.4966490943,
+     "extra_gpu_modules": 423.15973697916667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 0,
+       "unserved": 3,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4360,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39300,
+     "calls_unserved": 3,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 26.895804857746498,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 48.451280327396915,
+     "peak_facility_mw": 48.4899026626403,
+     "capex_hw_usd": 5703900000.0,
+     "usd_day": 3544584.2860379857,
+     "usd_day_capex": 3484117.088189394,
+     "usd_day_energy": 60467.19784859135,
+     "objective_usd_day": 3547809.417954698,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.1136084707063457,
+     "j_per_task_facility": 134172.776291253,
+     "extra_gpu_modules": 422.3866974975909,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 0,
+       "unserved": 3,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    }
+   }
+  },
+  {
+   "param": "parking.hbm_gb_per_module",
+   "value": 256,
+   "best_mode": "park",
+   "cells": {
+    "gpu_only": {
+     "mode": "gpu_only",
+     "qpus": 0,
+     "admitted": [],
+     "gpu_modules": 124359,
+     "gpu_racks": 1944,
+     "cpu_sockets": 0,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 0,
+     "calls_classical": 55500,
+     "calls_unserved": 12000,
+     "qpu_util": 0.0,
+     "wait_p95_s": 0.0,
+     "gpu_mean_mw": 767.2306800787649,
+     "cpu_mean_mw": 1.4,
+     "qpu_mean_mw": 0.0,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 903.9096797726277,
+     "peak_facility_mw": 903.9122321880426,
+     "capex_hw_usd": 13928208000.0,
+     "usd_day": 15446448.121199293,
+     "usd_day_capex": 14318368.840843054,
+     "usd_day_energy": 1128079.2803562393,
+     "objective_usd_day": 28346975.78804861,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.4950784654230543,
+     "j_per_task_facility": 2503134.497831892,
+     "extra_gpu_modules": 108421.66666666667,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 12000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 0,
+       "classical": 0,
+       "unserved": 12000,
+       "admitted": false
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 0,
+       "classical": 4200,
+       "unserved": 0,
+       "admitted": false
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "park": {
+     "mode": "park",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4360,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 2.2119347125992026,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39300,
+     "calls_unserved": 3,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 26.894076069954956,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 8.847738850396809e-06,
+     "mean_facility_mw": 48.44925767789495,
+     "peak_facility_mw": 48.489913067581185,
+     "capex_hw_usd": 5703906193.417195,
+     "usd_day": 3544585.2323927204,
+     "usd_day_capex": 3484120.5588107076,
+     "usd_day_energy": 60464.6735820129,
+     "objective_usd_day": 3547810.364309433,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.11360850103822821,
+     "j_per_task_facility": 134167.1751080168,
+     "extra_gpu_modules": 422.0888873697917,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 0,
+       "unserved": 3,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    },
+    "hold": {
+     "mode": "hold",
+     "qpus": 43,
+     "admitted": [
+      "materials",
+      "chemistry",
+      "biology"
+     ],
+     "gpu_modules": 4362,
+     "gpu_racks": 69,
+     "cpu_sockets": 2779,
+     "ctxmem_tb": 0.0,
+     "calls_day": 67500,
+     "calls_on_qpu": 28197,
+     "calls_classical": 39300,
+     "calls_unserved": 3,
+     "qpu_util": 0.9416638088878224,
+     "wait_p95_s": 223.66532539252364,
+     "gpu_mean_mw": 26.910234194667733,
+     "cpu_mean_mw": 2.7340576806640624,
+     "qpu_mean_mw": 11.57020576719906,
+     "ctx_mean_mw": 0.0,
+     "mean_facility_mw": 48.4682492276163,
+     "peak_facility_mw": 48.5044133266403,
+     "capex_hw_usd": 5704124000.0,
+     "usd_day": 3544835.5421098424,
+     "usd_day_capex": 3484347.1670737774,
+     "usd_day_energy": 60488.37503606514,
+     "objective_usd_day": 3548060.674026555,
+     "tasks_day": 31200000.0,
+     "usd_per_task": 0.11361652378557187,
+     "j_per_task_facility": 134219.7670918605,
+     "extra_gpu_modules": 424.54678999036355,
+     "by_class": {
+      "coding_agents": {
+       "calls": 3300,
+       "on_qpu": 0,
+       "classical": 3300,
+       "unserved": 0,
+       "admitted": false
+      },
+      "materials": {
+       "calls": 12000,
+       "on_qpu": 12000,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "chemistry": {
+       "calls": 12000,
+       "on_qpu": 11997,
+       "classical": 0,
+       "unserved": 3,
+       "admitted": true
+      },
+      "biology": {
+       "calls": 4200,
+       "on_qpu": 4200,
+       "classical": 0,
+       "unserved": 0,
+       "admitted": true
+      },
+      "mechanical": {
+       "calls": 20000,
+       "on_qpu": 0,
+       "classical": 20000,
+       "unserved": 0,
+       "admitted": false
+      },
+      "finance": {
+       "calls": 16000,
+       "on_qpu": 0,
+       "classical": 16000,
+       "unserved": 0,
+       "admitted": false
+      }
+     }
+    }
+   }
+  }
+ ],
+ "users_at_cap": {
+  "cap_mw": 50,
+  "rows": [
+   {
+    "induced": 1.0,
+    "gpu_only": 200000.0,
+    "park": 1031250.0
+   },
+   {
+    "induced": 3.0,
+    "gpu_only": 200000.0,
+    "park": 604687.5
+   }
+  ]
+ }
+}

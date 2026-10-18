@@ -1,0 +1,114 @@
+{
+  "_note": "Inputs of dc_sim.dc_design (architecture v2: pooled GPU nodes, CPU sandbox pool, context-memory pool, shared QPU service, agents PARK their session while a QPU sub-task runs). Shared sections (case_b, cpu, economics, quantum, pod) are read from arch_study.json. EVERYTHING here is an ASSUMPTION unless it says FROM quantum_arch / FROM dc_sim assumptions. The class mix and the quantum-eligible call densities are the scenario, not data: nobody has measured them.",
+  "classes": {
+    "coding_agents": {
+      "share": 0.55,
+      "interactive_tasks": 12,
+      "background_tasks": 30,
+      "steps": 80,
+      "step_scale": 1.0,
+      "tool_cores": 2.0,
+      "tool_s": 8.0,
+      "calls_per_bg_task": 0.0002,
+      "kernel": "vqe_20q",
+      "ctx_gb": 20,
+      "note": "case B (slides). Calls: a solver/optimiser tool that happens to be quantum-backed; rare."
+    },
+    "materials": {
+      "share": 0.1,
+      "interactive_tasks": 6,
+      "background_tasks": 12,
+      "steps": 60,
+      "step_scale": 0.7,
+      "tool_cores": 8.0,
+      "tool_s": 30.0,
+      "calls_per_bg_task": 0.01,
+      "kernel": "vqe_50q",
+      "ctx_gb": 10,
+      "note": "materials engineers: electronic-structure sub-problems"
+    },
+    "chemistry": {
+      "share": 0.1,
+      "interactive_tasks": 6,
+      "background_tasks": 12,
+      "steps": 60,
+      "step_scale": 0.7,
+      "tool_cores": 8.0,
+      "tool_s": 30.0,
+      "calls_per_bg_task": 0.01,
+      "kernel": "chemistry_small",
+      "ctx_gb": 10,
+      "note": "chemists: active-space chemistry"
+    },
+    "biology": {
+      "share": 0.07,
+      "interactive_tasks": 6,
+      "background_tasks": 12,
+      "steps": 60,
+      "step_scale": 0.7,
+      "tool_cores": 8.0,
+      "tool_s": 30.0,
+      "calls_per_bg_task": 0.005,
+      "kernel": "vqe_50q",
+      "ctx_gb": 10,
+      "note": "biologists: molecular binding sub-problems"
+    },
+    "mechanical": {
+      "share": 0.1,
+      "interactive_tasks": 8,
+      "background_tasks": 10,
+      "steps": 60,
+      "step_scale": 0.7,
+      "tool_cores": 8.0,
+      "tool_s": 30.0,
+      "calls_per_bg_task": 0.02,
+      "kernel": "vqe_20q",
+      "ctx_gb": 10,
+      "note": "mechanical engineers: optimisation sub-problems (small, classical is cheap)"
+    },
+    "finance": {
+      "share": 0.08,
+      "interactive_tasks": 8,
+      "background_tasks": 10,
+      "steps": 60,
+      "step_scale": 0.7,
+      "tool_cores": 4.0,
+      "tool_s": 20.0,
+      "calls_per_bg_task": 0.02,
+      "kernel": "qla_scalar_explicit_1m",
+      "ctx_gb": 10,
+      "note": "financial engineers: large linear-algebra sub-problems (quantum_arch states no advantage for this kernel)"
+    }
+  },
+  "classical_fallback_module_hours": {
+    "vqe_20q": 0.4,
+    "vqe_50q": 160,
+    "chemistry_small": 768,
+    "qla_scalar_explicit_1m": 0.05,
+    "note": "FROM dc_sim assumptions classical_fallback_defaults (ASSUMPTIONS there): cost of the best classical method at the same accuracy."
+  },
+  "classical_max_module_hours": 200,
+  "classical_max_note": "A call that would cost more than this classically is NOT SERVED by the GPU-only reference (about 64 modules for 3 hours). On a QPU it is served. Unserved calls are valued at this cap in the sizing objective. ASSUMPTION.",
+  "induced_demand_factors": [
+    1.0,
+    3.0,
+    10.0
+  ],
+  "induced_note": "Assumption 1 of the user: with QPUs available, more QPU tasks get created. The call densities above are multiplied by this factor in a scenario; the GPU-only reference faces the same calls (and cannot serve the expensive ones).",
+  "parking": {
+    "hbm_gb_per_module": 1024,
+    "recompute_share": 0.25,
+    "cached_ctx_tokens": 250000,
+    "transfer_gbps": 400,
+    "ctxmem_tb_per_pool": 5000,
+    "ctxmem_pool_kw": 20,
+    "ctxmem_pool_capex_usd": 14000000,
+    "note": "Park: the session context moves to the context-memory pool; on resume it is copied back (transfer_gbps) or, for recompute_share of the resumes, re-prefilled (cached_ctx_tokens). Hold: the session keeps its KV cache in GPU HBM (ctx_gb of hbm_gb_per_module) for the whole wait + run. Capacity, share and token numbers are ASSUMPTIONS; pool power and capex FROM dc_sim assumptions (ctxmem_pool)."
+  },
+  "pod_users_for_cap_search": [
+    200000.0,
+    3000000.0
+  ],
+  "classical_cost_scale": 1.0,
+  "classical_cost_scale_note": "Multiplies every classical fallback cost; used for sensitivities (the fallback costs are the least certain input)."
+}

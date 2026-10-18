@@ -112,6 +112,17 @@ def cmd_arch_study(a) -> int:
     return 0
 
 
+def cmd_dc_design(a) -> int:
+    from . import arch_picture, dc_design
+    res = dc_design.run_design_study(a.out, quick=a.quick)
+    print(dc_design.design_markdown(res))
+    if a.out:
+        for m in res["scenarios"]:
+            arch_picture.render(Path(a.out) / "result.json", Path(a.out) / f"datacenter_blocks{'' if float(m) == 1.0 else '_induced' + m}.png", m)
+        print(f"wrote result.json, summary.md and block pictures to {a.out}")
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="dc_sim", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -156,6 +167,10 @@ def main(argv: list[str] | None = None) -> int:
     st.add_argument("--out", default=None)
     st.add_argument("--quick", action="store_true")
     st.set_defaults(fn=cmd_arch_study)
+    dd = sub.add_parser("dc-design", help="architecture v2 (parked sessions, shared QPU service, mixed user classes) vs GPU-only, plus the block picture (about 12 min; --quick about 1 min)")
+    dd.add_argument("--out", default=None)
+    dd.add_argument("--quick", action="store_true")
+    dd.set_defaults(fn=cmd_dc_design)
     a = p.parse_args(argv)
     return a.fn(a)
 
