@@ -10,6 +10,7 @@ from .bridge import profiles, compare
 
 ROOT=Path(__file__).resolve().parents[1]
 WEB=ROOT/'web'
+PAGE=ROOT/'thermal_lab'/'page'
 
 def make_server(port=5175):
     session=Session()
@@ -23,19 +24,21 @@ def make_server(port=5175):
             path=urlparse(self.path).path
             if path=='/api/thermal/meta':
                 return self._json({'presets':list_presets(),'profiles':profiles()})
-            if path=='/':
-                self.send_response(302);self.send_header('Location','/thermal/');self.end_headers();return
+            if path in ('/', '/thermal', '/thermal/', '/thermal_lab'):
+                self.send_response(302);self.send_header('Location','/thermal_lab/');self.end_headers();return
             if path in ('/router','/router/'):
                 return self._static('index.html')
-            if path.startswith('/thermal/') or path=='/src/styles.css':
-                file=(WEB/unquote(path).lstrip('/')).resolve()
-                if path.endswith('/'): file=file/'index.html'
-                allowed=WEB/'thermal'
-                if not (file==WEB/'src/styles.css' or allowed in file.parents) or not file.is_file():
+            if path.startswith('/thermal_lab/'):
+                rel=unquote(path[len('/thermal_lab/'):]) or 'index.html'
+                file=(PAGE/rel).resolve()
+                if rel=='shared.css': file=WEB/'src/styles.css'
+                if not (file==WEB/'src/styles.css' or PAGE in file.parents) or not file.is_file():
                     return self._json({'error':'not found'},404)
                 mime={'.html':'text/html','.mjs':'text/javascript','.css':'text/css','.json':'application/json'}.get(file.suffix)
                 if not mime:return self._json({'error':'not found'},404)
-                return self._send(200,file.read_bytes(),mime+'; charset=utf-8')
+                body=file.read_bytes()
+                if rel=='index.html':body=body.replace(b'data-mode="static"',b'data-mode="live"')
+                return self._send(200,body,mime+'; charset=utf-8')
             return super().do_GET()
         def do_POST(self):
             if not self._local():return self._json({'error':'localhost only'},403)
@@ -57,7 +60,7 @@ def make_server(port=5175):
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--port',type=int,default=5175)
     args=parser.parse_args();server=make_server(args.port)
-    print(f'Thermal + router lab: http://127.0.0.1:{server.server_port}/thermal/',flush=True)
+    print(f'Thermal + router lab: http://127.0.0.1:{server.server_port}/thermal_lab/',flush=True)
     try:server.serve_forever()
     except KeyboardInterrupt:pass
     finally:server.server_close()

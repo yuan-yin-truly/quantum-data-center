@@ -1,10 +1,14 @@
-## Thermal & cooling
+## Thermal Lab
 
-**Status:** local rollout + connected router simulation · **Start:** 2030
+**Status:** hosted workstream + optional live Python mode · **Start:** 2030
 
 **Question:** When does gradually adding quantum capacity let the same fleet serve its users with less cost or grid demand, while staying inside thermal limits?
 
-**Local simulation:** `uv sync --locked --group dev`, then `uv run python -m thermal_lab --port 5175`. Open http://127.0.0.1:5175/thermal/ . Uses the existing Python 3.12 project and lockfile, with no new dependencies. `python3 -m uv` is equivalent if the uv executable is not on PATH. The main page and deployment remain unchanged.
+**Open the workstream:** use the **Thermal Lab** tab at the top of the team website, or [open Thermal Lab](./thermal_lab/). The browser forecast, saved router comparisons and playable batch replay work directly on GitHub Pages; no local setup is needed.
+
+**Source:** all workstream code is under `thermal_lab/`, including `page/index.html`, `page/app.mjs`, `page/model.mjs`, `page/thermal.css`, Python engine adapters, and generated `page/snapshots/` evidence. See `thermal_lab/README.md`.
+
+**Optional fresh runs:** `uv sync --locked --group dev`, then `uv run python -m thermal_lab --port 5175` and open http://127.0.0.1:5175/thermal_lab/ . Uses the existing Python 3.12 project and lockfile. Hosted router evidence is regenerated with `uv run python -m thermal_lab.snapshot`; forecast edits in the browser do not rerun Python.
 
 **Restrictions:** six Earth sites; at most 500 MW combined grid demand; $30B over 2030–2034; serve the selected user case at its required quality and deadlines before minimizing costs. The optional 2035–2039 forecast is outside that original budget window. Space locations and launch costs are excluded in line with the repository's Earth-only scope.
 
@@ -28,10 +32,10 @@ The heat view is an illustrative steady-state resistance model, not a HotSpot so
 
 **Validation still required:** official scorer and catalog, QPU prices and matched-task throughput, detailed prefill/context-memory capacity, end-to-end deadline and quality evidence, thermal calibration, site-level grid limits. A modeled pass is a necessary feasibility screen, not proof of challenge compliance. Projected spending differences from infeasible configurations must not be described as savings.
 
-**Router integration:** the page embeds the existing `dc_sim` visual simulator. A separate preset comparison calls `dc_sim.api.compare_policies` for identical task sets and seeds. It shows policy differences versus FIFO on the same fleet separately from total cost differences versus a GPU-only reference fleet. These are classical scheduling algorithms assigning GPU/QPU work, not quantum scheduling algorithms.
+**Router integration:** the page embeds the existing `dc_sim` visual simulator. In live mode, a separate preset comparison calls `dc_sim.api.compare_policies` for identical task sets and seeds. It shows policy differences versus FIFO on the same fleet separately from total cost differences versus a GPU-only reference fleet. These are classical scheduling algorithms assigning GPU/QPU work, not quantum scheduling algorithms.
 
 **Forecast links:** import QPU price, wall power, workload feasibility and estimated accepted jobs/hour from the shared 2035 model; availability starts no earlier than 2035. Optionally extrapolate a chosen policy's same-fleet energy and electricity-cost ratios into annual operating totals. Capital is not reduced again, and no peak-power or capacity benefit is inferred. Incomplete service in the source comparison blocks the forecast's feasibility claim. The imported source and assumptions are included in exported JSON. The live router's injected tasks remain a separate session.
 
-**Next:** replace the thermal proxy with exported HotSpot/quantum stage results where valid, and rerun the router engine for explicitly matched annual fleets before claiming calibrated annual savings. The existing simulators remain unchanged. No main-page integration or deployment is part of this local prototype.
+**Next:** replace the thermal proxy with exported HotSpot/quantum stage results where valid, and rerun the router engine for explicitly matched annual fleets before claiming calibrated annual savings. The other workstreams and simulation engines remain unchanged. The main website adds a Thermal Lab tab and packages this workstream through an additive build plugin; the existing deployment workflow is reused.
 
-Details and model tests: `web/thermal/README.md` and `web/thermal/model.test.mjs`.
+Details and model tests: `thermal_lab/README.md` and `thermal_lab/page/model.test.mjs`.

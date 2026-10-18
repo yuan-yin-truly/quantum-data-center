@@ -22,6 +22,7 @@ export default function App() {
         <nav aria-label="Sections">
           <a href="#fleet">Fleet card</a>
           <a href="#workstreams">Workstreams</a>
+          <a href="./thermal_lab/">Thermal Lab</a>
           <a href="#notes">Research notes</a>
         </nav>
       </header>
