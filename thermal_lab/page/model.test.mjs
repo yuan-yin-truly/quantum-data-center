@@ -1,7 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {DEFAULTS,simulate} from './model.mjs';
-const run=extra=>simulate({...DEFAULTS,...extra});
+const run=extra=>simulate({...DEFAULTS,reference:'optimizedGpu',qcRouterOn:false,...extra});
 test('zero quantum gives identical fleets and spending',()=>{for(const r of run({add:0}).rows){assert.equal(r.savings,0);assert.equal(r.baseMw,r.hybridMw);assert.equal(r.baseRacks,r.hybridRacks);}});
 test('offloading cannot remove LLM demand',()=>{for(const r of run({qJobs:10000,jobHours:100,eligible:100,add:20,maxQ:100}).rows){assert.ok(r.offload<=r.tools);assert.ok(r.hybridRacks>=Math.ceil(r.demand));}});
 test('rollout obeys start year and maximum systems',()=>{const r=run({start:2032,add:3,maxQ:5}).rows;assert.equal(r[1].qCount,0);assert.equal(r[2].qCount,3);assert.equal(r[3].qCount,5);assert.equal(r[9].qCount,5);});
@@ -12,7 +12,13 @@ test('under-provisioning cannot count as feasible savings',()=>{const r=run({gpu
 test('cumulative spend reconciles annual costs',()=>{const r=run({});let sum=0;for(const y of r.rows){sum+=Object.values(y.costs).reduce((a,b)=>a+b,0);assert.ok(Math.abs(sum-y.hybridCumulative)<.001);}});
 test('quantum scheduling reserves a capable system',()=>{const a=run({router:'quantum',add:1,maxQ:1,routerGain:0}).rows[1];assert.equal(a.qCount,1);assert.equal(a.offload,0);});
 test('retained quantum cohort power does not improve for free',()=>{const r=run({start:2030,add:1,maxQ:1,qPowerDrop:30}).rows;assert.equal(r[0].qPower,r[9].qPower);});
-test('imported 2035 hardware is not silently installed in 2030',()=>{const r=run({qAvailableFrom:2035,qAnchorYear:2035,engineProfile:{feasible:true},qGrowth:50,start:2030}).rows;assert.equal(r[4].qCount,0);assert.equal(r[5].qPower,DEFAULTS.qMw*2);assert.equal(r[5].qCapacity,DEFAULTS.qJobs*2*DEFAULTS.jobHours/144);});
+test('imported 2035 hardware is not silently installed in 2030',()=>{const r=run({add:2,qAvailableFrom:2035,qAnchorYear:2035,engineProfile:{feasible:true},qGrowth:50,start:2030}).rows;assert.equal(r[4].qCount,0);assert.equal(r[5].qPower,DEFAULTS.qMw*2);assert.equal(r[5].qCapacity,DEFAULTS.qJobs*2*DEFAULTS.jobHours/144);});
 test('policy effect adjusts energy and cost independently, never peak power or purchases',()=>{const a=run({}),b=run({policyEvidence:{energy_fraction:-.1,electricity_cost_fraction:.2,full_service_both:true,caps_held:true}});for(let i=0;i<10;i++){const x=a.rows[i],y=b.rows[i];assert.equal(y.hybridMw,x.hybridMw);assert.equal(y.hybridRacks,x.hybridRacks);assert.ok(Math.abs(y.hybridGwh/x.hybridGwh-1.1)<1e-9);assert.ok(Math.abs(y.costs.electricity/x.costs.electricity-.8)<1e-9);}});
 test('incomplete service in linked run blocks feasibility claim',()=>{const r=run({policyEvidence:{energy_fraction:.2,electricity_cost_fraction:.2,full_service_both:false,caps_held:true}});assert.equal(r.feasible,false);assert.equal(r.breakEven,null);});
 test('fixed quantum load alone over grid cap means no service capacity',()=>{const r=run({start:2030,add:20,maxQ:20,qMw:40}).rows[0];assert.equal(r.served,0);});
+test('case B is the only forecast population',()=>{assert.equal(DEFAULTS.caseId,'B');assert.throws(()=>run({caseId:'C'}),/50 million/);});
+test('100 percent capacity buffer already removes offloaded GPU racks',()=>{const result=run({toolShare:15,qJobs:10000,jobHours:100,eligible:100,start:2030,add:1,maxQ:1});for(const r of result.rows){assert.equal(r.hybridRacks,r.gpuRacksRequired);assert.ok(r.hybridRacks<r.baseRacks);assert.equal(r.gpuRacksReleased,r.baseRacks-r.hybridRacks);assert.ok(r.capacityFraction>=.999999);}});
+test('agent-only work cannot be made quantum-eligible by adding QPUs',()=>{for(const r of run({toolShare:0,add:1,qJobs:10000,eligible:100,start:2030}).rows){assert.equal(r.offload,0);assert.equal(r.hybridRacks,r.baseRacks);assert.ok(r.savings<0);}});
+
+test('routing opportunity saves billions versus before-routing fleet, without claiming quantum advantage',()=>{const r=simulate({...DEFAULTS}).rows[0];assert.ok(r.policySavings>10e9);assert.ok(r.savings>10e9);assert.ok(r.qcIncrementalSavings<0);assert.ok(r.unoptimizedRacks>r.hybridRacks);assert.ok(r.unoptimizedMw>500);assert.ok(r.hybridMw<500);assert.equal(r.served,1);});
+test('late QC installation never refunds the originally purchased GPU fleet',()=>{const r=simulate({...DEFAULTS,qcRouterStart:2033});let sum=0;for(const y of r.rows){sum+=Object.values(y.costs).reduce((a,b)=>a+b,0);assert.ok(Math.abs(sum-y.hybridCumulative)<.01);}assert.ok(r.rows[3].hybridCumulative>r.rows[2].hybridCumulative);assert.ok(r.rows[3].retired>0);});

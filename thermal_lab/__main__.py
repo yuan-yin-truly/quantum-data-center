@@ -5,7 +5,6 @@ from http.server import ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 from dc_sim.server import Session, make_handler
-from dc_sim.api import list_presets
 from .bridge import profiles, compare
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -14,6 +13,7 @@ PAGE=ROOT/'thermal_lab'/'page'
 
 def make_server(port=5175):
     session=Session()
+    session.reset("case_B_agents", "batch", 7)
     base=make_handler(session)
     class Handler(base):
         def _local(self):
@@ -22,8 +22,11 @@ def make_server(port=5175):
         def do_GET(self):
             if not self._local(): return self._json({'error':'localhost only'},403)
             path=urlparse(self.path).path
+            if path=='/api/meta':
+                meta=session.meta();meta['presets']=[p for p in meta['presets'] if p['name']=='case_B_agents']
+                return self._json(meta)
             if path=='/api/thermal/meta':
-                return self._json({'presets':list_presets(),'profiles':profiles()})
+                return self._json({'presets':['case_B_agents'],'profiles':profiles()})
             if path in ('/', '/thermal', '/thermal/', '/thermal_lab'):
                 self.send_response(302);self.send_header('Location','/thermal_lab/');self.end_headers();return
             if path in ('/router','/router/'):
@@ -50,8 +53,8 @@ def make_server(port=5175):
                 if not isinstance(body,dict):raise ValueError('Expected an object')
                 seed=int(body.get('seed',7))
                 if seed<0 or seed>2**32-1:raise ValueError('Seed outside range')
-                preset=body.get('preset','ui_demo')
-                if not isinstance(preset,str):raise ValueError('Invalid preset')
+                preset=body.get('preset','case_B_agents')
+                if preset!='case_B_agents':raise ValueError('Thermal Lab focuses on case_B_agents')
                 return self._json(compare(preset,seed))
             except (ValueError,TypeError) as e:return self._json({'error':str(e)},400)
             except Exception as e:return self._json({'error':f'Simulation failed: {e}'},500)

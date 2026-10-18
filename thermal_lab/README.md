@@ -57,3 +57,17 @@ Costs accumulate purchases, networking, cooling/buildings, energy and maintenanc
 uv run pytest thermal_lab/test_bridge.py tests/test_dc_sim.py -q
 node --test thermal_lab/page/model.test.mjs
 ```
+
+## Case B focus and explanation
+
+Thermal Lab focuses on 50 million agent developers. The browser keeps that population fixed; demand growth increases work per developer. Hosted comparisons and replay use the full 24-hour `case_B_agents` preset at demand_scale=1.0. That preset has 120 agent jobs and no quantum tool calls; it does not establish a QPU benefit. The annual scientific-tool share is a separate what-if assumption.
+
+The page explains every control, shows compound progress calculations for the selected year, and displays GPU-only versus hybrid GPU counts. The GPU capacity buffer applies AFTER quantum offloading; 100% already reduces GPU count where offloading permits. Savings include full system costs, and no result is forced to favor hybrid hardware.
+
+## QC assignment-router design comparison
+
+The default design models a proposed QC making task-assignment decisions for case B, with a separate system cost/power/latency budget. Its default 14 kW and $40M are the repository's illustrative annealer-class system and capex assumptions; this does not prove that such a system can solve the fleet scheduling problem at 50 ms. The existing recorded engine solves the reference policies classically.
+
+The headline now compares the pre-optimization case-B fleet (830.959 racks) with the routed requirement (360.843 racks), matching the existing fleet-card background-speed and sub-agent levers. The approximately $11.2B rack-capex difference is a routing-policy opportunity. The page also shows optimized classical routing alongside the proposed QC design, so it cannot attribute all of that saving exclusively to quantum hardware. The pre-optimization fleet exceeds the 500 MW cap: its cost is the cost of required capacity, not a feasible deployed design.
+
+The default population stays fixed at 50M. Optional scientific tool load and tool-QPU additions default to zero; QC scheduling does not require agents to call quantum tools. The separate tool pool remains available for further what-if studies. Delayed QC installation preserves the original GPU purchases in capital accounting; retiring GPUs does not refund their cost.

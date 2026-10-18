@@ -10,13 +10,13 @@ def export_snapshot(destination=None):
     dest=Path(destination) if destination else Path(__file__).parent/'page'/'snapshots'
     dest.mkdir(parents=True,exist_ok=True)
     stamp=datetime.now(timezone.utc).isoformat()
-    comparison=compare('ui_demo',7)
+    comparison=compare('case_B_agents',7)
     comparison.update(hosted_snapshot=True,generated_at=stamp)
-    meta={'presets':['ui_demo'],'profiles':profiles(),'generated_at':stamp,'seed':7,
-          'available_live_presets':list_presets(),'mode':'saved-python-engine-results'}
+    meta={'presets':['case_B_agents'],'profiles':profiles(),'generated_at':stamp,'seed':7,
+          'available_live_presets':list_presets(),'mode':'saved-python-engine-results','case':'B','users':50_000_000,'workload_note':'Full case B at demand_scale=1.0. The supplied preset has 120 agent jobs and no quantum tool calls.'}
     (dest/'meta.json').write_text(json.dumps(meta,indent=2)+'\n',encoding='utf-8')
     (dest/'comparison.json').write_text(json.dumps(comparison,indent=2)+'\n',encoding='utf-8')
-    (dest/'router-replay.html').write_text(build_html(None,'ui_demo','batch',seed=7,every=6),encoding='utf-8')
+    (dest/'router-replay.html').write_text(build_html(None,'case_B_agents','batch',seed=7,every=24),encoding='utf-8')
     print(f'Exported Thermal Lab snapshot to {dest}')
     return dest
 

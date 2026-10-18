@@ -2,7 +2,7 @@
 
 **Status:** hosted workstream + optional live Python mode · **Start:** 2030
 
-**Question:** When does gradually adding quantum capacity let the same fleet serve its users with less cost or grid demand, while staying inside thermal limits?
+**Question:** Can a proposed QC task-assignment router serve the same 50M agent developers with fewer GPUs, lower cost and lower grid demand, while meeting constraints?
 
 **Open the workstream:** use the **Thermal Lab** tab at the top of the team website, or [open Thermal Lab](./thermal_lab/). The browser forecast, saved router comparisons and playable batch replay work directly on GitHub Pages; no local setup is needed.
 
@@ -14,7 +14,7 @@
 
 **What people can explore**
 
-- Cases A/B/C, annual demand and GPU throughput growth.
+- Case B only: 50 million agent developers, with adjustable work per developer and GPU throughput growth.
 - Gradual quantum purchases, logical-qubit thresholds, workload eligibility and conservative/moderate/optimistic sensitivity scenarios.
 - GPU-only versus hybrid capacity, with an adjustable retained GPU provisioning level.
 - A separate simulated quantum-scheduler gain and latency; no quantum scheduling advantage is presumed. Classical systems still perform I/O and enact assignments.
@@ -39,3 +39,7 @@ The heat view is an illustrative steady-state resistance model, not a HotSpot so
 **Next:** replace the thermal proxy with exported HotSpot/quantum stage results where valid, and rerun the router engine for explicitly matched annual fleets before claiming calibrated annual savings. The other workstreams and simulation engines remain unchanged. The main website adds a Thermal Lab tab and packages this workstream through an additive build plugin; the existing deployment workflow is reused.
 
 Details and model tests: `thermal_lab/README.md` and `thermal_lab/page/model.test.mjs`.
+
+**Case B evidence:** hosted router results and replay use the complete 24-hour `case_B_agents` preset (50M users; demand scale 1.0), rather than the smaller case-C UI demo. Its 120 agent jobs have no quantum tool calls, so any future QPU offloading in the annual forecast remains an explicit tool-mix assumption. The page now explains every control, compound projection formulas and the count of GPUs released after offloading.
+
+**QC-router design:** the QC is the proposed task-assignment optimizer. The default comparison now shows the case-B fleet before routing improvements, an optimized classical-router fleet, and the proposed QC-routed GPU fleet with its own cost, power and latency. The case-B fleet-card levers reduce approximately 831 racks to 361, about $11.2B in rack-capex opportunity. That is a policy-enabled capacity reduction; the existing classical reference engine does not establish a quantum-specific scheduling advantage. The inefficient baseline exceeds 500 MW and is a required-capacity comparison. Optional quantum tool jobs and tool-QPU additions are off by default.
