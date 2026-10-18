@@ -1,97 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
   <title id="t">Hybrid data center: how work flows</title>
-  <desc id="d">Coding agents and scientists send work to a scheduler node. LLM steps go to pooled GPU nodes, optional LPU racks and a parking memory where agents park their sessions while a QPU job runs. Agent tool calls go to a CPU sandbox pool, a classical GPU fallback, or a shared QPU service for chemistry, materials and biology while the agent is parked.</desc>
+  <desc id="d">Coding agents and scientists send work to a scheduler node. LLM steps go to a pool of GPU nodes. Quantum-eligible calls go to a shared QPU service, and the agent parks its session in a parking memory while the QPU job waits or runs.</desc>
   <defs>
     <marker id="a-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#22d3ee"/></marker>
     <marker id="a-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8691aa"/></marker>
     <marker id="a-mag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#d946ef"/></marker>
+    <marker id="a-amb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#e69f00"/></marker>
   </defs>
 
-  <rect width="1200" height="660" rx="18" fill="#0c111d"/>
+  <rect width="1200" height="500" rx="18" fill="#0c111d"/>
 
   <!-- Heading -->
   <text x="40" y="50" fill="#ebeff7" font-size="22" font-weight="700">How work flows in the hybrid data center</text>
-  <text x="40" y="76" fill="#b3bccf" font-size="14">Tokens stay on GPUs and LPUs. A scheduler sends each tool call where it is answered for the least cost, and an agent waiting for a QPU parks its session.</text>
+  <text x="40" y="76" fill="#b3bccf" font-size="14">Tokens stay on GPUs. A scheduler sends each task where it is answered for the least cost, and an agent waiting for a QPU parks its session.</text>
 
   <!-- Users -->
-  <rect x="40" y="246" width="200" height="148" rx="12" fill="#111828" stroke="rgba(255,255,255,0.14)"/>
-  <text x="60" y="278" fill="#ebeff7" font-size="16" font-weight="650">Users and agents</text>
-  <text x="60" y="304" fill="#b3bccf" font-size="13">Coding agents (case B)</text>
-  <text x="60" y="322" fill="#8691aa" font-size="12">about 55% of users</text>
-  <text x="60" y="346" fill="#b3bccf" font-size="13">Chemists, materials,</text>
-  <text x="60" y="364" fill="#b3bccf" font-size="13">biology, mechanical and</text>
-  <text x="60" y="382" fill="#b3bccf" font-size="13">finance engineers</text>
-  <path d="M240 320 H292" stroke="#8691aa" stroke-width="2" fill="none" marker-end="url(#a-grey)"/>
+  <rect x="40" y="170" width="210" height="110" rx="12" fill="#111828" stroke="rgba(255,255,255,0.14)"/>
+  <text x="60" y="204" fill="#ebeff7" font-size="16" font-weight="650">Users and agents</text>
+  <text x="60" y="230" fill="#b3bccf" font-size="13">Coding agents (case B)</text>
+  <text x="60" y="250" fill="#b3bccf" font-size="13">Chemists, materials, biology,</text>
+  <text x="60" y="268" fill="#b3bccf" font-size="13">mechanical, finance engineers</text>
+  <path d="M250 225 H302" stroke="#8691aa" stroke-width="2" fill="none" marker-end="url(#a-grey)"/>
 
   <!-- Scheduler -->
-  <rect x="300" y="226" width="240" height="188" rx="12" fill="#111828" stroke="#22d3ee" stroke-width="1.5"/>
-  <text x="322" y="260" fill="#ebeff7" font-size="18" font-weight="700">Scheduler node</text>
-  <text x="322" y="286" fill="#8691aa" font-size="13">For every task and tool call:</text>
-  <text x="322" y="312" fill="#b3bccf" font-size="13">• Likely to need a QPU?</text>
-  <text x="322" y="334" fill="#b3bccf" font-size="13">• Saving per QPU-second</text>
-  <text x="322" y="356" fill="#b3bccf" font-size="13">• Deadline and wait limit</text>
-  <text x="322" y="378" fill="#b3bccf" font-size="13">• Re-plans as load changes</text>
-  <text x="322" y="400" fill="#8691aa" font-size="12">Long QPU queue: run it classically</text>
+  <rect x="310" y="160" width="250" height="130" rx="12" fill="#111828" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="332" y="194" fill="#ebeff7" font-size="18" font-weight="700">Scheduler node</text>
+  <text x="332" y="222" fill="#b3bccf" font-size="13">• Will it need a QPU?</text>
+  <text x="332" y="244" fill="#b3bccf" font-size="13">• Is the QPU worth it, or is</text>
+  <text x="332" y="262" fill="#b3bccf" font-size="13">  the GPU cheaper?</text>
+  <text x="332" y="280" fill="#8691aa" font-size="12">Re-plans as load changes</text>
 
   <!-- Trunk and branches -->
-  <path d="M540 320 H590" stroke="#8691aa" stroke-width="2" fill="none"/>
-  <path d="M590 200 V566" stroke="#8691aa" stroke-width="2" fill="none"/>
-  <path d="M590 200 H632" stroke="#22d3ee" stroke-width="2.5" fill="none" marker-end="url(#a-cyan)"/>
-  <text x="582" y="204" fill="#22d3ee" font-size="12" font-weight="600" text-anchor="end">LLM steps</text>
-  <path d="M590 414 H648" stroke="#8691aa" stroke-width="2" fill="none" marker-end="url(#a-grey)"/>
-  <text x="582" y="432" fill="#8691aa" font-size="12" font-weight="600" text-anchor="end">tool calls</text>
-  <path d="M590 490 H648" stroke="#8691aa" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-grey)"/>
-  <path d="M590 566 H648" stroke="#d946ef" stroke-width="3" fill="none" marker-end="url(#a-mag)"/>
-  <text x="582" y="584" fill="#d946ef" font-size="12" font-weight="600" text-anchor="end">quantum</text>
-  <text x="582" y="598" fill="#d946ef" font-size="12" font-weight="600" text-anchor="end">sub-tasks</text>
+  <path d="M560 225 H610" stroke="#8691aa" stroke-width="2" fill="none"/>
+  <path d="M610 150 V382" stroke="#8691aa" stroke-width="2" fill="none"/>
+  <path d="M610 150 H652" stroke="#22d3ee" stroke-width="2.5" fill="none" marker-end="url(#a-cyan)"/>
+  <text x="602" y="142" fill="#22d3ee" font-size="12" font-weight="600" text-anchor="end">LLM steps</text>
+  <path d="M610 382 H652" stroke="#d946ef" stroke-width="3" fill="none" marker-end="url(#a-mag)"/>
+  <text x="602" y="374" fill="#d946ef" font-size="12" font-weight="600" text-anchor="end">quantum</text>
+  <text x="602" y="390" fill="#d946ef" font-size="12" font-weight="600" text-anchor="end">sub-tasks</text>
 
-  <!-- Token serving -->
-  <rect x="640" y="104" width="520" height="196" rx="14" fill="none" stroke="rgba(34,211,238,0.35)" stroke-dasharray="2 0"/>
-  <text x="660" y="132" fill="#22d3ee" font-size="12" font-weight="700" letter-spacing="1.2">TOKEN SERVING</text>
-  <text x="790" y="132" fill="#8691aa" font-size="12">limited by memory bandwidth · no quantum</text>
+  <!-- GPU node pool -->
+  <rect x="660" y="100" width="240" height="100" rx="12" fill="#111828" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="680" y="132" fill="#ebeff7" font-size="16" font-weight="650">GPU node pool</text>
+  <text x="680" y="156" fill="#b3bccf" font-size="13">prefill + decode, tool calls</text>
+  <text x="680" y="176" fill="#8691aa" font-size="12">identical nodes, any task</text>
 
-  <rect x="656" y="150" width="152" height="130" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
-  <text x="672" y="180" fill="#ebeff7" font-size="15" font-weight="650">GPU node pool</text>
-  <text x="672" y="204" fill="#b3bccf" font-size="13">prefill + decode</text>
-  <text x="672" y="226" fill="#8691aa" font-size="12">identical nodes, any</text>
-  <text x="672" y="244" fill="#8691aa" font-size="12">user class, any task</text>
+  <!-- Parking memory -->
+  <rect x="980" y="100" width="180" height="100" rx="12" fill="#111828" stroke="#e69f00" stroke-width="1.5"/>
+  <text x="1000" y="132" fill="#ebeff7" font-size="16" font-weight="650">Parking memory</text>
+  <text x="1000" y="156" fill="#b3bccf" font-size="13">sessions waiting</text>
+  <text x="1000" y="176" fill="#8691aa" font-size="12">for a QPU job only</text>
+  <path d="M902 150 H978" stroke="#e69f00" stroke-width="2" fill="none" marker-start="url(#a-amb)" marker-end="url(#a-amb)"/>
+  <text x="940" y="140" fill="#e69f00" font-size="11" font-weight="600" text-anchor="middle">park / resume</text>
 
-  <rect x="824" y="150" width="152" height="130" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
-  <text x="840" y="180" fill="#ebeff7" font-size="15" font-weight="650">LPU racks</text>
-  <text x="840" y="204" fill="#b3bccf" font-size="13">fast decode (optional)</text>
-  <text x="840" y="226" fill="#8691aa" font-size="12">516 kW, 256 chips</text>
-  <text x="840" y="244" fill="#8691aa" font-size="12">not in the pod study</text>
+  <!-- QPU call from the GPU pool -->
+  <path d="M780 202 V322" stroke="#d946ef" stroke-width="2" stroke-dasharray="5 4" fill="none" marker-end="url(#a-mag)"/>
+  <text x="790" y="266" fill="#d946ef" font-size="12" font-weight="600">QPU call</text>
 
-  <rect x="992" y="150" width="152" height="130" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
-  <text x="1008" y="180" fill="#ebeff7" font-size="15" font-weight="650">Parking memory</text>
-  <text x="1008" y="204" fill="#b3bccf" font-size="13">sessions parked</text>
-  <text x="1008" y="226" fill="#8691aa" font-size="12">while a QPU job waits</text>
-  <text x="1008" y="244" fill="#8691aa" font-size="12">or runs; resume on</text>
-  <text x="1008" y="262" fill="#8691aa" font-size="12">any GPU node</text>
-  <path d="M740 280 V294 H1068 V282" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-start="url(#a-cyan)" marker-end="url(#a-cyan)"/>
-  <rect x="868" y="287" width="72" height="14" fill="#0c111d"/>
-  <text x="904" y="298" fill="#22d3ee" font-size="11" font-weight="600" text-anchor="middle">park / resume</text>
-
-  <!-- Tool calls -->
-  <rect x="640" y="334" width="520" height="276" rx="14" fill="none" stroke="rgba(217,70,239,0.35)"/>
-  <text x="660" y="362" fill="#d946ef" font-size="12" font-weight="700" letter-spacing="1.2">AGENT TOOL CALLS</text>
-  <text x="808" y="362" fill="#8691aa" font-size="12">the sandbox next to the model · scheduler picks per call</text>
-
-  <rect x="656" y="380" width="488" height="68" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
-  <text x="674" y="402" fill="#ebeff7" font-size="15" font-weight="650">CPU sandbox pool</text>
-  <text x="674" y="421" fill="#b3bccf" font-size="13">Code, tests, browsing, data prep: most tool calls</text>
-  <text x="674" y="438" fill="#8691aa" font-size="12">sized from the background tool load</text>
-
-  <rect x="656" y="456" width="488" height="68" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
-  <text x="674" y="478" fill="#ebeff7" font-size="15" font-weight="650">Classical GPU fallback <tspan fill="#8691aa" font-weight="400" font-size="13">· status quo, and the overflow</tspan></text>
-  <text x="674" y="497" fill="#b3bccf" font-size="13">Cheap or urgent calls, and calls when the QPU queue is long</text>
-  <text x="674" y="514" fill="#8691aa" font-size="12">above ~200 GPU-hours per call a classical run is not served at all</text>
-
-  <rect x="656" y="532" width="488" height="68" rx="10" fill="#1a1230" stroke="#d946ef" stroke-width="1.5"/>
-  <text x="674" y="554" fill="#ebeff7" font-size="15" font-weight="650">Shared QPU service <tspan fill="#e9a8f5" font-weight="400" font-size="13">· our addition</tspan></text>
-  <text x="674" y="573" fill="#b3bccf" font-size="13">Chemistry, materials, biology: the agent parks while it runs</text>
-  <text x="674" y="590" fill="#8691aa" font-size="12">270 kW per QPU · pod example: 43 QPUs serve about 28k calls a day</text>
+  <!-- Shared QPU service -->
+  <rect x="660" y="330" width="500" height="106" rx="12" fill="#1a1230" stroke="#d946ef" stroke-width="1.5"/>
+  <text x="680" y="360" fill="#ebeff7" font-size="16" font-weight="650">Shared QPU service <tspan fill="#e9a8f5" font-weight="400" font-size="13">· our addition</tspan></text>
+  <text x="680" y="386" fill="#b3bccf" font-size="13">Chemistry, materials, biology calls; the agent parks while it waits or runs</text>
+  <text x="680" y="408" fill="#8691aa" font-size="12">270 kW per QPU, shared by all GPU nodes</text>
 
   <!-- Footer -->
-  <text x="40" y="640" fill="#8691aa" font-size="12">Earth only · all sites ≤ 500 MW · ≤ $30B over 5 years. Pod example: 1M users, 50 MW cap, dc_sim dc-design. Call densities, classical costs and QPU price are assumptions.</text>
+  <text x="40" y="474" fill="#8691aa" font-size="12">Earth only · all sites ≤ 500 MW · ≤ $30B. QPU figures: quantum_arch mid-2030s scenario. Call densities, classical costs and QPU price are assumptions.</text>
 </svg>
