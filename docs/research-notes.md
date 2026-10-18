@@ -13,7 +13,7 @@ _Plan review from Sun Oct 18, 2026. The live numbers are on the team page (probl
 
 1. **The fleet model covers decode only.** Prefill, buildings, energy cost and carbon need site prices the brief doesn't give.
 2. **Quantum doesn't make tokens.** It needs its own slot and its own measure of value; see "Quantum" below. The team's `quantum_arch` simulator sizes the machines.
-3. **The thermal tool is built for Track 2.** It needs a bridge to Track 1, which is cooling and PUE; see "Thermal" below. It now lives in this repo (`chiplet_gui/`, `chiplet_thermal_continuous/`).
+3. **The thermal tool is built for Track 2.** It needs a bridge to Track 1, which is cooling and PUE; see "Thermal" below. It was removed from this repo at wrap-up; it lives at [Czaja107/chiplet-thermal-gui](https://github.com/Czaja107/chiplet-thermal-gui).
 4. **Don't project 2035 hardware for the design.** The brief fixes it for every team, so use trend lines only for credibility and for our what-if.
 
 ## The brief in numbers
@@ -113,7 +113,7 @@ What this tells us:
 
 ## Thermal tool (for the thermal owner)
 
-- **What it is:** the organizer's [chiplet-thermal-gui](https://github.com/Czaja107/chiplet-thermal-gui), now in this repo as `chiplet_gui/` (the GUI, `python -m chiplet_gui`) and `chiplet_thermal_continuous/` (the Track 2 judge). It is a desktop GUI around that judge. It places 4 GPU + 4 HBM chiplets on a 52 × 42 mm interposer and runs HotSpot over 5 workloads. Its package is ~313–399 W with a fixed cooler (0.08 K/W, 25 °C ambient). The reference worst GPU peak is 104.6 °C.
+- **What it is:** the organizer's [chiplet-thermal-gui](https://github.com/Czaja107/chiplet-thermal-gui), with a GUI (`chiplet_gui/`) and the Track 2 judge (`chiplet_thermal_continuous/`); no longer vendored here. It is a desktop GUI around that judge. It places 4 GPU + 4 HBM chiplets on a 52 × 42 mm interposer and runs HotSpot over 5 workloads. Its package is ~313–399 W with a fixed cooler (0.08 K/W, 25 °C ambient). The reference worst GPU peak is 104.6 °C.
 - **Headless:** run `chiplet_thermal_continuous/run_simulations.py --hotspot <bin> --layouts <json> --grid 64 --output <dir>`. It only needs numpy and matplotlib; the GUI isn't required. HotSpot builds with `make`; clang is on our Macs.
 - **Outputs:** `results.json` (per-die peaks), `power_budget.json`, and `hotspot_inputs/<layout>/<workload>.grid` (64×64 temperatures per layer, in Kelvin). The bundled `random_example/` is enough to build the web heatmap before any new runs.
 - **Bridge to Track 1 (Earth):** scale the power maps toward the ~5.5 kW 2035 chip, then sweep the cooler's resistance and coolant temperature. The question is the highest coolant temperature that keeps chips in spec. That decides which cooling and climate row is real (desert direct liquid at 1.14 vs cold at 1.07: about 7% of facility power).

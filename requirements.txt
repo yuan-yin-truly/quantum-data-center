@@ -1,17 +1,9 @@
-# Chiplet Thermal Studio needs only three packages beyond the standard library.
+# The Python tools need only numpy, scipy and matplotlib beyond the standard library.
 #
 #     python -m pip install -r requirements.txt
-#     python -m chiplet_gui
-#
-# HotSpot itself is a separate C program. Point the GUI at a compiled
-# hotspot/hotspot.exe that still sits inside its own repository checkout,
-# because examples/example3/example.config is read from next to it.
 
-PySide6>=6.5
 numpy>=1.24
 matplotlib>=3.7
-
-# quantum_arch (README_QUANTUM.md) needs numpy, scipy and matplotlib only, not PySide6.
 scipy>=1.10
 pytest>=7
 

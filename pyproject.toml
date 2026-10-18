@@ -1,13 +1,12 @@
 [project]
 name = "quantum-data-center"
 version = "0.1.0"
-description = "Add your description here"
+description = "A 2035 GPU + QPU AI data center: simulators and team page"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "matplotlib>=3.7",
     "numpy>=1.24",
-    "pyside6>=6.5",
     "scipy>=1.10",
 ]
 

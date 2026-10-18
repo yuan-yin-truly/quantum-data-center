@@ -22,7 +22,7 @@ For one architecture description it reports three things:
 | **Heat scheme** | per-stage heat load by source (cable conduction, attenuators, cold electronics, decoders) against cooling capacity, stage temperatures, fridges needed, spatial temperature maps of the cold electronics and the qubit chip |
 
 ```bash
-python -m pip install -r requirements.txt            # numpy, scipy, matplotlib (+ PySide6 for the chiplet GUI)
+python -m pip install -r requirements.txt            # numpy, scipy, matplotlib
 python -m quantum_arch list                           # examples, profiles, catalogs
 python -m quantum_arch evaluate dc2035_cat_40k --out out/cat40k
 python -m quantum_arch compare dc2035_sc_surface_300k dc2035_cat_40k dc2035_ions_40k dc2035_atoms_surface_1m dc2035_photonic_6m --out out/cmp2035
