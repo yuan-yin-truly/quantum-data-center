@@ -1,0 +1,28 @@
+{
+  "name": "spin_cmos_10k",
+  "description": "10k silicon spin qubits at the still (1.2 K), cryo-CMOS, projected hardware",
+  "modality": "spin_silicon",
+  "profile": "projected",
+  "scheme": "cryo_cmos_4k",
+  "n_qubits": 10000,
+  "qpu_stage": "Still",
+  "cryostat": {
+    "capacity_scale": 10.0
+  },
+  "classical": [
+    {
+      "role": "host",
+      "device": "cpu_epyc_96c",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "gpu_h100",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ]
+}

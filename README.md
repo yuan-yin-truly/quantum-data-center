@@ -103,6 +103,13 @@ traces and the whole setup together, so it travels as a unit.
 
 Full documentation: **[README_GUI.md](README_GUI.md)**.
 
+## Quantum architecture simulator
+
+`quantum_arch/` extends the same idea to quantum computing hardware: qubit arrays of four
+modalities next to cryogenic controllers, decoders, CPUs and GPUs, evaluated for computing power
+(logical qubits, rQOPS), energy and the heat budget of the dilution-refrigerator stages. See
+**[README_QUANTUM.md](README_QUANTUM.md)**.
+
 ## Repository layout
 
 ```
@@ -110,6 +117,8 @@ chiplet_gui/                  the GUI (this project)
   core/                       spec loading, project model, validation, runs
   gui/                        canvas, panels, theming
 chiplet_thermal_continuous/   the challenge package, unmodified
+quantum_arch/                 quantum-classical architecture simulator (see README_QUANTUM.md)
+tests/                        tests for quantum_arch
 run_gui.bat                   double-click launcher
 requirements.txt
 ```

@@ -10,3 +10,7 @@
 PySide6>=6.5
 numpy>=1.24
 matplotlib>=3.7
+
+# quantum_arch (README_QUANTUM.md) needs numpy, scipy and matplotlib only, not PySide6.
+scipy>=1.10
+pytest>=7

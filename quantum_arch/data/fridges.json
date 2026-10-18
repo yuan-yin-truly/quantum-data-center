@@ -1,0 +1,33 @@
+{
+  "_note": "Cryostat catalog. Stage cooling power follows Q = a*(T^alpha - Tbase^alpha), anchored at (t_ref_k, cap_ref_w). cable_len_mm is the cable run from the next-warmer stage (room temperature for the first). wall_power_w is the electrical draw of ONE unit and is an assumption (compressors + pumps + control), not a datasheet value.",
+  "dilution_xld": {
+    "label": "Dry dilution refrigerator (XLD400-class)",
+    "stages": [
+      {"name": "50K",   "t_ref_k": 45.0,  "cap_ref_w": 30.0,    "t_base_k": 35.0,  "alpha": 1.0, "cable_len_mm": 200},
+      {"name": "4K",    "t_ref_k": 4.2,   "cap_ref_w": 1.5,     "t_base_k": 2.85,  "alpha": 1.0, "cable_len_mm": 290},
+      {"name": "Still", "t_ref_k": 1.2,   "cap_ref_w": 0.040,   "t_base_k": 0.882, "alpha": 1.0, "cable_len_mm": 250},
+      {"name": "CP",    "t_ref_k": 0.14,  "cap_ref_w": 200e-6,  "t_base_k": 0.082, "alpha": 2.0, "cable_len_mm": 170},
+      {"name": "MXC",   "t_ref_k": 0.02,  "cap_ref_w": 19e-6,   "t_base_k": 0.006, "alpha": 2.0, "cable_len_mm": 140}
+    ],
+    "wall_power_w": 10000,
+    "max_coax_lines": 1000,
+    "source": "Stage temperatures, cooling powers and cable lengths: Krinner et al., EPJ Quantum Technol. 6, 2 (2019), Table 1 (measured, Bluefors XLD400). wall_power_w and max_coax_lines: assumption."
+  },
+  "pt_4k": {
+    "label": "Two-stage pulse-tube cryocooler (4 K class)",
+    "stages": [
+      {"name": "50K", "t_ref_k": 45.0, "cap_ref_w": 30.0, "t_base_k": 35.0, "alpha": 1.0, "cable_len_mm": 200},
+      {"name": "4K",  "t_ref_k": 4.2,  "cap_ref_w": 1.5,  "t_base_k": 2.85, "alpha": 1.0, "cable_len_mm": 290}
+    ],
+    "wall_power_w": 7500,
+    "max_coax_lines": 400,
+    "source": "Stage values as the XLD's 50 K / 4 K stages (same pulse-tube class). wall_power_w and max_coax_lines: assumption."
+  },
+  "ambient": {
+    "label": "No cryostat (room-temperature apparatus)",
+    "stages": [],
+    "wall_power_w": 0,
+    "max_coax_lines": 0,
+    "source": "Trapped-ion and neutral-atom systems in UHV chambers at ~300 K."
+  }
+}
