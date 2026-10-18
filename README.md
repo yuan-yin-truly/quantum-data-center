@@ -8,7 +8,7 @@ Our entry for SUNDAI @ MIT Track 1, "Build the AI data center of 2035": serve 10
 
 ![Architecture: a scheduler node sends LLM steps to pooled GPU nodes, optional LPU racks and a context-memory pool where agents park, and tool calls to a CPU sandbox pool, a classical GPU fallback or a shared QPU service](web/public/images/architecture.svg)
 
-The team page lives in `web/`. It opens with the problem statement and the status quo for the three cases, followed by a section per workstream.
+The team page lives in `web/`. It opens with the problem statement and a GPU-only vs GPU + QPU comparison for the three cases, followed by a section per workstream.
 
 ## Run the page
 

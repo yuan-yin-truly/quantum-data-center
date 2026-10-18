@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { CASES, COOLING, GPU_RACK, LIMITS, WORKLOADS, type CaseId } from '../model/brief.ts';
+import { Fragment, useState, type ReactNode } from 'react';
+import { CASES, COOLING, GPU_RACK, LIMITS, type CaseId } from '../model/brief.ts';
 import { NO_LEVERS, computeFleet, type Scenario } from '../model/fleet.ts';
 import { CAT_QPU, CHEM_TOOL, USD_PER_KWH, breakEvenGpuHours, scienceToolFleets } from '../model/quantum.ts';
 import { compact, mw, usd } from '../format.ts';
-import { Meter, StatusChip } from './Meter.tsx';
+import { Meter } from './Meter.tsx';
 import { TaskFlow } from './TaskFlow.tsx';
 import { LayoutCompare } from './LayoutCompare.tsx';
 
-// Status quo: 2035 GPU racks, direct liquid cooling at a cold site.
+// 2035 GPU racks from the brief, direct liquid cooling at a cold site.
 const SITE = { cooling: 'directLiquid', climate: 'cold' } as const;
 const PUE = COOLING[SITE.cooling].pue[SITE.climate];
 const BREAK_EVEN = breakEvenGpuHours(PUE);
@@ -18,21 +18,6 @@ const BRIEF_LEVERS = { ...NO_LEVERS, bgAtSlo: true, subAgents: true };
 const fleetFor = (caseId: CaseId, levers = BRIEF_LEVERS) => computeFleet({ caseId, ...SITE, levers } satisfies Scenario);
 
 const SHARES = [1e7, 1e6, 1e5];
-
-const CASE_GAP: Record<CaseId, { slot: boolean; text: string }> = {
-  A: {
-    slot: false,
-    text: 'Chat only. None of the efficiency settings help, and only speculative decoding (our assumption) gets under the cap. There are no tool calls, so there is no place for a QPU.',
-  },
-  B: {
-    slot: true,
-    text: 'Fits with the efficiency settings. Background agents run their tools in a sandbox in our building, with 4 h per task. That sandbox is where science tools, and a QPU, would go.',
-  },
-  C: {
-    slot: true,
-    text: 'Fits with the efficiency settings. It has a QPU slot too: background tasks are fewer per user, but there are more users.',
-  },
-};
 
 function backgroundTasksPerDay(caseId: CaseId) {
   return CASES[caseId].users * CASES[caseId].perDay.background;
@@ -192,69 +177,135 @@ export function ProblemStatement() {
       <TaskFlow />
       <LayoutCompare />
 
-      <StatusQuo />
+      <Comparison />
     </section>
   );
 }
 
-function StatusQuo() {
+// How many background agent tasks make one deep tool call, such as a high-accuracy chemistry simulation.
+const FREQUENCIES = [
+  { oneIn: 0, label: 'None' },
+  { oneIn: 1e7, label: '1 in 10M' },
+  { oneIn: 1e6, label: '1 in 1M' },
+  { oneIn: 1e5, label: '1 in 100k' },
+];
+
+const mwFine = (n: number) => (n < 10 ? `${n.toFixed(1)} MW` : mw(n));
+
+function Stat({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <section id="status-quo" className="status-quo" aria-labelledby="sq-title">
+    <div>
+      <dt>{label}</dt>
+      <dd>{children}</dd>
+    </div>
+  );
+}
+
+function Budget({ value }: { value: number }) {
+  return (
+    <>
+      <span className={value > LIMITS.budgetUsd ? 'over' : ''}>{usd(value)}</span> <span className="muted">of {usd(LIMITS.budgetUsd)}</span>
+    </>
+  );
+}
+
+function hybridNote(caseId: CaseId, calls: number, qpus: number): string {
+  if (CASES[caseId].perDay.background === 0) return 'Chat only: no tool calls, so there is nothing to send to a QPU. Same as GPU-only.';
+  if (calls === 0) return 'No deep tool calls, so no QPUs are needed. Same as GPU-only.';
+  return `Same token fleet. Deep tool calls go to ${qpus} QPU${qpus === 1 ? '' : 's'} next to the background-agent sandbox.`;
+}
+
+function Comparison() {
+  const [oneIn, setOneIn] = useState(1e6);
+  const ids = Object.keys(CASES) as CaseId[];
+  const callsFor = (id: CaseId) => (oneIn ? backgroundTasksPerDay(id) / oneIn : 0);
+
+  return (
+    <section id="comparison" className="comparison" aria-labelledby="cmp-title">
       <div className="section-head">
-        <h2 id="sq-title">Status quo: a GPU-only data center for each case</h2>
-        <p>What it takes to serve each case with GPUs alone, using the brief’s 2035 chips and its efficiency settings. The key assumptions are listed below the cards.</p>
+        <h2 id="cmp-title">Comparison: GPU-only vs GPU + QPU</h2>
+        <p>
+          Both rows use the brief’s 2035 chips, which read memory about 15× faster than today’s GPUs. A GPU-only data center built from today’s
+          chips would need several times this power. The switch sets how many background agent tasks make one deep tool call, such as a
+          high-accuracy chemistry simulation.
+        </p>
       </div>
-      <div className="sq-grid">
-        {(Object.keys(CASES) as CaseId[]).map((id) => {
+      <div className="cmp-controls">
+        <div className="seg" role="radiogroup" aria-label="Background agent tasks that make one deep tool call">
+          {FREQUENCIES.map((f) => (
+            <button
+              key={f.label}
+              role="radio"
+              aria-checked={oneIn === f.oneIn}
+              className={`seg-btn${oneIn === f.oneIn ? ' is-on' : ''}`}
+              onClick={() => setOneIn(f.oneIn)}
+            >
+              <span className="seg-text">{f.label}</span>
+            </button>
+          ))}
+        </div>
+        <p className="cmp-calls">
+          Deep tool calls a day:{' '}
+          {ids.map((id) => `${id} ${callsFor(id) ? compact(callsFor(id), 0) : 'none'}`).join(' · ')}
+        </p>
+      </div>
+      <div className="cmp-grid">
+        {ids.map((id) => {
           const c = CASES[id];
+          const tokens = fleetFor(id);
           const naive = fleetFor(id, NO_LEVERS);
-          const levered = fleetFor(id);
           const spec = fleetFor(id, { ...BRIEF_LEVERS, specDecode: true });
-          const gap = CASE_GAP[id];
-          const bg = backgroundTasksPerDay(id);
+          const calls = callsFor(id);
+          const { gpu, qpu } = scienceToolFleets(calls, PUE);
+          const gpuOnly = { mw: tokens.facilityMw + gpu.facilityMw, usd: tokens.rackCapexUsd + gpu.capexUsd };
+          const hybrid = { mw: tokens.facilityMw + qpu.facilityMw, usd: tokens.rackCapexUsd + qpu.capexUsd };
           return (
-            <article key={id} className={`card sq-card${id === 'B' ? ' is-focus' : ''}`}>
-              <header className="sq-head">
-                <span className="seg-letter">{id}</span>
-                <div>
-                  <h3>{c.name}</h3>
-                  <p>
-                    {compact(c.users, 0)} users · {c.blurb}
-                  </p>
-                </div>
-              </header>
-              <Meter
-                label="Facility power"
-                value={levered.facilityMw}
-                cap={LIMITS.gridMw}
-                capLabel="500 MW"
-                baseline={naive.facilityMw}
-                baselineLabel="no settings"
-                format={mw}
-              />
-              <dl className="sq-stats">
-                <div>
-                  <dt>No efficiency settings</dt>
-                  <dd>{mw(naive.facilityMw)}</dd>
-                </div>
-                <div>
-                  <dt>+ speculative decoding</dt>
-                  <dd>{mw(spec.facilityMw)}</dd>
-                </div>
-                <div>
-                  <dt>Rack cost</dt>
-                  <dd>
-                    {usd(levered.rackCapexUsd)} <span className="muted">of {usd(LIMITS.budgetUsd)}</span>
-                  </dd>
-                </div>
-                <div>
-                  <dt>Background tasks</dt>
-                  <dd>{bg > 0 ? `${compact(bg, 1)}/day, ${WORKLOADS.background.ttftS} s first token` : 'none'}</dd>
-                </div>
-              </dl>
-              <p className="sq-gap">{gap.text}</p>
-              <StatusChip status={gap.slot ? 'good' : 'warning'}>{gap.slot ? 'Slot for a QPU tool' : 'No slot for a QPU'}</StatusChip>
-            </article>
+            <Fragment key={id}>
+              <article className={`card cmp-card${id === 'B' ? ' is-focus' : ''}`}>
+                <header className="sq-head">
+                  <span className="seg-letter">{id}</span>
+                  <div>
+                    <h3>{c.name}</h3>
+                    <p>
+                      {compact(c.users, 0)} users · {c.blurb}
+                    </p>
+                  </div>
+                </header>
+                <p className="cmp-row">GPU-only</p>
+                <Meter
+                  label="Facility power"
+                  value={gpuOnly.mw}
+                  cap={LIMITS.gridMw}
+                  capLabel="500 MW"
+                  baseline={tokens.facilityMw}
+                  baselineLabel="tokens only"
+                  format={mw}
+                />
+                <dl className="sq-stats">
+                  <Stat label="Tokens, with efficiency settings">{mw(tokens.facilityMw)}</Stat>
+                  <Stat label="Tokens, no efficiency settings">{mw(naive.facilityMw)}</Stat>
+                  <Stat label="Tokens, + speculative decoding">{mw(spec.facilityMw)}</Stat>
+                  <Stat label="Deep tool calls on GPUs">{calls ? `${compact(gpu.units, 0)} GPUs · ${mwFine(gpu.facilityMw)}` : 'none'}</Stat>
+                  <Stat label="Rack cost">
+                    <Budget value={gpuOnly.usd} />
+                  </Stat>
+                </dl>
+              </article>
+              <article className="card cmp-card cmp-hybrid">
+                <p className="cmp-row cmp-row-q">{id} · GPU + QPU</p>
+                <Meter label="Facility power" value={hybrid.mw} cap={LIMITS.gridMw} capLabel="500 MW" format={mw} />
+                <dl className="sq-stats">
+                  <Stat label="Deep tool calls on QPUs">{calls ? `${qpu.units} QPU${qpu.units === 1 ? '' : 's'} · ${mwFine(qpu.facilityMw)}` : 'none'}</Stat>
+                  <Stat label="Rack + QPU cost">
+                    <Budget value={hybrid.usd} />
+                  </Stat>
+                  <Stat label="Saved vs GPU-only">
+                    {calls ? `${mwFine(gpuOnly.mw - hybrid.mw)} · ${usd(gpuOnly.usd - hybrid.usd)}` : '—'}
+                  </Stat>
+                </dl>
+                <p className="sq-gap">{hybridNote(id, calls, qpu.units)}</p>
+              </article>
+            </Fragment>
           );
         })}
       </div>
@@ -276,8 +327,14 @@ function StatusQuo() {
             meter.
           </li>
           <li>
+            <strong>Deep tool call:</strong> one small-molecule chemistry simulation at high accuracy (100 logical qubits). On GPUs it takes {CHEM_TOOL.gpuHoursPerCall}{' '}
+            GPU-hours (assumed). On a 2035 {CAT_QPU.label} it takes about 5 minutes: {CAT_QPU.callsPerHour} calls an hour at {CAT_QPU.systemMw} MW and{' '}
+            {usd(CAT_QPU.usd)} each. Only background tasks make these calls, because interactive agents run their tools on the user’s laptop. Calls
+            are spread over the day, which the 4 h deadline allows.
+          </li>
+          <li>
             <strong>Only writing tokens (decode) is counted.</strong> Prefill, spare racks for failures and bursts, buildings and energy bills are not,
-            so real figures are higher.
+            so real figures are higher. Cost covers racks and QPUs only.
           </li>
           <li>
             <strong>Cooling and demand:</strong> direct liquid cooling at a cold site (PUE {PUE}: {Math.round((PUE - 1) * 100)}% on top of chip power), and

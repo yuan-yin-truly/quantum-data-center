@@ -478,25 +478,59 @@ h2 {
   background: var(--critical);
 }
 
-/* Status quo */
-.status-quo {
+/* Comparison */
+.comparison {
   margin-top: 56px;
 }
-.sq-grid {
+.cmp-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+}
+.cmp-calls {
+  margin: 0;
+  color: var(--text-2);
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+}
+/* Three cases side by side, each a GPU-only card above its GPU + QPU card; rows line up across cases. */
+.cmp-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: auto auto;
+  grid-auto-flow: column;
   gap: 16px;
 }
-.sq-card {
+.cmp-card {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 20px;
 }
-.sq-card > .meter {
+.cmp-card > .meter {
   align-self: stretch;
 }
-.sq-card.is-focus {
+.cmp-hybrid {
+  box-shadow: inset 0 0 0 1px rgba(192, 38, 211, 0.35);
+}
+.cmp-row {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.cmp-row-q {
+  color: #e9a8f5;
+}
+.over {
+  color: var(--critical-text);
+  font-weight: 650;
+}
+.cmp-card.is-focus {
   box-shadow: inset 0 0 0 1px rgba(34, 211, 238, 0.4);
 }
 .sq-head {
@@ -746,9 +780,13 @@ select {
 }
 
 @media (max-width: 1080px) {
-  .sq-grid,
   .ws-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .cmp-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
   }
 }
 
