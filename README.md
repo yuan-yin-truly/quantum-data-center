@@ -6,7 +6,7 @@ Our entry for SUNDAI @ MIT Track 1, "Build the AI data center of 2035": serve 10
 
 **The problem we take on.** In 2035, 50M agent developers launch 1.5B background agent tasks a day. If just one in a million calls a high-accuracy chemistry tool, a GPU sandbox needs about 48k more GPUs (282 MW, $7.9B), which pushes the fleet over the 500 MW cap. Six QPUs do the same calls in 1.7 MW. We design the GPU + QPU data center and the router that sends each task to the right machine, to cut energy and cost per task.
 
-![Architecture: a task router sends LLM steps to GPU, LPU and context-memory racks, and agent tool calls to a CPU sandbox, a GPU sandbox or a QPU wing](web/public/images/architecture.svg)
+![Architecture: a scheduler node sends LLM steps to pooled GPU nodes, optional LPU racks and a context-memory pool where agents park, and tool calls to a CPU sandbox pool, a classical GPU fallback or a shared QPU service](web/public/images/architecture.svg)
 
 The team page lives in `web/`. It opens with the problem statement and the status quo for the three cases, followed by a section per workstream.
 

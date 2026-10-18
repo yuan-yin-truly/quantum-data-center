@@ -172,7 +172,7 @@ export function ProblemStatement() {
       <figure className="arch">
         <img
           src={`${import.meta.env.BASE_URL}images/architecture.svg`}
-          alt="Architecture: agent developers send work to a task router. LLM steps go to GPU racks, LPU racks and a context-memory tier. Tool calls go to a CPU sandbox, a GPU sandbox for classical simulation, or a QPU wing for chemistry and materials."
+          alt="Architecture: coding agents and scientists send work to a scheduler node. LLM steps go to pooled GPU nodes, optional LPU racks and a context-memory pool where agents park their sessions. Tool calls go to a CPU sandbox pool, a classical GPU fallback, or a shared QPU service for chemistry, materials and biology."
           width={1200}
           height={660}
           loading="lazy"
