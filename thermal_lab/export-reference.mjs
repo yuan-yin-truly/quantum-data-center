@@ -8,7 +8,8 @@ const cases={};
 for(const caseId of ['A','B','C']){
  const levers={...NO_LEVERS,bgAtSlo:caseId!=='A',subAgents:caseId!=='A',routeChat:caseId==='C'};
  const calculate=levers=>{const x=computeFleet({caseId,levers,cooling:'directLiquid',climate:'cold'});return {racks:x.racks,gpus:x.gpus,facilityMw:x.facilityMw,rackCapexUsd:x.rackCapexUsd,levers};};
- cases[caseId]={name:CASES[caseId].name,users:CASES[caseId].users,baseline:calculate(NO_LEVERS),routed:calculate(levers),speculative:calculate({...levers,specDecode:true})};
+ const siteLevers={...levers,routeChat:false};
+ cases[caseId]={siteRouted:calculate(siteLevers),siteSpeculative:calculate({...siteLevers,specDecode:true}),name:CASES[caseId].name,users:CASES[caseId].users,baseline:calculate(NO_LEVERS),routed:calculate(levers),speculative:calculate({...levers,specDecode:true})};
 }
 const notes=readFileSync(new URL('../docs/research-notes.md',import.meta.url),'utf8');
 const source={cases,cooling:COOLING,gpuRack:GPU_RACK,limits:LIMITS,source:'docs/research-notes.md + web/src/model/brief.ts + web/src/model/fleet.ts',researchNotesSha256:createHash('sha256').update(notes).digest('hex'),hardwareYear:2035};

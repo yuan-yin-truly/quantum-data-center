@@ -13,7 +13,7 @@ export const SCENARIOS={
 export function buildCaseScenario(caseId='B',preset='optimistic',rolloutStrategy='staged'){
  if(!CASES[caseId]||!SCENARIOS[preset])throw new Error('Unknown case or scenario');
  const choice=SCENARIOS[preset];
- const base={...DEFAULTS,...SOURCED_PROPOSAL,caseId,preset,rolloutStrategy,specDecode:true,qcRouterOn:choice.on,qcRouterGain:choice.gain,policyEvidence:null,engineProfile:null};
+ const base={...DEFAULTS,...SOURCED_PROPOSAL,caseId,policyBasis:'website',preset,rolloutStrategy,specDecode:true,qcRouterOn:choice.on,qcRouterGain:choice.gain,policyEvidence:null,engineProfile:null};
  if(!choice.on)return {...base,qcRouterInitial:0,qcRouterAdd:0,qcRouterMax:0};
  const candidates=[1,2,3,4].map(n=>({...base,qcRouterInitial:n}));
  const feasible=candidates.filter(p=>simulate(p).feasible);

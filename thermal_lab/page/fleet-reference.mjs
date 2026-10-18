@@ -2,6 +2,30 @@
 export default {
   "cases": {
     "A": {
+      "siteRouted": {
+        "racks": 1157.4074074074074,
+        "gpus": 166666.66666666666,
+        "facilityMw": 980.8333333333334,
+        "rackCapexUsd": 27546296296.296295,
+        "levers": {
+          "bgAtSlo": false,
+          "subAgents": false,
+          "routeChat": false,
+          "specDecode": false
+        }
+      },
+      "siteSpeculative": {
+        "racks": 537.5448284617094,
+        "gpus": 77406.45529848615,
+        "facilityMw": 455.536989431591,
+        "rackCapexUsd": 12793566917.388683,
+        "levers": {
+          "bgAtSlo": false,
+          "subAgents": false,
+          "routeChat": false,
+          "specDecode": true
+        }
+      },
       "name": "Prompters",
       "users": 4000000000,
       "baseline": {
@@ -42,6 +66,30 @@ export default {
       }
     },
     "B": {
+      "siteRouted": {
+        "racks": 360.84284737993465,
+        "gpus": 51961.37002271059,
+        "facilityMw": 305.7926625836518,
+        "rackCapexUsd": 8588059767.642445,
+        "levers": {
+          "bgAtSlo": true,
+          "subAgents": true,
+          "routeChat": false,
+          "specDecode": false
+        }
+      },
+      "siteSpeculative": {
+        "racks": 231.03174603174602,
+        "gpus": 33268.57142857143,
+        "facilityMw": 195.78554285714284,
+        "rackCapexUsd": 5498555555.555555,
+        "levers": {
+          "bgAtSlo": true,
+          "subAgents": true,
+          "routeChat": false,
+          "specDecode": true
+        }
+      },
       "name": "Agent developers",
       "users": 50000000,
       "baseline": {
@@ -82,6 +130,30 @@ export default {
       }
     },
     "C": {
+      "siteRouted": {
+        "racks": 397.7774796983645,
+        "gpus": 57279.95707656449,
+        "facilityMw": 337.0925473955821,
+        "rackCapexUsd": 9467104016.821075,
+        "levers": {
+          "bgAtSlo": true,
+          "subAgents": true,
+          "routeChat": false,
+          "specDecode": false
+        }
+      },
+      "siteSpeculative": {
+        "racks": 256.15695274881006,
+        "gpus": 36886.60119582865,
+        "facilityMw": 217.07764803745164,
+        "rackCapexUsd": 6096535475.4216795,
+        "levers": {
+          "bgAtSlo": true,
+          "subAgents": true,
+          "routeChat": false,
+          "specDecode": true
+        }
+      },
       "name": "Knowledge workers",
       "users": 400000000,
       "baseline": {

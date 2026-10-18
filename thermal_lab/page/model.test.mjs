@@ -111,3 +111,30 @@ test('turning off routing QPUs does not turn on the scientific pool',()=>{
  const row=simulate({...p,qcRouterOn:false}).rows[0];
  assert.equal(row.qcRouterCount,0);assert.equal(row.qCount,0);assert.equal(row.routingCoverage,0);
 });
+
+test('fixed support uses identical continuous energy in both comparators',()=>{
+ for(const util of [10,60,100]){const r=simulate({...buildCaseScenario('B','reference'),reference:'optimizedGpu',otherMw:7,util}).rows[0];near(r.baseGwh,r.hybridGwh);near(r.baseMw,r.hybridMw);near(r.supportGwh,7*1.07*8.76);}
+});
+test('main website and note policy variants retain their distinct Case C source settings',()=>{
+ const note=run({caseId:'C'}).rows[0],site=run({caseId:'C',policyBasis:'website'}).rows[0];
+ near(note.hybridMw,SOURCE.cases.C.routed.facilityMw);near(site.hybridMw,SOURCE.cases.C.siteRouted.facilityMw);
+ assert.ok(Math.abs(note.hybridMw-339.47554)<.001);assert.ok(Math.abs(site.hybridMw-337.092547)<.001);
+});
+test('scientific work stays fixed when LLM policy changes and future GPU throughput increases',()=>{
+ const p={...buildCaseScenario('B','reference'),toolShare:10,jobHours:768,gpuGrowth:10};
+ const a=simulate(p).rows,b=simulate({...p,specDecode:!p.specDecode}).rows;
+ for(let i=0;i<a.length;i++){near(a[i].tools,b[i].tools);near(a[i].scientificCallsPerDay,a[0].scientificCallsPerDay);}
+});
+test('energy, capital, yearly spending and selected-baseline savings reconcile across all cases',()=>{
+ for(const id of ['A','B','C'])for(const reference of ['optimizedGpu','unoptimizedGpu']){
+  const s=simulate({...buildCaseScenario(id,'optimistic'),reference});let spent=0;
+  for(const r of s.rows){near(r.gpuGwh+r.supportGwh+r.routerGwh+r.toolGwh,r.hybridGwh);near(r.hybridCapital+r.hybridOperating,r.hybridCumulative);near(r.baseCapital+r.baseOperating,r.baseCumulative);near(r.baseCumulative-r.hybridCumulative,r.savings);spent+=r.hybridSpend;near(spent,r.hybridCumulative);near(r.baseMw,reference==='optimizedGpu'?r.optimizedMw:r.unoptimizedMw);}
+ }
+});
+test('policy energy effects never discount always-on support or quantum power',()=>{
+ const p={...buildCaseScenario('B','optimistic'),policyEvidence:{energy_fraction:1,electricity_cost_fraction:1,full_service_both:true,caps_held:true}};
+ for(const r of simulate(p).rows){near(r.gpuGwh,0);near(r.hybridGwh,r.supportGwh+r.routerGwh+r.toolGwh);near(r.costs.electricity,r.hybridGwh*1e6*p.electricity);}
+});
+test('tool-pool quantum scheduling requires a capable system and an acceptable decision time',()=>{
+ const p={...buildCaseScenario('B','optimistic'),router:'quantum',routerMs:101};assert.ok(simulate(p).rows.every(r=>!r.schedulingOk));
+});
