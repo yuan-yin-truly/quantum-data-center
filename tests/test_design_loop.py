@@ -269,7 +269,9 @@ def test_hotspot_runner_reports_unavailable_never_fakes(monkeypatch):
     monkeypatch.setattr(HS, "docker_bin", lambda: None)
     r = HS.HotspotRunner()
     ok, why = r.available()
-    assert not ok and "docker" in why
+    # Unavailable either because there is no pinned HotSpot binary (a clone without vendor/HotSpot) or
+    # because there is no Docker; both must be said, neither may be faked.
+    assert not ok and ("docker" in why.lower() or "hotspot" in why.lower())
     out = r.run_many([{"key": "k", "placements_mm": {}, "modifiers": None}])
     assert out["k"]["ok"] is False and "result" not in out["k"]
 
