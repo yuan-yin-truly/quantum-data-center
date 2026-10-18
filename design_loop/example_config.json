@@ -1,0 +1,25 @@
+{
+  "name": "example_2035",
+  "seed": 2035,
+  "space": "default",
+  "budget": {
+    "max_generations": 8,
+    "max_designs": 400,
+    "max_wallclock_s": 3600,
+    "max_hotspot_runs": 16,
+    "stagnation_generations": 3
+  },
+  "population": {
+    "candidates_per_generation": 28,
+    "hotspot_per_generation": 2,
+    "layout_search_per_generation": 3,
+    "layout_search_steps": 30
+  },
+  "weights": {"worst_gpu_c": 1.0, "worst_hbm_c": 1.0, "energy_j_per_work": 1.0, "capacity_rel": 1.0},
+  "constraints": {"support_max_junction_c": 110, "min_served_fraction": 0.98, "max_fridge_units": 100, "min_task_p_accept": 0.5},
+  "evaluators": {
+    "package": {"hotspot": "auto", "grid": 64, "concurrency": 2},
+    "datacentre": {}
+  },
+  "final": {"hotspot_finalists": 4}
+}

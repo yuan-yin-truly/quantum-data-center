@@ -1,0 +1,30 @@
+{
+ "generation_done": 2,
+ "hotspot_runs": 0,
+ "elapsed_s": 12.439693927764893,
+ "stop_reason": "generation limit",
+ "stagnant": 0,
+ "ideal": {
+  "worst_gpu_c": 83.914,
+  "worst_hbm_c": 87.578,
+  "energy_j_per_work": 7628.90659505735,
+  "capacity_rel": 1.3754999988219316
+ },
+ "front_ids": [
+  "318415928482",
+  "4c803ad7ed11",
+  "5191e83bcd1b",
+  "53fd575c8e6a",
+  "5a52d76ef8c9",
+  "7a16f87a1c22",
+  "858073a32d68",
+  "9e5954bb3150",
+  "b3140dfc220e",
+  "b4f6d3111316",
+  "c28873385638",
+  "d1c0ccaa72be",
+  "dea4d56e1372",
+  "e74e6b418783",
+  "fbaae8a11117"
+ ]
+}

@@ -14,3 +14,8 @@ matplotlib>=3.7
 # quantum_arch (README_QUANTUM.md) needs numpy, scipy and matplotlib only, not PySide6.
 scipy>=1.10
 pytest>=7
+
+# design_loop (README_DESIGN_LOOP.md) needs only numpy, scipy and matplotlib. Optional: pyyaml for YAML spaces/configs.
+# pyyaml>=6
+
+# dc_sim (README_DC_SIM.md) needs only numpy, scipy, matplotlib (all listed above); the visual app uses the Python standard library.

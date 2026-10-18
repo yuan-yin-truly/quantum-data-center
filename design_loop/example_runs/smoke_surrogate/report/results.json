@@ -1,0 +1,2719 @@
+{
+ "leaderboard_comparable": false,
+ "notice": "LOCAL-ONLY STUDY. Results use quantum hardware, illustrative catalogs and (for screening) a thermal surrogate; they are NOT comparable with, and must never be submitted to, the Beat the Hotspot leaderboard.",
+ "run": "example_2035",
+ "designs": 84,
+ "status": {
+  "complete": 53,
+  "infeasible": 31,
+  "partial": 0
+ },
+ "confirmed_designs": 0,
+ "hotspot_runs": 0,
+ "stop_reason": "generation limit",
+ "front_confirmed": [],
+ "front_screening": [
+  "318415928482",
+  "4c803ad7ed11",
+  "5191e83bcd1b",
+  "53fd575c8e6a",
+  "5a52d76ef8c9",
+  "7a16f87a1c22",
+  "858073a32d68",
+  "9e5954bb3150",
+  "b3140dfc220e",
+  "b4f6d3111316",
+  "c28873385638",
+  "d1c0ccaa72be",
+  "dea4d56e1372",
+  "e74e6b418783",
+  "fbaae8a11117"
+ ],
+ "best": "b3140dfc220e",
+ "baseline": "8ddeb7d77855",
+ "assessments": {
+  "8ddeb7d77855": {
+   "design_id": "8ddeb7d77855",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 103.859,
+    "worst_hbm_c": 97.676,
+    "energy_j_per_work": 9202.554642857143,
+    "capacity_rel": 1.0
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9999449642267473,
+    "package_w_mean": 362.6430592078,
+    "package_w_max": 402.7267200189999,
+    "energy_ratio_vs_gpu_only": 1.0,
+    "served_fraction": 1.0,
+    "facility_power_w": 10306861.2,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": null,
+    "quantum_system_power_w": null,
+    "quantum_facility_power_w": null,
+    "fridge_units": null,
+    "rqops": null
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "5b47b75f5e24": {
+   "design_id": "5b47b75f5e24",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 10819.20102667876,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 1.175673652215304,
+    "served_fraction": 1.0,
+    "facility_power_w": 12117505.14988021,
+    "break_even_movable_share_energy": 0.346446297223614,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 1043480.6136863636,
+    "quantum_facility_power_w": 1200002.705739318,
+    "fridge_units": 2,
+    "rqops": 2529644.2687747036
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "a5110e4b2315": {
+   "design_id": "a5110e4b2315",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 11950.383743753957,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 1.298594162983822,
+    "served_fraction": 1.0,
+    "facility_power_w": 13384429.793004429,
+    "break_even_movable_share_energy": 0.5189120398165326,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 1553562.928638951,
+    "quantum_facility_power_w": 1786597.3679347935,
+    "fridge_units": 3,
+    "rqops": 108885.0174216028
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "bb43c7f5d45a": {
+   "design_id": "bb43c7f5d45a",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 10378.704354242258,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 1.1278068707038889,
+    "served_fraction": 1.0,
+    "facility_power_w": 11624148.876751326,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 5,
+    "quantum_system_power_w": 830307.0399444926,
+    "quantum_facility_power_w": 954853.0959361665,
+    "fridge_units": 0,
+    "rqops": 15098.039215686273
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "2611e4aebd41": {
+   "design_id": "2611e4aebd41",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 8685.146297663636,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 0.9437755747970363,
+    "served_fraction": 1.0,
+    "facility_power_w": 9727363.85338327,
+    "break_even_movable_share_energy": 0.02036489926671617,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "1765097f1458": {
+   "design_id": "1765097f1458",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 10819.216225497434,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 1.1756753038022016,
+    "served_fraction": 1.0,
+    "facility_power_w": 12117522.172557123,
+    "break_even_movable_share_energy": 0.34645772635016675,
+    "n_quantum_workloads_feasible": 6,
+    "quantum_system_power_w": 1043460.2008211206,
+    "quantum_facility_power_w": 1199979.2309442887,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "ca218be803e0": {
+   "design_id": "ca218be803e0",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 9406.360527411709,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 1.0221466638845504,
+    "served_fraction": 1.0,
+    "facility_power_w": 10535123.790701112,
+    "break_even_movable_share_energy": 0.13106664109281377,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 394434.025725,
+    "quantum_facility_power_w": 453599.12958375,
+    "fridge_units": 1,
+    "rqops": 18867.924528301883
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "dcfe0adf0d20": {
+   "design_id": "dcfe0adf0d20",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 97.378,
+    "worst_hbm_c": 93.619,
+    "energy_j_per_work": 9580.046987617186,
+    "capacity_rel": 0.9430920639458824
+   },
+   "extras": {
+    "support_peak_c": 82.57,
+    "score_informational": 0.9441249312052833,
+    "package_w_mean": 324.55453037561125,
+    "package_w_max": 372.11409678504805,
+    "energy_ratio_vs_gpu_only": 1.0410203861221348,
+    "served_fraction": 1.0,
+    "facility_power_w": 10729652.62613125,
+    "break_even_movable_share_energy": 0.2825460357486795,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 1043480.6136863636,
+    "quantum_facility_power_w": 1200002.705739318,
+    "fridge_units": 2,
+    "rqops": 2529644.2687747036
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "a7984ae93786": {
+   "design_id": "a7984ae93786",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 95.459,
+    "worst_hbm_c": 91.66,
+    "energy_j_per_work": 10711.278531763555,
+    "capacity_rel": 0.9430920639458824
+   },
+   "extras": {
+    "support_peak_c": 77.223,
+    "score_informational": 0.9171711612548155,
+    "package_w_mean": 306.5551724236112,
+    "package_w_max": 354.11473883304797,
+    "energy_ratio_vs_gpu_only": 1.163946202707686,
+    "served_fraction": 1.0,
+    "facility_power_w": 11996631.955575181,
+    "break_even_movable_share_energy": 0.45500797306333274,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 1553562.928638951,
+    "quantum_facility_power_w": 1786597.3679347935,
+    "fridge_units": 3,
+    "rqops": 108885.0174216028
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "09bef25e1900": {
+   "design_id": "09bef25e1900",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.854,
+    "worst_hbm_c": 91.043,
+    "energy_j_per_work": 9146.262322218714,
+    "capacity_rel": 0.9219746379291309
+   },
+   "extras": {
+    "support_peak_c": 75.748,
+    "score_informational": 0.9086818932305999,
+    "package_w_mean": 300.88257747961126,
+    "package_w_max": 348.44214388904805,
+    "energy_ratio_vs_gpu_only": 0.9938829680645124,
+    "served_fraction": 1.0,
+    "facility_power_w": 10243813.80088496,
+    "break_even_movable_share_energy": 0.22772066330009663,
+    "n_quantum_workloads_feasible": 5,
+    "quantum_system_power_w": 830307.0399444926,
+    "quantum_facility_power_w": 954853.0959361665,
+    "fridge_units": 0,
+    "rqops": 15098.039215686273
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "2451243d63cb": {
+   "design_id": "2451243d63cb",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.852,
+    "worst_hbm_c": 91.04,
+    "energy_j_per_work": 7632.625316140402,
+    "capacity_rel": 0.8979836456915911
+   },
+   "extras": {
+    "support_peak_c": 75.742,
+    "score_informational": 0.9086406164006604,
+    "package_w_mean": 300.8602803916112,
+    "package_w_max": 348.419846801048,
+    "energy_ratio_vs_gpu_only": 0.8294028791303847,
+    "served_fraction": 1.0,
+    "facility_power_w": 8548540.35407725,
+    "break_even_movable_share_energy": 0.0,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "e28e9794f4c0": {
+   "design_id": "e28e9794f4c0",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 95.252,
+    "worst_hbm_c": 91.449,
+    "energy_j_per_work": 9580.092503163944,
+    "capacity_rel": 0.9430920639458824
+   },
+   "extras": {
+    "support_peak_c": 76.718,
+    "score_informational": 0.9142680242157402,
+    "package_w_mean": 304.61406650361124,
+    "package_w_max": 352.17363291304804,
+    "energy_ratio_vs_gpu_only": 1.041025332090784,
+    "served_fraction": 1.0,
+    "facility_power_w": 10729703.603543617,
+    "break_even_movable_share_energy": 0.2825551022313269,
+    "n_quantum_workloads_feasible": 6,
+    "quantum_system_power_w": 1043460.2008211206,
+    "quantum_facility_power_w": 1199979.2309442887,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "4ba8643f1f7a": {
+   "design_id": "4ba8643f1f7a",
+   "status": "infeasible",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 107.279,
+    "worst_hbm_c": 110.223,
+    "energy_j_per_work": 8167.150445627039,
+    "capacity_rel": 0.9430920639458824
+   },
+   "extras": {
+    "support_peak_c": 118.427,
+    "score_informational": 1.1725784259768848,
+    "package_w_mean": 417.44847341561115,
+    "package_w_max": 465.008039825048,
+    "energy_ratio_vs_gpu_only": 0.887487307882082,
+    "served_fraction": 1.0,
+    "facility_power_w": 9147208.499102283,
+    "break_even_movable_share_energy": 0.07580187488695418,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 394434.025725,
+    "quantum_facility_power_w": 453599.12958375,
+    "fridge_units": 1,
+    "rqops": 18867.924528301883
+   },
+   "violations": [
+    "support chiplet reaches 118.4 C > 110 C (surrogate)"
+   ],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "b293679427a8": {
+   "design_id": "b293679427a8",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 9682.660746080714,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 1.0521709592451287,
+    "served_fraction": 1.0,
+    "facility_power_w": 10844580.035610396,
+    "break_even_movable_share_energy": 0.17318361510090785,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 521336.30046818184,
+    "quantum_facility_power_w": 599536.7455384091,
+    "fridge_units": 1,
+    "rqops": 474308.30039525696
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "851476a365dc": {
+   "design_id": "851476a365dc",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 100.203,
+    "worst_hbm_c": 96.423,
+    "energy_j_per_work": 8989.654542074104,
+    "capacity_rel": 1.0476673438268547
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9827050082553659,
+    "package_w_mean": 349.4330592046,
+    "package_w_max": 384.82672001599997,
+    "energy_ratio_vs_gpu_only": 0.9768651087610452,
+    "served_fraction": 1.0,
+    "facility_power_w": 10068413.087122994,
+    "break_even_movable_share_energy": 0.017547264860668193,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 111069.0973909091,
+    "quantum_facility_power_w": 127729.46199954546,
+    "fridge_units": 1,
+    "rqops": 79051.38339920949
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "2ddc9c911223": {
+   "design_id": "2ddc9c911223",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 111.812,
+    "worst_hbm_c": 96.017,
+    "energy_j_per_work": 9202.554642857143,
+    "capacity_rel": 1.0
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 1.0907400427189344,
+    "package_w_mean": 363.8966848078,
+    "package_w_max": 403.3891200189999,
+    "energy_ratio_vs_gpu_only": 1.0,
+    "served_fraction": 1.0,
+    "facility_power_w": 10306861.2,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": null,
+    "quantum_system_power_w": null,
+    "quantum_facility_power_w": null,
+    "fridge_units": null,
+    "rqops": null
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "86c20015be23": {
+   "design_id": "86c20015be23",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 111.56,
+    "worst_hbm_c": 97.641,
+    "energy_j_per_work": 9202.554642857143,
+    "capacity_rel": 1.0
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 1.0875738158060058,
+    "package_w_mean": 364.0851328078,
+    "package_w_max": 403.4887680189999,
+    "energy_ratio_vs_gpu_only": 1.0,
+    "served_fraction": 1.0,
+    "facility_power_w": 10306861.2,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": null,
+    "quantum_system_power_w": null,
+    "quantum_facility_power_w": null,
+    "fridge_units": null,
+    "rqops": null
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "5744fb85a80f": {
+   "design_id": "5744fb85a80f",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 112.003,
+    "worst_hbm_c": 95.827,
+    "energy_j_per_work": 9202.554642857143,
+    "capacity_rel": 1.0
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 1.0931398416886544,
+    "package_w_mean": 363.7582720078,
+    "package_w_max": 403.23686401899994,
+    "energy_ratio_vs_gpu_only": 1.0,
+    "served_fraction": 1.0,
+    "facility_power_w": 10306861.2,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": null,
+    "quantum_system_power_w": null,
+    "quantum_facility_power_w": null,
+    "fridge_units": null,
+    "rqops": null
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "43654c4a9327": {
+   "design_id": "43654c4a9327",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 0,
+    "quantum_system_power_w": 2158777.68,
+    "quantum_facility_power_w": 2482594.332,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [
+    "quantum task vqe_20q not feasible: runtime unbounded: the classical optimiser device supplies no FP64 throughput"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "ce99579bf982": {
+   "design_id": "ce99579bf982",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 6933137.330259091,
+    "quantum_facility_power_w": 7973107.929797954,
+    "fridge_units": 90,
+    "rqops": 1976284.5849802373
+   },
+   "violations": [
+    "quantum task qla_scalar_implicit_1e12 not feasible: 78,000 qubits hold only 3 tiles at d=101; the algorithm needs 280 plus a 15-tile factory",
+    "control lines exceed one cryostat (29 units; no cryogenic interconnect modelled)"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "c80dd8858628": {
+   "design_id": "c80dd8858628",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 1,
+    "quantum_system_power_w": 455558.55,
+    "quantum_facility_power_w": 523892.33249999996,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [
+    "quantum task qla_scalar_explicit_1m not feasible: 3,500 qubits hold only 0 tiles at d=101; the algorithm needs 160 plus a 15-tile factory"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "ed167813eb7f": {
+   "design_id": "ed167813eb7f",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 5,
+    "quantum_system_power_w": 409906.66359171196,
+    "quantum_facility_power_w": 471392.6631304687,
+    "fridge_units": 5,
+    "rqops": 9036658.141517477
+   },
+   "violations": [
+    "control lines exceed one cryostat (2 units; no cryogenic interconnect modelled)"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "f9b425a98f0b": {
+   "design_id": "f9b425a98f0b",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 262269.6727370689,
+    "quantum_facility_power_w": 301610.1236476292,
+    "fridge_units": 6,
+    "rqops": 1117496.8071519793
+   },
+   "violations": [
+    "quantum task qla_scalar_implicit_1e12 not feasible: 5,300 qubits hold only 26 tiles at d=101; the algorithm needs 280 plus a 12-tile factory",
+    "control lines exceed one cryostat (3 units; no cryogenic interconnect modelled)"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "a681a3b89c1b": {
+   "design_id": "a681a3b89c1b",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 0,
+    "quantum_system_power_w": 603031.78,
+    "quantum_facility_power_w": 693486.547,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [
+    "quantum task vqe_50q not feasible: runtime unbounded: the classical optimiser device supplies no FP64 throughput"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "533bdab73b89": {
+   "design_id": "533bdab73b89",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 0,
+    "quantum_system_power_w": 338786.10473749996,
+    "quantum_facility_power_w": 389604.0204481249,
+    "fridge_units": 3,
+    "rqops": 294117.6470588235
+   },
+   "violations": [
+    "quantum task vqe_50q not feasible: runtime unbounded: the classical optimiser device supplies no FP64 throughput"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "800e87635589": {
+   "design_id": "800e87635589",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 0,
+    "quantum_system_power_w": 1848622.21,
+    "quantum_facility_power_w": 2125915.5415,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [
+    "quantum task femoco_thc not feasible: 4,700 qubits hold only 0 tiles at d=101; the algorithm needs 4,392 plus a 15-tile factory"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "81db61c7c270": {
+   "design_id": "81db61c7c270",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 0,
+    "quantum_system_power_w": 15099.962377543374,
+    "quantum_facility_power_w": 17364.956734174877,
+    "fridge_units": 0,
+    "rqops": 4407.125626275746
+   },
+   "violations": [
+    "quantum task qla_full_vector_1m not feasible: 33,000 qubits hold only 1 tiles at d=101; the algorithm needs 160 plus a 15-tile factory"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "c5727bfa5b73": {
+   "design_id": "c5727bfa5b73",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 41050.0,
+    "quantum_facility_power_w": 47207.49999999999,
+    "fridge_units": 0,
+    "rqops": 0.0
+   },
+   "violations": [
+    "quantum task shor_rsa2048 not feasible: 1,300 qubits hold only 0 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory; a reference design (10 factories) needs about 1,702,150 physical qubits"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "176afc6d1015": {
+   "design_id": "176afc6d1015",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 8618.610571150457,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 0.9365454382648047,
+    "served_fraction": 1.0,
+    "facility_power_w": 9652843.83968851,
+    "break_even_movable_share_energy": 0.010124157469805635,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 36307.00666990884,
+    "quantum_facility_power_w": 41753.05767039517,
+    "fridge_units": 0,
+    "rqops": 414.8000663680106
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "64cd0f7429d6": {
+   "design_id": "64cd0f7429d6",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 100.203,
+    "worst_hbm_c": 96.423,
+    "energy_j_per_work": 9010.01070505744,
+    "capacity_rel": 1.0476673438268547
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9827050082553659,
+    "package_w_mean": 349.4330592046,
+    "package_w_max": 384.82672001599997,
+    "energy_ratio_vs_gpu_only": 0.9790771209438944,
+    "served_fraction": 1.0,
+    "facility_power_w": 10091211.989664331,
+    "break_even_movable_share_energy": 0.02036489926671617,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "6247d231d396": {
+   "design_id": "6247d231d396",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [
+    "quantum task qla_full_vector_1m not feasible: 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 160 plus a 15-tile factory"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "b4f6d3111316": {
+   "design_id": "b4f6d3111316",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.637,
+    "worst_hbm_c": 90.821,
+    "energy_j_per_work": 7632.625316140402,
+    "capacity_rel": 0.8979836456915911
+   },
+   "extras": {
+    "support_peak_c": 75.217,
+    "score_informational": 0.9056274078150797,
+    "package_w_mean": 298.84409837561117,
+    "package_w_max": 346.40366478504797,
+    "energy_ratio_vs_gpu_only": 0.8294028791303847,
+    "served_fraction": 1.0,
+    "facility_power_w": 8548540.35407725,
+    "break_even_movable_share_energy": 0.0,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "7a16f87a1c22": {
+   "design_id": "7a16f87a1c22",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.852,
+    "worst_hbm_c": 91.04,
+    "energy_j_per_work": 7628.90659505735,
+    "capacity_rel": 0.8979646861553191
+   },
+   "extras": {
+    "support_peak_c": 75.742,
+    "score_informational": 0.9086406164006604,
+    "package_w_mean": 300.8602803916112,
+    "package_w_max": 348.419846801048,
+    "energy_ratio_vs_gpu_only": 0.8289987825259774,
+    "served_fraction": 1.0,
+    "facility_power_w": 8544375.386464233,
+    "break_even_movable_share_energy": 0.0,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 64317.01679828895,
+    "quantum_facility_power_w": 73964.56931803229,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "f6d49ab9a5c5": {
+   "design_id": "f6d49ab9a5c5",
+   "status": "infeasible",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 93.245,
+    "worst_hbm_c": 84.325,
+    "energy_j_per_work": 8065.23778307638,
+    "capacity_rel": 0.579035834354513
+   },
+   "extras": {
+    "support_peak_c": 70.601,
+    "score_informational": 0.8574569669556478,
+    "package_w_mean": 241.7617071431856,
+    "package_w_max": 302.622582039,
+    "energy_ratio_vs_gpu_only": 0.8764129196816529,
+    "served_fraction": 0.7031149417161942,
+    "facility_power_w": 6351283.897027996,
+    "break_even_movable_share_energy": 0.015018824518650581,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [
+    "serves only 70% of the baseline demand (< 98%)"
+   ],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "977889733fc3": {
+   "design_id": "977889733fc3",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [
+    "quantum task qla_full_vector_1m not feasible: 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 160 plus a 15-tile factory"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "8519ea699b33": {
+   "design_id": "8519ea699b33",
+   "status": "infeasible",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 89.57,
+    "worst_hbm_c": 86.956,
+    "energy_j_per_work": 11099.91843511803,
+    "capacity_rel": 0.579035834354513
+   },
+   "extras": {
+    "support_peak_c": 70.646,
+    "score_informational": 0.8524490919097413,
+    "package_w_mean": 247.13912763131998,
+    "package_w_max": 310.606768139,
+    "energy_ratio_vs_gpu_only": 1.2061779436141231,
+    "served_fraction": 0.7031149417161942,
+    "facility_power_w": 8741060.723990027,
+    "break_even_movable_share_energy": 0.3122242544992543,
+    "n_quantum_workloads_feasible": 6,
+    "quantum_system_power_w": 1043460.2008211206,
+    "quantum_facility_power_w": 1199979.2309442887,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [
+    "serves only 70% of the baseline demand (< 98%)"
+   ],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "4e49d414d028": {
+   "design_id": "4e49d414d028",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 0,
+    "quantum_system_power_w": 1828165.1107753622,
+    "quantum_facility_power_w": 2102389.8773916666,
+    "fridge_units": 3,
+    "rqops": 353481.7956875221
+   },
+   "violations": [
+    "quantum task vqe_50q not feasible: runtime unbounded: the classical optimiser device supplies no FP64 throughput"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "ad6d8fb06bbb": {
+   "design_id": "ad6d8fb06bbb",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": null,
+    "quantum_system_power_w": null,
+    "quantum_facility_power_w": null,
+    "fridge_units": null,
+    "rqops": null
+   },
+   "violations": [
+    "invalid architecture: Cryo-CMOS decoder ASIC at 4 K (slow progress) has no fp16_flops throughput for Neural-network decoder"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "d9b38761d015": {
+   "design_id": "d9b38761d015",
+   "status": "infeasible",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 93.248,
+    "worst_hbm_c": 84.327,
+    "energy_j_per_work": 10473.819341167315,
+    "capacity_rel": 0.579035834354513
+   },
+   "extras": {
+    "support_peak_c": 70.604,
+    "score_informational": 0.8574946601331825,
+    "package_w_mean": 241.7840042311856,
+    "package_w_max": 302.644879127,
+    "energy_ratio_vs_gpu_only": 1.1381425862324983,
+    "served_fraction": 0.7031149417161942,
+    "facility_power_w": 8248014.7406841,
+    "break_even_movable_share_energy": 0.27535000805265275,
+    "n_quantum_workloads_feasible": 5,
+    "quantum_system_power_w": 830307.0399444926,
+    "quantum_facility_power_w": 954853.0959361665,
+    "fridge_units": 0,
+    "rqops": 15098.039215686273
+   },
+   "violations": [
+    "serves only 70% of the baseline demand (< 98%)"
+   ],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "c15517cba66a": {
+   "design_id": "c15517cba66a",
+   "status": "infeasible",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 86.106,
+    "worst_hbm_c": 82.92,
+    "energy_j_per_work": 15949.81862051333,
+    "capacity_rel": 0.26831167585709514
+   },
+   "extras": {
+    "support_peak_c": 71.863,
+    "score_informational": 0.7969179966978536,
+    "package_w_mean": 201.56284218096803,
+    "package_w_max": 284.513632019,
+    "energy_ratio_vs_gpu_only": 1.733194665993458,
+    "served_fraction": 0.32580703496932983,
+    "facility_power_w": 5820150.686613821,
+    "break_even_movable_share_energy": 0.5081825133892451,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 1043480.6136863636,
+    "quantum_facility_power_w": 1200002.705739318,
+    "fridge_units": 2,
+    "rqops": 2529644.2687747036
+   },
+   "violations": [
+    "serves only 33% of the baseline demand (< 98%)"
+   ],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "9ddda4396661": {
+   "design_id": "9ddda4396661",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 8694.75361569219,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 0.9448195586038602,
+    "served_fraction": 1.0,
+    "facility_power_w": 9738124.049575252,
+    "break_even_movable_share_energy": 0.021105738804578632,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 74267.01679828894,
+    "quantum_facility_power_w": 85407.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "e37c758123be": {
+   "design_id": "e37c758123be",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.854,
+    "worst_hbm_c": 91.043,
+    "energy_j_per_work": 9146.262322218714,
+    "capacity_rel": 0.9219746379291309
+   },
+   "extras": {
+    "support_peak_c": 75.748,
+    "score_informational": 0.9086818932305999,
+    "package_w_mean": 300.88257747961126,
+    "package_w_max": 348.44214388904805,
+    "energy_ratio_vs_gpu_only": 0.9938829680645124,
+    "served_fraction": 1.0,
+    "facility_power_w": 10243813.80088496,
+    "break_even_movable_share_energy": 0.22772066330009663,
+    "n_quantum_workloads_feasible": 5,
+    "quantum_system_power_w": 830307.0399444926,
+    "quantum_facility_power_w": 954853.0959361665,
+    "fridge_units": 0,
+    "rqops": 15098.039215686273
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "0544af99fb66": {
+   "design_id": "0544af99fb66",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.942,
+    "worst_hbm_c": 92.508,
+    "energy_j_per_work": 8951.853473321893,
+    "capacity_rel": 0.835984673570184
+   },
+   "extras": {
+    "support_peak_c": 76.071,
+    "score_informational": 0.9288387451843697,
+    "package_w_mean": 301.8880603878736,
+    "package_w_max": 349.72836928732005,
+    "energy_ratio_vs_gpu_only": 0.9727574375524259,
+    "served_fraction": 1.0,
+    "facility_power_w": 10026075.890120521,
+    "break_even_movable_share_energy": 0.08256342191959068,
+    "n_quantum_workloads_feasible": 5,
+    "quantum_system_power_w": 831952.0399444926,
+    "quantum_facility_power_w": 956744.8459361665,
+    "fridge_units": 0,
+    "rqops": 15098.039215686273
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "769cf59013db": {
+   "design_id": "769cf59013db",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 83.914,
+    "worst_hbm_c": 90.682,
+    "energy_j_per_work": 10647.65649223482,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9037149146945515,
+    "package_w_mean": 283.9186815906,
+    "package_w_max": 339.94515199700004,
+    "energy_ratio_vs_gpu_only": 1.1570326833646505,
+    "served_fraction": 1.0,
+    "facility_power_w": 11925375.271303,
+    "break_even_movable_share_energy": 0.5203121741392845,
+    "n_quantum_workloads_feasible": 6,
+    "quantum_system_power_w": 1049430.2008211208,
+    "quantum_facility_power_w": 1206844.7309442887,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "23085e3d24dc": {
+   "design_id": "23085e3d24dc",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 0,
+    "quantum_system_power_w": 93388.62865590469,
+    "quantum_facility_power_w": 107396.92295429038,
+    "fridge_units": 0,
+    "rqops": 1843.5558505244917
+   },
+   "violations": [
+    "quantum task vqe_50q not feasible: runtime unbounded: the classical optimiser device supplies no FP64 throughput"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "e74e6b418783": {
+   "design_id": "e74e6b418783",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.637,
+    "worst_hbm_c": 90.821,
+    "energy_j_per_work": 8443.448872797017,
+    "capacity_rel": 0.9430920639458824
+   },
+   "extras": {
+    "support_peak_c": 75.217,
+    "score_informational": 0.9056274078150797,
+    "package_w_mean": 298.84409837561117,
+    "package_w_max": 346.40366478504797,
+    "energy_ratio_vs_gpu_only": 0.9175114085685621,
+    "served_fraction": 1.0,
+    "facility_power_w": 9456662.737532659,
+    "break_even_movable_share_energy": 0.10928786027931625,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 521336.30046818184,
+    "quantum_facility_power_w": 599536.7455384091,
+    "fridge_units": 1,
+    "rqops": 474308.30039525696
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "0922111c0c26": {
+   "design_id": "0922111c0c26",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.547,
+    "worst_hbm_c": 95.171,
+    "energy_j_per_work": 9682.663078185504,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9654788112272977,
+    "package_w_mean": 336.22305921200007,
+    "package_w_max": 375.0030080160001,
+    "energy_ratio_vs_gpu_only": 1.0521712126644107,
+    "served_fraction": 1.0,
+    "facility_power_w": 10844582.647567762,
+    "break_even_movable_share_energy": 0.17318397280416625,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 521341.5132590909,
+    "quantum_facility_power_w": 599542.7402479545,
+    "fridge_units": 1,
+    "rqops": 474308.30039525696
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "7a2d7cefa212": {
+   "design_id": "7a2d7cefa212",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 103.931,
+    "worst_hbm_c": 94.327,
+    "energy_j_per_work": 9202.554642857143,
+    "capacity_rel": 1.0
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.991720065334841,
+    "package_w_mean": 363.95981440779997,
+    "package_w_max": 403.43020801899996,
+    "energy_ratio_vs_gpu_only": 1.0,
+    "served_fraction": 1.0,
+    "facility_power_w": 10306861.2,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": null,
+    "quantum_system_power_w": null,
+    "quantum_facility_power_w": null,
+    "fridge_units": null,
+    "rqops": null
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "df12ef1a8c23": {
+   "design_id": "df12ef1a8c23",
+   "status": "infeasible",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 80.417,
+    "worst_hbm_c": 80.535,
+    "energy_j_per_work": 37211.320044961874,
+    "capacity_rel": 0.25883227586746216
+   },
+   "extras": {
+    "support_peak_c": 67.41,
+    "score_informational": 0.7641029168959823,
+    "package_w_mean": 180.25758728259683,
+    "package_w_max": 268.58240002599996,
+    "energy_ratio_vs_gpu_only": 4.4774901008595585,
+    "served_fraction": 0.31429633498191833,
+    "facility_power_w": 13098827.291167196,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 1630128.7,
+    "quantum_facility_power_w": 1874648.005,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [
+    "serves only 31% of the baseline demand (< 98%)"
+   ],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "39e47634eb41": {
+   "design_id": "39e47634eb41",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 84.771,
+    "worst_hbm_c": 91.73,
+    "energy_j_per_work": 16835.545581460217,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9181342872867363,
+    "package_w_mean": 283.9601727906,
+    "package_w_max": 339.80729599700004,
+    "energy_ratio_vs_gpu_only": 1.8294426096700949,
+    "served_fraction": 1.0,
+    "facility_power_w": 18855811.051235445,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 2171764.11,
+    "quantum_facility_power_w": 2497528.7265,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "858073a32d68": {
+   "design_id": "858073a32d68",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.411,
+    "worst_hbm_c": 90.649,
+    "energy_j_per_work": 9146.262322218714,
+    "capacity_rel": 0.9219746379291309
+   },
+   "extras": {
+    "support_peak_c": 74.529,
+    "score_informational": 0.9032608695652173,
+    "package_w_mean": 300.9549618465808,
+    "package_w_max": 348.52732209935203,
+    "energy_ratio_vs_gpu_only": 0.9938829680645124,
+    "served_fraction": 1.0,
+    "facility_power_w": 10243813.80088496,
+    "break_even_movable_share_energy": 0.22772066330009663,
+    "n_quantum_workloads_feasible": 5,
+    "quantum_system_power_w": 830307.0399444926,
+    "quantum_facility_power_w": 954853.0959361665,
+    "fridge_units": 0,
+    "rqops": 15098.039215686273
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "fbaae8a11117": {
+   "design_id": "fbaae8a11117",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.842,
+    "worst_hbm_c": 90.466,
+    "energy_j_per_work": 7632.625316140402,
+    "capacity_rel": 0.8979836456915911
+   },
+   "extras": {
+    "support_peak_c": 75.453,
+    "score_informational": 0.9007429829389101,
+    "package_w_mean": 301.0911372570704,
+    "package_w_max": 348.78778852623196,
+    "energy_ratio_vs_gpu_only": 0.8294028791303847,
+    "served_fraction": 1.0,
+    "facility_power_w": 8548540.35407725,
+    "break_even_movable_share_energy": 0.0,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "c28873385638": {
+   "design_id": "c28873385638",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 95.731,
+    "worst_hbm_c": 93.832,
+    "energy_j_per_work": 8685.146297663636,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.947055586130985,
+    "package_w_mean": 336.958169612,
+    "package_w_max": 376.211360016,
+    "energy_ratio_vs_gpu_only": 0.9437755747970363,
+    "served_fraction": 1.0,
+    "facility_power_w": 9727363.85338327,
+    "break_even_movable_share_energy": 0.02036489926671617,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "5c950f44ee1b": {
+   "design_id": "5c950f44ee1b",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 0,
+    "quantum_system_power_w": 15011651.063275361,
+    "quantum_facility_power_w": 17263398.722766664,
+    "fridge_units": 4,
+    "rqops": 388829.97525627434
+   },
+   "violations": [
+    "quantum task qla_scalar_implicit_1e12 not feasible: 110,000 qubits hold only 5 tiles at d=101; the algorithm needs 280 plus a 15-tile factory",
+    "control lines exceed one cryostat (2 units; no cryogenic interconnect modelled)"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "2d318f72b445": {
+   "design_id": "2d318f72b445",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 253239.5344107143,
+    "quantum_facility_power_w": 291225.4645723214,
+    "fridge_units": 3,
+    "rqops": 21777.003484320558
+   },
+   "violations": [
+    "quantum task shor_rsa2048 not feasible: 21,000 qubits hold only 1 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory; a reference design (10 factories) needs about 13,030,150 physical qubits"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "a18544743242": {
+   "design_id": "a18544743242",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 875347.543317243,
+    "quantum_facility_power_w": 1006649.6748148294,
+    "fridge_units": 0,
+    "rqops": 284.43722064201546
+   },
+   "violations": [
+    "quantum task shor_rsa2048 not feasible: 22,000 qubits hold only 1 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory; a reference design (10 factories) needs about 3,684,550 physical qubits"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "b7e8f129b4a5": {
+   "design_id": "b7e8f129b4a5",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 83.914,
+    "worst_hbm_c": 90.682,
+    "energy_j_per_work": 12648.746296872201,
+    "capacity_rel": 0.9999999403953551
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9037149146945515,
+    "package_w_mean": 283.9186815906,
+    "package_w_max": 339.94515199700004,
+    "energy_ratio_vs_gpu_only": 1.374482063704988,
+    "served_fraction": 1.0,
+    "facility_power_w": 14166595.852496866,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 6,
+    "quantum_system_power_w": 1049430.2008211208,
+    "quantum_facility_power_w": 1206844.7309442887,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "401b30d6c95c": {
+   "design_id": "401b30d6c95c",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 83.914,
+    "worst_hbm_c": 90.682,
+    "energy_j_per_work": 10647.537170535883,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9037149146945515,
+    "package_w_mean": 283.9186815906,
+    "package_w_max": 339.94515199700004,
+    "energy_ratio_vs_gpu_only": 1.1570197172151877,
+    "served_fraction": 1.0,
+    "facility_power_w": 11925241.63100019,
+    "break_even_movable_share_energy": 0.5202806258461758,
+    "n_quantum_workloads_feasible": 6,
+    "quantum_system_power_w": 1049430.2008211208,
+    "quantum_facility_power_w": 1206844.7309442887,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "f4a9ba1c84ba": {
+   "design_id": "f4a9ba1c84ba",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 4,
+    "quantum_system_power_w": 1035501.2368211206,
+    "quantum_facility_power_w": 1190826.4223442886,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [
+    "quantum task vqe_50q not feasible: runtime unbounded: the classical optimiser device supplies no FP64 throughput"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "53fd575c8e6a": {
+   "design_id": "53fd575c8e6a",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 83.914,
+    "worst_hbm_c": 90.682,
+    "energy_j_per_work": 9510.022151266994,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9037149146945515,
+    "package_w_mean": 283.9186815906,
+    "package_w_max": 339.94515199700004,
+    "energy_ratio_vs_gpu_only": 1.0334111038013236,
+    "served_fraction": 1.0,
+    "facility_power_w": 10651224.809419034,
+    "break_even_movable_share_energy": 0.346874782759523,
+    "n_quantum_workloads_feasible": 6,
+    "quantum_system_power_w": 1049430.2008211208,
+    "quantum_facility_power_w": 1206844.7309442887,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "374ea7fb1069": {
+   "design_id": "374ea7fb1069",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 84.771,
+    "worst_hbm_c": 91.73,
+    "energy_j_per_work": 21636.054833110218,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9181342872867363,
+    "package_w_mean": 283.9601727906,
+    "package_w_max": 339.80729599700004,
+    "energy_ratio_vs_gpu_only": 2.3510922426202314,
+    "served_fraction": 1.0,
+    "facility_power_w": 24232381.413083445,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 2171764.11,
+    "quantum_facility_power_w": 2497528.7265,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "aa827c935463": {
+   "design_id": "aa827c935463",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 2171764.11,
+    "quantum_facility_power_w": 2497528.7265,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [
+    "quantum task shor_rsa2048 not feasible: 1,100 qubits hold only 0 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory; a reference design (10 factories) needs about 65,861,700 physical qubits"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "a87003131410": {
+   "design_id": "a87003131410",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 84.771,
+    "worst_hbm_c": 91.73,
+    "energy_j_per_work": 21586.19558146022,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9181342872867363,
+    "package_w_mean": 283.9601727906,
+    "package_w_max": 339.80729599700004,
+    "energy_ratio_vs_gpu_only": 2.345674263202016,
+    "served_fraction": 1.0,
+    "facility_power_w": 24176539.051235445,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 3242764.11,
+    "quantum_facility_power_w": 3729178.7264999994,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "c2f284c83646": {
+   "design_id": "c2f284c83646",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 84.771,
+    "worst_hbm_c": 91.73,
+    "energy_j_per_work": 16477.248499673457,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9181342872867363,
+    "package_w_mean": 283.9601727906,
+    "package_w_max": 339.80729599700004,
+    "energy_ratio_vs_gpu_only": 1.5050758075323145,
+    "served_fraction": 1.0,
+    "facility_power_w": 18454518.31963427,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 1790670.555,
+    "quantum_facility_power_w": 2059271.1382499998,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "5191e83bcd1b": {
+   "design_id": "5191e83bcd1b",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 85.404,
+    "worst_hbm_c": 90.646,
+    "energy_j_per_work": 12595.91140802657,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9032195927352779,
+    "package_w_mean": 284.13967359059995,
+    "package_w_max": 340.24735999700005,
+    "energy_ratio_vs_gpu_only": 1.515615908615927,
+    "served_fraction": 1.0,
+    "facility_power_w": 14107420.776989758,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 3,
+    "quantum_system_power_w": 1838239.0,
+    "quantum_facility_power_w": 2113974.8499999996,
+    "fridge_units": 3,
+    "rqops": 0.0
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "a82b6646f963": {
+   "design_id": "a82b6646f963",
+   "status": "infeasible",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 89.17,
+    "worst_hbm_c": 86.55,
+    "energy_j_per_work": 8061.7037075201615,
+    "capacity_rel": 0.579035834354513
+   },
+   "extras": {
+    "support_peak_c": 70.176,
+    "score_informational": 0.8468629609246009,
+    "package_w_mean": 243.38534151931998,
+    "package_w_max": 306.852982027,
+    "energy_ratio_vs_gpu_only": 0.8760288876716978,
+    "served_fraction": 0.7031149417161942,
+    "facility_power_w": 6348500.852339817,
+    "break_even_movable_share_energy": 0.014821873917159388,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 64317.01679828895,
+    "quantum_facility_power_w": 73964.56931803229,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [
+    "serves only 70% of the baseline demand (< 98%)"
+   ],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "cf7847354332": {
+   "design_id": "cf7847354332",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 102.948,
+    "worst_hbm_c": 97.743,
+    "energy_j_per_work": 9334.868615163095,
+    "capacity_rel": 1.0000008607611934
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 1.0008668134287284,
+    "package_w_mean": 363.5747200078,
+    "package_w_max": 403.20076801899995,
+    "energy_ratio_vs_gpu_only": 1.0143779610598294,
+    "served_fraction": 1.0,
+    "facility_power_w": 10455052.848982666,
+    "break_even_movable_share_energy": 0.02036489926671617,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "d13dd3d72e6c": {
+   "design_id": "d13dd3d72e6c",
+   "status": "infeasible",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 93.245,
+    "worst_hbm_c": 84.325,
+    "energy_j_per_work": 8061.7037075201615,
+    "capacity_rel": 0.579035834354513
+   },
+   "extras": {
+    "support_peak_c": 70.601,
+    "score_informational": 0.8574569669556478,
+    "package_w_mean": 241.7617071431856,
+    "package_w_max": 302.622582039,
+    "energy_ratio_vs_gpu_only": 0.8760288876716978,
+    "served_fraction": 0.7031149417161942,
+    "facility_power_w": 6348500.852339817,
+    "break_even_movable_share_energy": 0.014821873917159388,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 64317.01679828895,
+    "quantum_facility_power_w": 73964.56931803229,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [
+    "serves only 70% of the baseline demand (< 98%)"
+   ],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "aae7cb2e6e34": {
+   "design_id": "aae7cb2e6e34",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 84.125,
+    "worst_hbm_c": 91.619,
+    "energy_j_per_work": 16835.766374311326,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9166070445789762,
+    "package_w_mean": 283.99761279060004,
+    "package_w_max": 339.866815997,
+    "energy_ratio_vs_gpu_only": 1.8294666022308215,
+    "served_fraction": 1.0,
+    "facility_power_w": 18856058.339228686,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 2172028.11,
+    "quantum_facility_power_w": 2497832.3264999995,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "c633de6d2568": {
+   "design_id": "c633de6d2568",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.637,
+    "worst_hbm_c": 90.821,
+    "energy_j_per_work": 9146.262322218714,
+    "capacity_rel": 0.9219746379291309
+   },
+   "extras": {
+    "support_peak_c": 75.217,
+    "score_informational": 0.9056274078150797,
+    "package_w_mean": 298.84409837561117,
+    "package_w_max": 346.40366478504797,
+    "energy_ratio_vs_gpu_only": 0.9938829680645124,
+    "served_fraction": 1.0,
+    "facility_power_w": 10243813.80088496,
+    "break_even_movable_share_energy": 0.22772066330009663,
+    "n_quantum_workloads_feasible": 5,
+    "quantum_system_power_w": 830307.0399444926,
+    "quantum_facility_power_w": 954853.0959361665,
+    "fridge_units": 0,
+    "rqops": 15098.039215686273
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "dea4d56e1372": {
+   "design_id": "dea4d56e1372",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.637,
+    "worst_hbm_c": 90.821,
+    "energy_j_per_work": 7697.458584724482,
+    "capacity_rel": 0.8979880634476156
+   },
+   "extras": {
+    "support_peak_c": 75.217,
+    "score_informational": 0.9056274078150797,
+    "package_w_mean": 301.36409837581124,
+    "package_w_max": 346.40366478504797,
+    "energy_ratio_vs_gpu_only": 0.8364480172578069,
+    "served_fraction": 1.0,
+    "facility_power_w": 8621153.61489142,
+    "break_even_movable_share_energy": 0.0,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 66307.01679828894,
+    "quantum_facility_power_w": 76253.06931803227,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "c75618c39e1a": {
+   "design_id": "c75618c39e1a",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 84.771,
+    "worst_hbm_c": 91.73,
+    "energy_j_per_work": 23087.276112080184,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9181342872867363,
+    "package_w_mean": 283.9601727906,
+    "package_w_max": 339.80729599700004,
+    "energy_ratio_vs_gpu_only": 2.508789896727222,
+    "served_fraction": 1.0,
+    "facility_power_w": 25857749.245529804,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 3589226.55,
+    "quantum_facility_power_w": 4127610.5324999993,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "80c2333715ea": {
+   "design_id": "80c2333715ea",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 102.948,
+    "worst_hbm_c": 96.263,
+    "energy_j_per_work": 9202.554642857143,
+    "capacity_rel": 1.0
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9805035773252614,
+    "package_w_mean": 363.37816960780003,
+    "package_w_max": 403.1031360189999,
+    "energy_ratio_vs_gpu_only": 1.0,
+    "served_fraction": 1.0,
+    "facility_power_w": 10306861.2,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": null,
+    "quantum_system_power_w": null,
+    "quantum_facility_power_w": null,
+    "fridge_units": null,
+    "rqops": null
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "4c803ad7ed11": {
+   "design_id": "4c803ad7ed11",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 94.411,
+    "worst_hbm_c": 90.649,
+    "energy_j_per_work": 9133.617758584223,
+    "capacity_rel": 0.9217458349816938
+   },
+   "extras": {
+    "support_peak_c": 74.529,
+    "score_informational": 0.9032608695652173,
+    "package_w_mean": 300.9549618465808,
+    "package_w_max": 348.52732209935203,
+    "energy_ratio_vs_gpu_only": 0.9925089405118147,
+    "served_fraction": 1.0,
+    "facility_power_w": 10229651.88961433,
+    "break_even_movable_share_energy": 0.22480065493847065,
+    "n_quantum_workloads_feasible": 5,
+    "quantum_system_power_w": 823727.0399444926,
+    "quantum_facility_power_w": 947286.0959361665,
+    "fridge_units": 0,
+    "rqops": 15098.039215686273
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "3a553e4b1335": {
+   "design_id": "3a553e4b1335",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 98.436,
+    "worst_hbm_c": 91.72,
+    "energy_j_per_work": 12107.43547993953,
+    "capacity_rel": 0.9430920639458824
+   },
+   "extras": {
+    "support_peak_c": 75.429,
+    "score_informational": 0.9226787284834779,
+    "package_w_mean": 299.654548370216,
+    "package_w_max": 347.5048719638,
+    "energy_ratio_vs_gpu_only": 1.3156602649827356,
+    "served_fraction": 1.0,
+    "facility_power_w": 13560327.737532273,
+    "break_even_movable_share_energy": null,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 2170965.11,
+    "quantum_facility_power_w": 2496609.8765,
+    "fridge_units": 1,
+    "rqops": 0.0
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "318415928482": {
+   "design_id": "318415928482",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.2,
+    "worst_hbm_c": 94.911,
+    "energy_j_per_work": 8618.610571150457,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9619014859658778,
+    "package_w_mean": 336.520352012,
+    "package_w_max": 375.5419520160001,
+    "energy_ratio_vs_gpu_only": 0.9365454382648047,
+    "served_fraction": 1.0,
+    "facility_power_w": 9652843.83968851,
+    "break_even_movable_share_energy": 0.010124157469805635,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 36307.00666990884,
+    "quantum_facility_power_w": 41753.05767039517,
+    "fridge_units": 0,
+    "rqops": 414.8000663680106
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "d1c0ccaa72be": {
+   "design_id": "d1c0ccaa72be",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 95.334,
+    "worst_hbm_c": 91.533,
+    "energy_j_per_work": 8442.55351207804,
+    "capacity_rel": 0.9430920639458824
+   },
+   "extras": {
+    "support_peak_c": 76.919,
+    "score_informational": 0.9154237754540451,
+    "package_w_mean": 305.3843932876112,
+    "package_w_max": 352.943959697048,
+    "energy_ratio_vs_gpu_only": 0.9174141137679633,
+    "served_fraction": 1.0,
+    "facility_power_w": 9455659.933527406,
+    "break_even_movable_share_energy": 0.10915255307810263,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 519351.5132590909,
+    "quantum_facility_power_w": 597254.2402479545,
+    "fridge_units": 1,
+    "rqops": 474308.30039525696
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "d7905e20eec3": {
+   "design_id": "d7905e20eec3",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 96.511,
+    "worst_hbm_c": 95.73,
+    "energy_j_per_work": 10821.889600284198,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9731700605393505,
+    "package_w_mean": 336.75868161200003,
+    "package_w_max": 375.94515201600007,
+    "energy_ratio_vs_gpu_only": 1.1759658073515438,
+    "served_fraction": 1.0,
+    "facility_power_w": 12120516.352318298,
+    "break_even_movable_share_energy": 0.346874782759523,
+    "n_quantum_workloads_feasible": 6,
+    "quantum_system_power_w": 1049430.2008211208,
+    "quantum_facility_power_w": 1206844.7309442887,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "40f420b24b60": {
+   "design_id": "40f420b24b60",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 45841.817934464285,
+    "quantum_facility_power_w": 52718.09062463392,
+    "fridge_units": 0,
+    "rqops": 366.30036630036625
+   },
+   "violations": [
+    "quantum task qla_full_vector_1m not feasible: 1,800 qubits hold only 0 tiles at d=101; the algorithm needs 160 plus a 15-tile factory"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "6444bc8009c9": {
+   "design_id": "6444bc8009c9",
+   "status": "infeasible",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 99.709,
+    "worst_hbm_c": 94.434,
+    "energy_j_per_work": 10400.05325260992,
+    "capacity_rel": 0.776497011675554
+   },
+   "extras": {
+    "support_peak_c": 76.245,
+    "score_informational": 0.9553384700055034,
+    "package_w_mean": 309.58054276572324,
+    "package_w_max": 351.657517459096,
+    "energy_ratio_vs_gpu_only": 0.9499685914102197,
+    "served_fraction": 0.9428892284631729,
+    "facility_power_w": 10982829.969808793,
+    "break_even_movable_share_energy": 0.0,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 46549.00156464286,
+    "quantum_facility_power_w": 53531.35179933928,
+    "fridge_units": 0,
+    "rqops": 1465.201465201465
+   },
+   "violations": [
+    "serves only 94% of the baseline demand (< 98%)"
+   ],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "c453c94d188e": {
+   "design_id": "c453c94d188e",
+   "status": "infeasible",
+   "tier": null,
+   "objectives": {
+    "worst_gpu_c": null,
+    "worst_hbm_c": null,
+    "energy_j_per_work": null,
+    "capacity_rel": null
+   },
+   "extras": {
+    "n_quantum_workloads_feasible": 0,
+    "quantum_system_power_w": 7865513.59,
+    "quantum_facility_power_w": 9045340.6285,
+    "fridge_units": 2,
+    "rqops": 0.0
+   },
+   "violations": [
+    "quantum task chemistry_small not feasible: 240,000 qubits hold only 11 tiles at d=101; the algorithm needs 200 plus a 15-tile factory"
+   ],
+   "missing": [
+    "datacentre",
+    "thermal (neither HotSpot nor surrogate answered)"
+   ],
+   "sources": {
+    "quantum": "model"
+   }
+  },
+  "9e5954bb3150": {
+   "design_id": "9e5954bb3150",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 97.331,
+    "worst_hbm_c": 92.76,
+    "energy_j_per_work": 8618.610571150457,
+    "capacity_rel": 1.1001064759843486
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.9323059988992846,
+    "package_w_mean": 336.720838412,
+    "package_w_max": 375.8497280160001,
+    "energy_ratio_vs_gpu_only": 0.9365454382648047,
+    "served_fraction": 1.0,
+    "facility_power_w": 9652843.83968851,
+    "break_even_movable_share_energy": 0.010124157469805635,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 36307.00666990884,
+    "quantum_facility_power_w": 41753.05767039517,
+    "fridge_units": 0,
+    "rqops": 414.8000663680106
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "b3140dfc220e": {
+   "design_id": "b3140dfc220e",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 86.152,
+    "worst_hbm_c": 87.578,
+    "energy_j_per_work": 10647.65649223482,
+    "capacity_rel": 1.3754999988219316
+   },
+   "extras": {
+    "support_peak_c": null,
+    "score_informational": 0.8610071546505228,
+    "package_w_mean": 284.6316351906,
+    "package_w_max": 340.99308799700003,
+    "energy_ratio_vs_gpu_only": 1.1570326833646505,
+    "served_fraction": 1.0,
+    "facility_power_w": 11925375.271303,
+    "break_even_movable_share_energy": 0.5203121741392845,
+    "n_quantum_workloads_feasible": 6,
+    "quantum_system_power_w": 1049430.2008211208,
+    "quantum_facility_power_w": 1206844.7309442887,
+    "fridge_units": 2,
+    "rqops": 21072796.934865896
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  },
+  "5a52d76ef8c9": {
+   "design_id": "5a52d76ef8c9",
+   "status": "complete",
+   "tier": "screened",
+   "objectives": {
+    "worst_gpu_c": 95.7,
+    "worst_hbm_c": 90.31,
+    "energy_j_per_work": 7628.90659505735,
+    "capacity_rel": 0.8979646861553191
+   },
+   "extras": {
+    "support_peak_c": 73.472,
+    "score_informational": 0.8985965877820583,
+    "package_w_mean": 301.26755984729124,
+    "package_w_max": 349.005097635992,
+    "energy_ratio_vs_gpu_only": 0.8289987825259774,
+    "served_fraction": 1.0,
+    "facility_power_w": 8544375.386464233,
+    "break_even_movable_share_energy": 0.0,
+    "n_quantum_workloads_feasible": 2,
+    "quantum_system_power_w": 64317.01679828895,
+    "quantum_facility_power_w": 73964.56931803229,
+    "fridge_units": 0,
+    "rqops": 1060.0446140515826
+   },
+   "violations": [],
+   "missing": [],
+   "sources": {
+    "thermal": "surrogate",
+    "datacentre": "model",
+    "quantum": "model"
+   }
+  }
+ }
+}

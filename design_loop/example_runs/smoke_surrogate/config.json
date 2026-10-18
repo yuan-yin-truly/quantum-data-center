@@ -1,0 +1,88 @@
+{
+ "name": "example_2035",
+ "seed": 2035,
+ "space": "default",
+ "budget": {
+  "max_generations": 3,
+  "max_designs": 400,
+  "max_wallclock_s": 3600,
+  "max_hotspot_runs": 0,
+  "stagnation_generations": 3,
+  "hotspot_exhausted_stops": true
+ },
+ "population": {
+  "candidates_per_generation": 28,
+  "hotspot_per_generation": 2,
+  "layout_search_per_generation": 3,
+  "layout_search_steps": 30,
+  "operator_shares": {
+   "mutate": 0.35,
+   "crossover": 0.15,
+   "neighbour": 0.25,
+   "restart": 0.1,
+   "layout": 0.15
+  },
+  "p_layout_move": 0.25
+ },
+ "objectives": [
+  {
+   "name": "worst_gpu_c",
+   "direction": "min",
+   "label": "worst GPU temperature (C)",
+   "source": "thermal",
+   "weight": 1.0
+  },
+  {
+   "name": "worst_hbm_c",
+   "direction": "min",
+   "label": "worst HBM temperature (C)",
+   "source": "thermal",
+   "weight": 1.0
+  },
+  {
+   "name": "energy_j_per_work",
+   "direction": "min",
+   "label": "facility J per accepted GPU-second of work",
+   "source": "datacentre",
+   "weight": 1.0
+  },
+  {
+   "name": "capacity_rel",
+   "direction": "max",
+   "label": "sustained capacity vs GPU-only",
+   "source": "datacentre",
+   "weight": 1.0
+  }
+ ],
+ "constraints": {
+  "support_max_junction_c": 110,
+  "min_served_fraction": 0.98,
+  "max_fridge_units": 100,
+  "min_task_p_accept": 0.5
+ },
+ "weights": {
+  "worst_gpu_c": 1.0,
+  "worst_hbm_c": 1.0,
+  "energy_j_per_work": 1.0,
+  "capacity_rel": 1.0
+ },
+ "evaluators": {
+  "quantum": {},
+  "package": {
+   "hotspot": "never",
+   "grid": 64,
+   "concurrency": 2,
+   "try_start_docker": false,
+   "max_gpu_load_factor": 1.0,
+   "traffic_coupling": 0.0
+  },
+  "datacentre": {
+   "force_stand_in": false
+  }
+ },
+ "final": {
+  "hotspot_finalists": 4
+ },
+ "leaderboard_comparable": false,
+ "notice": "LOCAL-ONLY STUDY. Results use quantum hardware, illustrative catalogs and (for screening) a thermal surrogate; they are NOT comparable with, and must never be submitted to, the Beat the Hotspot leaderboard."
+}

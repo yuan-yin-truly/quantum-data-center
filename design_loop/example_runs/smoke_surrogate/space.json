@@ -1,0 +1,264 @@
+{
+ "name": "datacentre_2035_default",
+ "description": "Quantum modality, QEC, decoders, cryostat, integration mode, support chiplets and layout for the Beat-the-Hotspot package; hardware at the mid-2030s scenario profile.",
+ "genes": {
+  "mode": {
+   "type": "cat",
+   "default": "add",
+   "group": "integration",
+   "choices": [
+    "gpu_only",
+    "add",
+    "replace"
+   ],
+   "doc": "gpu_only | add | replace"
+  },
+  "offload_fraction": {
+   "type": "float",
+   "default": 0.1,
+   "group": "integration",
+   "lo": 0.0,
+   "hi": 0.6,
+   "step": 0.05,
+   "doc": "INPUT ASSUMPTION: share of each remaining GPU's work movable to the quantum side"
+  },
+  "n_quantum_systems": {
+   "type": "logint",
+   "default": 2,
+   "group": "integration",
+   "lo": 1,
+   "hi": 32,
+   "doc": "quantum computers in the facility"
+  },
+  "support_G0": {
+   "type": "bool",
+   "default": false,
+   "group": "integration",
+   "doc": "G0 re-declared as quantum-support chiplet (replace)"
+  },
+  "support_G1": {
+   "type": "bool",
+   "default": false,
+   "group": "integration",
+   "doc": "G1 re-declared as quantum-support chiplet (replace)"
+  },
+  "support_G2": {
+   "type": "bool",
+   "default": false,
+   "group": "integration",
+   "doc": "G2 re-declared as quantum-support chiplet (replace)"
+  },
+  "support_G3": {
+   "type": "bool",
+   "default": false,
+   "group": "integration",
+   "doc": "G3 re-declared as quantum-support chiplet (replace)"
+  },
+  "devices_per_support_die": {
+   "type": "int",
+   "default": 4,
+   "group": "integration",
+   "lo": 1,
+   "hi": 16,
+   "doc": "ASSUMPTION: decoder devices one support die can host"
+  },
+  "support_extra_w": {
+   "type": "float",
+   "default": 3.0,
+   "group": "integration",
+   "lo": 0.0,
+   "hi": 10.0,
+   "step": 1.0,
+   "doc": "controller/IO overhead of a support die (W, assumption)"
+  },
+  "modality": {
+   "type": "cat",
+   "default": "superconducting",
+   "group": "quantum",
+   "choices": [
+    "superconducting",
+    "spin_silicon",
+    "trapped_ion",
+    "neutral_atom",
+    "cat_superconducting",
+    "photonic"
+   ],
+   "doc": "qubit modality"
+  },
+  "scheme": {
+   "type": "cat",
+   "default": "cryo_cmos_4k",
+   "group": "quantum",
+   "choices": [
+    "rt_direct",
+    "rt_ut047",
+    "cryo_cmos_4k",
+    "ambient",
+    "cryo_4k",
+    "fbqc_snspd"
+   ],
+   "doc": "control / wiring scheme (repaired to the modality)"
+  },
+  "n_qubits": {
+   "type": "logint",
+   "default": 100000,
+   "group": "quantum",
+   "lo": 1000,
+   "hi": 2000000,
+   "doc": "physical qubits"
+  },
+  "cryostat_scale": {
+   "type": "logfloat",
+   "default": 20.0,
+   "group": "quantum",
+   "lo": 1.0,
+   "hi": 300.0,
+   "doc": "cryostat capacity scale (hypothetical large cryoplatforms)"
+  },
+  "profile": {
+   "type": "cat",
+   "default": "mid2030s",
+   "group": "quantum",
+   "choices": [
+    "mid2030s_low",
+    "mid2030s",
+    "mid2030s_high"
+   ],
+   "doc": "hardware profile / scenario"
+  },
+  "code": {
+   "type": "cat",
+   "default": "surface",
+   "group": "quantum",
+   "choices": [
+    "surface",
+    "bivariate_bicycle",
+    "cat_repetition",
+    "fusion_network"
+   ],
+   "doc": "QEC code (repaired to the modality)"
+  },
+  "decoder": {
+   "type": "cat",
+   "default": "union_find",
+   "group": "quantum",
+   "choices": [
+    "union_find",
+    "mwpm",
+    "neural",
+    "bp_osd",
+    "repetition_matching",
+    "fusion_matching"
+   ],
+   "doc": "decoder algorithm (repaired to the code)"
+  },
+  "decoder_device": {
+   "type": "cat",
+   "default": "auto:asic_rt",
+   "group": "classical",
+   "choices": [
+    "auto:fpga",
+    "auto:asic_rt",
+    "auto:asic_4k",
+    "auto:gpu"
+   ],
+   "doc": "decoder hardware"
+  },
+  "decoder_location": {
+   "type": "cat",
+   "default": "RT",
+   "group": "classical",
+   "choices": [
+    "RT",
+    "4K",
+    "package"
+   ],
+   "doc": "RT = room temperature, 4K = cryo stage, package = on support chiplets of the interposer"
+  },
+  "task": {
+   "type": "cat",
+   "default": "vqe_50q",
+   "group": "quantum",
+   "choices": [
+    "shor_rsa2048",
+    "femoco_thc",
+    "chemistry_small",
+    "vqe_50q",
+    "vqe_20q",
+    "qla_full_vector_1m",
+    "qla_scalar_explicit_1m",
+    "qla_scalar_implicit_1e12"
+   ],
+   "doc": "quantum workload the offloaded work is mapped to"
+  },
+  "host_device": {
+   "type": "cat",
+   "default": "auto:cpu",
+   "group": "classical",
+   "choices": [
+    "auto:cpu",
+    "auto:gpu"
+   ],
+   "doc": "classical host device"
+  },
+  "host_count": {
+   "type": "int",
+   "default": 1,
+   "group": "classical",
+   "lo": 1,
+   "hi": 8,
+   "doc": "host count"
+  },
+  "optimizer_device": {
+   "type": "cat",
+   "default": "auto:gpu",
+   "group": "classical",
+   "choices": [
+    "auto:cpu",
+    "auto:gpu",
+    "auto:fpga",
+    "auto:asic_rt",
+    "auto:asic_4k"
+   ],
+   "doc": "optimiser (variational loop) device"
+  },
+  "optimizer_count": {
+   "type": "int",
+   "default": 4,
+   "group": "classical",
+   "lo": 1,
+   "hi": 16,
+   "doc": "optimiser count"
+  },
+  "optimizer_location": {
+   "type": "cat",
+   "default": "RT",
+   "group": "classical",
+   "choices": [
+    "RT",
+    "4K"
+   ],
+   "doc": "RT or 4K (cryo ASIC)"
+  },
+  "pue": {
+   "type": "float",
+   "default": 1.15,
+   "group": "facility",
+   "lo": 1.05,
+   "hi": 1.5,
+   "step": 0.05,
+   "doc": "PUE for the facility boundary"
+  }
+ },
+ "fixed": {
+  "pue": 1.15
+ },
+ "layout": {
+  "enabled": true,
+  "grid_mm": 0.05,
+  "step_mm": 1.5,
+  "seeds": [
+   "baseline_example"
+  ]
+ }
+}

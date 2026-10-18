@@ -1,0 +1,3 @@
+stopped: generation limit
+LOCAL-ONLY STUDY. Results use quantum hardware, illustrative catalogs and (for screening) a thermal surrogate; they are NOT comparable with, and must never be submitted to, the Beat the Hotspot leaderboard.
+leaderboard_comparable: false
