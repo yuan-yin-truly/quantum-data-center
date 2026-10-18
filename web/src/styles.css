@@ -600,7 +600,7 @@ td .chip,
   min-width: 260px;
 }
 .bridge-table .effect {
-  min-width: 170px;
+  min-width: 200px;
 }
 .bridge-table cite {
   display: block;
@@ -660,6 +660,21 @@ select {
 }
 .muted {
   color: var(--muted);
+}
+.qpu-fit {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+.qpu-fit li {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+.qpu-fit li span:first-child {
+  color: var(--muted);
+  font-size: 12.5px;
 }
 
 .owner {

@@ -25,6 +25,7 @@ import {
   type Levers,
   type Scenario,
 } from '../model/fleet.ts';
+import { QPU_TOOLS, qpuSystemMw } from '../model/quantum.ts';
 import { compact, gb, mw, pct, usd } from '../format.ts';
 import { Meter, StatusChip } from './Meter.tsx';
 
@@ -422,20 +423,32 @@ export function FleetCard() {
               <tr>
                 <th scope="row">
                   <span className="row-label">Quantum co-processor next to the agent sandbox</span>
-                  <cite>Placeholder</cite>
+                  <cite>quantum_arch, projected superconducting</cite>
                 </th>
                 <td>
                   {hasAgents
-                    ? 'Background agents run their tools in our building, with a 10 s first-token deadline and 4 h per task. A QPU can sit there as a tool the agent calls. It does not speed up decode.'
+                    ? 'Background agents run their tools in our building, with a 10 s first-token deadline and 4 h per task. A QPU can sit there as a tool the agent calls. It does not speed up decode. Its power is mostly cryostats: about 27 W per physical qubit, and about 5,500 physical qubits per logical qubit.'
                     : 'No slot: chat makes no tool calls and has a 0.6 s deadline. A QPU here would add power and cost and serve no one.'}
                 </td>
                 <td className="num effect">
                   {!hasAgents ? (
                     <span className="muted">n/a in case {caseId}</span>
                   ) : headroomMw > 0 && headroomUsd > 0 ? (
-                    <span>
-                      Could use the {mw(headroomMw)} and {usd(headroomUsd)} of headroom
-                    </span>
+                    <ul className="qpu-fit">
+                      {QPU_TOOLS.map((t) => {
+                        const need = qpuSystemMw(t.physicalQubits) * fleet.pue;
+                        const n = Math.floor(headroomMw / need);
+                        return (
+                          <li key={t.id}>
+                            <span>{t.label}</span>
+                            <span>
+                              {mw(need)} each ·{' '}
+                              {n >= 1 ? `${n} fit in the ${mw(headroomMw)} headroom` : <strong>doesn’t fit the {mw(headroomMw)} headroom</strong>}
+                            </span>
+                          </li>
+                        );
+                      })}
+                    </ul>
                   ) : (
                     <span className="muted">Close the gap first: no headroom yet</span>
                   )}
@@ -472,8 +485,8 @@ export function FleetCard() {
               <OwnerTag owner="fleet" />
             </li>
             <li>
-              <strong>Quantum tool workloads.</strong> Which 2035 agent tools have a real quantum advantage, and how many tasks a day one QPU can
-              serve. <OwnerTag owner="research" />
+              <strong>Quantum tool workloads.</strong> quantum_arch sizes the machines; still open is which agent tools need them, how many
+              tasks a day one QPU serves, and what a QPU costs. <OwnerTag owner="research" />
             </li>
             <li>
               <strong>Chip thermals at 2035 power.</strong> The Track 2 tool models a ~400 W package; a 2035 GPU draws {(GPU_RACK.kw / GPU_RACK.chips).toFixed(1)} kW.{' '}
@@ -496,6 +509,9 @@ export function FleetCard() {
             <li>The baseline runs background steps on the interactive pool at 100 tok/s, which is how the brief’s per-GPU figure is quoted.</li>
             <li>The brief gives one peak rate per user; we split it across workloads by their share of daily output tokens.</li>
             <li>No prefill, spare capacity or failures. All racks are 2035 GPU racks.</li>
+            <li>
+              QPU power scales linearly from the quantum_arch sweep (1M qubits = 27.1 MW system power), times the same PUE as the GPU racks.
+            </li>
           </ul>
         </details>
       </div>

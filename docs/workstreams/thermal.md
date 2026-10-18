@@ -8,7 +8,8 @@
 
 **Plan**
 
-- Tool: [chiplet-thermal-gui](https://github.com/Czaja107/chiplet-thermal-gui), run headless with `run_simulations.py`
+- Tool: the organizer's thermal studio, now in this repo. Run the GUI with `python -m chiplet_gui`, or headless with `chiplet_thermal_continuous/run_simulations.py` (needs a HotSpot build; see `README_GUI.md`)
+- `quantum_arch/thermal2d.py` has a cryogenic-temperature solver; the room-temperature chips stay with HotSpot
 - Scale the Track 2 power maps (~400 W package) toward 2035 chip power
 - Sweep cooler resistance and coolant temperature, and find the highest coolant temperature that keeps chips in spec
 - Export results for the web: per-die peaks and the 64×64 `.grid` maps

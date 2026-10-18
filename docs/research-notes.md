@@ -13,8 +13,8 @@ _Plan review from Sun Oct 18, 2026. The live numbers are on the fleet card; the 
 
 1. **We don't have the scorer.** `score.py` and the 2035 catalog (site power prices, carbon, chip FLOP/s) aren't public. They're probably linked from the hack doc at tinyurl.com/chipsdata2035, which needs a Google sign-in. Until we have them, the fleet card is our stand-in.
 2. **The napkin model covers decode only.** Prefill, buildings, energy cost and carbon all need the catalog.
-3. **Quantum doesn't make tokens.** It needs its own slot and its own measure of value; see "Quantum" below.
-4. **The thermal tool is built for Track 2.** It needs a bridge to Track 1, which is cooling and PUE; see "Thermal" below.
+3. **Quantum doesn't make tokens.** It needs its own slot and its own measure of value; see "Quantum" below. The team's `quantum_arch` simulator now sizes the machines.
+4. **The thermal tool is built for Track 2.** It needs a bridge to Track 1, which is cooling and PUE; see "Thermal" below. It now lives in this repo (`chiplet_gui/`, `chiplet_thermal_continuous/`).
 5. **Don't project 2035 hardware for the scored design.** The catalog fixes it for every team, so use trend lines only for credibility and for our what-if.
 
 ## The brief in numbers
@@ -82,15 +82,23 @@ What this tells us:
 
 - **A has the biggest gap but no place for a QPU.** Its gap is pure chat decode: about 2× the cap, a 0.6 s deadline and no tool calls. The only lever that closes it is our assumption about speculative decoding.
 - **B has the one slot a QPU can fill.** Background agents run their sandbox in our building, with a 10 s first-token deadline and 4 h per task. A QPU can sit there as a tool the agent calls, and that slack can absorb QPU job queues.
-- **B leaves room to host it.** On napkin math the brief's levers bring B to ~306 MW and ~$8.6B in racks. That leaves ~190 MW and ~$21B (before buildings and energy) to spend on a quantum wing without dropping users.
+- **B leaves room to host it, up to a point.** On napkin math the brief's levers bring B to ~306 MW and ~$8.6B in racks. That leaves ~190 MW and ~$21B (before buildings and energy). By `quantum_arch`'s numbers that fits about 11 small-chemistry QPUs (~17 MW each), but not one FeMoco-class machine (~360 MW).
 - **Honest caveat:** a QPU won't lower decode MW. The quantum story has to be what agents can do with a QPU tool, not cheaper tokens. That fits the pitch ("best idea") more than the leaderboard ("best design").
 
 ## Quantum: what we know
 
 - **It can't help with token generation.** Decode streams 0.5–3.8 GB of cache per user per token; it is limited by memory bandwidth. There is no demonstrated quantum speedup for that, and getting classical data into qubits is itself the bottleneck.
 - **Roadmap:** IBM Starling (2029): about 200 logical qubits, 100M gates. Blue Jay (2033+): about 2,000 logical qubits, 1B gates.
-- **Power:** a dilution refrigerator draws about 10 kW; a whole system about 26 kW (Google Sycamore paper), mostly regardless of qubit count. Inside a 500 MW fleet, power isn't the issue; cost and throughput are.
-- **Open research questions** are in `docs/workstreams/quantum.md`.
+- **Power at today's scale vs at useful scale.** A small system (one dilution refrigerator, ~100 qubits) draws about 10–26 kW (Google Sycamore paper). That figure doesn't hold at useful scale. The team's `quantum_arch` model (projected superconducting, cryo-CMOS control) needs one fridge per ~3,700 qubits:
+  - 100k physical qubits: 27 fridges, 2.7 MW, 18 logical qubits.
+  - 1M physical qubits: 267 fridges, 27 MW, 182 logical qubits.
+
+  That is about 27 W per physical qubit and about 150 kW per logical qubit. At that scale, power does matter inside a 500 MW fleet.
+- **Useful fault-tolerant tools are big:**
+  - Small chemistry (100 logical qubits): about 588k physical qubits, about 16 MW.
+  - FeMoco: about 12.4M physical qubits, about 340 MW.
+- **Without a cryostat:** neutral atoms and ions avoid it (tens of kW for lasers and vacuum), but in this model they don't yet reach error-corrected logical qubits at 10k scale, and their logical clock is about 1,000× slower.
+- **Open research questions** are in `docs/workstreams/quantum.md`; details in `README_QUANTUM.md`.
 
 ## 2035 projections
 
@@ -101,7 +109,7 @@ What this tells us:
 
 ## Thermal tool (for the thermal owner)
 
-- **What it is:** [Czaja107/chiplet-thermal-gui](https://github.com/Czaja107/chiplet-thermal-gui), a desktop GUI around the Track 2 judge. It places 4 GPU + 4 HBM chiplets on a 52 × 42 mm interposer and runs HotSpot over 5 workloads. Its package is ~313–399 W with a fixed cooler (0.08 K/W, 25 °C ambient). The reference worst GPU peak is 104.6 °C.
+- **What it is:** the organizer's [chiplet-thermal-gui](https://github.com/Czaja107/chiplet-thermal-gui), now in this repo as `chiplet_gui/` (the GUI, `python -m chiplet_gui`) and `chiplet_thermal_continuous/` (the Track 2 judge). It is a desktop GUI around that judge. It places 4 GPU + 4 HBM chiplets on a 52 × 42 mm interposer and runs HotSpot over 5 workloads. Its package is ~313–399 W with a fixed cooler (0.08 K/W, 25 °C ambient). The reference worst GPU peak is 104.6 °C.
 - **Headless:** run `chiplet_thermal_continuous/run_simulations.py --hotspot <bin> --layouts <json> --grid 64 --output <dir>`. It only needs numpy and matplotlib; the GUI isn't required. HotSpot builds with `make`; clang is on our Macs.
 - **Outputs:** `results.json` (per-die peaks), `power_budget.json`, and `hotspot_inputs/<layout>/<workload>.grid` (64×64 temperatures per layer, in Kelvin). The bundled `random_example/` is enough to build the web heatmap before any new runs.
 - **Bridge to Track 1 (Earth):** scale the power maps toward the ~5.5 kW 2035 chip, then sweep the cooler's resistance and coolant temperature. The question is the highest coolant temperature that keeps chips in spec. That decides which cooling and climate row is real (desert direct liquid at 1.14 vs cold at 1.07: about 7% of facility power).
@@ -112,7 +120,7 @@ What this tells us:
 1. Fleet card (done, napkin model).
 2. Workstream sections (placeholders, filled from `docs/workstreams/`).
 3. Thermal: heatmaps from `.grid` files and a coolant-temperature sweep chart.
-4. Quantum wing: a row in the fleet card that spends the headroom.
+4. Quantum wing: a row in the fleet card that spends the headroom (done, sized from `quantum_arch`). Next: a quantum section built from its outputs.
 5. 2035 trend chart with the catalog point.
 6. What-if sliders: bandwidth growth, grid cap, carbon price.
 7. Swap the napkin model for score.py output once we have it.
@@ -130,4 +138,5 @@ What this tells us:
 - [Epoch AI: Trends in ML hardware](https://epoch.ai/blog/trends-in-machine-learning-hardware) · [compute doubling every 2.2 years](https://epoch.ai/data-insights/peak-performance-hardware-on-different-precisions)
 - [HPCwire: IBM sets 2029 target for fault-tolerant quantum computing](https://www.hpcwire.com/2025/06/10/ibm-sets-2029-target-for-fault-tolerant-quantum-computing/)
 - [Google Sycamore supplementary information (refrigerator power)](https://arxiv.org/pdf/1910.11333)
+- `README_QUANTUM.md` and `quantum_arch/example_outputs/` in this repo (team's quantum simulator)
 - [TrendForce: Rubin and Feynman roadmap](https://www.trendforce.com/news/2025/03/19/news-gtc-2025-nvidia-unveils-more-on-rubin-gpus-announces-feynman-for-2028-in-roadmap-update/)
