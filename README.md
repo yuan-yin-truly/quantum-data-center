@@ -2,7 +2,7 @@
 
 Our entry for SUNDAI @ MIT Track 1, "Build the AI data center of 2035": serve 100% of one user case on Earth, inside 500 MW and $30B, then make it cheap.
 
-The team page lives in `web/`. It opens with the fleet card (requirements, what we know, the gap, and the bridges each of us owns), followed by a section per workstream.
+The team page lives in `web/`. It opens with the problem statement and the status quo for the three cases, followed by a section per workstream.
 
 ## Run the page
 

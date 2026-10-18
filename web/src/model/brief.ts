@@ -1,4 +1,4 @@
-// Every number the fleet card uses, copied from the Track 1 brief.
+// Every number the fleet model uses, copied from the Track 1 brief.
 // Source tags: "Brief p.N" = data/data center design requirements.pdf, page N.
 // "Deck s.15" = slide 15 of data/145 - Chips and data center 2035.pptx
 // (power & cooling; it is not in the PDF).
