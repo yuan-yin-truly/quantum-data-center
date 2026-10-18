@@ -23,6 +23,20 @@ export const CAT_QPU = {
   callsPerHour: 11.7,
 };
 
+// Electricity price proxy: EIA 2025 US industrial average (same proxy as thermal_lab/page/sources.mjs).
+export const USD_PER_KWH = 0.0862;
+const AMORTISE_HOURS = 5 * 8760; // the brief's 5-year budget window
+
+// Classical cost per call, in GPU-hours, above which a QPU call is cheaper (cost) or uses
+// less facility energy (energy). Both sides run flat out; the PUE cancels in the energy ratio.
+export function breakEvenGpuHours(pue: number): { cost: number; energy: number } {
+  const qpuKwhPerCall = (CAT_QPU.systemMw * 1000 * pue) / CAT_QPU.callsPerHour;
+  const qpuUsdPerCall = CAT_QPU.usd / AMORTISE_HOURS / CAT_QPU.callsPerHour + qpuKwhPerCall * USD_PER_KWH;
+  const gpuKwPerGpu = (GPU_RACK.kw / GPU_RACK.chips) * pue;
+  const gpuUsdPerHour = GPU_RACK.usd / GPU_RACK.chips / AMORTISE_HOURS + gpuKwPerGpu * USD_PER_KWH;
+  return { cost: qpuUsdPerCall / gpuUsdPerHour, energy: qpuKwhPerCall / gpuKwPerGpu };
+}
+
 export interface ToolFleet {
   units: number;
   facilityMw: number;
