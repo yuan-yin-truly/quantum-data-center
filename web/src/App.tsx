@@ -1,15 +1,6 @@
 import { ProblemStatement } from './components/ProblemStatement.tsx';
 import { Markdown } from './components/Markdown.tsx';
 import researchNotes from '../../docs/research-notes.md?raw';
-import fleetMd from '../../docs/workstreams/fleet.md?raw';
-import thermalMd from '../../docs/workstreams/thermal.md?raw';
-import quantumMd from '../../docs/workstreams/quantum.md?raw';
-
-const WORKSTREAMS = [
-  { id: 'ws-fleet', file: 'fleet.md', source: fleetMd },
-  { id: 'ws-thermal', file: 'thermal.md', source: thermalMd },
-  { id: 'ws-quantum', file: 'quantum.md', source: quantumMd },
-];
 
 export default function App() {
   return (
@@ -22,7 +13,6 @@ export default function App() {
         <nav aria-label="Sections">
           <a href="#problem">Problem statement</a>
           <a href="#comparison">Comparison</a>
-          <a href="#workstreams">Workstreams</a>
           <a href="./thermal_lab/">QC Hybrid Simulator</a>
           <a href="#notes">Research notes</a>
         </nav>
@@ -30,25 +20,6 @@ export default function App() {
 
       <main id="top">
         <ProblemStatement />
-
-        <section id="workstreams" className="workstreams" aria-labelledby="ws-title">
-          <div className="section-head">
-            <h2 id="ws-title">Workstreams</h2>
-            <p>
-              To update your section, edit <code>docs/workstreams/&lt;name&gt;.md</code> and push. The page rebuilds from those files.
-            </p>
-          </div>
-          <div className="ws-grid">
-            {WORKSTREAMS.map((ws) => (
-              <article key={ws.id} id={ws.id} className="card ws-card">
-                <Markdown source={ws.source} />
-                <p className="ws-file">
-                  <code>docs/workstreams/{ws.file}</code>
-                </p>
-              </article>
-            ))}
-          </div>
-        </section>
 
         <section id="notes" className="notes-section" aria-labelledby="notes-title">
           <div className="section-head">

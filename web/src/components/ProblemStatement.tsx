@@ -164,6 +164,8 @@ export function ProblemStatement() {
         </p>
       </div>
 
+      <Comparison />
+
       <figure className="arch">
         <img
           src={`${import.meta.env.BASE_URL}images/architecture.svg`}
@@ -177,7 +179,6 @@ export function ProblemStatement() {
       <TaskFlow />
       <LayoutCompare />
 
-      <Comparison />
     </section>
   );
 }
