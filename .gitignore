@@ -38,3 +38,7 @@ hotspot.exe
 *.swp
 .DS_Store
 Thumbs.db
+
+# Team page (web/) and local challenge files
+node_modules/
+data/

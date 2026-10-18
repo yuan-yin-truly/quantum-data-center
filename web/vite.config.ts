@@ -1,0 +1,10 @@
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  // Relative asset paths, so the build works on GitHub Pages under /<repo>/ and from disk.
+  base: './',
+  // The page renders the team's markdown from ../docs.
+  server: { fs: { allow: ['..'] } },
+});
