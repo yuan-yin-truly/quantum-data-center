@@ -1,7 +1,8 @@
 // Illustrative timeline of ONE agent task through the data center (not a measurement).
 // Durations: QPU run times come from quantum_arch (mid-2030s base, 40k cat-qubit QPU); the rest are assumptions
 // of the dc_sim studies and are marked in the page footnote. Segment widths in the picture are compressed.
-// Tool calls run outside the nodes drawn here: the session waits in the context-memory pool meanwhile.
+// Tool calls run outside the nodes drawn here and the session stays on its GPU node meanwhile: parking memory is used only
+// for sessions whose QPU job is waiting or running.
 
 export type TaskKind = 'inference' | 'mixed' | 'sim';
 export type WaitMode = 'park' | 'hold';
@@ -26,7 +27,7 @@ export interface Segment {
 export const LLM_STEP_S = 6; // prefill + decode of one agent step. ASSUMPTION
 export const TOOL_S = 8; // sandbox tool call (slides: 8 s).
 export const SCHEDULE_S = 0.05; // decision latency of the scheduler node (dc_sim assumption)
-export const PARK_S = 0.2; // session context copied to the context-memory pool. ASSUMPTION
+export const PARK_S = 0.2; // session context copied to the parking memory. ASSUMPTION
 export const RESUME_S = 1.1; // copied back (about 0.06 s) or, for a quarter of the resumes, re-prefilled (about 4 s). ASSUMPTION
 export const QUEUE_WAIT_S: Record<QueueState, number> = { short: 20, long: 1500 };
 export const QPU_MATERIALS_S = 44; // quantum_arch vqe_50q on the 40k cat-qubit QPU
@@ -63,7 +64,7 @@ export function buildFlow(task: TaskKind, mode: WaitMode, queue: QueueState): Se
   const llm = (label: string) =>
     out.push(seg({ kind: 'llm', session: 'gpu', secs: LLM_STEP_S, label, detail: 'prefill and decode on any free GPU node', gpuReserved: true, gpuBusy: true }));
   const tool = (label: string) =>
-    out.push(seg({ kind: 'tool', session: 'ctx', secs: TOOL_S, label, detail: 'tool call runs; the session waits in the context-memory pool and the GPU serves other users' }));
+    out.push(seg({ kind: 'tool', session: 'gpu', secs: TOOL_S, label, detail: 'tool call runs outside the nodes shown; the session stays on its GPU node' }));
 
   out.push(seg({ kind: 'schedule', session: 'sched', secs: SCHEDULE_S, label: 'Schedule', detail: 'scheduler node checks the task and picks a free GPU node' }));
 
@@ -87,7 +88,7 @@ export function buildFlow(task: TaskKind, mode: WaitMode, queue: QueueState): Se
   for (let c = 1; c <= calls; c++) {
     llm(calls > 1 ? `LLM asks for call ${c}` : 'LLM asks for the call');
     if (mode === 'park') {
-      out.push(seg({ kind: 'park', session: 'ctx', job: null, secs: PARK_S, label: 'Park session', detail: 'context copied to the context-memory pool; the GPU is released', gpuReserved: false }));
+      out.push(seg({ kind: 'park', session: 'ctx', job: null, secs: PARK_S, label: 'Park session', detail: 'session context copied to the parking memory; the GPU memory slot is released', gpuReserved: false }));
       out.push(seg({ kind: 'wait', session: 'ctx', job: 'qpu', secs: wait, label: 'QPU queue', detail: 'job waits for a free QPU; no GPU is held' }));
       out.push(seg({ kind: 'qpu', session: 'ctx', job: 'qpu', secs: qpuS, label: 'QPU runs', detail: `${isChem ? 'chemistry_small' : 'vqe_50q'} on a 40k cat-qubit QPU (quantum_arch)` }));
       out.push(seg({ kind: 'resume', session: 'gpu', job: null, secs: RESUME_S, label: 'Resume', detail: 'context restored on any free GPU node', gpuReserved: true, gpuBusy: true }));

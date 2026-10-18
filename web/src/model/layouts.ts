@@ -1,4 +1,6 @@
 // TOY discrete-event simulation: the same 24 tasks (3 archetypes) on three data-center layouts.
+// A task keeps a GPU memory slot while it is on its GPU node (LLM steps and tool calls). Parking memory is used ONLY
+// for sessions whose QPU job is waiting or running, and only in the layout with parking.
 // Capacities are toy values chosen so contention is visible; durations follow web/src/model/taskflow.ts
 // (QPU run times from quantum_arch, the rest dc_sim assumptions). It shows mechanisms, not pod-scale results.
 
@@ -39,6 +41,8 @@ export interface TaskResult {
   spec: TaskSpec;
   group: number;
   segs: Seg[];
+  /** intervals during which the task occupied a GPU memory slot */
+  mem: Array<[number, number]>;
   start: number;
   end: number;
   wait: Record<ResKind, number>;
@@ -123,6 +127,8 @@ interface Live {
   group: number;
   idx: number;
   hasMem: boolean;
+  memSince: number;
+  mem: Array<[number, number]>;
   resumed: boolean;
   waitSince: number;
   blocked: 'compute' | 'memory';
@@ -143,7 +149,7 @@ export function simulate(layout: LayoutId, tasks: TaskSpec[], memorySlots: numbe
     };
     return { free: { ...cap }, cap, q: { llm: [], tool: [], qpu: [] }, assigned: 0 };
   });
-  const live: Live[] = tasks.map((spec) => ({ spec, group: 0, idx: 0, hasMem: false, resumed: false, waitSince: 0, blocked: 'compute', segs: [], end: 0, start: spec.arrival }));
+  const live: Live[] = tasks.map((spec) => ({ spec, group: 0, idx: 0, hasMem: false, memSince: 0, mem: [], resumed: false, waitSince: 0, blocked: 'compute', segs: [], end: 0, start: spec.arrival }));
   // event list: [time, order, kind, taskIndex]
   type Ev = [number, number, 'arrive' | 'end', number];
   const events: Ev[] = tasks.map((t, i) => [t.arrival, i, 'arrive', i]);
@@ -152,6 +158,18 @@ export function simulate(layout: LayoutId, tasks: TaskSpec[], memorySlots: numbe
   let stranded = 0;
   let qpuBusySecs = 0;
   let lastT = 0;
+
+  const takeMem = (l: Live, now: number) => {
+    groups[l.group]!.free.mem--;
+    l.hasMem = true;
+    l.memSince = now;
+  };
+  const giveMem = (l: Live, now: number) => {
+    if (!l.hasMem) return;
+    groups[l.group]!.free.mem++;
+    l.hasMem = false;
+    l.mem.push([l.memSince, now]);
+  };
 
   const snapshot = (t: number) => {
     let qLlm = 0, qTool = 0, qQpu = 0, held = 0, gpuBusy = 0, qpuBusy = 0;
@@ -174,10 +192,7 @@ export function simulate(layout: LayoutId, tasks: TaskSpec[], memorySlots: numbe
     const l = live[li]!;
     if (l.idx >= l.spec.ops.length) {
       l.end = now;
-      if (l.hasMem) {
-        groups[l.group]!.free.mem++;
-        l.hasMem = false;
-      }
+      giveMem(l, now);
       return;
     }
     l.waitSince = now;
@@ -215,10 +230,7 @@ export function simulate(layout: LayoutId, tasks: TaskSpec[], memorySlots: numbe
           let dur = op.dur;
           if (kind === 'llm') {
             g.free.gpu--;
-            if (!l.hasMem) {
-              g.free.mem--;
-              l.hasMem = true;
-            }
+            if (!l.hasMem) takeMem(l, now);
             if (l.resumed) {
               dur += RESUME_S;
               l.resumed = false;
@@ -226,10 +238,7 @@ export function simulate(layout: LayoutId, tasks: TaskSpec[], memorySlots: numbe
           } else if (kind === 'tool') g.free.cpu--;
           else {
             g.free.qpu--;
-            if (cfg.park && l.hasMem) {
-              g.free.mem++;
-              l.hasMem = false;
-            }
+            if (cfg.park) giveMem(l, now);
           }
           l.segs.push({ state: kind === 'llm' ? 'run-llm' : kind === 'tool' ? 'run-tool' : 'run-qpu', t0: now, t1: now + dur });
           events.push([now + dur, seq++, 'end', li]);
@@ -267,13 +276,9 @@ export function simulate(layout: LayoutId, tasks: TaskSpec[], memorySlots: numbe
       if (op.kind === 'llm') {
         g.free.gpu++;
         const nxt = nextOp(l);
-        // keep the memory slot only if the next step is a QPU job and the layout does not park
-        if (!(nxt && nxt.kind === 'qpu' && !cfg.park)) {
-          if (l.hasMem) {
-            g.free.mem++;
-            l.hasMem = false;
-          }
-        }
+        // The session stays on its GPU node (and keeps its memory slot) through tool calls. Only a layout with
+        // parking memory gives the slot back, and only when the next step is a QPU job.
+        if (nxt && nxt.kind === 'qpu' && cfg.park) giveMem(l, t);
       } else if (op.kind === 'tool') g.free.cpu++;
       else {
         g.free.qpu++;
@@ -282,10 +287,7 @@ export function simulate(layout: LayoutId, tasks: TaskSpec[], memorySlots: numbe
       l.idx++;
       if (l.idx >= l.spec.ops.length) {
         l.end = t;
-        if (l.hasMem) {
-          g.free.mem++;
-          l.hasMem = false;
-        }
+        giveMem(l, t);
       } else enqueue(li, t);
       for (let gi = 0; gi < groups.length; gi++) tryStart(gi, t);
     }
@@ -316,7 +318,7 @@ export function simulate(layout: LayoutId, tasks: TaskSpec[], memorySlots: numbe
     ];
     entries.sort((a, b) => b[1] - a[1]);
     const stuckAt = entries[0]![1] > 5 ? entries[0]![0] : 'nothing (ran without waiting)';
-    return { spec: l.spec, group: l.group, segs: l.segs, start: l.start, end: l.end, wait, waitMemory, heldIdle, stuckAt };
+    return { spec: l.spec, group: l.group, segs: l.segs, mem: l.mem, start: l.start, end: l.end, wait, waitMemory, heldIdle, stuckAt };
   });
 
   const makespan = Math.max(...results.map((r) => r.end));
@@ -374,7 +376,7 @@ const CAT_OF: Record<SegState, Cat> = {
 export const CAT_TEXT: Record<Cat, string> = {
   pending: 'not yet arrived',
   gpu: 'running an LLM step on a GPU',
-  tool: 'running a tool (session waits in context memory)',
+  tool: 'running a tool (the session stays on its GPU node)',
   qpu: 'running on a QPU',
   waitqpu: 'parked, waiting in the QPU queue',
   held: 'holding a GPU memory slot, waiting in the QPU queue',
@@ -400,7 +402,7 @@ export function stateAt(run: LayoutRun, t: number): Array<{ id: number; arche: T
 
 export interface PanelGroup {
   tasks: Array<{ id: number; arche: TaskKind; cat: Cat }>;
-  mem: { cap: number; running: number; held: number };
+  mem: { cap: number; running: number; resident: number; held: number; parked: number };
   qpu: { cap: number; busy: number; queued: number };
 }
 
@@ -410,17 +412,24 @@ export function panelAt(run: LayoutRun, t: number, memorySlots: number): PanelGr
   const st = stateAt(run, t);
   const groups: PanelGroup[] = Array.from({ length: n }, () => ({
     tasks: [],
-    mem: { cap: memorySlots / n, running: 0, held: 0 },
+    mem: { cap: memorySlots / n, running: 0, resident: 0, held: 0, parked: 0 },
     qpu: { cap: TOY_CAPACITY.qpu / n, busy: 0, queued: 0 },
   }));
   const holds = !LAYOUTS[run.layout].park;
   st.forEach((s, i) => {
-    const g = groups[run.tasks[i]!.group]!;
+    const r = run.tasks[i]!;
+    const g = groups[r.group]!;
     g.tasks.push({ id: s.id, arche: s.arche, cat: s.cat });
-    if (s.cat === 'gpu') g.mem.running++;
-    if (s.cat === 'held' || (holds && s.cat === 'qpu')) g.mem.held++;
+    const hasSlot = r.mem.some(([a, b]) => t >= a && t < b);
     if (s.cat === 'qpu') g.qpu.busy++;
     if (s.cat === 'waitqpu' || s.cat === 'held') g.qpu.queued++;
+    if (!hasSlot) {
+      if (!holds && (s.cat === 'waitqpu' || s.cat === 'qpu')) g.mem.parked++; // parked in the parking memory
+      return;
+    }
+    if (s.cat === 'gpu') g.mem.running++;
+    else if (holds && (s.cat === 'held' || s.cat === 'qpu')) g.mem.held++;
+    else g.mem.resident++;
   });
   return groups;
 }

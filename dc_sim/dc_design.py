@@ -1,6 +1,6 @@
-"""Architecture v2 for the 2035 data centre: pooled GPU nodes, CPU sandbox pool, context-memory pool and a shared QPU service.
+"""Architecture v2 for the 2035 data centre: pooled GPU nodes, CPU sandbox pool, parking memory and a shared QPU service.
 
-An agent that issues a quantum-eligible call PARKS its session in the context-memory pool, releases its GPU, and is resumed on
+An agent that issues a quantum-eligible call PARKS its session in the parking memory (used for QPU jobs only), releases its GPU, and is resumed on
 any GPU node when the QPU result is back (``park``). The alternative keeps the session's KV cache in GPU HBM during the wait
 (``hold``). Both are sized against the GPU-only reference (``gpu_only``), where the same calls run classically on GPUs or, if
 their classical cost exceeds ``classical_max_module_hours``, are not served at all.
@@ -312,7 +312,7 @@ def design_markdown(res: dict) -> str:
     d = p["design"]
     L = []
     a = L.append
-    a("# Architecture v2: pooled GPU nodes, CPU sandbox pool, context-memory pool, shared QPU service (agents park while a QPU sub-task runs)\n")
+    a("# Architecture v2: pooled GPU nodes, CPU sandbox pool, parking memory, shared QPU service (agents park while a QPU sub-task runs)\n")
     a(f"Pod of {res['users']:,.0f} users, mixed classes, {p['pod']['cap_mw']} MW facility cap. GPU-only reference = same task load, calls run classically on GPUs; "
       f"calls that would cost more than {d['classical_max_module_hours']} module-hours classically are **not served** there. One module-hour costs about "
       f"${res['usd_per_module_hour']:.1f} (amortised capex incl. facility + energy). **Class mix, call densities, classical costs and induced demand are assumptions.**\n")
@@ -324,7 +324,7 @@ def design_markdown(res: dict) -> str:
         a(f"| {nm} | {dem['classes'][nm]['users']:,.0f} | {dem['classes'][nm]['bg_tasks']:,.0f} | {c['calls_per_bg_task']:g} | {c['kernel']} | {d['classical_fallback_module_hours'][c['kernel']]:g} |")
     for m, cell in res["scenarios"].items():
         a(f"\n## Induced-demand factor x{float(m):g}\n")
-        a("| design | QPUs | GPU modules (racks) | CPU sockets | ctx-mem TB | mean MW | peak MW | kJ/task | k$/day | calls on QPU / classical / unserved | QPU util | wait p95 |")
+        a("| design | QPUs | GPU modules (racks) | CPU sockets | parking-memory TB | mean MW | peak MW | kJ/task | k$/day | calls on QPU / classical / unserved | QPU util | wait p95 |")
         a("|---|---:|---:|---:|---:|---:|---:|---:|---:|---|---:|---:|")
         for k, nm in (("gpu_only", "GPU-only reference"), ("park", "Parked sessions + QPU service"), ("hold", "Hold GPU during QPU wait + QPU service")):
             r = cell[k]

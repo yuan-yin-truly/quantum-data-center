@@ -109,10 +109,10 @@ def render(result_json, out_png, induced: str | None = None, mode: str = "park")
     _grid(ax, 9.4, 6.05, 2.6, 0.85, max(1, n_cpu // 32), C["cpu"], per_row=16)
     ax.text(9.35, 5.78, "background tool calls run here", fontsize=7.6, color=C["mute"], va="bottom", style="italic")
 
-    # Context memory
+    # Parking memory
     _box(ax, 12.55, 5.7, 2.85, 2.15, "#fbf0d9", C["mem"], r=0.14)
-    ax.text(12.75, 7.55, "Context-memory pool", fontsize=11, fontweight="bold", color="#8a5a00", va="center")
-    ax.text(12.75, 7.2, "parked agent sessions", fontsize=8.8, color=C["ink"], va="center")
+    ax.text(12.75, 7.55, "Parking memory", fontsize=11, fontweight="bold", color="#8a5a00", va="center")
+    ax.text(12.75, 7.2, "sessions waiting for a QPU job", fontsize=8.8, color=C["ink"], va="center")
     _disk_stack(ax, 13.0, 5.85, 0.9, 1.1, C["mem"])
     ax.text(14.05, 6.4, f"{d['ctxmem_tb']:.1f} TB parked\n(peak margin incl.)\n{('<1' if d['ctx_mean_mw'] * 1000 < 0.5 else format(d['ctx_mean_mw'] * 1000, '.0f'))} kW", fontsize=8.2, color=C["ink"], va="center")
 

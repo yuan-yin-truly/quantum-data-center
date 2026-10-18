@@ -18,7 +18,7 @@ const PLAY_SECONDS = 16; // wall-clock length of a full playback
 const NODES: Record<NodeId, { x: number; y: number; title: string; sub: string }> = {
   sched: { x: 40, y: 50, title: 'Scheduler node', sub: 'picks the node and the path' },
   gpu: { x: 490, y: 50, title: 'GPU node pool', sub: 'prefill + decode' },
-  ctx: { x: 490, y: 190, title: 'Context memory', sub: 'parked sessions, tool waits' },
+  ctx: { x: 490, y: 190, title: 'Parking memory', sub: 'sessions waiting for a QPU job' },
   qpu: { x: 940, y: 50, title: 'Shared QPU service', sub: 'queue + run' },
 };
 const W = 200;
@@ -138,7 +138,7 @@ export function TaskFlow() {
   const gx = (w: number) => GX + (w / total) * GW;
   const rows: Array<{ key: string; label: string; match: (s: Segment) => boolean }> = [
     { key: 'gpu', label: 'GPU reserved', match: (s) => s.gpuReserved },
-    { key: 'ctx', label: 'In context memory', match: (s) => s.session === 'ctx' },
+    { key: 'ctx', label: 'In parking memory', match: (s) => s.session === 'ctx' },
     { key: 'qpu', label: 'QPU', match: (s) => s.job === 'qpu' },
   ];
 
@@ -261,7 +261,7 @@ export function TaskFlow() {
               {segs.map((s, j) => {
                 if (!r.match(s)) return null;
                 const idle = r.key === 'gpu' && s.gpuReserved && !s.gpuBusy;
-                const color = r.key === 'gpu' ? (idle ? 'url(#hold)' : COLORS.gpu) : r.key === 'ctx' ? (s.kind === 'tool' ? COLORS.tool : COLORS.park) : s.kind === 'wait' ? '#6b2a78' : COLORS.qpu;
+                const color = r.key === 'gpu' ? (idle ? 'url(#hold)' : COLORS.gpu) : r.key === 'ctx' ? COLORS.park : s.kind === 'wait' ? '#6b2a78' : COLORS.qpu;
                 return <rect key={j} x={gx(starts[j]!)} y={14 + i * 30} width={Math.max(2, gx(starts[j]! + widths[j]!) - gx(starts[j]!) - 1)} height="18" rx="3" fill={color} opacity={j <= idx ? 1 : 0.38} />;
               })}
             </g>
@@ -304,7 +304,7 @@ export function TaskFlow() {
             <strong>{secsLabel(tot.gpuHeldIdle)}</strong>
           </div>
           <div className="tile">
-            <span>In context memory</span>
+            <span>In parking memory</span>
             <strong>{secsLabel(tot.parked)}</strong>
           </div>
           <div className="tile">
@@ -329,8 +329,9 @@ export function TaskFlow() {
         <p className="fine">
           Illustrative. QPU run times come from quantum_arch (40k cat-qubit QPU, mid-2030s base scenario): 44 s for a 50-qubit variational call, 227 s for a
           small chemistry call. LLM step (6 s), tool call (8 s), park (0.2 s), resume (about 1 s) and the queue waits are dc_sim assumptions. Tool calls run
-          outside the nodes drawn here; the session waits in the context-memory pool meanwhile. In our pod simulation, parking and holding cost within 0.5% of
-          each other at this call volume; parking matters when GPU memory is tight or QPU calls are frequent. Only a few of a task’s 80 steps are shown.
+          outside the nodes drawn here and the session stays on its GPU node meanwhile; parking memory is used only while a QPU job waits or runs. In our pod
+          simulation, parking and holding cost within 0.5% of each other at this call volume; parking matters when GPU memory is tight or QPU calls are
+          frequent. Only a few of a task’s 80 steps are shown.
         </p>
       </div>
     </section>

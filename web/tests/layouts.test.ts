@@ -35,14 +35,14 @@ test('mixed nodes strand QPU capacity; burst without parking blocks inference ta
   const park = simulate('current', burst);
   const hold = simulate('noPark', burst);
   assert.ok(hold.summary.meanBy.inference > 2 * park.summary.meanBy.inference);
-  assert.ok(hold.summary.waitTotals.llmMemory > 0 && park.summary.waitTotals.llmMemory === 0);
+  assert.ok(hold.summary.waitTotals.llmMemory > 1000 && park.summary.waitTotals.llmMemory < 0.05 * hold.summary.waitTotals.llmMemory);
 });
 
 test('single-task flow: parking frees the GPU, holding does not; a long queue stretches the task', () => {
   const park = totals(buildFlow('mixed', 'park', 'short'));
   const hold = totals(buildFlow('mixed', 'hold', 'short'));
   assert.ok(park.gpuHeldIdle === 0 && hold.gpuHeldIdle > 40);
-  assert.ok(park.parked > hold.parked + 40);   // tool calls park the session in both; only parking also covers the QPU wait
+  assert.ok(park.parked > 40 && hold.parked === 0);   // parking memory is used only for the QPU wait, and only with parking
   assert.equal(totals(buildFlow('inference', 'park', 'short')).qpuBusy, 0);
   assert.ok(totals(buildFlow('mixed', 'park', 'long')).elapsed > 1500 && totals(buildFlow('mixed', 'park', 'short')).elapsed < 200);
 });

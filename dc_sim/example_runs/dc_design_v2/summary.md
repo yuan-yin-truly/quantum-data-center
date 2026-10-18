@@ -1,4 +1,4 @@
-# Architecture v2: pooled GPU nodes, CPU sandbox pool, context-memory pool, shared QPU service (agents park while a QPU sub-task runs)
+# Architecture v2: pooled GPU nodes, CPU sandbox pool, parking memory, shared QPU service (agents park while a QPU sub-task runs)
 
 Pod of 1,000,000 users, mixed classes, 50 MW facility cap. GPU-only reference = same task load, calls run classically on GPUs; calls that would cost more than 200 module-hours classically are **not served** there. One module-hour costs about $5.4 (amortised capex incl. facility + energy). **Class mix, call densities, classical costs and induced demand are assumptions.**
 
@@ -13,7 +13,7 @@ Pod of 1,000,000 users, mixed classes, 50 MW facility cap. GPU-only reference = 
 
 ## Induced-demand factor x1
 
-| design | QPUs | GPU modules (racks) | CPU sockets | ctx-mem TB | mean MW | peak MW | kJ/task | k$/day | calls on QPU / classical / unserved | QPU util | wait p95 |
+| design | QPUs | GPU modules (racks) | CPU sockets | parking-memory TB | mean MW | peak MW | kJ/task | k$/day | calls on QPU / classical / unserved | QPU util | wait p95 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|---:|---:|
 | GPU-only reference | 0 | 124,359 (1,944) | 0 | 0.0 | 903.9 | 903.9 | 2503 | 15,446 | 0 / 55,500 / 12,000 | 0% | 0 s |
 | Parked sessions + QPU service | 43 | 4,360 (69) | 2,779 | 2.2 | 48.4 | 48.5 | 134 | 3,545 | 28,197 / 39,300 / 3 | 94% | 224 s |
@@ -32,7 +32,7 @@ Cheapest by sizing objective (cost + unserved calls valued at the classical cap)
 
 ## Induced-demand factor x3
 
-| design | QPUs | GPU modules (racks) | CPU sockets | ctx-mem TB | mean MW | peak MW | kJ/task | k$/day | calls on QPU / classical / unserved | QPU util | wait p95 |
+| design | QPUs | GPU modules (racks) | CPU sockets | parking-memory TB | mean MW | peak MW | kJ/task | k$/day | calls on QPU / classical / unserved | QPU util | wait p95 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|---:|---:|
 | GPU-only reference | 0 | 365,296 (5,708) | 0 | 0.0 | 2652.0 | 2652.0 | 7344 | 45,345 | 0 / 166,500 / 36,000 | 0% | 0 s |
 | Parked sessions + QPU service | 128 | 5,298 (83) | 2,779 | 10.1 | 82.2 | 82.3 | 228 | 9,483 | 84,569 / 117,900 / 31 | 95% | 405 s |
@@ -51,7 +51,7 @@ Cheapest by sizing objective (cost + unserved calls valued at the classical cap)
 
 ## Induced-demand factor x10
 
-| design | QPUs | GPU modules (racks) | CPU sockets | ctx-mem TB | mean MW | peak MW | kJ/task | k$/day | calls on QPU / classical / unserved | QPU util | wait p95 |
+| design | QPUs | GPU modules (racks) | CPU sockets | parking-memory TB | mean MW | peak MW | kJ/task | k$/day | calls on QPU / classical / unserved | QPU util | wait p95 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---|---:|---:|
 | GPU-only reference | 0 | 1,208,576 (18,884) | 0 | 0.0 | 8770.3 | 8770.3 | 24287 | 149,991 | 0 / 555,000 / 120,000 | 0% | 0 s |
 | Parked sessions + QPU service | 422 | 8,588 (135) | 2,781 | 33.1 | 199.2 | 199.4 | 552 | 30,029 | 281,820 / 393,001 / 179 | 96% | 503 s |

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 660" width="1200" height="660" role="img" aria-labelledby="t d" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif">
   <title id="t">Hybrid data center: how work flows</title>
-  <desc id="d">Coding agents and scientists send work to a scheduler node. LLM steps go to pooled GPU nodes, optional LPU racks and a context-memory pool where agents park their sessions. Agent tool calls go to a CPU sandbox pool, a classical GPU fallback, or a shared QPU service for chemistry, materials and biology while the agent is parked.</desc>
+  <desc id="d">Coding agents and scientists send work to a scheduler node. LLM steps go to pooled GPU nodes, optional LPU racks and a parking memory where agents park their sessions while a QPU job runs. Agent tool calls go to a CPU sandbox pool, a classical GPU fallback, or a shared QPU service for chemistry, materials and biology while the agent is parked.</desc>
   <defs>
     <marker id="a-cyan" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#22d3ee"/></marker>
     <marker id="a-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8691aa"/></marker>
@@ -11,7 +11,7 @@
 
   <!-- Heading -->
   <text x="40" y="50" fill="#ebeff7" font-size="22" font-weight="700">How work flows in the hybrid data center</text>
-  <text x="40" y="76" fill="#b3bccf" font-size="14">Tokens stay on GPUs and LPUs. A scheduler sends each tool call where it is answered for the least cost, and the agent parks while it waits.</text>
+  <text x="40" y="76" fill="#b3bccf" font-size="14">Tokens stay on GPUs and LPUs. A scheduler sends each tool call where it is answered for the least cost, and an agent waiting for a QPU parks its session.</text>
 
   <!-- Users -->
   <rect x="40" y="246" width="200" height="148" rx="12" fill="#111828" stroke="rgba(255,255,255,0.14)"/>
@@ -63,10 +63,10 @@
   <text x="840" y="244" fill="#8691aa" font-size="12">not in the pod study</text>
 
   <rect x="992" y="150" width="152" height="130" rx="10" fill="#111828" stroke="rgba(255,255,255,0.10)"/>
-  <text x="1008" y="180" fill="#ebeff7" font-size="15" font-weight="650">Context memory</text>
+  <text x="1008" y="180" fill="#ebeff7" font-size="15" font-weight="650">Parking memory</text>
   <text x="1008" y="204" fill="#b3bccf" font-size="13">sessions parked</text>
-  <text x="1008" y="226" fill="#8691aa" font-size="12">while a tool or QPU</text>
-  <text x="1008" y="244" fill="#8691aa" font-size="12">call runs; resume on</text>
+  <text x="1008" y="226" fill="#8691aa" font-size="12">while a QPU job waits</text>
+  <text x="1008" y="244" fill="#8691aa" font-size="12">or runs; resume on</text>
   <text x="1008" y="262" fill="#8691aa" font-size="12">any GPU node</text>
   <path d="M740 280 V294 H1068 V282" stroke="#22d3ee" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-start="url(#a-cyan)" marker-end="url(#a-cyan)"/>
   <rect x="868" y="287" width="72" height="14" fill="#0c111d"/>

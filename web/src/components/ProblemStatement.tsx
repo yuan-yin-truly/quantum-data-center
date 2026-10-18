@@ -6,6 +6,7 @@ import { compact, mw, usd } from '../format.ts';
 import { Meter } from './Meter.tsx';
 import { TaskFlow } from './TaskFlow.tsx';
 import { LayoutCompare } from './LayoutCompare.tsx';
+import { ArchPanel } from './ArchPanel.tsx';
 
 // 2035 GPU racks from the brief, direct liquid cooling at a cold site.
 const SITE = { cooling: 'directLiquid', climate: 'cold' } as const;
@@ -143,8 +144,7 @@ export function ProblemStatement() {
             <h3>What it doesn’t claim</h3>
             <ul>
               <li>
-                A QPU doesn’t make tokens. Decode is limited by memory bandwidth, and loading data into qubits is the bottleneck. LPUs and a
-                context-memory tier handle that.
+                A QPU doesn’t make tokens. Decode is limited by memory bandwidth, and loading data into qubits is the bottleneck. LPUs handle that.
               </li>
               <li>
                 An idle cryostat draws almost full power, so a QPU only pays off with enough calls to keep it busy.
@@ -169,13 +169,14 @@ export function ProblemStatement() {
       <figure className="arch">
         <img
           src={`${import.meta.env.BASE_URL}images/architecture.svg`}
-          alt="Architecture: coding agents and scientists send work to a scheduler node. LLM steps go to pooled GPU nodes, optional LPU racks and a context-memory pool where agents park their sessions. Tool calls go to a CPU sandbox pool, a classical GPU fallback, or a shared QPU service for chemistry, materials and biology."
+          alt="Architecture: coding agents and scientists send work to a scheduler node. LLM steps go to pooled GPU nodes, optional LPU racks and a parking memory where agents park their sessions while a QPU job runs. Tool calls go to a CPU sandbox pool, a classical GPU fallback, or a shared QPU service for chemistry, materials and biology."
           width={1200}
           height={660}
           loading="lazy"
         />
       </figure>
 
+      <ArchPanel />
       <TaskFlow />
       <LayoutCompare />
 
