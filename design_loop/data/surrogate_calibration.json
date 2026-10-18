@@ -1,0 +1,197 @@
+{
+ "params": {
+  "r_in": 99.00132841664063,
+  "ratio": 1.3445374623891164,
+  "sigma1": 1.5,
+  "sigma2": 9.0,
+  "w2": 0.808069965115268,
+  "rho": 1.4,
+  "c_in": 0.10656207577307865,
+  "c_out": 0.04547101097679193
+ },
+ "calibrated": true,
+ "fit": {
+  "rmse_c": 2.022263588777244,
+  "max_abs_c": 5.441394707563106,
+  "n_points": 560,
+  "n_layouts": 14
+ },
+ "cross_validation_leave_one_layout_out": {
+  "rmse_c": 2.08013440665501,
+  "mae_c": 1.72549417134991,
+  "max_abs_c": 5.507087755192472,
+  "n_points": 560,
+  "spearman_per_point": 0.9708695545220853,
+  "worst_gpu": {
+   "mae_c": 1.6201482085194365,
+   "spearman": 0.8197802197802198
+  },
+  "worst_hbm": {
+   "mae_c": 1.3665087574854198,
+   "spearman": 0.8109890109890111
+  }
+ },
+ "per_run_in_sample": [
+  {
+   "name": "seed:baseline_example",
+   "hotspot_gpu": 104.59,
+   "surrogate_gpu": 104.95,
+   "hotspot_hbm": 97.68,
+   "surrogate_hbm": 96.94
+  },
+  {
+   "name": "seed:ring_center",
+   "hotspot_gpu": 104.56,
+   "surrogate_gpu": 104.37,
+   "hotspot_hbm": 97.79,
+   "surrogate_hbm": 97.51
+  },
+  {
+   "name": "seed:ring_compact",
+   "hotspot_gpu": 104.45,
+   "surrogate_gpu": 104.76,
+   "hotspot_hbm": 97.1,
+   "surrogate_hbm": 96.15
+  },
+  {
+   "name": "seed:ring_spread",
+   "hotspot_gpu": 110.32,
+   "surrogate_gpu": 110.84,
+   "hotspot_hbm": 94.21,
+   "surrogate_hbm": 96.97
+  },
+  {
+   "name": "walk0",
+   "hotspot_gpu": 105.3,
+   "surrogate_gpu": 104.47,
+   "hotspot_hbm": 99.12,
+   "surrogate_hbm": 97.91
+  },
+  {
+   "name": "walk1",
+   "hotspot_gpu": 105.29,
+   "surrogate_gpu": 104.45,
+   "hotspot_hbm": 98.7,
+   "surrogate_hbm": 97.23
+  },
+  {
+   "name": "walk2",
+   "hotspot_gpu": 116.89,
+   "surrogate_gpu": 113.83,
+   "hotspot_hbm": 97.08,
+   "surrogate_hbm": 96.37
+  },
+  {
+   "name": "walk3",
+   "hotspot_gpu": 117.95,
+   "surrogate_gpu": 114.64,
+   "hotspot_hbm": 96.35,
+   "surrogate_hbm": 97.71
+  },
+  {
+   "name": "walk4",
+   "hotspot_gpu": 104.75,
+   "surrogate_gpu": 104.43,
+   "hotspot_hbm": 98.8,
+   "surrogate_hbm": 102.4
+  },
+  {
+   "name": "walk5",
+   "hotspot_gpu": 108.69,
+   "surrogate_gpu": 104.81,
+   "hotspot_hbm": 97.44,
+   "surrogate_hbm": 96.81
+  },
+  {
+   "name": "mods:f0.3",
+   "hotspot_gpu": 85.36,
+   "surrogate_gpu": 84.31,
+   "hotspot_hbm": 89.97,
+   "surrogate_hbm": 89.38
+  },
+  {
+   "name": "mods:G3host90W",
+   "hotspot_gpu": 111.17,
+   "surrogate_gpu": 113.79,
+   "hotspot_hbm": 108.1,
+   "surrogate_hbm": 106.43
+  },
+  {
+   "name": "mods:G1host60W@walk2",
+   "hotspot_gpu": 113.98,
+   "surrogate_gpu": 113.42,
+   "hotspot_hbm": 102.61,
+   "surrogate_hbm": 102.18
+  },
+  {
+   "name": "mods:G0G2host40W",
+   "hotspot_gpu": 145.79,
+   "surrogate_gpu": 143.2,
+   "hotspot_hbm": 99.9,
+   "surrogate_hbm": 102.11
+  }
+ ],
+ "training_runs": [
+  {
+   "name": "seed:baseline_example",
+   "grid": 64
+  },
+  {
+   "name": "seed:random_layout",
+   "grid": 64
+  },
+  {
+   "name": "seed:ring_center",
+   "grid": 64
+  },
+  {
+   "name": "seed:ring_compact",
+   "grid": 64
+  },
+  {
+   "name": "seed:ring_spread",
+   "grid": 64
+  },
+  {
+   "name": "walk0",
+   "grid": 64
+  },
+  {
+   "name": "walk1",
+   "grid": 64
+  },
+  {
+   "name": "walk2",
+   "grid": 64
+  },
+  {
+   "name": "walk3",
+   "grid": 64
+  },
+  {
+   "name": "walk4",
+   "grid": 64
+  },
+  {
+   "name": "walk5",
+   "grid": 64
+  },
+  {
+   "name": "mods:f0.3",
+   "grid": 64
+  },
+  {
+   "name": "mods:G3host90W",
+   "grid": 64
+  },
+  {
+   "name": "mods:G1host60W@walk2",
+   "grid": 64
+  },
+  {
+   "name": "mods:G0G2host40W",
+   "grid": 64
+  }
+ ],
+ "note": "Fitted to real HotSpot per-die peaks (pinned build) of the listed runs; leave-one-layout-out cross-validation is the honest error estimate. Valid near the sampled layouts and power levels only."
+}

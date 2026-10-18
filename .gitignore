@@ -42,3 +42,9 @@ Thumbs.db
 # Team page (web/) and local challenge files
 node_modules/
 data/
+
+# Package data that must be tracked despite the blanket data/ rule above
+!quantum_arch/data/
+!dc_sim/data/
+!design_loop/data/
+!hill_variant/**/data/
