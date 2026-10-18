@@ -4,6 +4,8 @@ import { NO_LEVERS, computeFleet, type Scenario } from '../model/fleet.ts';
 import { CAT_QPU, CHEM_TOOL, USD_PER_KWH, breakEvenGpuHours, scienceToolFleets } from '../model/quantum.ts';
 import { compact, mw, usd } from '../format.ts';
 import { Meter, StatusChip } from './Meter.tsx';
+import { TaskFlow } from './TaskFlow.tsx';
+import { LayoutCompare } from './LayoutCompare.tsx';
 
 // Status quo: 2035 GPU racks, direct liquid cooling at a cold site.
 const SITE = { cooling: 'directLiquid', climate: 'cold' } as const;
@@ -186,6 +188,9 @@ export function ProblemStatement() {
           loading="lazy"
         />
       </figure>
+
+      <TaskFlow />
+      <LayoutCompare />
 
       <StatusQuo />
     </section>
