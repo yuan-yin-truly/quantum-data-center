@@ -1,0 +1,1240 @@
+{
+  "preset": "case_B_agents",
+  "seed": 7,
+  "horizon_s": 86400.0,
+  "rows": [
+    {
+      "policy": "fifo",
+      "served": 100.0,
+      "users_slo": 100.00000000000001,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 100.00000000000001,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3726.722395791372,
+      "peak_mw": 174.45737678229565,
+      "usd_day_m": 9.848620947478052,
+      "energy_usd_day": 277960.1255602437,
+      "capex_usd": 17466456000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 2.9832400259917446,
+      "saved_vs_ref_total_usd_day": -1764251.4760519676,
+      "saved_vs_ref_energy_usd_day": -45176.407558816456,
+      "saved_vs_gpu_only_policy_energy_usd_day": -32386.917199589952
+    },
+    {
+      "policy": "greedy",
+      "served": 100.0,
+      "users_slo": 100.00000000000001,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 100.00000000000001,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3689.6830460395513,
+      "peak_mw": 169.91701131526082,
+      "usd_day_m": 9.7673257115752,
+      "energy_usd_day": 196664.88965739374,
+      "capex_usd": 17466456000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 2.9762108402172087,
+      "saved_vs_ref_total_usd_day": -1682956.2401491161,
+      "saved_vs_ref_energy_usd_day": 36118.82834403348,
+      "saved_vs_gpu_only_policy_energy_usd_day": 48908.31870325998
+    },
+    {
+      "policy": "batch",
+      "served": 99.99999999999999,
+      "users_slo": 99.99999999999999,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 99.99999999999999,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3582.2170873458986,
+      "peak_mw": 164.91550764438244,
+      "usd_day_m": 9.81623403027846,
+      "energy_usd_day": 245573.20836065372,
+      "capex_usd": 17466456000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 3.3819858402179306,
+      "saved_vs_ref_total_usd_day": -1731864.5588523764,
+      "saved_vs_ref_energy_usd_day": -12789.490359226504,
+      "saved_vs_gpu_only_policy_energy_usd_day": 0.0
+    },
+    {
+      "policy": "gpu_only",
+      "served": 99.99999999999999,
+      "users_slo": 99.99999999999999,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 99.99999999999999,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3582.2170873458986,
+      "peak_mw": 164.91550764438244,
+      "usd_day_m": 9.81623403027846,
+      "energy_usd_day": 245573.20836065372,
+      "capex_usd": 17466456000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 3.3819858402179306,
+      "saved_vs_ref_total_usd_day": -1731864.5588523764,
+      "saved_vs_ref_energy_usd_day": -12789.490359226504,
+      "saved_vs_gpu_only_policy_energy_usd_day": 0.0
+    },
+    {
+      "policy": "ref_gpu_only_fleet",
+      "served": 100.0,
+      "users_slo": 100.00000000000001,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 100.00000000000001,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3378.1845170307183,
+      "peak_mw": 156.4576649823443,
+      "usd_day_m": 8.084369471426085,
+      "energy_usd_day": 232783.71800142722,
+      "capex_usd": 14329144000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 3.3798858402175482,
+      "saved_vs_ref_total_usd_day": 0.0,
+      "saved_vs_ref_energy_usd_day": 0.0
+    }
+  ],
+  "ranked": [
+    {
+      "policy": "ref_gpu_only_fleet",
+      "served": 100.0,
+      "users_slo": 100.00000000000001,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 100.00000000000001,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3378.1845170307183,
+      "peak_mw": 156.4576649823443,
+      "usd_day_m": 8.084369471426085,
+      "energy_usd_day": 232783.71800142722,
+      "capex_usd": 14329144000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 3.3798858402175482,
+      "saved_vs_ref_total_usd_day": 0.0,
+      "saved_vs_ref_energy_usd_day": 0.0
+    },
+    {
+      "policy": "greedy",
+      "served": 100.0,
+      "users_slo": 100.00000000000001,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 100.00000000000001,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3689.6830460395513,
+      "peak_mw": 169.91701131526082,
+      "usd_day_m": 9.7673257115752,
+      "energy_usd_day": 196664.88965739374,
+      "capex_usd": 17466456000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 2.9762108402172087,
+      "saved_vs_ref_total_usd_day": -1682956.2401491161,
+      "saved_vs_ref_energy_usd_day": 36118.82834403348,
+      "saved_vs_gpu_only_policy_energy_usd_day": 48908.31870325998
+    },
+    {
+      "policy": "batch",
+      "served": 99.99999999999999,
+      "users_slo": 99.99999999999999,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 99.99999999999999,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3582.2170873458986,
+      "peak_mw": 164.91550764438244,
+      "usd_day_m": 9.81623403027846,
+      "energy_usd_day": 245573.20836065372,
+      "capex_usd": 17466456000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 3.3819858402179306,
+      "saved_vs_ref_total_usd_day": -1731864.5588523764,
+      "saved_vs_ref_energy_usd_day": -12789.490359226504,
+      "saved_vs_gpu_only_policy_energy_usd_day": 0.0
+    },
+    {
+      "policy": "gpu_only",
+      "served": 99.99999999999999,
+      "users_slo": 99.99999999999999,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 99.99999999999999,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3582.2170873458986,
+      "peak_mw": 164.91550764438244,
+      "usd_day_m": 9.81623403027846,
+      "energy_usd_day": 245573.20836065372,
+      "capex_usd": 17466456000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 3.3819858402179306,
+      "saved_vs_ref_total_usd_day": -1731864.5588523764,
+      "saved_vs_ref_energy_usd_day": -12789.490359226504,
+      "saved_vs_gpu_only_policy_energy_usd_day": 0.0
+    },
+    {
+      "policy": "fifo",
+      "served": 100.0,
+      "users_slo": 100.00000000000001,
+      "tasks_slo": 100.0,
+      "slo": {
+        "B": 100.00000000000001,
+        "tasks": 100.0
+      },
+      "energy_mwh": 3726.722395791372,
+      "peak_mw": 174.45737678229565,
+      "usd_day_m": 9.848620947478052,
+      "energy_usd_day": 277960.1255602437,
+      "capex_usd": 17466456000.0,
+      "q_on_qpu": 0,
+      "q_classical": 0,
+      "q_rejected": 0,
+      "q_util": 0.0,
+      "never_exceeded": true,
+      "tasks_n": 120,
+      "tasks_ok": 120,
+      "wait_p95_s": 2.9832400259917446,
+      "saved_vs_ref_total_usd_day": -1764251.4760519676,
+      "saved_vs_ref_energy_usd_day": -45176.407558816456,
+      "saved_vs_gpu_only_policy_energy_usd_day": -32386.917199589952
+    }
+  ],
+  "effects": {
+    "greedy": {
+      "policy": "greedy",
+      "baseline": "fifo",
+      "energy_fraction": 0.009938853989674645,
+      "electricity_cost_fraction": 0.2924708561668512,
+      "daily_cost_difference": 81295.23590285181,
+      "same_fleet_capex": true,
+      "full_service_both": true,
+      "caps_held": true,
+      "note": "Same-fleet policy comparison. A short workload window is not a validated annual saving. No peak-power or capacity gain is inferred."
+    },
+    "batch": {
+      "policy": "batch",
+      "baseline": "fifo",
+      "energy_fraction": 0.038775442090525636,
+      "electricity_cost_fraction": 0.11651641448323702,
+      "daily_cost_difference": 32386.917199591637,
+      "same_fleet_capex": true,
+      "full_service_both": true,
+      "caps_held": true,
+      "note": "Same-fleet policy comparison. A short workload window is not a validated annual saving. No peak-power or capacity gain is inferred."
+    }
+  },
+  "budget": {
+    "grid_total_mw": 500.0,
+    "sum_site_caps_mw": 500.0,
+    "power_ok": true,
+    "capex_usd": 17466456000.0,
+    "energy_usd_5y_estimate": 1043732501.8889003,
+    "total_5y_usd": 18510188501.8889,
+    "budget_usd": 30000000000.0,
+    "budget_ok": true,
+    "budget_used_pct": 61.700628339629674,
+    "capex_by_type": {
+      "ctxmem_pool": 924000000.0,
+      "lpu_rack": 239360000.0,
+      "qpu_cat40k": 1080000000.0,
+      "mixed_cat": 1449712000.0,
+      "qpu_annealer": 120000000.0,
+      "gpu_rack": 6090784000.0,
+      "building+cooling": 6855000000.0,
+      "qpu_sc300k": 450000000.0,
+      "qpu_ion40k": 200000000.0,
+      "prefill_rack": 57600000.0
+    },
+    "sites": [
+      {
+        "site": "us_east",
+        "cap_mw": 85.0,
+        "peak_all_nodes_mw": 81.94041686021627,
+        "mean_facility_mw": 56.776472891913606,
+        "overbuilt": false,
+        "energy_usd_5y": 193971141.98793367,
+        "capex_usd": 3077468000.0
+      },
+      {
+        "site": "us_south",
+        "cap_mw": 80.0,
+        "peak_all_nodes_mw": 77.5237586124777,
+        "mean_facility_mw": 52.92575427941981,
+        "overbuilt": false,
+        "energy_usd_5y": 120543697.94680656,
+        "capex_usd": 2765360000.0
+      },
+      {
+        "site": "eu_north",
+        "cap_mw": 85.0,
+        "peak_all_nodes_mw": 82.3356857771157,
+        "mean_facility_mw": 58.13960110067702,
+        "overbuilt": false,
+        "energy_usd_5y": 91674523.01554753,
+        "capex_usd": 3457896000.0
+      },
+      {
+        "site": "eu_west",
+        "cap_mw": 60.0,
+        "peak_all_nodes_mw": 58.151614269579596,
+        "mean_facility_mw": 40.51228986259728,
+        "overbuilt": false,
+        "energy_usd_5y": 209383718.92584777,
+        "capex_usd": 1578368000.0
+      },
+      {
+        "site": "me_gulf",
+        "cap_mw": 85.0,
+        "peak_all_nodes_mw": 82.26290070854627,
+        "mean_facility_mw": 57.7208454224796,
+        "overbuilt": false,
+        "energy_usd_5y": 101126921.18018426,
+        "capex_usd": 2985976000.0
+      },
+      {
+        "site": "apac",
+        "cap_mw": 105.0,
+        "peak_all_nodes_mw": 101.64727617159151,
+        "mean_facility_mw": 71.10948006796706,
+        "overbuilt": false,
+        "energy_usd_5y": 327032498.8325805,
+        "capex_usd": 3601388000.0
+      }
+    ],
+    "assumed_mean_gpu_utilisation": 0.65,
+    "assumed_qpu_utilisation": 0.15,
+    "note": "Earth-only: launch cost ($200/kg to orbit) is not used. Energy over 5 years at the assumed mean utilisation; site 'peak_all_nodes' above the cap is allowed (the scheduler throttles) but is flagged as overbuilt."
+  },
+  "metrics": {
+    "fifo": {
+      "policy": "fifo",
+      "fleet": "default_6site",
+      "taskset": "case_B_agents",
+      "seed": 7,
+      "case": "B",
+      "t_s": 86400.0,
+      "horizon_s": 86400.0,
+      "tick_s": 60.0,
+      "users": {
+        "A": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        },
+        "B": {
+          "demand_req": 7000084638.048128,
+          "served_pct": 100.00000000000001,
+          "slo_pct": 100.00000000000001,
+          "worst_tick_slo_pct": 100.0,
+          "mean_rtt_ms": 33.47506062421521,
+          "users_served": 50000000.0,
+          "users": 50000000.0
+        },
+        "C": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        }
+      },
+      "tasks": {
+        "A": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "B": {
+          "ok": 120,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 120,
+          "slo_pct": 100.0
+        },
+        "C": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "Q": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "all": {
+          "n": 120,
+          "ok": 120,
+          "slo_pct": 100.0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0
+        }
+      },
+      "task_wait_s": {
+        "mean": 1.74004024574138,
+        "p95": 2.9832400259917446,
+        "max": 3.379953542193107
+      },
+      "case_scores": {
+        "B": {
+          "users_slo_pct": 100.00000000000001,
+          "users_served": 50000000.0,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 100.0
+        },
+        "mix": {
+          "users_slo_pct": 100.00000000000001,
+          "users_served": 50000000.0,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 100.0
+        }
+      },
+      "served_pct": 100.0,
+      "users_slo_pct": 100.00000000000001,
+      "tasks_slo_pct": 100.0,
+      "energy": {
+        "boundary": "facility = system x (1 + network overhead) x PUE(site, ambient)",
+        "facility_mwh": 3726.722395791372,
+        "system_mwh": 3141.965394382428,
+        "module_mwh": 2159.6758187920213,
+        "mean_facility_mw": 155.2800998246405,
+        "peak_site_facility_mw": {
+          "us_east": 74.36430430212613,
+          "us_south": 14.36255802649554,
+          "eu_north": 54.404191093725544,
+          "eu_west": 8.634111733915923,
+          "me_gulf": 12.48843534170925,
+          "apac": 88.15932652128198
+        },
+        "peak_total_facility_mw": 174.45737678229565
+      },
+      "power_cap": {
+        "sum_caps_mw": 500.0,
+        "grid_total_mw": 500.0,
+        "max_site_ratio": 0.8748741682603074,
+        "max_exceedance_w": 0.0,
+        "floor_clamped_sites": [],
+        "never_exceeded": true
+      },
+      "cost": {
+        "energy_usd_sim": 277960.1255602437,
+        "energy_usd_per_day": 277960.1255602437,
+        "capex_usd": 17466456000.0,
+        "capex_amortised_usd_per_day": 9570660.821917808,
+        "total_usd_per_day": 9848620.947478052,
+        "five_year_usd": 17973733229.147446,
+        "note": "dollars per day = energy actually used (extrapolated from the simulated window) + capex amortised over the 5-year life; the simulated window is assumed representative"
+      },
+      "quantum": {
+        "n_qpu_nodes": 25,
+        "busy_s": 0.0,
+        "utilisation_pct": 0.0,
+        "fallbacks": 0,
+        "failed_attempts": 0,
+        "preemptions": 0,
+        "units": 0,
+        "on_qpu": 0,
+        "classical_alt": 0,
+        "rejected": 0,
+        "energy_on_qpu_mwh": 0.0,
+        "per_node": {}
+      },
+      "decisions": {
+        "assign": 120,
+        "defer": 0,
+        "reject": 0
+      },
+      "gpu_util_mean": {
+        "us_east": 0.38103347793078624,
+        "us_south": 0.0,
+        "eu_north": 0.2491508810279548,
+        "eu_west": 0.0,
+        "me_gulf": 0.0,
+        "apac": 0.35612730411557386
+      }
+    },
+    "greedy": {
+      "policy": "greedy",
+      "fleet": "default_6site",
+      "taskset": "case_B_agents",
+      "seed": 7,
+      "case": "B",
+      "t_s": 86400.0,
+      "horizon_s": 86400.0,
+      "tick_s": 60.0,
+      "users": {
+        "A": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        },
+        "B": {
+          "demand_req": 7000084638.048128,
+          "served_pct": 100.00000000000001,
+          "slo_pct": 100.00000000000001,
+          "worst_tick_slo_pct": 99.99999999999997,
+          "mean_rtt_ms": 94.55548772351642,
+          "users_served": 50000000.0,
+          "users": 50000000.0
+        },
+        "C": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        }
+      },
+      "tasks": {
+        "A": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "B": {
+          "ok": 120,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 120,
+          "slo_pct": 100.0
+        },
+        "C": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "Q": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "all": {
+          "n": 120,
+          "ok": 120,
+          "slo_pct": 100.0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0
+        }
+      },
+      "task_wait_s": {
+        "mean": 1.7460161730404,
+        "p95": 2.9762108402172087,
+        "max": 3.3709021532558836
+      },
+      "case_scores": {
+        "B": {
+          "users_slo_pct": 100.00000000000001,
+          "users_served": 50000000.0,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 100.0
+        },
+        "mix": {
+          "users_slo_pct": 100.00000000000001,
+          "users_served": 50000000.0,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 100.0
+        }
+      },
+      "served_pct": 100.0,
+      "users_slo_pct": 100.00000000000001,
+      "tasks_slo_pct": 100.0,
+      "energy": {
+        "boundary": "facility = system x (1 + network overhead) x PUE(site, ambient)",
+        "facility_mwh": 3689.6830460395513,
+        "system_mwh": 3199.5144792997826,
+        "module_mwh": 2202.304770582624,
+        "mean_facility_mw": 153.73679358498129,
+        "peak_site_facility_mw": {
+          "us_east": 13.04692121204325,
+          "us_south": 14.36255802649554,
+          "eu_north": 75.36632250742316,
+          "eu_west": 8.634111733915923,
+          "me_gulf": 43.55608026075017,
+          "apac": 15.8981037783183
+        },
+        "peak_total_facility_mw": 169.91701131526082
+      },
+      "power_cap": {
+        "sum_caps_mw": 500.0,
+        "grid_total_mw": 500.0,
+        "max_site_ratio": 0.8866626177343901,
+        "max_exceedance_w": 0.0,
+        "floor_clamped_sites": [],
+        "never_exceeded": true
+      },
+      "cost": {
+        "energy_usd_sim": 196664.88965739374,
+        "energy_usd_per_day": 196664.88965739374,
+        "capex_usd": 17466456000.0,
+        "capex_amortised_usd_per_day": 9570660.821917808,
+        "total_usd_per_day": 9767325.7115752,
+        "five_year_usd": 17825369423.62474,
+        "note": "dollars per day = energy actually used (extrapolated from the simulated window) + capex amortised over the 5-year life; the simulated window is assumed representative"
+      },
+      "quantum": {
+        "n_qpu_nodes": 25,
+        "busy_s": 0.0,
+        "utilisation_pct": 0.0,
+        "fallbacks": 0,
+        "failed_attempts": 0,
+        "preemptions": 0,
+        "units": 0,
+        "on_qpu": 0,
+        "classical_alt": 0,
+        "rejected": 0,
+        "energy_on_qpu_mwh": 0.0,
+        "per_node": {}
+      },
+      "decisions": {
+        "assign": 120,
+        "defer": 0,
+        "reject": 0
+      },
+      "gpu_util_mean": {
+        "us_east": 0.0,
+        "us_south": 0.0,
+        "eu_north": 0.8913537264234227,
+        "eu_west": 0.0,
+        "me_gulf": 0.20300938799556809,
+        "apac": 0.0
+      }
+    },
+    "batch": {
+      "policy": "batch",
+      "fleet": "default_6site",
+      "taskset": "case_B_agents",
+      "seed": 7,
+      "case": "B",
+      "t_s": 86400.0,
+      "horizon_s": 86400.0,
+      "tick_s": 60.0,
+      "users": {
+        "A": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        },
+        "B": {
+          "demand_req": 7000084638.048128,
+          "served_pct": 99.99999999999999,
+          "slo_pct": 99.99999999999999,
+          "worst_tick_slo_pct": 99.99999999999997,
+          "mean_rtt_ms": 122.50446952238332,
+          "users_served": 49999999.99999999,
+          "users": 50000000.0
+        },
+        "C": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        }
+      },
+      "tasks": {
+        "A": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "B": {
+          "ok": 120,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 120,
+          "slo_pct": 100.0
+        },
+        "C": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "Q": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "all": {
+          "n": 120,
+          "ok": 120,
+          "slo_pct": 100.0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0
+        }
+      },
+      "task_wait_s": {
+        "mean": 2.13010334831717,
+        "p95": 3.3819858402179306,
+        "max": 3.7016108402167447
+      },
+      "case_scores": {
+        "B": {
+          "users_slo_pct": 99.99999999999999,
+          "users_served": 49999999.99999999,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 99.99999999999999
+        },
+        "mix": {
+          "users_slo_pct": 99.99999999999999,
+          "users_served": 49999999.99999999,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 99.99999999999999
+        }
+      },
+      "served_pct": 99.99999999999999,
+      "users_slo_pct": 99.99999999999999,
+      "tasks_slo_pct": 100.0,
+      "energy": {
+        "boundary": "facility = system x (1 + network overhead) x PUE(site, ambient)",
+        "facility_mwh": 3582.2170873458986,
+        "system_mwh": 3012.9771562565506,
+        "module_mwh": 2064.1289757358363,
+        "mean_facility_mw": 149.2590453060791,
+        "peak_site_facility_mw": {
+          "us_east": 31.499388755308548,
+          "us_south": 29.538903262079344,
+          "eu_north": 24.35853129659421,
+          "eu_west": 16.45416046840884,
+          "me_gulf": 26.73244537510702,
+          "apac": 38.740316231876186
+        },
+        "peak_total_facility_mw": 164.91550764438244
+      },
+      "power_cap": {
+        "sum_caps_mw": 500.0,
+        "grid_total_mw": 500.0,
+        "max_site_ratio": 0.3705810441801005,
+        "max_exceedance_w": 0.0,
+        "floor_clamped_sites": [],
+        "never_exceeded": true
+      },
+      "cost": {
+        "energy_usd_sim": 245573.20836065372,
+        "energy_usd_per_day": 245573.20836065372,
+        "capex_usd": 17466456000.0,
+        "capex_amortised_usd_per_day": 9570660.821917808,
+        "total_usd_per_day": 9816234.030278461,
+        "five_year_usd": 17914627105.25819,
+        "note": "dollars per day = energy actually used (extrapolated from the simulated window) + capex amortised over the 5-year life; the simulated window is assumed representative"
+      },
+      "quantum": {
+        "n_qpu_nodes": 25,
+        "busy_s": 0.0,
+        "utilisation_pct": 0.0,
+        "fallbacks": 0,
+        "failed_attempts": 0,
+        "preemptions": 0,
+        "units": 0,
+        "on_qpu": 0,
+        "classical_alt": 0,
+        "rejected": 0,
+        "energy_on_qpu_mwh": 0.0,
+        "per_node": {}
+      },
+      "decisions": {
+        "assign": 120,
+        "defer": 0,
+        "reject": 0
+      },
+      "gpu_util_mean": {
+        "us_east": 0.1993649676952691,
+        "us_south": 0.1999588430769235,
+        "eu_north": 0.1238342968977258,
+        "eu_west": 0.08184479997926536,
+        "me_gulf": 0.16825015922330377,
+        "apac": 0.09344235840591897
+      }
+    },
+    "gpu_only": {
+      "policy": "gpu_only",
+      "fleet": "default_6site",
+      "taskset": "case_B_agents",
+      "seed": 7,
+      "case": "B",
+      "t_s": 86400.0,
+      "horizon_s": 86400.0,
+      "tick_s": 60.0,
+      "users": {
+        "A": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        },
+        "B": {
+          "demand_req": 7000084638.048128,
+          "served_pct": 99.99999999999999,
+          "slo_pct": 99.99999999999999,
+          "worst_tick_slo_pct": 99.99999999999997,
+          "mean_rtt_ms": 122.50446952238332,
+          "users_served": 49999999.99999999,
+          "users": 50000000.0
+        },
+        "C": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        }
+      },
+      "tasks": {
+        "A": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "B": {
+          "ok": 120,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 120,
+          "slo_pct": 100.0
+        },
+        "C": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "Q": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "all": {
+          "n": 120,
+          "ok": 120,
+          "slo_pct": 100.0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0
+        }
+      },
+      "task_wait_s": {
+        "mean": 2.13010334831717,
+        "p95": 3.3819858402179306,
+        "max": 3.7016108402167447
+      },
+      "case_scores": {
+        "B": {
+          "users_slo_pct": 99.99999999999999,
+          "users_served": 49999999.99999999,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 99.99999999999999
+        },
+        "mix": {
+          "users_slo_pct": 99.99999999999999,
+          "users_served": 49999999.99999999,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 99.99999999999999
+        }
+      },
+      "served_pct": 99.99999999999999,
+      "users_slo_pct": 99.99999999999999,
+      "tasks_slo_pct": 100.0,
+      "energy": {
+        "boundary": "facility = system x (1 + network overhead) x PUE(site, ambient)",
+        "facility_mwh": 3582.2170873458986,
+        "system_mwh": 3012.9771562565506,
+        "module_mwh": 2064.1289757358363,
+        "mean_facility_mw": 149.2590453060791,
+        "peak_site_facility_mw": {
+          "us_east": 31.499388755308548,
+          "us_south": 29.538903262079344,
+          "eu_north": 24.35853129659421,
+          "eu_west": 16.45416046840884,
+          "me_gulf": 26.73244537510702,
+          "apac": 38.740316231876186
+        },
+        "peak_total_facility_mw": 164.91550764438244
+      },
+      "power_cap": {
+        "sum_caps_mw": 500.0,
+        "grid_total_mw": 500.0,
+        "max_site_ratio": 0.3705810441801005,
+        "max_exceedance_w": 0.0,
+        "floor_clamped_sites": [],
+        "never_exceeded": true
+      },
+      "cost": {
+        "energy_usd_sim": 245573.20836065372,
+        "energy_usd_per_day": 245573.20836065372,
+        "capex_usd": 17466456000.0,
+        "capex_amortised_usd_per_day": 9570660.821917808,
+        "total_usd_per_day": 9816234.030278461,
+        "five_year_usd": 17914627105.25819,
+        "note": "dollars per day = energy actually used (extrapolated from the simulated window) + capex amortised over the 5-year life; the simulated window is assumed representative"
+      },
+      "quantum": {
+        "n_qpu_nodes": 25,
+        "busy_s": 0.0,
+        "utilisation_pct": 0.0,
+        "fallbacks": 0,
+        "failed_attempts": 0,
+        "preemptions": 0,
+        "units": 0,
+        "on_qpu": 0,
+        "classical_alt": 0,
+        "rejected": 0,
+        "energy_on_qpu_mwh": 0.0,
+        "per_node": {}
+      },
+      "decisions": {
+        "assign": 120,
+        "defer": 0,
+        "reject": 0
+      },
+      "gpu_util_mean": {
+        "us_east": 0.1993649676952691,
+        "us_south": 0.1999588430769235,
+        "eu_north": 0.1238342968977258,
+        "eu_west": 0.08184479997926536,
+        "me_gulf": 0.16825015922330377,
+        "apac": 0.09344235840591897
+      }
+    },
+    "ref_gpu_only_fleet": {
+      "policy": "gpu_only",
+      "fleet": "default_6site__gpu_only_ref",
+      "taskset": "case_B_agents",
+      "seed": 7,
+      "case": "B",
+      "t_s": 86400.0,
+      "horizon_s": 86400.0,
+      "tick_s": 60.0,
+      "users": {
+        "A": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        },
+        "B": {
+          "demand_req": 7000084638.048128,
+          "served_pct": 100.00000000000001,
+          "slo_pct": 100.00000000000001,
+          "worst_tick_slo_pct": 99.99999999999996,
+          "mean_rtt_ms": 123.75559921226183,
+          "users_served": 50000000.0,
+          "users": 50000000.0
+        },
+        "C": {
+          "demand_req": 0.0,
+          "served_pct": null,
+          "slo_pct": null,
+          "worst_tick_slo_pct": null,
+          "mean_rtt_ms": null,
+          "users_served": 0.0,
+          "users": 0.0
+        }
+      },
+      "tasks": {
+        "A": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "B": {
+          "ok": 120,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 120,
+          "slo_pct": 100.0
+        },
+        "C": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "Q": {
+          "ok": 0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0,
+          "n": 0,
+          "slo_pct": null
+        },
+        "all": {
+          "n": 120,
+          "ok": 120,
+          "slo_pct": 100.0,
+          "late": 0,
+          "rejected": 0,
+          "failed": 0,
+          "open": 0
+        }
+      },
+      "task_wait_s": {
+        "mean": 2.1279366816500955,
+        "p95": 3.3798858402175482,
+        "max": 3.6996108402163372
+      },
+      "case_scores": {
+        "B": {
+          "users_slo_pct": 100.00000000000001,
+          "users_served": 50000000.0,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 100.0
+        },
+        "mix": {
+          "users_slo_pct": 100.00000000000001,
+          "users_served": 50000000.0,
+          "users_total": 50000000.0,
+          "tasks_slo_pct": 100.0,
+          "n_tasks": 120,
+          "served_pct": 100.0
+        }
+      },
+      "served_pct": 100.0,
+      "users_slo_pct": 100.00000000000001,
+      "tasks_slo_pct": 100.0,
+      "energy": {
+        "boundary": "facility = system x (1 + network overhead) x PUE(site, ambient)",
+        "facility_mwh": 3378.1845170307183,
+        "system_mwh": 2840.2265336433766,
+        "module_mwh": 2080.404839735837,
+        "mean_facility_mw": 140.75768820961326,
+        "peak_site_facility_mw": {
+          "us_east": 30.17808802326529,
+          "us_south": 26.2143349955838,
+          "eu_north": 22.826340461171068,
+          "eu_west": 16.153481758492923,
+          "me_gulf": 25.931131633397765,
+          "apac": 37.37729021355788
+        },
+        "peak_total_facility_mw": 156.4576649823443
+      },
+      "power_cap": {
+        "sum_caps_mw": 500.0,
+        "grid_total_mw": 500.0,
+        "max_site_ratio": 0.355974192510075,
+        "max_exceedance_w": 0.0,
+        "floor_clamped_sites": [],
+        "never_exceeded": true
+      },
+      "cost": {
+        "energy_usd_sim": 232783.71800142722,
+        "energy_usd_per_day": 232783.71800142722,
+        "capex_usd": 14329144000.0,
+        "capex_amortised_usd_per_day": 7851585.7534246575,
+        "total_usd_per_day": 8084369.471426085,
+        "five_year_usd": 14753974285.352604,
+        "note": "dollars per day = energy actually used (extrapolated from the simulated window) + capex amortised over the 5-year life; the simulated window is assumed representative"
+      },
+      "quantum": {
+        "n_qpu_nodes": 0,
+        "busy_s": 0.0,
+        "utilisation_pct": 0.0,
+        "fallbacks": 0,
+        "failed_attempts": 0,
+        "preemptions": 0,
+        "units": 0,
+        "on_qpu": 0,
+        "classical_alt": 0,
+        "rejected": 0,
+        "energy_on_qpu_mwh": 0.0,
+        "per_node": {}
+      },
+      "decisions": {
+        "assign": 120,
+        "defer": 0,
+        "reject": 0
+      },
+      "gpu_util_mean": {
+        "us_east": 0.194987020769533,
+        "us_south": 0.18974196788320924,
+        "eu_north": 0.12064462561399636,
+        "eu_west": 0.08123704156357961,
+        "me_gulf": 0.16663236923076855,
+        "apac": 0.09173624792940627
+      }
+    }
+  },
+  "provenance": "Fresh deterministic dc_sim run (cached for identical preset and seed). Simulator outputs, not measured hardware.",
+  "scheduler": "Classical greedy or SciPy MILP/LP assigns work to GPU/QPU nodes; this is not a quantum scheduler.",
+  "hosted_snapshot": true,
+  "generated_at": "2026-10-18T21:04:31.629288+00:00",
+  "case": "B"
+}

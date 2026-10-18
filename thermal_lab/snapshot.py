@@ -1,23 +1,22 @@
-"""Regenerate the hosted page's saved Python-engine evidence: uv run python -m thermal_lab.snapshot."""
+"""Export saved A/B/C comparisons using existing dc_sim assumptions (no new measurements)."""
 import json
 from datetime import datetime, timezone
 from pathlib import Path
-from dc_sim.api import list_presets
 from dc_sim.replay import build_html
 from .bridge import compare, profiles
-
+CASES={'A':'case_A_prompters','B':'case_B_agents','C':'case_C_knowledge'}
 def export_snapshot(destination=None):
     dest=Path(destination) if destination else Path(__file__).parent/'page'/'snapshots'
     dest.mkdir(parents=True,exist_ok=True)
     stamp=datetime.now(timezone.utc).isoformat()
-    comparison=compare('case_B_agents',7)
-    comparison.update(hosted_snapshot=True,generated_at=stamp)
-    meta={'presets':['case_B_agents'],'profiles':profiles(),'generated_at':stamp,'seed':7,
-          'available_live_presets':list_presets(),'mode':'saved-python-engine-results','case':'B','users':50_000_000,'workload_note':'Full case B at demand_scale=1.0. The supplied preset has 120 agent jobs and no quantum tool calls.'}
+    meta={'presets':list(CASES.values()),'profiles':profiles(),'generated_at':stamp,'seed':7,'cases':CASES,'mode':'saved-model-results-not-measurements'}
     (dest/'meta.json').write_text(json.dumps(meta,indent=2)+'\n',encoding='utf-8')
-    (dest/'comparison.json').write_text(json.dumps(comparison,indent=2)+'\n',encoding='utf-8')
-    (dest/'router-replay.html').write_text(build_html(None,'case_B_agents','batch',seed=7,every=24),encoding='utf-8')
-    print(f'Exported Thermal Lab snapshot to {dest}')
+    for case,preset in CASES.items():
+        print(f'Exporting case {case}: {preset}',flush=True)
+        comparison=compare(preset,7)
+        comparison.update(hosted_snapshot=True,generated_at=stamp,case=case)
+        (dest/f'comparison-{case}.json').write_text(json.dumps(comparison,indent=2)+'\n',encoding='utf-8')
+        (dest/f'router-replay-{case}.html').write_text(build_html(None,preset,'batch',seed=7,every=24),encoding='utf-8')
+    print(f'Exported A/B/C router references to {dest}',flush=True)
     return dest
-
 if __name__=='__main__':export_snapshot()

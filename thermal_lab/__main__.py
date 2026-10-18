@@ -23,10 +23,10 @@ def make_server(port=5175):
             if not self._local(): return self._json({'error':'localhost only'},403)
             path=urlparse(self.path).path
             if path=='/api/meta':
-                meta=session.meta();meta['presets']=[p for p in meta['presets'] if p['name']=='case_B_agents']
+                meta=session.meta();meta['presets']=[p for p in meta['presets'] if p['name'] in ('case_A_prompters','case_B_agents','case_C_knowledge')]
                 return self._json(meta)
             if path=='/api/thermal/meta':
-                return self._json({'presets':['case_B_agents'],'profiles':profiles()})
+                return self._json({'presets':['case_A_prompters','case_B_agents','case_C_knowledge'],'profiles':profiles()})
             if path in ('/', '/thermal', '/thermal/', '/thermal_lab'):
                 self.send_response(302);self.send_header('Location','/thermal_lab/');self.end_headers();return
             if path in ('/router','/router/'):
@@ -54,7 +54,7 @@ def make_server(port=5175):
                 seed=int(body.get('seed',7))
                 if seed<0 or seed>2**32-1:raise ValueError('Seed outside range')
                 preset=body.get('preset','case_B_agents')
-                if preset!='case_B_agents':raise ValueError('Thermal Lab focuses on case_B_agents')
+                if preset not in ('case_A_prompters','case_B_agents','case_C_knowledge'):raise ValueError('Select a base case A, B or C')
                 return self._json(compare(preset,seed))
             except (ValueError,TypeError) as e:return self._json({'error':str(e)},400)
             except Exception as e:return self._json({'error':f'Simulation failed: {e}'},500)

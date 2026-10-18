@@ -1,45 +1,24 @@
 ## Thermal Lab
 
-**Status:** hosted workstream + optional live Python mode · **Start:** 2030
+**Status:** integrated Thermal Lab workstream. **Timeline:** 2030–2040 inclusive.
 
-**Question:** Can a proposed QC task-assignment router serve the same 50M agent developers with fewer GPUs, lower cost and lower grid demand, while meeting constraints?
+**Open:** [Thermal Lab](./thermal_lab/) in the top navigation. Workstream source, adapters, tests and saved reference runs are in `thermal_lab/`.
 
-**Open the workstream:** use the **Thermal Lab** tab at the top of the team website, or [open Thermal Lab](./thermal_lab/). The browser forecast, saved router comparisons and playable batch replay work directly on GitHub Pages; no local setup is needed.
+**Fixed source inputs:** `docs/research-notes.md` and the shared `web/src/model/brief.ts` / `fleet.ts`. Cases remain A: 4B prompters; B: 50M agent developers; C: 400M knowledge workers. The source table preserves the existing baseline, brief-policy and speculative-decoding values; no shared model logic is changed.
 
-**Source:** all workstream code is under `thermal_lab/`, including `page/index.html`, `page/app.mjs`, `page/model.mjs`, `page/thermal.css`, Python engine adapters, and generated `page/snapshots/` evidence. See `thermal_lab/README.md`.
+**Reference amounts:** A baseline 981 MW / $27.5B racks; B 704 MW / $19.8B → 306 MW / $8.6B; C 734 MW / $20.6B → 339 MW / $9.5B. The source's speculative-decoding assumption gives 456/196/218 MW respectively. These are decode/rack estimates, not complete deployed systems.
 
-**Optional fresh runs:** `uv sync --locked --group dev`, then `uv run python -m thermal_lab --port 5175` and open http://127.0.0.1:5175/thermal_lab/ . Uses the existing Python 3.12 project and lockfile. Hosted router evidence is regenerated with `uv run python -m thermal_lab.snapshot`; forecast edits in the browser do not rerun Python.
+**Case-specific scenarios:** changing the case or routing preset reloads a complete profile. Reference is classical source-policy optimization; conservative/moderate/optimistic QC cases assume 0/5/10% extra throughput on covered work. Recommended profiles enable the existing speculative-decoding assumption. The default Annual deployment goal chooses a passing first-year assignment adoption share and initial routing fleet, then migrates assignments through 2040, capped by installed hardware. The alternative lowest-five-year-cost goal compares initial routing fleets of one through four systems and can deploy everything up front. This is a documented candidate search, not a global hardware optimizer.
 
-**Restrictions:** six Earth sites; at most 500 MW combined grid demand; $30B over 2030–2034; serve the selected user case at its required quality and deadlines before minimizing costs. The optional 2035–2039 forecast is outside that original budget window. Space locations and launch costs are excluded in line with the repository's Earth-only scope.
+**Separate quantum roles:** routing QPUs plan assignments and change the assumed GPU requirement; scientific QPUs execute eligible tool jobs. Each has its own controls, counts, price, power and workload contribution. GPU execution, scientific execution and unserved work share one workload denominator and sum to 100%. Routing coverage is a planning metric, not additional completed work. Counts and cards use the selected inspection year.
 
-**What people can explore**
+**Complete inputs and errors:** recommended profiles fill all active numeric fields. Removing a required field names it in a warning and hides stale graphs/results; export and playback pause until restored. Valid zero allowances remain valid. Optional scientific price and throughput inputs become required only when that pool is enabled.
 
-- Case B only: 50 million agent developers, with adjustable work per developer and GPU throughput growth.
-- Gradual quantum purchases, logical-qubit thresholds, workload eligibility and conservative/moderate/optimistic sensitivity scenarios.
-- GPU-only versus hybrid capacity, with an adjustable retained GPU provisioning level.
-- A separate simulated quantum-scheduler gain and latency; no quantum scheduling advantage is presumed. Classical systems still perform I/O and enact assignments.
-- Cooling method, climate, coolant temperature and chip thermal resistance.
-- Annual purchases, infrastructure, networking, electricity, maintenance, cumulative five-year costs, peak grid demand and annual energy.
-- Timeline playback, six-site rack heat view, per-year results and JSON export.
+**Evidence and assumptions:** `thermal_lab/page/sources.mjs` links vendor hardware/transaction proxies, electricity statistics, construction cost context and roadmap information. Thermal resistance (0.009 K/W), temperature limit (85°C), dispatch latency (50 ms), 5% prefill power allowance, 2 MW support allowance, routing coverage and extra QC throughput are explicit scenario assumptions. These are not new measurements, complete prefill/memory sizing, or proof of quantum advantage over classical scheduling.
 
-**Model boundaries**
+**Constraints:** 500 MW across six Earth sites; $30B over 2030–2034; all users served at required quality and deadlines. Passing the entered numerical screens does not certify end-to-end compliance; the official scorer, site data and hardware/workload measurements are still needed. Orbit, Moon, Mars and launch costs remain outside the notes' Earth-only scope. Annual technology trends default to zero; neither Moore's nor Neven's law automatically reduces demand.
 
-The existing fleet model provides LLM rack demand. Scientific tool work is additional demand; only its eligible portion can move to a QPU. Quantum throughput is specific to one matched scientific workload, never a general GPU-to-QPU conversion. Quantum scheduler mode reserves one capable system and defaults to zero scheduling gain.
+**Reproduce:** `node thermal_lab/export-reference.mjs`, `uv sync --locked --group dev`, `uv run python -m thermal_lab.snapshot`. Optional live mode: `uv run python -m thermal_lab --port 5175`. No package or lockfile changes. See `thermal_lab/README.md`.
 
-Quantum purchase costs and progress are explicit editable assumptions. Defaults use the quantum workstream's illustrative ~16 MW small-chemistry system, not a current product quote. Existing quantum cohorts retain purchase-year capability. Retiring GPU capacity does not refund capital. Refrigeration is included in QPU wall power; facility PUE adds external overhead once.
 
-The heat view is an illustrative steady-state resistance model, not a HotSpot solve. Air cooling fails the catalog's 792 kW rack density limit. Quantum cold-stage temperatures cannot be inferred from wall-plug power and are not presented as measured results.
-
-**Validation still required:** official scorer and catalog, QPU prices and matched-task throughput, detailed prefill/context-memory capacity, end-to-end deadline and quality evidence, thermal calibration, site-level grid limits. A modeled pass is a necessary feasibility screen, not proof of challenge compliance. Projected spending differences from infeasible configurations must not be described as savings.
-
-**Router integration:** the page embeds the existing `dc_sim` visual simulator. In live mode, a separate preset comparison calls `dc_sim.api.compare_policies` for identical task sets and seeds. It shows policy differences versus FIFO on the same fleet separately from total cost differences versus a GPU-only reference fleet. These are classical scheduling algorithms assigning GPU/QPU work, not quantum scheduling algorithms.
-
-**Forecast links:** import QPU price, wall power, workload feasibility and estimated accepted jobs/hour from the shared 2035 model; availability starts no earlier than 2035. Optionally extrapolate a chosen policy's same-fleet energy and electricity-cost ratios into annual operating totals. Capital is not reduced again, and no peak-power or capacity benefit is inferred. Incomplete service in the source comparison blocks the forecast's feasibility claim. The imported source and assumptions are included in exported JSON. The live router's injected tasks remain a separate session.
-
-**Next:** replace the thermal proxy with exported HotSpot/quantum stage results where valid, and rerun the router engine for explicitly matched annual fleets before claiming calibrated annual savings. The other workstreams and simulation engines remain unchanged. The main website adds a Thermal Lab tab and packages this workstream through an additive build plugin; the existing deployment workflow is reused.
-
-Details and model tests: `thermal_lab/README.md` and `thermal_lab/page/model.test.mjs`.
-
-**Case B evidence:** hosted router results and replay use the complete 24-hour `case_B_agents` preset (50M users; demand scale 1.0), rather than the smaller case-C UI demo. Its 120 agent jobs have no quantum tool calls, so any future QPU offloading in the annual forecast remains an explicit tool-mix assumption. The page now explains every control, compound projection formulas and the count of GPUs released after offloading.
-
-**QC-router design:** the QC is the proposed task-assignment optimizer. The default comparison now shows the case-B fleet before routing improvements, an optimized classical-router fleet, and the proposed QC-routed GPU fleet with its own cost, power and latency. The case-B fleet-card levers reduce approximately 831 racks to 361, about $11.2B in rack-capex opportunity. That is a policy-enabled capacity reduction; the existing classical reference engine does not establish a quantum-specific scheduling advantage. The inefficient baseline exceeds 500 MW and is a required-capacity comparison. Optional quantum tool jobs and tool-QPU additions are off by default.
+**Annual deployment update:** the default view migrates a case-specific share of assignments to QC routing each year through 2040, limited by installed routing capacity. First-year adoption is selected to pass the entered numerical screens. This is an explicit commissioning schedule, not a technology-growth forecast. Power and annual running costs decline in the default QC scenarios; cumulative spending still accumulates. Lowest-cost upfront deployment remains selectable. Routing and scientific QPUs have independent enable switches and workload roles.
