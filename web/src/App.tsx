@@ -23,7 +23,7 @@ export default function App() {
           <a href="#problem">Problem statement</a>
           <a href="#status-quo">Status quo</a>
           <a href="#workstreams">Workstreams</a>
-          <a href="./thermal_lab/">Thermal Lab</a>
+          <a href="./thermal_lab/">QC Hybrid Simulator</a>
           <a href="#notes">Research notes</a>
         </nav>
       </header>
