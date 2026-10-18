@@ -1,4 +1,4 @@
-"""Command line: ``python -m quantum_arch {list,evaluate,compare,sweep} ...``"""
+"""Command line: ``python -m quantum_arch {list,evaluate,compare,sweep,datacenter,calibrate,annealer,baselines} ...``"""
 
 from __future__ import annotations
 
@@ -28,12 +28,19 @@ def cmd_list(_args) -> int:
         raw = json.loads(p.read_text())
         print(f"  {p.stem:38s} {raw.get('modality', ''):15s} {raw.get('n_qubits', ''):>9} qubits  {raw.get('description', '')}")
     mods = catalog.load("modalities")
-    print("\nModalities and control schemes:")
+    print("\nModalities and control schemes (default profile for new architectures: mid2030s):")
     for k, v in mods.items():
         if k.startswith("_"):
             continue
         print(f"  {k}: profiles {', '.join(v['profiles'])}; schemes {', '.join(v['schemes'])}")
-    for name in ("fridges", "codes", "decoders", "classical", "workloads"):
+    print("\nAnnealers (separate class, own metrics, never in rQOPS comparisons):")
+    for k in catalog.keys("annealers"):
+        print(f"  {k}: profiles {', '.join(catalog.entry('annealers', k)['profiles'])}")
+    print("\nNot modelled (see data/excluded_modalities.json): " + ", ".join(catalog.keys("excluded_modalities")))
+    print("\nData-centre examples (quantum_arch/examples/datacenter):")
+    for p in sorted((EXAMPLES / "datacenter").glob("*.json")):
+        print(f"  {p.stem:38s} {json.loads(p.read_text()).get('description', '')[:90]}")
+    for name in ("fridges", "codes", "decoders", "classical", "workloads", "baselines"):
         print(f"\n{name}: {', '.join(catalog.keys(name))}")
     return 0
 
@@ -78,6 +85,51 @@ def cmd_sweep(args) -> int:
     return 0
 
 
+def cmd_datacenter(args) -> int:
+    from . import datacenter as dc
+    res = dc.run_datacenter(args.config)
+    sweep = dc.movable_sweep(args.config) if not args.no_sweep else None
+    print(dc.datacenter_markdown(res, sweep))
+    if args.out:
+        out = dc.write_datacenter_report(res, sweep, args.out)
+        print(f"Wrote result.json, summary.md and movable_sweep.png to {out}")
+    return 0
+
+
+def cmd_calibrate(args) -> int:
+    from . import calibration
+    rows = calibration.run_calibration()
+    md = calibration.calibration_markdown(rows)
+    print(md)
+    if args.out:
+        out = Path(args.out)
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "calibration.md").write_text(md, encoding="utf-8")
+        (out / "calibration.json").write_text(json.dumps(rows, indent=2, default=float), encoding="utf-8")
+        print(f"Wrote calibration.md and calibration.json to {out}")
+    return 0
+
+
+def cmd_annealer(args) -> int:
+    from . import annealer
+    res = annealer.evaluate_annealer({"name": args.name, "annealer": args.annealer, "profile": args.profile})
+    print(json.dumps(res.to_dict(), indent=2, default=float))
+    if args.p_success:
+        print(json.dumps(annealer.solve_cost(res, args.p_success, args.confidence), indent=2, default=float))
+    return 0
+
+
+def cmd_baselines(args) -> int:
+    from . import baselines
+    rows = baselines.compare_devices(args.devices, args.profile, pue=args.pue)
+    print(f"LLM inference, 70B-class, matched latency SLO; profile {args.profile or 'per-device'} (rated power, not measured)\n")
+    print(f"{'device':50s} {'tokens/s':>10} {'J/token module':>15} {'system':>9} {'facility':>9}")
+    for r in rows:
+        print(f"{r['device']:50s} {r['tokens_per_s']:>10,.0f} {r['j_per_token_module']:>15.4f} {r['j_per_token_system']:>9.4f} "
+              f"{r['j_per_token_facility']:>9.4f}")
+    return 0
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(prog="quantum_arch", description=__doc__)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -97,6 +149,26 @@ def main(argv=None) -> int:
     p.add_argument("--per-decade", type=int, default=3)
     p.add_argument("--out")
     p.set_defaults(fn=cmd_sweep)
+    p = sub.add_parser("datacenter", help="hybrid CPU+GPU+QPU data centre: gpu_only vs augment vs replace (name in examples/datacenter or path)")
+    p.add_argument("config")
+    p.add_argument("--out")
+    p.add_argument("--no-sweep", action="store_true", help="skip the movable-work sweep and break-even")
+    p.set_defaults(fn=cmd_datacenter)
+    p = sub.add_parser("calibrate", help="compare the today profile with published power figures")
+    p.add_argument("--out")
+    p.set_defaults(fn=cmd_calibrate)
+    p = sub.add_parser("annealer", help="evaluate a quantum annealer (own metrics, not rQOPS)")
+    p.add_argument("--annealer", default="advantage2_class")
+    p.add_argument("--profile", default="mid2030s")
+    p.add_argument("--name", default="annealer")
+    p.add_argument("--p-success", type=float, help="per-read probability of reaching the target quality, for time/energy-to-target")
+    p.add_argument("--confidence", type=float, default=0.99)
+    p.set_defaults(fn=cmd_annealer)
+    p = sub.add_parser("baselines", help="GPU LLM-inference joules per token at module / system / facility boundary")
+    p.add_argument("devices", nargs="*", default=["gpu_h200", "gpu_b200", "gpu_mi355x", "gpu_2035_low", "gpu_2035", "gpu_2035_high"])
+    p.add_argument("--profile", default=None)
+    p.add_argument("--pue", type=float, default=1.0)
+    p.set_defaults(fn=cmd_baselines)
     args = ap.parse_args(argv)
     return args.fn(args)
 

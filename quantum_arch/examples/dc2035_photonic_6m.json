@@ -1,0 +1,36 @@
+{
+  "name": "dc2035_photonic_6m",
+  "description": "2035 data-centre QPU: 6 million photonic resource-state generators, fusion-network code (COARSE model), detectors in cryo cabinets (150 cabinet-equivalents treated as one platform)",
+  "modality": "photonic",
+  "profile": "mid2030s",
+  "scheme": "fbqc_snspd",
+  "n_qubits": 6000000,
+  "cryostat": {
+    "capacity_scale": 150.0
+  },
+  "classical": [
+    {
+      "role": "host",
+      "device": "auto:cpu",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "auto:gpu",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ],
+  "facility": {
+    "pue": 1.15,
+    "network_support_w": 0.0
+  },
+  "workloads": [
+    "chemistry_small",
+    "vqe_50q",
+    "qla_scalar_explicit_1m"
+  ]
+}

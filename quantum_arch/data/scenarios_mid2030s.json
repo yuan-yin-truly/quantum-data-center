@@ -1,0 +1,158 @@
+{
+  "_note": "Rationale registry for the mid-2030s profiles (mid2030s_low / mid2030s / mid2030s_high). These are SCENARIOS for a design study of a 2035 data centre, not forecasts: 'low' = slow progress, 'base' = default, 'high' = fast progress. The numbers themselves live in modalities.json, fridges.json and classical.json; this file records the anchors (with how well each was verified in the October 2026 audit), what was extrapolated, and the biggest uncertainty per group. Nothing here is a vendor commitment.",
+  "verification_levels": {
+    "confirmed": "read in a primary or vendor source",
+    "secondary": "repeated by secondary coverage only",
+    "company_target": "a roadmap goal, not a delivered result",
+    "unverified": "from memory or not found in the audit"
+  },
+  "groups": {
+    "superconducting_qubits": {
+      "anchors": [
+        {
+          "fact": "Google Willow: below-threshold surface code, Lambda about 2.14 (d=3,5,7), distance 7 logical error 0.143 % per cycle",
+          "level": "secondary"
+        },
+        {
+          "fact": "IBM Nighthawk 120 qubits and Loon (Nov 2025); Starling 2029: 200 logical qubits / 1e8 gates; Blue Jay 2033+: 2,000 logical / 1e9 gates",
+          "level": "company_target"
+        }
+      ],
+      "scenario": {
+        "lambda": {"today": 1.9, "low": 4.0, "base": 12.7, "high": 27.7},
+        "err_2q": {"low": 0.001, "base": 0.0003, "high": 0.00015},
+        "long_range_couplers": {"low": false, "base": true, "high": true}
+      },
+      "biggest_uncertainty": "whether two-qubit error reaches 3e-4 at scale and whether long-range couplers (qLDPC) work; the error-correction overhead scales steeply with Lambda."
+    },
+    "cryogenics_and_control": {
+      "anchors": [
+        {
+          "fact": "Bluefors KIDE: >1,000 qubits, >4,000 RF lines, >3,000 uW at 100 mK, three cooling units, nine pulse tubes",
+          "level": "confirmed"
+        },
+        {
+          "fact": "KIDE about 6 W at 4 K",
+          "level": "unverified (modelling paper arXiv:2608.00990, page too large to fetch)"
+        },
+        {"fact": "Fermilab 'Colossus'-class platform", "level": "unverified (nothing found)"}
+      ],
+      "scenario": {
+        "cryo_cmos_w_per_qubit_vs_today": {"low": 0.6, "base": 0.33, "high": 0.15},
+        "rt_channel_w_vs_today": {"low": 0.7, "base": 0.4, "high": 0.25},
+        "cryostat_wall_power_vs_dilution_2035": {"low": 1.0, "base": 0.85, "high": 0.7}
+      },
+      "biggest_uncertainty": "the 4 K and mixing-chamber heat budgets of 1e5-1e6 qubits: the wiring wall may simply cap one-fridge qubit counts (see the sweep command); cryoplant efficiency is an assumption."
+    },
+    "trapped_ions": {
+      "anchors": [
+        {
+          "fact": "Helios: 98 qubits, 2-qubit 99.921 %, <40 kW base unit without support infrastructure",
+          "level": "confirmed (vendor page)"
+        },
+        {"fact": "about 60 kW excluding HVAC in the Oracle announcement", "level": "secondary"},
+        {
+          "fact": "Quantinuum Apollo 2029 (universal fault tolerant); IonQ 2M physical / up to 80,000 logical by 2030",
+          "level": "company_target"
+        }
+      ],
+      "scenario": {"watt_per_qubit_incl_fixed_at_1e4_qubits": {"today": 28, "low": 42, "base": 10, "high": 3.9}},
+      "biggest_uncertainty": "power per qubit once optics are integrated; gate speed (tens of microseconds) keeps logical clocks in the kHz range."
+    },
+    "neutral_atoms": {
+      "anchors": [
+        {"fact": "QuEra Aquila 6.92 kW + 0.308 W/qubit (PaQit fit)", "level": "secondary"},
+        {"fact": "Pasqal laser 3.5 kW average / 10 kW installed", "level": "confirmed (brochure)"},
+        {
+          "fact": "Pasqal 10,000+ physical / 200+ logical by about 2029-30; QuEra >256 logical, 1e-6 by 2028; Atom Computing AC1000 (1,200+ qubits), 50 logical qubits planned early 2027",
+          "level": "company_target"
+        }
+      ],
+      "scenario": {
+        "watt_per_qubit_incl_fixed_at_1e5_qubits": {"today": 0.38, "low": 1.2, "base": 0.58, "high": 0.26},
+        "err_2q": {"low": 0.001, "base": 0.0005, "high": 0.0002}
+      },
+      "biggest_uncertainty": "how laser power and cameras scale beyond 1e4 atoms; millisecond cycles make Toffoli-heavy jobs take days."
+    },
+    "cat_qubits": {
+      "anchors": [
+        {
+          "fact": "AWS Ocelot (Nature 2025): d=5 repetition code, 5 cat + 4 ancilla qubits, phase flip 27-33 us, bit flip >1 ms, logical error about 1.7 % per cycle (flat in d)",
+          "level": "secondary"
+        },
+        {
+          "fact": "Gouzien et al. PRL 131, 040602: 126,133 cat qubits, 256-bit ECDLP in 9 h under optimistic assumptions",
+          "level": "secondary"
+        },
+        {
+          "fact": "Alice & Bob: 100 logical qubits from about 2,000 cat qubits at 1e-6 by 2030",
+          "level": "company_target"
+        }
+      ],
+      "scenario": {
+        "lambda": {"today": 0.95, "low": 2.8, "base": 8.1, "high": 24.5},
+        "bit_flip_per_qubit_cycle": {"low": 1e-14, "base": 1e-16, "high": 1e-18}
+      },
+      "biggest_uncertainty": "the code itself (threshold, factory cost, outer code) and whether bit flips can be pushed below 1e-15 per cycle; the model is coarse."
+    },
+    "photonics": {
+      "anchors": [
+        {"fact": "Quandela Ascella 6 qubits 3 kW incl. built-in cryostat", "level": "confirmed (vendor)"},
+        {
+          "fact": "Quandela roadmap: <500 kW at hundreds of logical qubits (hybrid emitter scheme)",
+          "level": "company_target"
+        },
+        {
+          "fact": "PsiQuantum Omega chipset, cryogenic cabinets, sites in Brisbane and Chicago; no power figure found",
+          "level": "secondary"
+        }
+      ],
+      "scenario": {
+        "watt_per_generator": {"low": 1.2, "base": 0.6, "high": 0.3},
+        "fusion_error_effective": {"low": 0.006, "base": 0.0025, "high": 0.0012}
+      },
+      "biggest_uncertainty": "the whole overhead model (6 d^2 generators per logical qubit and a 1 us layer clock are assumptions); photonics could be an order of magnitude better or worse."
+    },
+    "gpus_and_memory": {
+      "anchors": [
+        {"fact": "B200 1.0 kW, H200 up to 700 W, MI355X up to 1.4 kW, DGX B200 14.3 kW max", "level": "confirmed"},
+        {
+          "fact": "Rubin about 1.8 kW per board (Igor's Lab) or 2.3 kW per GPU (analyst), 288 GB HBM4, 22 TB/s",
+          "level": "unverified"
+        },
+        {
+          "fact": "Rubin Ultra / Kyber NVL576 rack about 600 kW, 2H 2027 (Jensen Huang, GTC; Data Center Dynamics)",
+          "level": "company_target"
+        },
+        {
+          "fact": "Google: >500 kW per rack by 2030; Mt Diablo / NVIDIA 800 VDC up to 1 MW racks",
+          "level": "company_target"
+        },
+        {
+          "fact": "KAIST TERALAB hypothetical HBM roadmap: HBM4 about 75 W/stack, HBM5 about 100-120 W, HBM8 180 W, ~8 TB/s HBM6, ~24 TB/s HBM7 (about 2035)",
+          "level": "unverified (hypothetical academic roadmap)"
+        }
+      ],
+      "scenario": {
+        "module_power_kw": {"low": 4.0, "base": 5.0, "high": 6.5},
+        "hbm_tbps": {"low": 48, "base": 96, "high": 190},
+        "fp16_perf_per_watt_vs_b200": {"low": 5, "base": 9, "high": 16},
+        "server_overhead_ratio": {"today": 1.79, "low": 1.5, "base": 1.35, "high": 1.25}
+      },
+      "biggest_uncertainty": "whether module power keeps rising (cooling-limited) and how much of the efficiency gain is delivered at the application level; LLM tokens/s per module follows memory bandwidth in this model."
+    },
+    "annealers": {
+      "anchors": [
+        {
+          "fact": "D-Wave Advantage2: more than 4,400 qubits, average power 12.5 kW, constant over six generations (vendor claim)",
+          "level": "confirmed (data sheet) / vendor claim"
+        }
+      ],
+      "scenario": {
+        "qubits": {"today": 4400, "low": 7000, "base": 15000, "high": 40000},
+        "system_power_kw": {"low": 16, "base": 14, "high": 12.5}
+      },
+      "biggest_uncertainty": "time-to-target on real problem classes against strong classical solvers: nothing in the model asserts an advantage."
+    }
+  }
+}

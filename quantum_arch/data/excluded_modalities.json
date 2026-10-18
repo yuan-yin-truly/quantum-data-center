@@ -1,0 +1,20 @@
+{
+  "_note": "Modalities that are NOT modelled (or only stubbed), with the reason. Nothing in this file feeds the simulator.",
+  "diamond_nv": {
+    "label": "Diamond colour-centre spins (NV / SiV)",
+    "status": "not modelled",
+    "reason": "Different class of devices: room-temperature sensing-grade systems and small-qubit-count processors (the overview lists Quantum Brilliance). No published fault-tolerant roadmap with resource numbers was verified in this audit, so any overhead or power figure would be invented.",
+    "what_it_would_need": "photon-mediated entanglement rates, spin-photon interface fidelity, per-node power (lasers, microwave, optionally cryostat), network architecture"
+  },
+  "topological": {
+    "label": "Topological (Majorana) qubits",
+    "status": "research only, not modelled",
+    "reason": "Microsoft Majorana 1 is announced as a platform of eight topological qubits whose topological nature is contested; no demonstrated logical qubit, no error-rate or cycle-time data suitable for a resource model. A projected overhead would be speculation.",
+    "source": "Microsoft announcement and press coverage, February 2025 (via search in this audit); the contested-evidence remark is general knowledge and was not re-verified."
+  },
+  "gate_model_dual_rail": {
+    "label": "Dual-rail superconducting qubits (Quantum Circuits / D-Wave)",
+    "status": "covered by cat_superconducting as a proxy only",
+    "reason": "Erasure-biased dual-rail qubits have a different error structure from bias-preserving cat qubits; the cat model's repetition code does not apply. D-Wave announced (Jan 2026) an agreement to acquire Quantum Circuits for about USD 550 million; closing was not verified."
+  }
+}

@@ -22,15 +22,24 @@ Decoder `union_find`: 6.49e+10 syndrome bits/s, 1.95e+13 op/s, decode latency 6.
 
 | consumer | power | share |
 |---|---|---|
-| cryostat (installed) | 2.7 MW | 98.6 % |
+| cryostat (installed) | 2.7 MW | 98.5 % |
 | room-temperature control electronics | 37.5 kW | 1.4 % |
 | classical host / optimiser | 1.45 kW | 0.1 % |
 | decoders | 412 W | 0.0 % |
+| cold electronics supply (cryo-CMOS, amplifiers, cold decoders) | 400 W | 0.0 % |
 | data links | 649 mW | 0.0 % |
-| **total (system)** | **2.74 MW** |  |
-| with facility overhead (PUE 1.2) | 3.29 MW |  |
+| **total, complete computer (system boundary)** | **2.74 MW** |  |
 
-Energy per physical 2-qubit gate (all qubits busy): 1.64e-06 J. Energy per logical operation: 3.63 J. Thermodynamic (Carnot) floor for the cryostat heat loads: 2.72 kW, against 2.7 MW installed.
+Power at the three measurement boundaries (they are different quantities; never compare numbers across them):
+
+| boundary | power | what it contains |
+|---|---|---|
+| 1. QPU module (electrical) | 400 W | module apparatus (lasers, optics, traps, sources) + supply of electronics inside the cryostat |
+|    cold-stage heat load (thermal, not wall power) | 400 W | heat lifted by the cryostat stages: cable conduction, attenuators, cold electronics |
+| 2. Complete computer (system) | 2.74 MW | everything above incl. cryostat compressors, room-temperature control, decoders, host; no facility cooling |
+| 3. Facility (PUE 1.2) | 3.29 MW | (system + network/support) x PUE; includes heat rejection and chilled water |
+
+Energy per physical 2-qubit gate (all qubits busy, system boundary): 1.64e-06 J. Energy per logical operation (system boundary): 3.63 J. Thermodynamic (Carnot) floor for the cryostat heat loads: 2.72 kW, against 2.7 MW installed.
 
 ## Heat scheme
 
@@ -51,15 +60,18 @@ Dry dilution refrigerator (XLD400-class): 27 unit(s) needed (27 for heat, 1 for 
 | qubit chip @ MXC | 0.0645 K | 0.0648 K | 0.297 mK | 0.196 mK | 7.75e-08 W/cm² | 2.7e-08 rel. err. |
 - 4K: cold electronics (300 W) exceed 10x the stage capacity; spatial map skipped
 
-## Workloads
+## Workloads (energy at the system boundary; classical alternative at the same boundary)
 
 | workload | result | time | energy | classical alternative |
 |---|---|---|---|---|
-| Shor, RSA-2048 | ✗ 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory; a reference design (10 factories) needs about 7,224,550 physical qubits | — | — | 8.33e+12 GWh |
+| Shor, RSA-2048 | ✗ 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory; a reference design (10 factories) needs about 7,224,550 physical qubits | — | — | 1.49e+13 GWh |
 | FeMoco ground-state energy (THC qubitization) | ✗ 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 4,392 plus a 15-tile factory; a reference design (10 factories) needs about 12,431,454 physical qubits | — | — | none feasible |
 | Small active-space chemistry (100 logical qubits) | ✗ 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 200 plus a 15-tile factory; a reference design (10 factories) needs about 588,350 physical qubits | — | — | none feasible |
 | Variational solver, 50 qubits, GPU optimiser | fidelity 0.67 | 32.2 s | 24.5 kWh | state-vector simulation needs 1.8e+04 TB, more than the 1.5 TB reference node |
-| Variational solver, 20 qubits, GPU optimiser | fidelity 0.9 | 9.93 s | 7.55 kWh | 68.2 J (quantum uses 4e+05× more) |
+| Variational solver, 20 qubits, GPU optimiser | fidelity 0.9 | 9.93 s | 7.55 kWh | 122 J (this job: quantum 2.2e+05× more energy) |
+| Quantum linear solve, N = 2^20, full solution vector read out | ✗ 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 160 plus a 15-tile factory | — | — | 0.0994 J |
+| Quantum linear solve, N = 2^20, one scalar observable of the solution (explicit data loading) | ✗ 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 160 plus a 15-tile factory | — | — | 0.0994 J |
+| Quantum linear solve, N = 2^40, scalar observable, input given by an efficient oracle (no explicit loading) | ✗ 100,000 qubits hold only 4 tiles at d=101; the algorithm needs 280 plus a 15-tile factory | — | — | explicit vectors need more than one reference node; the comparison depends on structure (tensor-network or matrix-free methods) that is not assessed here |
 
 ## Warnings
 

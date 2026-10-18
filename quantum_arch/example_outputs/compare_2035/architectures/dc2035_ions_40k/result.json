@@ -1,0 +1,198 @@
+{
+  "name": "dc2035_ions_40k",
+  "modality": "Trapped ions (QCCD, shuttling)",
+  "scheme": "Room-temperature UHV trap, laser control",
+  "profile": "mid2030s",
+  "n_qubits": 40000,
+  "error_budget": {
+    "syndrome_cycle_s": 0.00034,
+    "p_eff": 0.00023,
+    "lambda": 34.78260869565217,
+    "parts": {
+      "two_qubit": 0.0001,
+      "single_qubit": 5e-06,
+      "measurement": 7.5e-05,
+      "reset": 2.5e-05,
+      "idle": 2.5e-05
+    }
+  },
+  "computing": {
+    "feasible": true,
+    "reason": "ok",
+    "code": "Bivariate-bicycle qLDPC ('gross' family)",
+    "distance": 12,
+    "logical_qubits": 777,
+    "logical_clock_hz": 245.09803921568627,
+    "rqops": 190441.17647058822,
+    "logical_error_per_op": 6.776545211791994e-10,
+    "target_logical_error": 1e-09
+  },
+  "decoder": {
+    "decoder": "bp_osd",
+    "syndrome_bits_per_s": 58799999.99999999,
+    "required_ops_per_s": 1763999999999.9998,
+    "latency_s": 0.0024000000000000002,
+    "reaction_time_s": 0.0024502
+  },
+  "power_w": {
+    "decoders": 889.63,
+    "classical host / optimiser": 8650.0,
+    "QPU apparatus (lasers, optics, traps, sources)": 212000.0,
+    "support apparatus (vacuum, chillers, racks)": 130000.0,
+    "data links": 0.0005879999999999999
+  },
+  "total_power_w": 351539.630588,
+  "facility_power_w": 404270.57517619996,
+  "power_boundaries": {
+    "module": {
+      "electrical_w": 212000.0,
+      "cold_heat_load_w": 0.0,
+      "note": "QPU apparatus + supply of electronics inside the cryostat (electrical); cold_heat_load_w is thermal power at the cryostat stages and is NOT wall power"
+    },
+    "system": {
+      "power_w": 351539.630588,
+      "cryostat_wall_w": 0.0,
+      "note": "complete quantum computer incl. cryostat compressors, control electronics, decoders, host; excludes facility cooling, networking and building overhead"
+    },
+    "facility": {
+      "power_w": 404270.57517619996,
+      "pue": 1.15,
+      "network_support_w": 0.0,
+      "note": "(system + network/support) x PUE; PUE covers heat rejection incl. chilled water for the compressors"
+    }
+  },
+  "boundary_note": "total_power_w and power_w are the SYSTEM boundary (complete quantum computer); facility_power_w is (system + network/support) x PUE; power_boundaries.module separates the QPU module and the thermal cold-stage heat load (not wall power)",
+  "metrics": {
+    "physical_qubits": 40000,
+    "syndrome_cycle_s": 0.00034,
+    "p_eff": 0.00023,
+    "lambda": 34.78260869565217,
+    "peak_2q_gate_rate_hz": 666666666.6666666,
+    "energy_per_2q_gate_j": 0.000527309445882,
+    "total_power_w": 351539.630588,
+    "system_power_w": 351539.630588,
+    "qpu_module_w": 212000.0,
+    "cold_heat_load_w": 0.0,
+    "facility_power_w": 404270.57517619996,
+    "logical_qubits": 777,
+    "code_distance": 12,
+    "logical_clock_hz": 245.09803921568627,
+    "rqops": 190441.17647058822,
+    "logical_error_per_op": 6.776545211791994e-10,
+    "energy_per_logical_op_j": 1.8459223845547492,
+    "n_lines": 0,
+    "fridge_units": 0
+  },
+  "classical_blocks": [
+    {
+      "role": "decoder",
+      "device": "Accelerator module (base)",
+      "count": 1,
+      "location": "RT",
+      "utilisation": 0.04409999999999999,
+      "power_w": 889.63,
+      "keeps_up": true
+    },
+    {
+      "role": "host",
+      "device": "Server CPU socket (~512 cores) (base)",
+      "count": 2,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 690.0,
+      "keeps_up": true
+    },
+    {
+      "role": "optimizer",
+      "device": "Accelerator module (base)",
+      "count": 4,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 7960.0,
+      "keeps_up": true
+    }
+  ],
+  "line_counts": {},
+  "workloads": {
+    "chemistry_small": {
+      "label": "Small active-space chemistry (100 logical qubits)",
+      "type": "fault_tolerant",
+      "feasible": true,
+      "reason": "ok",
+      "reference_qubits": 14400,
+      "distance": 18,
+      "factories": 45,
+      "runtime_s": 245020.0,
+      "runtime": "2.84 days",
+      "physical_qubits_used": 39600,
+      "total_logical_error": 0.0007978425760416493,
+      "bound": "reaction time",
+      "energy_j": 86134240286.67175,
+      "energy": "23.9 MWh",
+      "power_w": 351539.630588,
+      "facility_energy_j": 99054376329.67252,
+      "p_accept": 0.9992021574239583,
+      "boundary": "system"
+    },
+    "vqe_50q": {
+      "label": "Variational solver, 50 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.9277390325980344,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 0.0014000000000000002,
+      "quantum_time_per_iter_s": 28.000000000000004,
+      "classical_time_per_iter_s": 0.0125,
+      "runtime_s": 14006.750000000002,
+      "runtime": "3.89 h",
+      "classical_duty": 0.0004462134328091812,
+      "power_w": 346387.3054590443,
+      "energy_j": 4851760390.738469,
+      "energy": "1.35 MWh",
+      "facility_energy_j": 5579524449.349239,
+      "boundary": "system",
+      "p_accept": 1.0,
+      "classical_sim_memory_bytes": 1.8014398509481984e+16,
+      "classical_note": "state-vector simulation needs 1.8e+04 TB, more than the 1.5 TB reference node"
+    },
+    "qla_scalar_explicit_1m": {
+      "label": "Quantum linear solve, N = 2^20, one scalar observable of the solution (explicit data loading)",
+      "type": "quantum_linear_algebra",
+      "advantage_claimed": false,
+      "output": "scalar",
+      "input_model": "explicit_loading",
+      "logical_qubits_needed": 80,
+      "toffoli_per_run": 1762494677.8647687,
+      "runs": 1,
+      "loading_toffoli": 16777216,
+      "inversion_toffoli": 847730.7786476859,
+      "feasible": true,
+      "reason": "ok",
+      "distance": 18,
+      "factories": 47,
+      "runtime_s": 4318464.459704257,
+      "runtime": "50 days",
+      "runtime_per_run_s": 4318464.459704257,
+      "physical_qubits_used": 39600,
+      "energy_j": 1518111400871.8413,
+      "energy": "422 MWh",
+      "power_w": 351539.630588,
+      "boundary": "system",
+      "facility_energy_j": 1745828111002.6174,
+      "p_accept": 0.9859380670595268,
+      "io_overhead_share": 0.9995190165455281,
+      "readout_repetition_factor": 100.0,
+      "loading_share": 0.9519016545528127,
+      "io_note": "io_overhead_share = share of all Toffoli gates beyond ONE matrix inversion: data loading plus the repetitions needed to read the answer out to precision eps (amplitude estimation: 1/eps coherent rounds; full-vector tomography: about N/eps^2 runs)",
+      "classical_ops": 1111137686.1890948,
+      "classical_energy_j": 0.18750448454440974,
+      "classical_energy": "0.188 J",
+      "classical_facility_energy_j": 0.21563015722607118,
+      "energy_ratio_quantum_over_classical": 8096400491756.144,
+      "caveat": "No quantum advantage is claimed. Loading and read-out are charged explicitly; ordinary dense matrix multiplication and AI workloads are not accelerated by this routine."
+    }
+  },
+  "warnings": [],
+  "plates": [],
+  "plate_notes": []
+}

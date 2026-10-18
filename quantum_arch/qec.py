@@ -30,6 +30,9 @@ class ErrorBudget:
     p_eff: float
     e_idle: float
     parts: dict[str, float]
+    #: Per-qubit, per-cycle probability of an error the code cannot correct (residual bit flips of
+    #: biased-noise qubits). Zero for ordinary qubits.
+    p_bitflip: float = 0.0
 
 
 def error_budget(m: dict) -> ErrorBudget:
@@ -54,7 +57,15 @@ def error_budget(m: dict) -> ErrorBudget:
         "reset": 0.25 * m["err_reset"],
         "idle": 0.25 * e_idle,
     }
-    return ErrorBudget(cycle_s=cycle, p_eff=sum(parts.values()), e_idle=e_idle, parts=parts)
+    return ErrorBudget(cycle_s=cycle, p_eff=sum(parts.values()), e_idle=e_idle, parts=parts,
+                       p_bitflip=float(m.get("err_bitflip", 0.0)))
+
+
+def _eval_d(expr: str, d: int) -> float:
+    """Evaluate a catalog formula in the distance ``d`` (arithmetic only)."""
+    if not set(expr) <= set("0123456789+-*/(). d"):
+        raise ValueError(f"unsafe formula {expr!r}")
+    return float(eval(expr, {"__builtins__": {}}, {"d": d}))  # noqa: S307 - character-whitelisted
 
 
 class Code:
@@ -69,6 +80,8 @@ class Code:
         self.layout_overhead = raw["layout_overhead"]
         self.factory_tiles = raw["ccz_factory_tiles"]
         self.factory_cycles_per_d = raw["ccz_factory_cycles_per_d"]
+        self.bitflip_floor = bool(raw.get("bitflip_floor", False))
+        self.default_decoder = raw.get("default_decoder")
 
     def distances(self, d_max: int = 101) -> list[int]:
         d = self.raw["distances"]
@@ -80,13 +93,18 @@ class Code:
         """Physical qubits per logical qubit (one patch / share of a block)."""
         if self.key == "surface":
             return 2.0 * d * d - 1
+        if "tile_formula" in self.raw:
+            return _eval_d(self.raw["tile_formula"], d)
         block = self.raw["blocks"][str(d)]
         return 2.0 * block["n"] / block["k"]
 
-    def logical_error_per_round(self, p: float, d: int) -> float:
+    def logical_error_per_round(self, p: float, d: int, p_bitflip: float = 0.0) -> float:
+        """``A (p/p_th)^e(d)``, plus for biased-noise codes the uncorrectable floor ``tile * p_bitflip``."""
         ratio = p / self.threshold
-        exp = (d + 1) / 2 if self.key == "surface" else d / 2
-        return min(1.0, self.prefactor * ratio ** exp)
+        exp = _eval_d(self.raw["exponent"], d) if self.key not in ("surface", "bivariate_bicycle") else (
+            (d + 1) / 2 if self.key == "surface" else d / 2)
+        floor = self.tile_qubits(d) * p_bitflip if self.bitflip_floor else 0.0
+        return min(1.0, self.prefactor * ratio ** exp + floor)
 
 
 @dataclass
@@ -116,10 +134,13 @@ def capability(code: Code, budget: ErrorBudget, n_phys: int, target_error: float
         return Capability(False, f"p_eff={budget.p_eff:.2e} is not below the {code.label} threshold "
                           f"({code.threshold:.1e}); error correction cannot help", code.key, lam=lam)
     for d in code.distances(d_max):
-        if d * code.logical_error_per_round(budget.p_eff, d) <= target_error:
+        if d * code.logical_error_per_round(budget.p_eff, d, budget.p_bitflip) <= target_error:
             break
     else:
-        return Capability(False, f"target {target_error:.0e} needs a distance above {d_max}", code.key, lam=lam)
+        why = f"needs a distance above {d_max}"
+        if code.bitflip_floor and budget.p_bitflip > 0:
+            why += f" (or the residual bit-flip floor {budget.p_bitflip:.0e} per qubit-cycle is too high for this target)"
+        return Capability(False, f"target {target_error:.0e} {why}", code.key, lam=lam)
     tile = code.tile_qubits(d)
     tiles = int(n_phys // tile)
     logical = int(tiles * (1.0 - factory_fraction) // code.layout_overhead)
@@ -130,7 +151,7 @@ def capability(code: Code, budget: ErrorBudget, n_phys: int, target_error: float
     clock = 1.0 / (d * budget.cycle_s)
     factories = int(tiles * factory_fraction // code.factory_tiles)
     return Capability(True, "ok", code.key, distance=d, logical_qubits=logical, tile_qubits=tile,
-                      logical_error_per_op=d * code.logical_error_per_round(budget.p_eff, d),
+                      logical_error_per_op=d * code.logical_error_per_round(budget.p_eff, d, budget.p_bitflip),
                       logical_clock_hz=clock, rqops=logical * clock, factories=factories, lam=lam,
                       active_physical_qubits=int(tiles * tile))
 
@@ -167,7 +188,7 @@ def plan_workload(code: Code, budget: ErrorBudget, n_phys: int, logical_qubits: 
     reference_qubits = 0
     last_reason = "no distance satisfies the error budget"
     for d in code.distances(d_max):
-        p_round = code.logical_error_per_round(budget.p_eff, d)
+        p_round = code.logical_error_per_round(budget.p_eff, d, budget.p_bitflip)
         tile = code.tile_qubits(d)
         total_tiles = int(n_phys // tile)
         # Qubits needed for a reference design with 10 factories at the distance the error budget wants.

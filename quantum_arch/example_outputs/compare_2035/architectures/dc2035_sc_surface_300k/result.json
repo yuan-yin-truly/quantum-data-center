@@ -1,0 +1,342 @@
+{
+  "name": "dc2035_sc_surface_300k",
+  "modality": "Superconducting transmons",
+  "scheme": "Cryo-CMOS controller at 4 K, flex cabling to the mixing chamber",
+  "profile": "mid2030s",
+  "n_qubits": 300000,
+  "error_budget": {
+    "syndrome_cycle_s": 5.5e-07,
+    "p_eff": 0.000785,
+    "lambda": 12.738853503184714,
+    "parts": {
+      "two_qubit": 0.0003,
+      "single_qubit": 1.5e-05,
+      "measurement": 0.00025,
+      "reset": 0.000125,
+      "idle": 9.5e-05
+    }
+  },
+  "computing": {
+    "feasible": true,
+    "reason": "ok",
+    "code": "Rotated surface code",
+    "distance": 23,
+    "logical_qubits": 99,
+    "logical_clock_hz": 79051.38339920949,
+    "rqops": 7826086.956521739,
+    "logical_error_per_op": 1.259400081180802e-13,
+    "target_logical_error": 1e-12
+  },
+  "decoder": {
+    "decoder": "union_find",
+    "syndrome_bits_per_s": 271937272727.2727,
+    "required_ops_per_s": 81581181818181.81,
+    "latency_s": 4.6e-06,
+    "reaction_time_s": 5.1e-06
+  },
+  "power_w": {
+    "cryostat (installed)": 2856000.0,
+    "room-temperature control electronics": 45000.00000000001,
+    "cold electronics supply (cryo-CMOS, amplifiers, cold decoders)": 447.0,
+    "decoders": 852.6494545454545,
+    "classical host / optimiser": 8650.0,
+    "data links": 2.719372727272727
+  },
+  "total_power_w": 2910952.3688272727,
+  "facility_power_w": 3347595.224151363,
+  "power_boundaries": {
+    "module": {
+      "electrical_w": 447.0,
+      "cold_heat_load_w": 447.59487478150635,
+      "note": "QPU apparatus + supply of electronics inside the cryostat (electrical); cold_heat_load_w is thermal power at the cryostat stages and is NOT wall power"
+    },
+    "system": {
+      "power_w": 2910952.3688272727,
+      "cryostat_wall_w": 2856000.0,
+      "note": "complete quantum computer incl. cryostat compressors, control electronics, decoders, host; excludes facility cooling, networking and building overhead"
+    },
+    "facility": {
+      "power_w": 3347595.224151363,
+      "pue": 1.15,
+      "network_support_w": 0.0,
+      "note": "(system + network/support) x PUE; PUE covers heat rejection incl. chilled water for the compressors"
+    }
+  },
+  "boundary_note": "total_power_w and power_w are the SYSTEM boundary (complete quantum computer); facility_power_w is (system + network/support) x PUE; power_boundaries.module separates the QPU module and the thermal cold-stage heat load (not wall power)",
+  "metrics": {
+    "physical_qubits": 300000,
+    "syndrome_cycle_s": 5.5e-07,
+    "p_eff": 0.000785,
+    "lambda": 12.738853503184714,
+    "peak_2q_gate_rate_hz": 4999999999999.999,
+    "energy_per_2q_gate_j": 5.821904737654546e-07,
+    "total_power_w": 2910952.3688272727,
+    "system_power_w": 2910952.3688272727,
+    "qpu_module_w": 447.0,
+    "cold_heat_load_w": 447.59487478150635,
+    "facility_power_w": 3347595.224151363,
+    "logical_qubits": 99,
+    "code_distance": 23,
+    "logical_clock_hz": 79051.38339920949,
+    "rqops": 7826086.956521739,
+    "logical_error_per_op": 1.259400081180802e-13,
+    "energy_per_logical_op_j": 0.37195502490570703,
+    "n_lines": 9375,
+    "fridge_units": 1
+  },
+  "classical_blocks": [
+    {
+      "role": "decoder",
+      "device": "Large FPGA (decoder fabric) (base)",
+      "count": 5,
+      "location": "RT",
+      "utilisation": 0.8158118181818181,
+      "power_w": 852.6494545454545,
+      "keeps_up": true
+    },
+    {
+      "role": "host",
+      "device": "Server CPU socket (~512 cores) (base)",
+      "count": 2,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 690.0,
+      "keeps_up": true
+    },
+    {
+      "role": "optimizer",
+      "device": "Accelerator module (base)",
+      "count": 4,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 7960.0,
+      "keeps_up": true
+    }
+  ],
+  "line_counts": {
+    "digital_link": 9375,
+    "drive": 300000,
+    "flux": 300000,
+    "coupler": 525000,
+    "readout_in": 18750,
+    "readout_out": 18750,
+    "pump": 18750
+  },
+  "workloads": {
+    "chemistry_small": {
+      "label": "Small active-space chemistry (100 logical qubits)",
+      "type": "fault_tolerant",
+      "feasible": true,
+      "reason": "ok",
+      "reference_qubits": 308350,
+      "distance": 21,
+      "factories": 9,
+      "runtime_s": 705.8333333333334,
+      "runtime": "11.8 min",
+      "physical_qubits_used": 295135,
+      "total_logical_error": 0.029988207416282456,
+      "bound": "factory throughput",
+      "energy_j": 2054647213.6639168,
+      "energy": "571 kWh",
+      "power_w": 2910952.3688272727,
+      "facility_energy_j": 2362844295.713504,
+      "p_accept": 0.9700117925837175,
+      "boundary": "system"
+    },
+    "vqe_50q": {
+      "label": "Variational solver, 50 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.7944954886957939,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 1.48e-06,
+      "quantum_time_per_iter_s": 0.0296,
+      "classical_time_per_iter_s": 0.0125,
+      "runtime_s": 21.55,
+      "runtime": "21.6 s",
+      "classical_duty": 0.2900232018561485,
+      "power_w": 2910780.7678991985,
+      "energy_j": 62727325.54822773,
+      "energy": "17.4 kWh",
+      "facility_energy_j": 72136424.38046189,
+      "boundary": "system",
+      "p_accept": 1.0,
+      "classical_sim_memory_bytes": 1.8014398509481984e+16,
+      "classical_note": "state-vector simulation needs 1.8e+04 TB, more than the 1.5 TB reference node"
+    },
+    "qla_scalar_explicit_1m": {
+      "label": "Quantum linear solve, N = 2^20, one scalar observable of the solution (explicit data loading)",
+      "type": "quantum_linear_algebra",
+      "advantage_claimed": false,
+      "output": "scalar",
+      "input_model": "explicit_loading",
+      "logical_qubits_needed": 80,
+      "toffoli_per_run": 1762494677.8647687,
+      "runs": 1,
+      "loading_toffoli": 16777216,
+      "inversion_toffoli": 847730.7786476859,
+      "feasible": true,
+      "reason": "ok",
+      "distance": 23,
+      "factories": 8,
+      "runtime_s": 15328.19590155516,
+      "runtime": "4.26 h",
+      "runtime_per_run_s": 15328.19590155516,
+      "physical_qubits_used": 295960,
+      "energy_j": 44619648169.480484,
+      "energy": "12.4 MWh",
+      "power_w": 2910952.3688272727,
+      "boundary": "system",
+      "facility_energy_j": 51312595394.90255,
+      "p_accept": 0.9572710456476153,
+      "io_overhead_share": 0.9995190165455281,
+      "readout_repetition_factor": 100.0,
+      "loading_share": 0.9519016545528127,
+      "io_note": "io_overhead_share = share of all Toffoli gates beyond ONE matrix inversion: data loading plus the repetitions needed to read the answer out to precision eps (amplitude estimation: 1/eps coherent rounds; full-vector tomography: about N/eps^2 runs)",
+      "classical_ops": 1111137686.1890948,
+      "classical_energy_j": 0.18750448454440974,
+      "classical_energy": "0.188 J",
+      "classical_facility_energy_j": 0.21563015722607118,
+      "energy_ratio_quantum_over_classical": 237965765341.00168,
+      "caveat": "No quantum advantage is claimed. Loading and read-out are charged explicitly; ordinary dense matrix multiplication and AI workloads are not accelerated by this routine."
+    }
+  },
+  "warnings": [],
+  "cryostat": {
+    "type": "Large-format multi-unit dilution platform (Bluefors KIDE class), 2035 scenario",
+    "units_needed": 1,
+    "units_for_heat": 1,
+    "units_for_lines": 1,
+    "n_lines": 9375,
+    "wall_power_w": 2856000.0,
+    "carnot_floor_w": 31645.414948900696,
+    "stages": [
+      {
+        "name": "50K",
+        "target_k": 45.0,
+        "temperature_k": 45.0,
+        "load_w": 0.4802807321324639,
+        "capacity_w": 13440.0,
+        "utilisation": 3.573517352176071e-05,
+        "passive_w": 0.4802807321324639,
+        "active_w": 0,
+        "components_w": 0.0,
+        "sources_w": {
+          "passive: digital_link": 0.4802807321324639
+        }
+      },
+      {
+        "name": "4K",
+        "target_k": 4.2,
+        "temperature_k": 4.2,
+        "load_w": 447.01732766265883,
+        "capacity_w": 671.9999999999999,
+        "utilisation": 0.6652043566408614,
+        "passive_w": 0.01710756867843627,
+        "active_w": 0.00022009398036198626,
+        "components_w": 447.0,
+        "sources_w": {
+          "component: cryo-CMOS controller (drive + flux DACs + readout)": 297.0,
+          "component: HEMT amplifiers (1 per feedline)": 150.0,
+          "passive: digital_link": 0.01710756867843627,
+          "active: drive": 0.00019568373920118796,
+          "active: readout_in": 7.716755777771012e-09,
+          "active: pump": 2.440252440502052e-05
+        }
+      },
+      {
+        "name": "Still",
+        "target_k": 1.2,
+        "temperature_k": 1.2,
+        "load_w": 0.0682276622710127,
+        "capacity_w": 13.44,
+        "utilisation": 0.005076462966593208,
+        "passive_w": 0.06785175368508511,
+        "active_w": 0.00037590858592757967,
+        "components_w": 1.2685165418080402e-17,
+        "sources_w": {
+          "passive: drive": 0.003642763864811947,
+          "active: drive": 0.00033421721744119405,
+          "passive: flux": 0.003642763864811947,
+          "passive: coupler": 0.006374836763420907,
+          "passive: readout_in": 0.0002276727415507467,
+          "active: readout_in": 1.317980049976594e-08,
+          "passive: readout_out": 0.05373604370893882,
+          "passive: pump": 0.0002276727415507467,
+          "active: pump": 4.167818868588584e-05
+        }
+      },
+      {
+        "name": "CP",
+        "target_k": 0.14,
+        "temperature_k": 0.14,
+        "load_w": 0.02276080713318323,
+        "capacity_w": 0.1568,
+        "utilisation": 0.14515820875754612,
+        "passive_w": 0.00874466387867647,
+        "active_w": 0.014016143254506763,
+        "components_w": -3.469446951953614e-18,
+        "sources_w": {
+          "passive: drive": 0.000469985294117647,
+          "active: drive": 0.00023660767015609008,
+          "passive: flux": 0.000469985294117647,
+          "active: flux": 0.004999999999999999,
+          "passive: coupler": 0.0008224742647058822,
+          "active: coupler": 0.008749999999999999,
+          "passive: readout_in": 2.9374080882352936e-05,
+          "active: readout_in": 2.9686369735587744e-08,
+          "passive: readout_out": 0.006923470863970587,
+          "passive: pump": 2.9374080882352936e-05,
+          "active: pump": 2.9505897980939556e-05
+        }
+      },
+      {
+        "name": "MXC",
+        "target_k": 0.02,
+        "temperature_k": 0.02,
+        "load_w": 0.006277917310867829,
+        "capacity_w": 0.006384000000000001,
+        "utilisation": 0.9833830374166398,
+        "passive_w": 0.0001435339285714286,
+        "active_w": 0.0061343833822964,
+        "components_w": 8.673617379884035e-19,
+        "sources_w": {
+          "passive: drive": 7.714285714285714e-06,
+          "active: drive": 0.0005687874700770352,
+          "passive: flux": 7.714285714285714e-06,
+          "active: flux": 0.002,
+          "passive: coupler": 1.3500000000000001e-05,
+          "active: coupler": 0.0035,
+          "passive: readout_in": 4.821428571428571e-07,
+          "active: readout_in": 2.243003948083833e-09,
+          "passive: readout_out": 0.00011364107142857144,
+          "passive: pump": 4.821428571428571e-07,
+          "active: pump": 6.559366921541562e-05
+        }
+      }
+    ]
+  },
+  "plates": [
+    {
+      "name": "cold electronics @ 4K",
+      "stage_k": 4.2,
+      "t_max_k": 10.538507788873542,
+      "rise_max_k": 6.3385077888735415,
+      "rise_mean_k": 3.069664895658625,
+      "peak_power_density_w_per_cm2": 43.28246714916328,
+      "injected_w": 297.0,
+      "removed_w": 297.0000002082412
+    },
+    {
+      "name": "qubit chip @ MXC",
+      "stage_k": 0.02,
+      "t_max_k": 0.024759240191531574,
+      "rise_max_k": 0.004759240191531573,
+      "rise_mean_k": 0.003321218989925278,
+      "peak_power_density_w_per_cm2": 1.495502150700319e-07,
+      "injected_w": 1.0683968940199052e-05,
+      "removed_w": 1.0683968647225102e-05
+    }
+  ],
+  "plate_notes": []
+}

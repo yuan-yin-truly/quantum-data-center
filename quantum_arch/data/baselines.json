@@ -1,0 +1,32 @@
+{
+  "_note": "GPU/CPU baseline workloads for fair comparison. The decisive metric is ENERGY (and time) PER ACCEPTED ANSWER at the same problem, accuracy, success probability and required outputs, including preparation, repetitions, classical support and cooling, reported at an explicit boundary (module / system / facility). There is no 'one QPU = N GPUs' conversion anywhere in this package. Throughput figures are scenario inputs; today's anchor is AMD's MLPerf Inference 6.0 submission.",
+  "llm_inference_70b": {
+    "label": "LLM inference, 70B-class dense model, matched quality and latency (MLPerf Llama 2 70B Server scenario)",
+    "type": "llm_inference",
+    "tokens_per_s_per_tbps": 1567.0,
+    "low_precision_gain": 2.0,
+    "inference_mfu": 0.4,
+    "flops_per_token": 140000000000.0,
+    "tokens_per_answer": 600,
+    "default_utilisation": 0.7,
+    "source": "Anchor: AMD-reported MLPerf Inference 6.0 single-node (8x MI355X) Llama 2 70B Server throughput 100,282 tokens/s (rocm.blogs.amd.com / AMD blog, via search; self-reported, not independently reproduced), over 8 GPUs x 8 TB/s = 1,567 tokens/s per TB/s of HBM bandwidth. Same model, same latency constraints are assumed to carry over to later devices; decoding is treated as memory-bound with a compute cap of fp16_flops x low_precision_gain x inference_mfu / flops_per_token (2 x 70e9). The same AMD source gives the MI355X at 97 % (Server), about 100 % (Offline) and 119 % (Interactive) of an NVIDIA B200 platform: throughput only, no energy measurement. flops_per_token, mfu, gain and tokens_per_answer: assumption."
+  },
+  "llm_training_to_quality": {
+    "label": "LLM training to a fixed quality target (70B parameters, 2T tokens, Chinchilla-style 6 N D FLOPs)",
+    "type": "llm_training",
+    "params": 70000000000.0,
+    "tokens": 2000000000000.0,
+    "flops_per_param_token": 6.0,
+    "mfu": 0.4,
+    "flops_kind": "fp16_flops",
+    "source": "Standard 6 N D training-FLOP estimate; model size, token count and 40 % MFU are an illustrative target and an assumption. 'Quality target' = the loss reached by that (N, D) pair; a different architecture must reach the same loss/benchmark score to be comparable."
+  },
+  "dense_matmul": {
+    "label": "Dense matrix multiplication, N x N x N in FP16",
+    "type": "dense_matmul",
+    "n": 65536,
+    "mfu": 0.6,
+    "flops_kind": "fp16_flops",
+    "source": "2 N^3 FLOPs at 60 % of peak: assumption. No quantum speed-up is claimed: loading N^2 numbers and reading N^2 results costs at least as much as the classical multiplication (see workloads qla_*)."
+  }
+}

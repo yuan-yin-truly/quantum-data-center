@@ -2,7 +2,7 @@
   "rows": [
     {
       "n": 100,
-      "power_w": 101496.0,
+      "power_w": 101496.4,
       "fridges": 1,
       "utilisation": {
         "50K": 6.830659301439487e-07,
@@ -18,7 +18,7 @@
     },
     {
       "n": 316,
-      "power_w": 101568.0,
+      "power_w": 101569.264,
       "fridges": 1,
       "utilisation": {
         "50K": 1.7076648253598719e-06,
@@ -34,7 +34,7 @@
     },
     {
       "n": 1000,
-      "power_w": 101832.0,
+      "power_w": 101836.0,
       "fridges": 1,
       "utilisation": {
         "50K": 5.46452744115159e-06,
@@ -50,7 +50,7 @@
     },
     {
       "n": 3162,
-      "power_w": 102636.0,
+      "power_w": 102648.648,
       "fridges": 1,
       "utilisation": {
         "50K": 1.690588177106273e-05,
@@ -66,7 +66,7 @@
     },
     {
       "n": 10000,
-      "power_w": 305262.1289285714,
+      "power_w": 305302.1289285714,
       "fridges": 3,
       "utilisation": {
         "50K": 5.344990903376399e-05,
@@ -78,11 +78,11 @@
       "line_units": 1,
       "logical_qubits": 1,
       "rqops": 41893.59028068706,
-      "energy_per_logical_op_j": 7.286607017524999
+      "energy_per_logical_op_j": 7.287561817524999
     },
     {
       "n": 31623,
-      "power_w": 913436.0125714286,
+      "power_w": 913562.5045714285,
       "fridges": 9,
       "utilisation": {
         "50K": 0.0001688880512280913,
@@ -94,11 +94,11 @@
       "line_units": 1,
       "logical_qubits": 5,
       "rqops": 209467.9514034353,
-      "energy_per_logical_op_j": 4.360743524016
+      "energy_per_logical_op_j": 4.361347396824
     },
     {
       "n": 100000,
-      "power_w": 2739360.540857143,
+      "power_w": 2739760.540857143,
       "fridges": 27,
       "utilisation": {
         "50K": 0.0005336452579249599,
@@ -110,11 +110,11 @@
       "line_units": 1,
       "logical_qubits": 18,
       "rqops": 754084.6250523671,
-      "energy_per_logical_op_j": 3.6326964505699992
+      "energy_per_logical_op_j": 3.633226895014444
     },
     {
       "n": 316228,
-      "power_w": 8621296.628857143,
+      "power_w": 8622561.540857144,
       "fridges": 85,
       "utilisation": {
         "50K": 0.0016876851469031613,
@@ -126,11 +126,11 @@
       "line_units": 1,
       "logical_qubits": 57,
       "rqops": 2387934.6459991625,
-      "energy_per_logical_op_j": 3.610357026856491
+      "energy_per_logical_op_j": 3.6108867364957895
     },
     {
       "n": 1000000,
-      "power_w": 27080363.408571426,
+      "power_w": 27084363.408571426,
       "fridges": 267,
       "utilisation": {
         "50K": 0.005336452579249599,
@@ -142,7 +142,7 @@
       "line_units": 4,
       "logical_qubits": 182,
       "rqops": 7624633.4310850445,
-      "energy_per_logical_op_j": 3.5516938162780214
+      "energy_per_logical_op_j": 3.5522184316626366
     }
   ],
   "single_fridge_limit": {

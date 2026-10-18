@@ -1,0 +1,39 @@
+{
+  "name": "dc2035_ions_40k",
+  "description": "2035 data-centre QPU: 40k trapped ions, qLDPC code, mid-2030s base scenario (slow cycle, high connectivity, no cryostat)",
+  "modality": "trapped_ion",
+  "profile": "mid2030s",
+  "scheme": "ambient",
+  "n_qubits": 40000,
+  "qec": {
+    "code": "bivariate_bicycle",
+    "decoder": "bp_osd",
+    "decoder_device": "auto:gpu",
+    "target_logical_error": 1e-09
+  },
+  "classical": [
+    {
+      "role": "host",
+      "device": "auto:cpu",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "auto:gpu",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ],
+  "facility": {
+    "pue": 1.15,
+    "network_support_w": 0.0
+  },
+  "workloads": [
+    "chemistry_small",
+    "vqe_50q",
+    "qla_scalar_explicit_1m"
+  ]
+}

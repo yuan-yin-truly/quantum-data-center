@@ -1,0 +1,112 @@
+{
+  "name": "dc2035_research_cat",
+  "description": "As dc2035_research but with the optimistic hardware-efficient cat-qubit QPU (upper bound on the quantum side).",
+  "profile": "mid2030s",
+  "facility": {
+    "pue": 1.15,
+    "network_overhead_fraction": 0.08,
+    "rho_max": 0.85
+  },
+  "gpu": {
+    "device": "gpu_2035",
+    "count": 1600,
+    "baseline_utilisation": 0.7
+  },
+  "cpu": {
+    "device": "cpu_2035",
+    "count": 400,
+    "utilisation": 0.5
+  },
+  "policy": "time_and_energy",
+  "quantum_pools": {
+    "cat_repetition": {
+      "kind": "gate",
+      "architecture": "dc2035_cat_40k",
+      "concurrency": 1
+    },
+    "annealer": {
+      "kind": "annealer",
+      "annealer": {
+        "annealer": "advantage2_class"
+      },
+      "concurrency": 1
+    }
+  },
+  "mix": [
+    {
+      "name": "llm_serving",
+      "kind": "llm_inference",
+      "tokens_per_answer": 600,
+      "demand_share": 0.15,
+      "ordinary_ai": true,
+      "comment": "ordinary AI serving; no quantum implementation (eligible_fraction 0)"
+    },
+    {
+      "name": "llm_training",
+      "gpu_seconds": 66355200,
+      "gpus_per_job": 256,
+      "demand_share": 0.25,
+      "ordinary_ai": true,
+      "comment": "3-day, 256-module training runs; no quantum implementation"
+    },
+    {
+      "name": "engineering_simulation",
+      "gpu_seconds": 460800,
+      "gpus_per_job": 16,
+      "demand_share": 0.2,
+      "comment": "CFD / weather / structural; classical CPU+GPU, no quantum implementation assumed"
+    },
+    {
+      "name": "materials_chemistry",
+      "gpu_seconds": 2764800,
+      "gpus_per_job": 64,
+      "demand_share": 0.3,
+      "eligible_fraction": 0.6,
+      "comment": "classical cost at the required accuracy is an ASSUMPTION: 64 modules x 12 h = 768 module-hours (see the break-even column); the quantum side is workload chemistry_small",
+      "quantum": {
+        "pool": "cat_repetition",
+        "workload": "chemistry_small",
+        "mapping_quality": 0.7,
+        "max_attempts": 2,
+        "prep_s": 600,
+        "transfer_s": 60,
+        "post_s": 300,
+        "qpu_setup_s": 60
+      }
+    },
+    {
+      "name": "scheduling_optimisation",
+      "gpu_seconds": 80,
+      "gpus_per_job": 8,
+      "demand_share": 0.1,
+      "eligible_fraction": 0.5,
+      "comment": "strong classical GPU solver reaches the target in 10 s on 8 modules (ASSUMPTION); annealer needs p_success_per_read 0.002 for the target quality",
+      "quantum": {
+        "pool": "annealer",
+        "p_success_per_read": 0.002,
+        "confidence": 0.99,
+        "mapping_quality": 0.6,
+        "max_attempts": 2,
+        "prep_s": 1.0,
+        "post_s": 0.5,
+        "transfer_s": 0.1
+      }
+    }
+  ],
+  "scenarios": {
+    "gpu_only": {},
+    "augment": {
+      "quantum_systems": {
+        "cat_repetition": 2,
+        "annealer": 1
+      }
+    },
+    "replace": {
+      "gpu_fraction_removed": 0.5,
+      "quantum_systems": {
+        "cat_repetition": 2,
+        "annealer": 1
+      }
+    }
+  }
+}

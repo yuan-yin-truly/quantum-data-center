@@ -1,0 +1,190 @@
+{
+  "_note": "Published power and performance figures used to CALIBRATE the 'today' profile and the audit of the overview note (October 2026). 'status': confirmed = read in a primary or vendor source during the audit; confirmed_secondary = only repeated by secondary coverage; unconfirmed = not found; discrepancy = sources disagree. 'kind' says what the number is: rating / maximum / average / reported. These are MIXED quantities and not matched benchmarks; a model-to-reference ratio is a sanity check, not a validation.",
+  "power": {
+    "helios_base_unit": {
+      "label": "Quantinuum Helios (98 qubits), base unit without support infrastructure",
+      "value_w": 40000.0,
+      "bound": "upper",
+      "kind": "rating (vendor page: 'less than 40kW', footnote 'Valid for the base unit without support infrastructure')",
+      "boundary": "system, excluding support infrastructure",
+      "status": "confirmed",
+      "source": "Quantinuum Helios product page, read 2026-10-18",
+      "url": "https://www.quantinuum.com/products-solutions/quantinuum-systems/helios",
+      "note": "The overview's 'less than 40 kW' is correct as an upper bound, but it omits that the Oracle/Quantinuum announcement reports about 60 kW (see helios_oracle)."
+    },
+    "helios_oracle": {
+      "label": "Quantinuum Helios in Oracle OCI, 'roughly 60 kW without its HVAC system'",
+      "value_w": 60000.0,
+      "bound": "approximate",
+      "kind": "reported/estimated (announcement coverage)",
+      "boundary": "system, excluding HVAC",
+      "status": "confirmed_secondary",
+      "source": "TheNextWeb 2026-08-12; unite.ai (quoting the companies)",
+      "url": "https://www.unite.ai/quantinuum-puts-a-98-qubit-helios-machine-inside-oracles-ai-data-centers/",
+      "note": "DISCREPANCY with the <40 kW page: scope differs ('base unit' versus the installation), neither is a metered average. The overview does not mention the 60 kW figure."
+    },
+    "dwave_advantage2": {
+      "label": "D-Wave Advantage2 annealing system",
+      "value_w": 12500.0,
+      "bound": "point",
+      "kind": "'Average power 12.5 kW' on the data sheet; rating 208 V 60 A (standard) / 230/400 V 32 A (international)",
+      "boundary": "system (vendor-reported)",
+      "status": "confirmed",
+      "source": "D-Wave Advantage2 data sheet, read 2026-10-18",
+      "url": "https://www.dwavequantum.com/media/ij1dx3ev/advanced-computing_data-sheet.pdf",
+      "note": "208 V x 60 A = 12.5 kVA, so the figure may coincide with the circuit rating rather than a metered average. D-Wave claims constant power over six generations (vendor claim)."
+    },
+    "quandela_ascella": {
+      "label": "Quandela Ascella (6 qubits), main system",
+      "value_w": 3000.0,
+      "bound": "point",
+      "kind": "vendor figure ('3 kW'); an independent review says 'under 3 kW on 220 V AC'",
+      "boundary": "system incl. its compact cryostat built into the rack",
+      "status": "confirmed",
+      "source": "Quandela product page and Oct 2025 whitepaper; arXiv:2409.08229",
+      "url": "https://www.quandela.com/products-and-services/ascella/",
+      "note": "6-qubit machine delivered 2022, not a fault-tolerant system. Search did not surface the page text directly; the 3 kW figure was confirmed through the search summaries of the product page, whitepaper and review."
+    },
+    "pasqal_overview": {
+      "label": "Pasqal neutral-atom machine, 'about 2.6 kW'",
+      "value_w": 2600.0,
+      "bound": "approximate",
+      "kind": "secondary article (MarketScreener) says 'approximately 2.6 kW' for the current processor",
+      "boundary": "unclear",
+      "status": "unconfirmed",
+      "source": "sa.marketscreener.com (secondary); NOT in Pasqal's own brochure",
+      "url": "https://sa.marketscreener.com/news/pasqal-the-alchemy-of-neutral-atoms-to-win-over-the-nasdaq-ce7e5fd3de88fe23",
+      "note": "Pasqal's September 2024 presentation gave 3 kW for Fresnel (search snippet). The December 2025 brochure lists a class IV laser of '10 kW (3.5 kW on average during operation)' alone, which already exceeds 2.6 kW. Treat 2.6 kW as an older or partial figure."
+    },
+    "pasqal_brochure": {
+      "label": "Pasqal quantum computer brochure Dec 2025: laser and supply",
+      "value_w": 3500.0,
+      "bound": "point",
+      "kind": "average laser power; installed laser 10 kW; supply '1x three-phase 380 V 32 A' (about 21 kVA connection, a rating)",
+      "boundary": "module (laser only)",
+      "status": "confirmed",
+      "source": "Pasqal brochure PDF, text extracted 2026-10-18",
+      "url": "https://www.pasqal.com/wp-content/uploads/2025/12/2025.12-Pasqal-Quantum-Computer-Brochure.pdf",
+      "note": "Also lists a water-cooling inlet/outlet, 9 modules, 4,000 kg, operating at room temperature."
+    },
+    "quera_aquila_paqit": {
+      "label": "QuEra Aquila as modelled in PaQit: P = 6.92 kW + 0.308 W/qubit",
+      "value_w": 7000.0,
+      "bound": "point",
+      "kind": "model parameters fitted by the PaQit authors to QuEra data (~7 kW at 256 qubits, ~10 kW at 10,000 qubits)",
+      "boundary": "system (as reported by QuEra via the authors)",
+      "status": "confirmed_secondary",
+      "source": "arXiv:2608.02815 (Ludmir & Patel), section VI-A; text extracted 2026-10-18",
+      "url": "https://arxiv.org/abs/2608.02815",
+      "note": "The authors state these values characterise relative scheduling behaviour, not absolute device power."
+    },
+    "dgx_b200": {
+      "label": "NVIDIA DGX B200 (8 GPUs)",
+      "value_w": 14300.0,
+      "bound": "maximum",
+      "kind": "'14.3 kW max.'; six 3.3 kW PSUs in 5+1 redundancy; per-GPU maximum 1,000 W with five PSUs",
+      "boundary": "system (complete server), facility cooling excluded",
+      "status": "confirmed",
+      "source": "NVIDIA DGX B200 user guide, read 2026-10-18",
+      "url": "https://docs.nvidia.com/dgx/dgxb200-user-guide/introduction-to-dgxb200.html",
+      "note": "The guide's power table labels the 14.3 kW row 'Specification for Each Power Supply', which is ambiguous; the system reading is the usual one and is repeated by third-party datasheet mirrors."
+    },
+    "h200_sxm": {
+      "label": "NVIDIA H200 SXM",
+      "value_w": 700.0,
+      "bound": "maximum",
+      "kind": "'Up to 700W (configurable)'",
+      "boundary": "module",
+      "status": "confirmed",
+      "source": "NVIDIA H200 product page, read 2026-10-18",
+      "url": "https://www.nvidia.com/en-us/data-center/h200/"
+    },
+    "mi350x": {
+      "label": "AMD Instinct MI350X",
+      "value_w": 1000.0,
+      "bound": "maximum",
+      "kind": "board/module power (air-cooled)",
+      "boundary": "module",
+      "status": "confirmed_secondary",
+      "source": "AMD announcement coverage via search (multiple agreeing sources)",
+      "url": "https://www.amd.com/en/partner/browse-by-resource/partner-insights-articles/instinct-mi350x-data-center-ai-leadership.html"
+    },
+    "mi355x": {
+      "label": "AMD Instinct MI355X",
+      "value_w": 1400.0,
+      "bound": "maximum",
+      "kind": "'up to 1400 W' (liquid-cooled)",
+      "boundary": "module",
+      "status": "confirmed_secondary",
+      "source": "AMD announcement coverage via search (multiple agreeing sources)",
+      "url": "https://www.profesionalreview.com/2025/06/11/amd-instinct-mi355x-1400w-288gb-hbm3e/amp/"
+    }
+  },
+  "performance": {
+    "mlperf_llama2_70b": {
+      "label": "AMD MI355X, MLPerf Inference 6.0, Llama 2 70B, single node (8 GPUs), Server scenario",
+      "value": 100282.0,
+      "unit": "tokens/s",
+      "status": "confirmed_secondary",
+      "kind": "AMD-reported throughput, not an energy measurement, not independently reproduced",
+      "source": "AMD ROCm blog / AMD blog (via search); MLCommons results published 2026-04-01",
+      "url": "https://rocm.blogs.amd.com/artificial-intelligence/mlperf-inference-v6.0/README.html"
+    }
+  },
+  "overview_claims": {
+    "helios_below_40kw": {
+      "claim": "Quantinuum Helios less than 40 kW (base unit, support excluded)",
+      "verdict": "confirmed, but incomplete: Oracle announcement says about 60 kW excluding HVAC"
+    },
+    "dwave_12_5kw": {
+      "claim": "D-Wave 12.5 kW manufacturer-reported",
+      "verdict": "confirmed (data sheet: average power 12.5 kW); equals 208 V x 60 A, may be a rating"
+    },
+    "quandela_ascella_3kw": {
+      "claim": "Quandela Ascella 3 kW main system",
+      "verdict": "confirmed (vendor); includes its built-in cryostat; 6-qubit system"
+    },
+    "pasqal_2_6kw": {
+      "claim": "Historical Pasqal neutral-atom machine about 2.6 kW",
+      "verdict": "NOT confirmed from a primary source; one secondary article; Pasqal's 2024 slide says 3 kW and its 2025 brochure lists 3.5 kW average laser power alone"
+    },
+    "dgx_b200_14_3kw": {
+      "claim": "DGX B200 up to 14.3 kW (complete server)",
+      "verdict": "confirmed (NVIDIA guide '14.3 kW max', table header ambiguous)"
+    },
+    "mi355x_1_4kw": {
+      "claim": "MI355X up to 1.4 kW; MI350X 1.0 kW; eight MI355X 11.2 kW",
+      "verdict": "confirmed via agreeing secondary coverage; arithmetic correct"
+    },
+    "h200_700w": {"claim": "H200 SXM up to 700 W", "verdict": "confirmed (NVIDIA page)"},
+    "mlperf_97_100_119": {
+      "claim": "MI355X ~100 % / 97 % / 119 % of B200 (Offline / Server / Interactive), Llama 2 70B",
+      "verdict": "confirmed as AMD's own single-node comparison; not independently reproduced; throughput only"
+    },
+    "quantum_echoes_13000x": {
+      "claim": "Google Quantum Echoes ~13,000x vs classical, ~2 hours on Willow",
+      "verdict": "confirmed as Google's claim (about 2.1 h vs an estimated 3.2 years on Frontier; Nature, Oct 2025); baseline is an estimate, not an energy comparison; 65 qubits used per coverage"
+    },
+    "ibm_nighthawk": {
+      "claim": "IBM Nighthawk",
+      "verdict": "confirmed: 120-qubit square-lattice processor announced Nov 2025 with Loon; Starling 2029 (200 logical, 1e8 gates) and Blue Jay 2033+ (2,000 logical, 1e9 gates) are company targets"
+    },
+    "atom_ac1000": {"claim": "Atom Computing AC1000", "verdict": "confirmed on the company site (1,200+ qubits, on-premises)"},
+    "oxford_ionics": {
+      "claim": "Oxford Ionics (trapped ions)",
+      "verdict": "partly confirmed: IonQ acquired Oxford Ionics in June 2025 (single secondary source in this audit)"
+    },
+    "quantum_circuits_dwave": {
+      "claim": "Quantum Circuits (now part of D-Wave)",
+      "verdict": "partly confirmed: D-Wave announced an agreement to acquire it for about USD 550 million in January 2026; closing not verified"
+    },
+    "iqm_machines": {
+      "claim": "IQM Garnet / Spark / Radiance",
+      "verdict": "partly confirmed: Spark (5 qubits) and Radiance (54 qubits, delivery planned June 2026) found; Garnet (20 qubits) only in an older cloud-service report; IQM also announced Halocene (150 qubits, end of 2026)"
+    },
+    "not_checked": {
+      "claim": "Rigetti Cepheus, Origin Wukong, Xanadu Aurora, Intel Tunnel Falls, Diraq, Quantum Brilliance, QuEra Aquila/Gemini, Pasqal Orion, Alice & Bob Boson",
+      "verdict": "not verified individually in this audit (searches returned nothing or only unrelated pages); Majorana 1 is announced as an 8-qubit topological chip"
+    }
+  }
+}

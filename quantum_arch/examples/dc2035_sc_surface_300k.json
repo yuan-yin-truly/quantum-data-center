@@ -1,0 +1,36 @@
+{
+  "name": "dc2035_sc_surface_300k",
+  "description": "2035 data-centre QPU: 300k transmons, mid-2030s base scenario, cryo-CMOS at 4 K, surface code, ONE hypothetical large cryoplatform (capacity_scale 112, wall power scales with it; no cryogenic interconnect assumed)",
+  "modality": "superconducting",
+  "profile": "mid2030s",
+  "scheme": "cryo_cmos_4k",
+  "n_qubits": 300000,
+  "cryostat": {
+    "capacity_scale": 112.0
+  },
+  "classical": [
+    {
+      "role": "host",
+      "device": "auto:cpu",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "auto:gpu",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ],
+  "facility": {
+    "pue": 1.15,
+    "network_support_w": 0.0
+  },
+  "workloads": [
+    "chemistry_small",
+    "vqe_50q",
+    "qla_scalar_explicit_1m"
+  ]
+}

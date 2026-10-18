@@ -1,25 +1,62 @@
 {
-  "_note": "Error-correcting code models. Logical error per round: p_L = prefactor * (p_eff/threshold)^exponent(d). 'phys_per_logical' counts data + syndrome qubits of one logical patch. layout_overhead multiplies the patch count for routing space (lattice surgery). These are generic textbook-level fits, not a replacement for a circuit-level simulation.",
+  "_note": "Error-correcting code models. Logical error per round: p_L = prefactor * (p_eff/threshold)^exponent(d). 'phys_per_logical' counts data + syndrome qubits of one logical patch. layout_overhead multiplies the patch count for routing space (lattice surgery). These are generic textbook-level fits, not a replacement for a circuit-level simulation. Codes added for the mid-2030s audit: 'cat_repetition' (phase-flip repetition code on bias-preserving cat qubits) and 'fusion_network' (fusion-based photonic computation). Both are COARSE ASSUMPTIONS, flagged in their entries. 'tile_formula' (physical qubits per logical qubit as a function of d) and 'exponent' are evaluated by qec.Code; 'bitflip_floor' adds an uncorrectable per-round floor (2d-1) * p_bitflip for biased-noise codes; 'default_decoder' is used when an architecture names none.",
   "surface": {
     "label": "Rotated surface code",
     "distances": "odd",
-    "prefactor": 0.1, "threshold": 0.01, "exponent": "(d+1)/2",
+    "prefactor": 0.1,
+    "threshold": 0.01,
+    "exponent": "(d+1)/2",
     "phys_per_logical": "2*d*d - 1",
     "logical_per_block": 1,
     "needs_nonlocal": false,
     "layout_overhead": 2.0,
-    "ccz_factory_tiles": 15, "ccz_factory_cycles_per_d": 5.5,
-    "source": "Fowler et al., PRA 86, 032324 (2012): p_L ~ 0.1 (p/p_th)^((d+1)/2), p_th ~ 1 %. 2d^2-1 qubits per rotated patch. CCZ factory footprint/time: order-of-magnitude from Gidney & Fowler (2019)."
+    "ccz_factory_tiles": 15,
+    "ccz_factory_cycles_per_d": 5.5,
+    "source": "Fowler et al., PRA 86, 032324 (2012): p_L ~ 0.1 (p/p_th)^((d+1)/2), p_th ~ 1 %. 2d^2-1 qubits per rotated patch. CCZ factory footprint/time: order-of-magnitude from Gidney & Fowler (2019).",
+    "default_decoder": "union_find"
   },
   "bivariate_bicycle": {
     "label": "Bivariate-bicycle qLDPC ('gross' family)",
     "distances": [6, 10, 12, 18],
     "blocks": {"6": {"n": 72, "k": 12}, "10": {"n": 90, "k": 8}, "12": {"n": 144, "k": 12}, "18": {"n": 288, "k": 12}},
-    "prefactor": 0.1, "threshold": 0.008, "exponent": "d/2",
+    "prefactor": 0.1,
+    "threshold": 0.008,
+    "exponent": "d/2",
     "phys_per_logical": "2*n/k",
     "needs_nonlocal": true,
     "layout_overhead": 1.5,
-    "ccz_factory_tiles": 15, "ccz_factory_cycles_per_d": 5.5,
-    "source": "Bravyi et al., Nature 627, 778 (2024): [[144,12,12]] gross code, 288 physical qubits for 12 logical. Threshold and prefactor are rough fits; needs long-range connectivity."
+    "ccz_factory_tiles": 15,
+    "ccz_factory_cycles_per_d": 5.5,
+    "source": "Bravyi et al., Nature 627, 778 (2024): [[144,12,12]] gross code, 288 physical qubits for 12 logical. Threshold and prefactor are rough fits; needs long-range connectivity.",
+    "default_decoder": "bp_osd"
+  },
+  "cat_repetition": {
+    "label": "Cat-qubit repetition code (phase-flip, bias-preserving CX)",
+    "distances": "odd",
+    "prefactor": 0.1,
+    "threshold": 0.02,
+    "exponent": "(d+1)/2",
+    "tile_formula": "2*d - 1",
+    "bitflip_floor": true,
+    "needs_nonlocal": false,
+    "layout_overhead": 2.0,
+    "ccz_factory_tiles": 12,
+    "ccz_factory_cycles_per_d": 4.0,
+    "default_decoder": "repetition_matching",
+    "source": "ASSUMPTION calibrated to published points: AWS Ocelot (Nature 2025) distance-5 repetition code uses 5 cat + 4 ancilla qubits and shows a flat total logical error of about 1.7 % per cycle between d=3 and d=5 (i.e. at threshold for its noise); Alice & Bob roadmap about 20 cat qubits per logical qubit at 1e-6 (company target). Threshold 2 %, prefactor 0.1, layout and factory numbers are order-of-magnitude choices; Gouzien et al. PRL 131, 040602 (2023) give 126,133 cat qubits for a 256-bit ECDLP in 9 h under optimistic hardware assumptions and should be used to check any change. Outer codes (LDPC-cat) are not modelled."
+  },
+  "fusion_network": {
+    "label": "Fusion-based photonic network (surface-like fusion lattice)",
+    "distances": "odd",
+    "prefactor": 0.1,
+    "threshold": 0.01,
+    "exponent": "(d+1)/2",
+    "tile_formula": "6*d*d",
+    "needs_nonlocal": false,
+    "layout_overhead": 2.0,
+    "ccz_factory_tiles": 15,
+    "ccz_factory_cycles_per_d": 5.5,
+    "default_decoder": "fusion_matching",
+    "source": "ASSUMPTION. Fusion-based quantum computation (Bartolucci et al., Nature Commun. 14, 912, 2023) is not a surface code; here it is approximated by a surface-like scaling with an effective fusion-error threshold of 1 %, 6 d^2 resource-state generators per logical qubit (about 3x the surface code, covering multiplexing and heralding overhead) and the surface-code factory numbers. Replace with a fusion-lattice simulation before relying on any photonic qubit count."
   }
 }

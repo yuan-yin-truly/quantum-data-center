@@ -1,33 +1,61 @@
 {
-  "_note": "Cryostat catalog. Stage cooling power follows Q = a*(T^alpha - Tbase^alpha), anchored at (t_ref_k, cap_ref_w). cable_len_mm is the cable run from the next-warmer stage (room temperature for the first). wall_power_w is the electrical draw of ONE unit and is an assumption (compressors + pumps + control), not a datasheet value.",
+  "_note": "Cryostat catalog. Stage cooling power follows Q = a*(T^alpha - Tbase^alpha), anchored at (t_ref_k, cap_ref_w). cable_len_mm is the cable run from the next-warmer stage (room temperature for the first). wall_power_w is the electrical draw of ONE unit and is an assumption (compressors + pumps + control), not a datasheet value. 'wall_power_w' is the electrical input of ONE unit at the system boundary (compressors, pumps, control rack); it does NOT include the facility's chilled-water plant that removes the compressors' rejected heat (that is part of the facility PUE). 'wall_scale_by_profile' multiplies wall_power_w for scenario profiles (cryocooler efficiency gains), assumption. Platforms for the mid-2030s ('dilution_2035') are SCENARIOS anchored to published product data where stated. 'wall_power_w' is the electrical input of ONE unit at the system boundary (compressors, pumps, control rack); it does NOT include the facility's chilled-water plant that removes the compressors' rejected heat (that is part of the facility PUE). 'wall_scale_by_profile' multiplies wall_power_w for scenario profiles (cryocooler efficiency gains), assumption. Platforms for the mid-2030s ('dilution_2035') are SCENARIOS anchored to published product data where stated.",
   "dilution_xld": {
     "label": "Dry dilution refrigerator (XLD400-class)",
     "stages": [
-      {"name": "50K",   "t_ref_k": 45.0,  "cap_ref_w": 30.0,    "t_base_k": 35.0,  "alpha": 1.0, "cable_len_mm": 200},
-      {"name": "4K",    "t_ref_k": 4.2,   "cap_ref_w": 1.5,     "t_base_k": 2.85,  "alpha": 1.0, "cable_len_mm": 290},
-      {"name": "Still", "t_ref_k": 1.2,   "cap_ref_w": 0.040,   "t_base_k": 0.882, "alpha": 1.0, "cable_len_mm": 250},
-      {"name": "CP",    "t_ref_k": 0.14,  "cap_ref_w": 200e-6,  "t_base_k": 0.082, "alpha": 2.0, "cable_len_mm": 170},
-      {"name": "MXC",   "t_ref_k": 0.02,  "cap_ref_w": 19e-6,   "t_base_k": 0.006, "alpha": 2.0, "cable_len_mm": 140}
+      {"name": "50K", "t_ref_k": 45.0, "cap_ref_w": 30.0, "t_base_k": 35.0, "alpha": 1.0, "cable_len_mm": 200},
+      {"name": "4K", "t_ref_k": 4.2, "cap_ref_w": 1.5, "t_base_k": 2.85, "alpha": 1.0, "cable_len_mm": 290},
+      {"name": "Still", "t_ref_k": 1.2, "cap_ref_w": 0.04, "t_base_k": 0.882, "alpha": 1.0, "cable_len_mm": 250},
+      {"name": "CP", "t_ref_k": 0.14, "cap_ref_w": 0.0002, "t_base_k": 0.082, "alpha": 2.0, "cable_len_mm": 170},
+      {"name": "MXC", "t_ref_k": 0.02, "cap_ref_w": 1.9e-05, "t_base_k": 0.006, "alpha": 2.0, "cable_len_mm": 140}
     ],
     "wall_power_w": 10000,
     "max_coax_lines": 1000,
-    "source": "Stage temperatures, cooling powers and cable lengths: Krinner et al., EPJ Quantum Technol. 6, 2 (2019), Table 1 (measured, Bluefors XLD400). wall_power_w and max_coax_lines: assumption."
+    "source": "Stage temperatures, cooling powers and cable lengths: Krinner et al., EPJ Quantum Technol. 6, 2 (2019), Table 1 (measured, Bluefors XLD400). wall_power_w and max_coax_lines: assumption.",
+    "wall_scale_by_profile": {}
   },
   "pt_4k": {
     "label": "Two-stage pulse-tube cryocooler (4 K class)",
     "stages": [
       {"name": "50K", "t_ref_k": 45.0, "cap_ref_w": 30.0, "t_base_k": 35.0, "alpha": 1.0, "cable_len_mm": 200},
-      {"name": "4K",  "t_ref_k": 4.2,  "cap_ref_w": 1.5,  "t_base_k": 2.85, "alpha": 1.0, "cable_len_mm": 290}
+      {"name": "4K", "t_ref_k": 4.2, "cap_ref_w": 1.5, "t_base_k": 2.85, "alpha": 1.0, "cable_len_mm": 290}
     ],
     "wall_power_w": 7500,
     "max_coax_lines": 400,
-    "source": "Stage values as the XLD's 50 K / 4 K stages (same pulse-tube class). wall_power_w and max_coax_lines: assumption."
+    "source": "Stage values as the XLD's 50 K / 4 K stages (same pulse-tube class). wall_power_w and max_coax_lines: assumption.",
+    "wall_scale_by_profile": {"mid2030s_low": 1.0, "mid2030s": 0.85, "mid2030s_high": 0.7}
   },
   "ambient": {
     "label": "No cryostat (room-temperature apparatus)",
     "stages": [],
     "wall_power_w": 0,
     "max_coax_lines": 0,
-    "source": "Trapped-ion and neutral-atom systems in UHV chambers at ~300 K."
+    "source": "Trapped-ion and neutral-atom systems in UHV chambers at ~300 K (definition, no cryostat; nothing to source).",
+    "wall_scale_by_profile": {}
+  },
+  "dilution_2035": {
+    "label": "Large-format multi-unit dilution platform (Bluefors KIDE class), 2035 scenario",
+    "stages": [
+      {"name": "50K", "t_ref_k": 45.0, "cap_ref_w": 120.0, "t_base_k": 35.0, "alpha": 1.0, "cable_len_mm": 200},
+      {"name": "4K", "t_ref_k": 4.2, "cap_ref_w": 6.0, "t_base_k": 2.85, "alpha": 1.0, "cable_len_mm": 290},
+      {"name": "Still", "t_ref_k": 1.2, "cap_ref_w": 0.12, "t_base_k": 0.882, "alpha": 1.0, "cable_len_mm": 250},
+      {"name": "CP", "t_ref_k": 0.14, "cap_ref_w": 0.0014, "t_base_k": 0.082, "alpha": 2.0, "cable_len_mm": 170},
+      {"name": "MXC", "t_ref_k": 0.02, "cap_ref_w": 5.7e-05, "t_base_k": 0.006, "alpha": 2.0, "cable_len_mm": 140}
+    ],
+    "wall_power_w": 30000,
+    "max_coax_lines": 4000,
+    "wall_scale_by_profile": {"mid2030s_low": 1.0, "mid2030s": 0.85, "mid2030s_high": 0.7},
+    "source": "Anchors: Bluefors KIDE page (read in this audit): over 1,000 qubits, more than 4,000 RF lines, 500 kg payload, three cooling units, '> 3000 uW of cooling power at 100 mK', cooling power measured from the insert flange, nine pulse-tube cryocoolers (via search); an arXiv modelling paper (2608.00990) assigns KIDE about 6 W at 4 K (not verified; page too large to fetch). Stage curves here are the measured XLD400 curves of Krinner et al. 2019 scaled by (50 K 4x, 4 K 4x, Still 3x, CP 7x, MXC 3x): ASSUMPTION chosen to match 6 W at 4 K and roughly the KIDE 100 mK figure. wall_power_w 30 kW (about 4-5 kW per watt at 4 K, nine pulse tubes plus three dilution circuits) and its profile scaling: ASSUMPTION; no vendor power figure was found. Fermilab 'Colossus'-class platforms were not found in this audit and are not modelled."
+  },
+  "cryo_cabinet_4k": {
+    "label": "Cryo cabinet for superconducting nanowire detectors (about 4 K), rack-style",
+    "stages": [
+      {"name": "50K", "t_ref_k": 45.0, "cap_ref_w": 100.0, "t_base_k": 35.0, "alpha": 1.0, "cable_len_mm": 200},
+      {"name": "4K", "t_ref_k": 4.2, "cap_ref_w": 5.0, "t_base_k": 2.8, "alpha": 1.0, "cable_len_mm": 290}
+    ],
+    "wall_power_w": 18000,
+    "max_coax_lines": 20000,
+    "wall_scale_by_profile": {"mid2030s_low": 1.0, "mid2030s": 0.85, "mid2030s_high": 0.7},
+    "source": "PsiQuantum describes 'cryogenic cabinets' analogous to datacenter racks instead of dilution refrigerators (PsiQuantum Omega announcement, 2025; one search snippet mentions 'cooling power per cabinet ~30 W' without a temperature, not used). 5 W at 4.2 K for 18 kW (3,600 W/W, a typical cryocooler-class figure) and the 20,000-fibre/line capacity: ASSUMPTION."
   }
 }

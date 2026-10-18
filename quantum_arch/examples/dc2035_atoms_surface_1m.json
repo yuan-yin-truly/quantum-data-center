@@ -1,0 +1,33 @@
+{
+  "name": "dc2035_atoms_surface_1m",
+  "description": "2035 data-centre QPU: 1 million neutral atoms, surface code, mid-2030s base scenario (ms-scale cycle, so days per Toffoli-heavy job; no cryostat)",
+  "modality": "neutral_atom",
+  "profile": "mid2030s",
+  "scheme": "ambient",
+  "n_qubits": 1000000,
+  "classical": [
+    {
+      "role": "host",
+      "device": "auto:cpu",
+      "count": 2,
+      "utilisation": 0.3,
+      "location": "RT"
+    },
+    {
+      "role": "optimizer",
+      "device": "auto:gpu",
+      "count": 4,
+      "utilisation": 0.3,
+      "location": "RT"
+    }
+  ],
+  "facility": {
+    "pue": 1.15,
+    "network_support_w": 0.0
+  },
+  "workloads": [
+    "chemistry_small",
+    "vqe_50q",
+    "qla_scalar_explicit_1m"
+  ]
+}

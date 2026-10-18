@@ -1,7 +1,45 @@
 {
-  "_note": "Decoder algorithm models. ops_per_bit_round: classical operations per syndrome bit per QEC round (order-of-magnitude assumptions, algorithm and implementation dependent). ops_kind selects which device rate applies. latency_us_d10: decode latency of a block at distance 10 on a device with latency_factor 1; scales linearly with d.",
-  "union_find": {"label": "Union-Find", "ops_per_bit_round": 300, "ops_kind": "int_ops", "latency_us_d10": 2.0, "codes": ["surface", "bivariate_bicycle"]},
-  "mwpm": {"label": "Sparse-blossom MWPM", "ops_per_bit_round": 3000, "ops_kind": "int_ops", "latency_us_d10": 20.0, "codes": ["surface"]},
-  "neural": {"label": "Neural-network decoder", "ops_per_bit_round": 100000, "ops_kind": "fp16_flops", "latency_us_d10": 50.0, "codes": ["surface"]},
-  "bp_osd": {"label": "Belief propagation + OSD", "ops_per_bit_round": 30000, "ops_kind": "int_ops", "latency_us_d10": 100.0, "codes": ["bivariate_bicycle"]}
+  "_note": "Decoder algorithm models. ops_per_bit_round: classical operations per syndrome bit per QEC round (order-of-magnitude assumptions, algorithm and implementation dependent). ops_kind selects which device rate applies. latency_us_d10: decode latency of a block at distance 10 on a device with latency_factor 1; scales linearly with d. Entries 'repetition_matching' and 'fusion_matching' are order-of-magnitude assumptions added in the mid-2030s audit.",
+  "union_find": {
+    "label": "Union-Find",
+    "ops_per_bit_round": 300,
+    "ops_kind": "int_ops",
+    "latency_us_d10": 2.0,
+    "codes": ["surface", "bivariate_bicycle"]
+  },
+  "mwpm": {
+    "label": "Sparse-blossom MWPM",
+    "ops_per_bit_round": 3000,
+    "ops_kind": "int_ops",
+    "latency_us_d10": 20.0,
+    "codes": ["surface"]
+  },
+  "neural": {
+    "label": "Neural-network decoder",
+    "ops_per_bit_round": 100000,
+    "ops_kind": "fp16_flops",
+    "latency_us_d10": 50.0,
+    "codes": ["surface"]
+  },
+  "bp_osd": {
+    "label": "Belief propagation + OSD",
+    "ops_per_bit_round": 30000,
+    "ops_kind": "int_ops",
+    "latency_us_d10": 100.0,
+    "codes": ["bivariate_bicycle"]
+  },
+  "repetition_matching": {
+    "label": "1D repetition-code matching",
+    "ops_per_bit_round": 100,
+    "ops_kind": "int_ops",
+    "latency_us_d10": 0.5,
+    "codes": ["cat_repetition"]
+  },
+  "fusion_matching": {
+    "label": "3D matching on the fusion lattice (ASSUMPTION)",
+    "ops_per_bit_round": 3000,
+    "ops_kind": "int_ops",
+    "latency_us_d10": 20.0,
+    "codes": ["fusion_network"]
+  }
 }

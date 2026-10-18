@@ -1,43 +1,168 @@
 {
-  "_note": "Qubit modalities. All numbers are ILLUSTRATIVE round values in the range of published demonstrations (2022-2025), not a specific device; edit them or override per architecture ('qubit_overrides'). 'profiles' overlay the base values: 'today' is the default, 'projected' is a scenario of improved hardware, not a forecast. Syndrome cycle = 4*t_2q + 2*t_1q + t_meas + t_reset + cycle_overhead. Line counts per qubit and electronics power are design assumptions, except where a source is given.",
+  "_note": "Qubit modalities. All numbers are ILLUSTRATIVE round values in the range of published demonstrations (2022-2026), not a specific device; edit them or override per architecture ('qubit_overrides'). Profiles overlay the base values (base = 'today'): 'today' is the calibration anchor; 'projected' is the older near-term improved scenario; 'mid2030s_low' / 'mid2030s' / 'mid2030s_high' are SCENARIOS for hardware in the mid-2030s (slow / base / fast progress), not forecasts, and 'mid2030s' is the default for new architectures. Each profile carries a 'profile_note' with its sources; a number without a cited source in the note is an assumption. Power parameters: 'apparatus_*' = the QPU module proper (lasers, optics, traps, photon sources and control electronics at the module); 'rt_overhead_*' = room-temperature support apparatus (vacuum, chillers, racks, drivers). Both are electrical power at the complete-computer boundary. Syndrome cycle = 4*t_2q + 2*t_1q + t_meas + t_reset + cycle_overhead. Line counts and electronics power are design assumptions unless a source is given. See data/scenarios_mid2030s.json for the rationale per parameter.",
   "superconducting": {
     "label": "Superconducting transmons",
-    "t_1q_ns": 25, "t_2q_ns": 40, "t_meas_ns": 500, "t_reset_ns": 100, "cycle_overhead_ns": 0,
-    "err_1q": 3e-4, "err_2q": 2.5e-3, "err_meas": 5e-3, "err_reset": 2e-3,
+    "t_1q_ns": 25,
+    "t_2q_ns": 40,
+    "t_meas_ns": 500,
+    "t_reset_ns": 100,
+    "cycle_overhead_ns": 0,
+    "err_1q": 0.0003,
+    "err_2q": 0.0025,
+    "err_meas": 0.005,
+    "err_reset": 0.002,
     "t2_us": 100,
     "nonlocal_connectivity": false,
     "qubit_density_per_mm2": 1.0,
-    "qpu_w_per_qubit": 0.0, "qpu_w_fixed": 0.0,
-    "rt_overhead_w_fixed": 0.0, "rt_overhead_w_per_qubit": 0.0,
+    "qpu_w_per_qubit": 0.0,
+    "qpu_w_fixed": 0.0,
+    "rt_overhead_w_fixed": 0.0,
+    "rt_overhead_w_per_qubit": 0.0,
     "profiles": {
-      "today": {},
-      "projected": {"err_1q": 5e-5, "err_2q": 5e-4, "err_meas": 2e-3, "err_reset": 1e-3, "t2_us": 300, "t_2q_ns": 30}
+      "today": {
+        "profile_note": "Base values: illustrative, in the range of 2024-25 superconducting QEC demonstrations; Google Willow reported error suppression Lambda about 2.14 for surface-code distances 3-5-7 (Nature 2025; confirmed via secondary coverage in this audit)."
+      },
+      "projected": {
+        "err_1q": 5e-05,
+        "err_2q": 0.0005,
+        "err_meas": 0.002,
+        "err_reset": 0.001,
+        "t2_us": 300,
+        "t_2q_ns": 30,
+        "profile_note": "Older near-term scenario (assumption)."
+      },
+      "mid2030s_low": {
+        "err_1q": 0.0001,
+        "err_2q": 0.001,
+        "err_meas": 0.003,
+        "err_reset": 0.0015,
+        "t2_us": 200,
+        "t_2q_ns": 35,
+        "t_meas_ns": 400,
+        "t_reset_ns": 100,
+        "qubit_density_per_mm2": 1.5,
+        "nonlocal_connectivity": false,
+        "profile_note": "SCENARIO (slow progress): Lambda about 4, planar nearest-neighbour only (no long-range couplers). Assumption."
+      },
+      "mid2030s": {
+        "err_1q": 3e-05,
+        "err_2q": 0.0003,
+        "err_meas": 0.001,
+        "err_reset": 0.0005,
+        "t2_us": 500,
+        "t_2q_ns": 30,
+        "t_meas_ns": 300,
+        "t_reset_ns": 80,
+        "qubit_density_per_mm2": 2.0,
+        "nonlocal_connectivity": true,
+        "profile_note": "SCENARIO (base): Lambda about 12 (vs about 2 for Willow). Long-range couplers assumed, as in IBM's qLDPC roadmap (Starling 2029: 200 logical qubits / 1e8 gates; Blue Jay 2033+: 2000 logical / 1e9 gates; company targets, not delivered). Numeric error rates and times: assumption."
+      },
+      "mid2030s_high": {
+        "err_1q": 1e-05,
+        "err_2q": 0.00015,
+        "err_meas": 0.0005,
+        "err_reset": 0.0002,
+        "t2_us": 1000,
+        "t_2q_ns": 25,
+        "t_meas_ns": 200,
+        "t_reset_ns": 50,
+        "qubit_density_per_mm2": 4.0,
+        "nonlocal_connectivity": true,
+        "profile_note": "SCENARIO (fast progress): Lambda about 28. Assumption."
+      }
     },
     "default_scheme": "rt_direct",
     "schemes": {
       "rt_direct": {
         "label": "Room-temperature electronics, one coax per control line (Krinner-style)",
-        "cryostat": "dilution_xld", "qpu_stage": "MXC",
+        "cryostat": "dilution_xld",
+        "qpu_stage": "MXC",
         "lines": [
-          {"kind": "drive", "per_qubit": 1.0, "cable": "coax_ut085_ss", "reach": "qpu",
-           "attenuation_db": {"4K": 20, "CP": 20, "MXC": 20}, "chip_power_dbm": -78, "rt_channels": 1.0, "rt_w_per_channel": 8.0},
-          {"kind": "flux", "per_qubit": 1.0, "cable": "coax_ut085_ss", "reach": "qpu",
-           "attenuation_db": {"4K": 10}, "dc_current_ma": 1.0, "r_eff_ohm": {"CP": 0.42, "MXC": 0.15},
-           "rt_channels": 1.0, "rt_w_per_channel": 5.0},
-          {"kind": "coupler", "per_qubit": 1.75, "cable": "coax_ut085_ss", "reach": "qpu",
-           "attenuation_db": {"4K": 10}, "dc_current_ma": 1.0, "r_eff_ohm": {"CP": 0.42, "MXC": 0.15},
-           "rt_channels": 1.0, "rt_w_per_channel": 5.0},
-          {"kind": "readout_in", "per_qubit": 0.125, "cable": "coax_ut085_ss", "reach": "qpu",
-           "attenuation_db": {"4K": 20, "CP": 10, "MXC": 20}, "chip_power_dbm": -120, "rt_channels": 1.0, "rt_w_per_channel": 8.0},
-          {"kind": "readout_out", "per_qubit": 0.125, "cable": {"warm": "coax_ut085_ss", "cold": "coax_ut085_nbti"},
-           "reach": "qpu", "rt_channels": 1.0, "rt_w_per_channel": 8.0},
-          {"kind": "pump", "per_qubit": 0.125, "cable": "coax_ut085_ss", "reach": "qpu",
-           "attenuation_db": {"4K": 20, "CP": 20, "MXC": 10}, "chip_power_dbm": -65, "rt_channels": 0.5, "rt_w_per_channel": 8.0}
+          {
+            "kind": "drive",
+            "per_qubit": 1.0,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 20, "CP": 20, "MXC": 20},
+            "chip_power_dbm": -78,
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          },
+          {
+            "kind": "flux",
+            "per_qubit": 1.0,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 10},
+            "dc_current_ma": 1.0,
+            "r_eff_ohm": {"CP": 0.42, "MXC": 0.15},
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 5.0
+          },
+          {
+            "kind": "coupler",
+            "per_qubit": 1.75,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 10},
+            "dc_current_ma": 1.0,
+            "r_eff_ohm": {"CP": 0.42, "MXC": 0.15},
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 5.0
+          },
+          {
+            "kind": "readout_in",
+            "per_qubit": 0.125,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 20, "CP": 10, "MXC": 20},
+            "chip_power_dbm": -120,
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          },
+          {
+            "kind": "readout_out",
+            "per_qubit": 0.125,
+            "cable": {"warm": "coax_ut085_ss", "cold": "coax_ut085_nbti"},
+            "reach": "qpu",
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          },
+          {
+            "kind": "pump",
+            "per_qubit": 0.125,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 20, "CP": 20, "MXC": 10},
+            "chip_power_dbm": -65,
+            "rt_channels": 0.5,
+            "rt_w_per_channel": 8.0
+          }
         ],
-        "electronics": [
-          {"name": "HEMT amplifiers (1 per feedline)", "stage": "4K", "w_per_qubit": 1e-3}
-        ],
-        "source": "Line mix, attenuation {4K:20, CP:20, MXC:20 dB} and signal levels: Krinner et al. 2019 (50-qubit processor, multiplexed readout of ~8 qubits). Coupler count 1.75/qubit: square lattice with tunable couplers. HEMT 8 mW per feedline: assumption."
+        "electronics": [{"name": "HEMT amplifiers (1 per feedline)", "stage": "4K", "w_per_qubit": 0.001, "scale_key": "amp_w"}],
+        "source": "Line mix, attenuation {4K:20, CP:20, MXC:20 dB} and signal levels: Krinner et al. 2019 (50-qubit processor, multiplexed readout of ~8 qubits). Coupler count 1.75/qubit: square lattice with tunable couplers. HEMT 8 mW per feedline: assumption.",
+        "profile_adjust": {
+          "mid2030s_low": {
+            "cmos_w": 0.6,
+            "amp_w": 0.8,
+            "rt_channel_w": 0.7,
+            "lines_scale": {"readout_in": 0.7, "readout_out": 0.7, "pump": 0.7}
+          },
+          "mid2030s": {
+            "cmos_w": 0.33,
+            "amp_w": 0.5,
+            "rt_channel_w": 0.4,
+            "lines_scale": {"readout_in": 0.5, "readout_out": 0.5, "pump": 0.5}
+          },
+          "mid2030s_high": {
+            "cmos_w": 0.15,
+            "amp_w": 0.3,
+            "rt_channel_w": 0.25,
+            "lines_scale": {"readout_in": 0.25, "readout_out": 0.25, "pump": 0.25}
+          }
+        },
+        "profile_cryostat": {"mid2030s_low": "dilution_2035", "mid2030s": "dilution_2035", "mid2030s_high": "dilution_2035"},
+        "profile_adjust_note": "profile_adjust (scenario, assumption): cmos_w scales cryo-CMOS power per qubit (3 mW -> 1 mW base), amp_w scales HEMT/amplifier power (more qubits per feedline), rt_channel_w scales room-temperature electronics per channel, lines_scale multiplies the per-qubit count of the named lines (readout multiplexing). profile_cryostat swaps in the large-format platform."
       },
       "rt_ut047": {
         "extends": "rt_direct",
@@ -46,141 +171,806 @@
       },
       "cryo_cmos_4k": {
         "label": "Cryo-CMOS controller at 4 K, flex cabling to the mixing chamber",
-        "cryostat": "dilution_xld", "qpu_stage": "MXC",
+        "cryostat": "dilution_xld",
+        "qpu_stage": "MXC",
         "lines": [
-          {"kind": "digital_link", "per_qubit": 0.03125, "cable": "flex_cuni_digital", "reach": "4K",
-           "rt_channels": 1.0, "rt_w_per_channel": 12.0},
-          {"kind": "drive", "per_qubit": 1.0, "cable": "flex_nbti", "start": "4K", "reach": "qpu",
-           "attenuation_db": {"MXC": 20}, "chip_power_dbm": -78},
-          {"kind": "flux", "per_qubit": 1.0, "cable": "flex_nbti", "start": "4K", "reach": "qpu",
-           "dc_current_ma": 1.0, "r_eff_ohm": {"CP": 0.05, "MXC": 0.02}},
-          {"kind": "coupler", "per_qubit": 1.75, "cable": "flex_nbti", "start": "4K", "reach": "qpu",
-           "dc_current_ma": 1.0, "r_eff_ohm": {"CP": 0.05, "MXC": 0.02}},
-          {"kind": "readout_in", "per_qubit": 0.125, "cable": "flex_nbti", "start": "4K", "reach": "qpu",
-           "attenuation_db": {"CP": 10, "MXC": 20}, "chip_power_dbm": -120},
+          {
+            "kind": "digital_link",
+            "per_qubit": 0.03125,
+            "cable": "flex_cuni_digital",
+            "reach": "4K",
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 12.0
+          },
+          {
+            "kind": "drive",
+            "per_qubit": 1.0,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "attenuation_db": {"MXC": 20},
+            "chip_power_dbm": -78
+          },
+          {
+            "kind": "flux",
+            "per_qubit": 1.0,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "dc_current_ma": 1.0,
+            "r_eff_ohm": {"CP": 0.05, "MXC": 0.02}
+          },
+          {
+            "kind": "coupler",
+            "per_qubit": 1.75,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "dc_current_ma": 1.0,
+            "r_eff_ohm": {"CP": 0.05, "MXC": 0.02}
+          },
+          {
+            "kind": "readout_in",
+            "per_qubit": 0.125,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "attenuation_db": {"CP": 10, "MXC": 20},
+            "chip_power_dbm": -120
+          },
           {"kind": "readout_out", "per_qubit": 0.125, "cable": "coax_ut085_nbti", "start": "4K", "reach": "qpu"},
-          {"kind": "pump", "per_qubit": 0.125, "cable": "flex_nbti", "start": "4K", "reach": "qpu",
-           "attenuation_db": {"MXC": 10}, "chip_power_dbm": -65}
+          {
+            "kind": "pump",
+            "per_qubit": 0.125,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "attenuation_db": {"MXC": 10},
+            "chip_power_dbm": -65
+          }
         ],
         "electronics": [
-          {"name": "cryo-CMOS controller (drive + flux DACs + readout)", "stage": "4K", "w_per_qubit": 3e-3},
-          {"name": "HEMT amplifiers (1 per feedline)", "stage": "4K", "w_per_qubit": 1e-3}
+          {
+            "name": "cryo-CMOS controller (drive + flux DACs + readout)",
+            "stage": "4K",
+            "w_per_qubit": 0.003,
+            "scale_key": "cmos_w"
+          },
+          {"name": "HEMT amplifiers (1 per feedline)", "stage": "4K", "w_per_qubit": 0.001, "scale_key": "amp_w"}
         ],
-        "source": "Cryo-CMOS 3 mW/qubit: assumption informed by Bardin et al., ISSCC 2019 (<2 mW pulse modulator at ~3 K) plus readout and flux DACs. Cold flex lines: NbTi traces, low-resistance assumption."
+        "source": "Cryo-CMOS 3 mW/qubit: assumption informed by Bardin et al., ISSCC 2019 (<2 mW pulse modulator at ~3 K) plus readout and flux DACs. Cold flex lines: NbTi traces, low-resistance assumption.",
+        "profile_adjust": {
+          "mid2030s_low": {
+            "cmos_w": 0.6,
+            "amp_w": 0.8,
+            "rt_channel_w": 0.7,
+            "lines_scale": {"readout_in": 0.7, "readout_out": 0.7, "pump": 0.7}
+          },
+          "mid2030s": {
+            "cmos_w": 0.33,
+            "amp_w": 0.5,
+            "rt_channel_w": 0.4,
+            "lines_scale": {"readout_in": 0.5, "readout_out": 0.5, "pump": 0.5}
+          },
+          "mid2030s_high": {
+            "cmos_w": 0.15,
+            "amp_w": 0.3,
+            "rt_channel_w": 0.25,
+            "lines_scale": {"readout_in": 0.25, "readout_out": 0.25, "pump": 0.25}
+          }
+        },
+        "profile_cryostat": {"mid2030s_low": "dilution_2035", "mid2030s": "dilution_2035", "mid2030s_high": "dilution_2035"},
+        "profile_adjust_note": "profile_adjust (scenario, assumption): cmos_w scales cryo-CMOS power per qubit (3 mW -> 1 mW base), amp_w scales HEMT/amplifier power (more qubits per feedline), rt_channel_w scales room-temperature electronics per channel, lines_scale multiplies the per-qubit count of the named lines (readout multiplexing). profile_cryostat swaps in the large-format platform."
       }
-    }
+    },
+    "default_code": "surface",
+    "apparatus_w_fixed": 0.0,
+    "apparatus_w_per_qubit": 0.0
   },
   "spin_silicon": {
     "label": "Silicon spin qubits",
-    "t_1q_ns": 100, "t_2q_ns": 100, "t_meas_ns": 2000, "t_reset_ns": 1000, "cycle_overhead_ns": 0,
-    "err_1q": 1e-3, "err_2q": 5e-3, "err_meas": 1e-2, "err_reset": 1e-2,
+    "t_1q_ns": 100,
+    "t_2q_ns": 100,
+    "t_meas_ns": 2000,
+    "t_reset_ns": 1000,
+    "cycle_overhead_ns": 0,
+    "err_1q": 0.001,
+    "err_2q": 0.005,
+    "err_meas": 0.01,
+    "err_reset": 0.01,
     "t2_us": 200,
     "nonlocal_connectivity": false,
     "qubit_density_per_mm2": 50.0,
-    "qpu_w_per_qubit": 0.0, "qpu_w_fixed": 0.0,
-    "rt_overhead_w_fixed": 0.0, "rt_overhead_w_per_qubit": 0.0,
+    "qpu_w_per_qubit": 0.0,
+    "qpu_w_fixed": 0.0,
+    "rt_overhead_w_fixed": 0.0,
+    "rt_overhead_w_per_qubit": 0.0,
     "profiles": {
-      "today": {},
-      "projected": {"err_1q": 2e-4, "err_2q": 1e-3, "err_meas": 2e-3, "err_reset": 2e-3, "t_meas_ns": 1000}
+      "today": {
+        "profile_note": "Base values: illustrative; Intel Tunnel Falls (12 qubits) and Diraq-class devices are research-scale (listed in the overview, not re-verified in this audit)."
+      },
+      "projected": {
+        "err_1q": 0.0002,
+        "err_2q": 0.001,
+        "err_meas": 0.002,
+        "err_reset": 0.002,
+        "t_meas_ns": 1000,
+        "profile_note": "Older near-term scenario (assumption)."
+      },
+      "mid2030s_low": {
+        "err_1q": 0.0005,
+        "err_2q": 0.003,
+        "err_meas": 0.005,
+        "err_reset": 0.005,
+        "t_meas_ns": 1500,
+        "t2_us": 200,
+        "qubit_density_per_mm2": 30.0,
+        "profile_note": "SCENARIO (slow progress). Assumption."
+      },
+      "mid2030s": {
+        "err_1q": 0.0001,
+        "err_2q": 0.001,
+        "err_meas": 0.0015,
+        "err_reset": 0.002,
+        "t_2q_ns": 60,
+        "t_meas_ns": 800,
+        "t2_us": 500,
+        "qubit_density_per_mm2": 100.0,
+        "profile_note": "SCENARIO (base). Assumption."
+      },
+      "mid2030s_high": {
+        "err_1q": 3e-05,
+        "err_2q": 0.0003,
+        "err_meas": 0.0005,
+        "err_reset": 0.0005,
+        "t_2q_ns": 40,
+        "t_meas_ns": 300,
+        "t2_us": 1000,
+        "qubit_density_per_mm2": 300.0,
+        "profile_note": "SCENARIO (fast progress). Assumption."
+      }
     },
     "default_scheme": "cryo_cmos_4k",
     "schemes": {
       "rt_direct": {
         "label": "Room-temperature DACs and RF, direct wiring to the cold plate",
-        "cryostat": "dilution_xld", "qpu_stage": "CP",
+        "cryostat": "dilution_xld",
+        "qpu_stage": "CP",
         "lines": [
-          {"kind": "dc_gates", "per_qubit": 3.0, "cable": "twisted_pair_dc", "reach": "qpu",
-           "rt_channels": 1.0, "rt_w_per_channel": 0.5},
-          {"kind": "mw_drive", "per_qubit": 0.25, "cable": "coax_ut085_ss", "reach": "qpu",
-           "attenuation_db": {"4K": 20, "CP": 10}, "chip_power_dbm": -70, "rt_channels": 1.0, "rt_w_per_channel": 8.0},
-          {"kind": "readout_in", "per_qubit": 0.125, "cable": "coax_ut085_ss", "reach": "qpu",
-           "attenuation_db": {"4K": 20, "CP": 10}, "chip_power_dbm": -100, "rt_channels": 1.0, "rt_w_per_channel": 8.0},
-          {"kind": "readout_out", "per_qubit": 0.125, "cable": {"warm": "coax_ut085_ss", "cold": "coax_ut085_nbti"},
-           "reach": "qpu", "rt_channels": 1.0, "rt_w_per_channel": 8.0}
+          {
+            "kind": "dc_gates",
+            "per_qubit": 3.0,
+            "cable": "twisted_pair_dc",
+            "reach": "qpu",
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 0.5
+          },
+          {
+            "kind": "mw_drive",
+            "per_qubit": 0.25,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 20, "CP": 10},
+            "chip_power_dbm": -70,
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          },
+          {
+            "kind": "readout_in",
+            "per_qubit": 0.125,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 20, "CP": 10},
+            "chip_power_dbm": -100,
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          },
+          {
+            "kind": "readout_out",
+            "per_qubit": 0.125,
+            "cable": {"warm": "coax_ut085_ss", "cold": "coax_ut085_nbti"},
+            "reach": "qpu",
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          }
         ],
         "electronics": [
-          {"name": "cryogenic RF amplifiers (reflectometry)", "stage": "4K", "w_per_qubit": 1e-3}
+          {
+            "name": "cryogenic RF amplifiers (reflectometry)",
+            "stage": "4K",
+            "w_per_qubit": 0.001,
+            "scale_key": "amp_w"
+          }
         ],
-        "source": "Design assumption: 3 gate DC lines + shared EDSR/ESR drive + reflectometry readout per qubit."
+        "source": "Design assumption: 3 gate DC lines + shared EDSR/ESR drive + reflectometry readout per qubit.",
+        "profile_adjust": {
+          "mid2030s_low": {"cmos_w": 0.6, "amp_w": 0.8, "rt_channel_w": 0.7, "lines_scale": {"readout_in": 0.7, "readout_out": 0.7}},
+          "mid2030s": {"cmos_w": 0.25, "amp_w": 0.5, "rt_channel_w": 0.4, "lines_scale": {"readout_in": 0.5, "readout_out": 0.5}},
+          "mid2030s_high": {
+            "cmos_w": 0.12,
+            "amp_w": 0.3,
+            "rt_channel_w": 0.25,
+            "lines_scale": {"readout_in": 0.25, "readout_out": 0.25}
+          }
+        },
+        "profile_cryostat": {"mid2030s_low": "dilution_2035", "mid2030s": "dilution_2035", "mid2030s_high": "dilution_2035"},
+        "profile_adjust_note": "As for superconducting: cryo-CMOS 8 mW/qubit today -> 2 mW (base). Scenario, assumption."
       },
       "cryo_cmos_4k": {
         "label": "Cryo-CMOS controller at 4 K, flex cabling to the cold plate",
-        "cryostat": "dilution_xld", "qpu_stage": "CP",
+        "cryostat": "dilution_xld",
+        "qpu_stage": "CP",
         "lines": [
-          {"kind": "digital_link", "per_qubit": 0.03125, "cable": "flex_cuni_digital", "reach": "4K",
-           "rt_channels": 1.0, "rt_w_per_channel": 12.0},
+          {
+            "kind": "digital_link",
+            "per_qubit": 0.03125,
+            "cable": "flex_cuni_digital",
+            "reach": "4K",
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 12.0
+          },
           {"kind": "dc_gates", "per_qubit": 3.0, "cable": "flex_nbti", "start": "4K", "reach": "qpu"},
-          {"kind": "mw_drive", "per_qubit": 0.25, "cable": "flex_nbti", "start": "4K", "reach": "qpu",
-           "attenuation_db": {"CP": 10}, "chip_power_dbm": -70},
-          {"kind": "readout_in", "per_qubit": 0.125, "cable": "flex_nbti", "start": "4K", "reach": "qpu",
-           "attenuation_db": {"CP": 10}, "chip_power_dbm": -100},
+          {
+            "kind": "mw_drive",
+            "per_qubit": 0.25,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "attenuation_db": {"CP": 10},
+            "chip_power_dbm": -70
+          },
+          {
+            "kind": "readout_in",
+            "per_qubit": 0.125,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "attenuation_db": {"CP": 10},
+            "chip_power_dbm": -100
+          },
           {"kind": "readout_out", "per_qubit": 0.125, "cable": "coax_ut085_nbti", "start": "4K", "reach": "qpu"}
         ],
         "electronics": [
-          {"name": "cryo-CMOS controller (gate DACs + MW + readout)", "stage": "4K", "w_per_qubit": 8e-3},
-          {"name": "cryogenic RF amplifiers (reflectometry)", "stage": "4K", "w_per_qubit": 1e-3}
+          {
+            "name": "cryo-CMOS controller (gate DACs + MW + readout)",
+            "stage": "4K",
+            "w_per_qubit": 0.008,
+            "scale_key": "cmos_w"
+          },
+          {
+            "name": "cryogenic RF amplifiers (reflectometry)",
+            "stage": "4K",
+            "w_per_qubit": 0.001,
+            "scale_key": "amp_w"
+          }
         ],
-        "source": "8 mW/qubit cryo-CMOS: assumption for present-day multi-channel spin-qubit controllers; the 'projected' scenario in a design would lower it."
+        "source": "8 mW/qubit cryo-CMOS: assumption for present-day multi-channel spin-qubit controllers; the 'projected' scenario in a design would lower it.",
+        "profile_adjust": {
+          "mid2030s_low": {"cmos_w": 0.6, "amp_w": 0.8, "rt_channel_w": 0.7, "lines_scale": {"readout_in": 0.7, "readout_out": 0.7}},
+          "mid2030s": {"cmos_w": 0.25, "amp_w": 0.5, "rt_channel_w": 0.4, "lines_scale": {"readout_in": 0.5, "readout_out": 0.5}},
+          "mid2030s_high": {
+            "cmos_w": 0.12,
+            "amp_w": 0.3,
+            "rt_channel_w": 0.25,
+            "lines_scale": {"readout_in": 0.25, "readout_out": 0.25}
+          }
+        },
+        "profile_cryostat": {"mid2030s_low": "dilution_2035", "mid2030s": "dilution_2035", "mid2030s_high": "dilution_2035"},
+        "profile_adjust_note": "As for superconducting: cryo-CMOS 8 mW/qubit today -> 2 mW (base). Scenario, assumption."
       }
-    }
+    },
+    "default_code": "surface",
+    "apparatus_w_fixed": 0.0,
+    "apparatus_w_per_qubit": 0.0
   },
   "trapped_ion": {
     "label": "Trapped ions (QCCD, shuttling)",
-    "t_1q_ns": 10000, "t_2q_ns": 150000, "t_meas_ns": 150000, "t_reset_ns": 50000, "cycle_overhead_ns": 1000000,
-    "err_1q": 2e-5, "err_2q": 1e-3, "err_meas": 3e-3, "err_reset": 1e-3,
+    "t_1q_ns": 10000,
+    "t_2q_ns": 150000,
+    "t_meas_ns": 150000,
+    "t_reset_ns": 50000,
+    "cycle_overhead_ns": 1000000,
+    "err_1q": 2e-05,
+    "err_2q": 0.001,
+    "err_meas": 0.003,
+    "err_reset": 0.001,
     "t2_us": 1000000,
     "nonlocal_connectivity": true,
     "qubit_density_per_mm2": 0.2,
-    "qpu_w_per_qubit": 0.0, "qpu_w_fixed": 0.0,
-    "rt_overhead_w_fixed": 3000.0, "rt_overhead_w_per_qubit": 40.0,
+    "qpu_w_per_qubit": 0.0,
+    "qpu_w_fixed": 0.0,
+    "rt_overhead_w_fixed": 13500.0,
+    "rt_overhead_w_per_qubit": 5.0,
     "profiles": {
-      "today": {},
-      "projected": {"err_2q": 2e-4, "err_meas": 5e-4, "err_reset": 3e-4, "t_2q_ns": 50000, "cycle_overhead_ns": 300000}
+      "today": {
+        "profile_note": "Power calibrated to Quantinuum Helios: 'Power consumption: less than 40 kW' for the base unit WITHOUT support infrastructure (Quantinuum Helios product page, read in this audit); Oracle/Quantinuum announcement reports about 60 kW excluding HVAC (secondary coverage). Total 98 qubits = about 34 kW is calibrated to the first figure; the split into apparatus (lasers, optics, traps) and support is an assumption. Helios: 98 qubits, 2-qubit fidelity 99.921 %, 1-qubit 99.9975 % (Quantinuum page, via search)."
+      },
+      "projected": {
+        "err_2q": 0.0002,
+        "err_meas": 0.0005,
+        "err_reset": 0.0003,
+        "t_2q_ns": 50000,
+        "cycle_overhead_ns": 300000,
+        "profile_note": "Older near-term scenario (assumption)."
+      },
+      "mid2030s_low": {
+        "err_2q": 0.0003,
+        "err_meas": 0.001,
+        "err_reset": 0.0005,
+        "t_2q_ns": 100000,
+        "t_meas_ns": 100000,
+        "cycle_overhead_ns": 500000,
+        "apparatus_w_fixed": 22000.0,
+        "apparatus_w_per_qubit": 30.0,
+        "rt_overhead_w_fixed": 15000.0,
+        "rt_overhead_w_per_qubit": 8.0,
+        "profile_note": "SCENARIO (slow progress): power per qubit barely improves over Helios. Assumption."
+      },
+      "mid2030s": {
+        "err_2q": 0.0001,
+        "err_1q": 1e-05,
+        "err_meas": 0.0003,
+        "err_reset": 0.0001,
+        "t_2q_ns": 30000,
+        "t_meas_ns": 50000,
+        "cycle_overhead_ns": 100000,
+        "apparatus_w_fixed": 12000.0,
+        "apparatus_w_per_qubit": 5.0,
+        "rt_overhead_w_fixed": 10000.0,
+        "rt_overhead_w_per_qubit": 3.0,
+        "profile_note": "SCENARIO (base): integrated photonics / electronic qubit control reduce W per qubit about 4x from Helios class. Roadmap context: Quantinuum Apollo (fault tolerant, 2029, company target), IonQ 2 million physical / up to 80,000 logical qubits by 2030 (company target). Numbers: assumption."
+      },
+      "mid2030s_high": {
+        "err_2q": 5e-05,
+        "err_1q": 5e-06,
+        "err_meas": 0.0001,
+        "err_reset": 5e-05,
+        "t_2q_ns": 15000,
+        "t_meas_ns": 30000,
+        "cycle_overhead_ns": 50000,
+        "apparatus_w_fixed": 8000.0,
+        "apparatus_w_per_qubit": 1.5,
+        "rt_overhead_w_fixed": 6000.0,
+        "rt_overhead_w_per_qubit": 1.0,
+        "profile_note": "SCENARIO (fast progress). Assumption."
+      }
     },
     "default_scheme": "ambient",
     "schemes": {
       "ambient": {
         "label": "Room-temperature UHV trap, laser control",
-        "cryostat": "ambient", "qpu_stage": null,
-        "lines": [], "electronics": [],
-        "source": "rt_overhead: lasers, vacuum pumps, RF/DC electrode drivers and controllers; round-number assumption (~3 kW fixed + 40 W/qubit)."
+        "cryostat": "ambient",
+        "qpu_stage": null,
+        "lines": [],
+        "electronics": [],
+        "source": "apparatus / rt_overhead: total calibrated to Helios (<40 kW base unit, Quantinuum); split between QPU apparatus and support infrastructure is an assumption."
       },
       "cryo_4k": {
         "label": "Cryogenic (4 K) surface trap in a pulse-tube cryostat",
-        "cryostat": "pt_4k", "qpu_stage": "4K",
+        "cryostat": "pt_4k",
+        "qpu_stage": "4K",
         "lines": [
-          {"kind": "dc_electrodes", "per_qubit": 6.0, "cable": "twisted_pair_dc", "reach": "qpu",
-           "rt_channels": 1.0, "rt_w_per_channel": 0.3},
-          {"kind": "rf_trap", "per_qubit": 0.02, "cable": "coax_ut085_ss", "reach": "qpu",
-           "rt_channels": 1.0, "rt_w_per_channel": 20.0}
+          {
+            "kind": "dc_electrodes",
+            "per_qubit": 6.0,
+            "cable": "twisted_pair_dc",
+            "reach": "qpu",
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 0.3
+          },
+          {
+            "kind": "rf_trap",
+            "per_qubit": 0.02,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 20.0
+          }
         ],
         "electronics": [
-          {"name": "trap RF losses + laser light absorbed on chip", "stage": "4K", "w_fixed": 0.3, "w_per_qubit": 2e-4}
+          {
+            "name": "trap RF losses + laser light absorbed on chip",
+            "stage": "4K",
+            "w_fixed": 0.3,
+            "w_per_qubit": 0.0002
+          }
         ],
-        "source": "Design assumption; lasers stay at room temperature and enter through windows."
+        "source": "Design assumption; lasers stay at room temperature and enter through windows.",
+        "profile_adjust": {
+          "mid2030s_low": {"rt_channel_w": 0.8},
+          "mid2030s": {"rt_channel_w": 0.5},
+          "mid2030s_high": {"rt_channel_w": 0.3}
+        }
       }
-    }
+    },
+    "default_code": "surface",
+    "apparatus_w_fixed": 18000.0,
+    "apparatus_w_per_qubit": 20.0
   },
   "neutral_atom": {
     "label": "Neutral atoms in optical tweezers (Rydberg gates)",
-    "t_1q_ns": 1000, "t_2q_ns": 400, "t_meas_ns": 3000000, "t_reset_ns": 100000, "cycle_overhead_ns": 1000000,
-    "err_1q": 1e-3, "err_2q": 3e-3, "err_meas": 5e-3, "err_reset": 5e-3,
+    "t_1q_ns": 1000,
+    "t_2q_ns": 400,
+    "t_meas_ns": 3000000,
+    "t_reset_ns": 100000,
+    "cycle_overhead_ns": 1000000,
+    "err_1q": 0.001,
+    "err_2q": 0.003,
+    "err_meas": 0.005,
+    "err_reset": 0.005,
     "t2_us": 1000000,
     "nonlocal_connectivity": true,
     "qubit_density_per_mm2": 1.0,
-    "qpu_w_per_qubit": 0.0, "qpu_w_fixed": 0.0,
-    "rt_overhead_w_fixed": 5000.0, "rt_overhead_w_per_qubit": 1.5,
+    "qpu_w_per_qubit": 0.0,
+    "qpu_w_fixed": 0.0,
+    "rt_overhead_w_fixed": 3420.0,
+    "rt_overhead_w_per_qubit": 0.158,
     "profiles": {
-      "today": {},
-      "projected": {"err_2q": 1e-3, "err_meas": 2e-3, "err_reset": 2e-3, "t_meas_ns": 1000000, "cycle_overhead_ns": 300000}
+      "today": {
+        "profile_note": "Power calibrated to QuEra Aquila as modelled in PaQit (arXiv:2608.02815): P = 6.92 kW + 0.308 W/qubit (about 7 kW at 256 qubits, about 10 kW at 10,000 qubits; PaQit cites QuEra data, not independently measured). Laser share 3.5 kW is Pasqal's quoted AVERAGE laser power (Pasqal brochure Dec 2025: laser 10 kW installed, 3.5 kW average); the rest (vacuum, drivers, cameras, control, chiller) is the remainder: assumption. Not confirmed: the overview's 'Pasqal about 2.6 kW'."
+      },
+      "projected": {
+        "err_2q": 0.001,
+        "err_meas": 0.002,
+        "err_reset": 0.002,
+        "t_meas_ns": 1000000,
+        "cycle_overhead_ns": 300000,
+        "profile_note": "Older near-term scenario (assumption)."
+      },
+      "mid2030s_low": {
+        "err_2q": 0.001,
+        "err_meas": 0.003,
+        "err_reset": 0.003,
+        "t_meas_ns": 1000000,
+        "cycle_overhead_ns": 500000,
+        "apparatus_w_fixed": 5000.0,
+        "apparatus_w_per_qubit": 0.6,
+        "rt_overhead_w_fixed": 5000.0,
+        "rt_overhead_w_per_qubit": 0.5,
+        "profile_note": "SCENARIO (slow progress): arrays grow but lasers/cameras scale with qubits. Assumption."
+      },
+      "mid2030s": {
+        "err_2q": 0.0005,
+        "err_1q": 0.0003,
+        "err_meas": 0.001,
+        "err_reset": 0.001,
+        "t_meas_ns": 500000,
+        "cycle_overhead_ns": 200000,
+        "apparatus_w_fixed": 4000.0,
+        "apparatus_w_per_qubit": 0.3,
+        "rt_overhead_w_fixed": 4000.0,
+        "rt_overhead_w_per_qubit": 0.2,
+        "profile_note": "SCENARIO (base). Roadmap context (company targets): Pasqal 10,000+ physical / 200+ logical by about 2029-30; QuEra more than 256 logical qubits, 1e-6 logical error by 2028; Atom Computing AC1000 (1,200+ qubits) with Microsoft, 50-logical-qubit system planned early 2027 (via search, secondary). Numbers: assumption."
+      },
+      "mid2030s_high": {
+        "err_2q": 0.0002,
+        "err_1q": 0.0001,
+        "err_meas": 0.0003,
+        "err_reset": 0.0003,
+        "t_meas_ns": 100000,
+        "cycle_overhead_ns": 50000,
+        "apparatus_w_fixed": 3000.0,
+        "apparatus_w_per_qubit": 0.12,
+        "rt_overhead_w_fixed": 3000.0,
+        "rt_overhead_w_per_qubit": 0.08,
+        "profile_note": "SCENARIO (fast progress). Assumption."
+      }
     },
     "default_scheme": "ambient",
     "schemes": {
       "ambient": {
         "label": "Room-temperature UHV cell, laser/AOD control",
-        "cryostat": "ambient", "qpu_stage": null,
-        "lines": [], "electronics": [],
-        "source": "rt_overhead: trap, cooling and Rydberg lasers, AOD RF drivers, cameras; round-number assumption (~5 kW fixed + 1.5 W/qubit)."
+        "cryostat": "ambient",
+        "qpu_stage": null,
+        "lines": [],
+        "electronics": [],
+        "source": "apparatus / rt_overhead: 6.92 kW + 0.308 W/qubit total from QuEra Aquila as modelled in PaQit (arXiv:2608.02815); split uses Pasqal's 3.5 kW average laser power (brochure); remainder assumption."
+      }
+    },
+    "default_code": "surface",
+    "apparatus_w_fixed": 3500.0,
+    "apparatus_w_per_qubit": 0.15
+  },
+  "cat_superconducting": {
+    "label": "Superconducting cat qubits (bosonic, bias-preserving repetition code)",
+    "t_1q_ns": 50,
+    "t_2q_ns": 200,
+    "t_meas_ns": 1000,
+    "t_reset_ns": 300,
+    "cycle_overhead_ns": 500,
+    "err_1q": 0.001,
+    "err_2q": 0.008,
+    "err_meas": 0.015,
+    "err_reset": 0.005,
+    "t2_us": 30,
+    "err_bitflip": 0.001,
+    "nonlocal_connectivity": false,
+    "qubit_density_per_mm2": 0.3,
+    "qpu_w_per_qubit": 0.0,
+    "qpu_w_fixed": 0.0,
+    "rt_overhead_w_fixed": 0.0,
+    "rt_overhead_w_per_qubit": 0.0,
+    "apparatus_w_fixed": 0.0,
+    "apparatus_w_per_qubit": 0.0,
+    "default_code": "cat_repetition",
+    "flags": "Hardware-efficient: bit flips are suppressed exponentially in photon number, so only phase flips need a repetition code (2d-1 cat/ancilla qubits per logical qubit, versus 2d^2-1 for the surface code). Residual bit flips are an uncorrectable floor. Both the code and these parameters are coarse assumptions anchored to Ocelot and Alice & Bob; a circuit-level simulation would be needed for design.",
+    "profiles": {
+      "today": {
+        "profile_note": "Anchored to AWS Ocelot (Nature 2025): distance-5 repetition code, 5 cat data qubits + 4 ancilla transmons (9 qubits vs 49 for a surface-code d=5), error-correction cycle 2-3 us, phase-flip time 27-33 us, bit-flip time > 1 ms, total logical error per cycle 1.75 % (d=3) and 1.65 % (d=5), i.e. no improvement with distance (convergedigest / postquantum coverage of the paper, via search). Parameters tuned so p_eff is at threshold: assumption."
+      },
+      "mid2030s_low": {
+        "t_2q_ns": 150,
+        "t_meas_ns": 800,
+        "t_reset_ns": 200,
+        "cycle_overhead_ns": 200,
+        "err_1q": 0.0003,
+        "err_2q": 0.004,
+        "err_meas": 0.005,
+        "err_reset": 0.0015,
+        "t2_us": 100,
+        "err_bitflip": 1e-14,
+        "profile_note": "SCENARIO (slow progress): bit-flip floor of 1e-14 per qubit-cycle makes a 1e-12 logical target unreachable (the floor grows with (2d-1) qubits x d rounds); use a looser target or more photons per cat. Assumption."
+      },
+      "mid2030s": {
+        "t_2q_ns": 100,
+        "t_1q_ns": 30,
+        "t_meas_ns": 500,
+        "t_reset_ns": 100,
+        "cycle_overhead_ns": 100,
+        "err_1q": 0.0001,
+        "err_2q": 0.0015,
+        "err_meas": 0.002,
+        "err_reset": 0.0005,
+        "t2_us": 300,
+        "err_bitflip": 1e-16,
+        "qubit_density_per_mm2": 0.6,
+        "profile_note": "SCENARIO (base): cycle about 1.2 us. Context: Gouzien et al., PRL 131, 040602 (2023) estimate 126,133 cat qubits for a 256-bit elliptic-curve logarithm in 9 h assuming kappa1/kappa2 = 1e-5, 500 ns cycle and about 19 photons per cat; Alice & Bob roadmap: 100 logical qubits (6-nines, about 2000 cat qubits) by 2030 (company target); AWS claims about 90 % lower QEC overhead from Ocelot (company claim). Numbers: assumption."
+      },
+      "mid2030s_high": {
+        "t_2q_ns": 60,
+        "t_1q_ns": 20,
+        "t_meas_ns": 300,
+        "t_reset_ns": 60,
+        "cycle_overhead_ns": 50,
+        "err_1q": 3e-05,
+        "err_2q": 0.0005,
+        "err_meas": 0.0008,
+        "err_reset": 0.0002,
+        "t2_us": 1000,
+        "err_bitflip": 1e-18,
+        "qubit_density_per_mm2": 1.0,
+        "profile_note": "SCENARIO (fast progress): approaches the Gouzien et al. assumptions. Assumption."
+      },
+      "projected": {
+        "t_2q_ns": 150,
+        "t_meas_ns": 800,
+        "t_reset_ns": 200,
+        "cycle_overhead_ns": 200,
+        "err_1q": 0.0003,
+        "err_2q": 0.004,
+        "err_meas": 0.005,
+        "err_reset": 0.0015,
+        "t2_us": 100,
+        "err_bitflip": 1e-14,
+        "profile_note": "Alias scenario for backward compatibility: same values as mid2030s_low (this modality has no older 'projected' set). SCENARIO (slow progress): bit-flip floor of 1e-14 per qubit-cycle makes a 1e-12 logical target unreachable (the floor grows with (2d-1) qubits x d rounds); use a looser target or more photons per cat. Assumption."
+      }
+    },
+    "default_scheme": "rt_direct",
+    "schemes": {
+      "rt_direct": {
+        "label": "Room-temperature electronics; drive, buffer pump and readout coax per cat qubit",
+        "cryostat": "dilution_xld",
+        "qpu_stage": "MXC",
+        "lines": [
+          {
+            "kind": "drive",
+            "per_qubit": 1.0,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 20, "CP": 20, "MXC": 20},
+            "chip_power_dbm": -78,
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          },
+          {
+            "kind": "buffer_pump",
+            "per_qubit": 1.0,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 20, "CP": 20, "MXC": 10},
+            "chip_power_dbm": -65,
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          },
+          {
+            "kind": "readout_in",
+            "per_qubit": 0.125,
+            "cable": "coax_ut085_ss",
+            "reach": "qpu",
+            "attenuation_db": {"4K": 20, "CP": 10, "MXC": 20},
+            "chip_power_dbm": -120,
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          },
+          {
+            "kind": "readout_out",
+            "per_qubit": 0.125,
+            "cable": {"warm": "coax_ut085_ss", "cold": "coax_ut085_nbti"},
+            "reach": "qpu",
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 8.0
+          }
+        ],
+        "electronics": [{"name": "HEMT amplifiers (1 per feedline)", "stage": "4K", "w_per_qubit": 0.001, "scale_key": "amp_w"}],
+        "profile_adjust": {
+          "mid2030s_low": {"cmos_w": 0.6, "amp_w": 0.8, "rt_channel_w": 0.7, "lines_scale": {"readout_in": 0.7, "readout_out": 0.7}},
+          "mid2030s": {"cmos_w": 0.33, "amp_w": 0.5, "rt_channel_w": 0.4, "lines_scale": {"readout_in": 0.5, "readout_out": 0.5}},
+          "mid2030s_high": {
+            "cmos_w": 0.15,
+            "amp_w": 0.3,
+            "rt_channel_w": 0.25,
+            "lines_scale": {"readout_in": 0.25, "readout_out": 0.25}
+          }
+        },
+        "profile_cryostat": {"mid2030s_low": "dilution_2035", "mid2030s": "dilution_2035", "mid2030s_high": "dilution_2035"},
+        "source": "ASSUMPTION modelled on the transmon rt_direct scheme (Krinner et al. 2019 line mix) with no flux/coupler lines (fixed-frequency cats) and one buffer-pump line per cat qubit (Ocelot drives the buffer mode with a two-photon dissipation pump)."
+      },
+      "cryo_cmos_4k": {
+        "label": "Cryo-CMOS controller at 4 K, flex cabling to the mixing chamber",
+        "cryostat": "dilution_xld",
+        "qpu_stage": "MXC",
+        "lines": [
+          {
+            "kind": "digital_link",
+            "per_qubit": 0.03125,
+            "cable": "flex_cuni_digital",
+            "reach": "4K",
+            "rt_channels": 1.0,
+            "rt_w_per_channel": 12.0
+          },
+          {
+            "kind": "drive",
+            "per_qubit": 1.0,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "attenuation_db": {"MXC": 20},
+            "chip_power_dbm": -78
+          },
+          {
+            "kind": "buffer_pump",
+            "per_qubit": 1.0,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "attenuation_db": {"MXC": 10},
+            "chip_power_dbm": -65
+          },
+          {
+            "kind": "readout_in",
+            "per_qubit": 0.125,
+            "cable": "flex_nbti",
+            "start": "4K",
+            "reach": "qpu",
+            "attenuation_db": {"CP": 10, "MXC": 20},
+            "chip_power_dbm": -120
+          },
+          {"kind": "readout_out", "per_qubit": 0.125, "cable": "coax_ut085_nbti", "start": "4K", "reach": "qpu"}
+        ],
+        "electronics": [
+          {
+            "name": "cryo-CMOS controller (drive + pump + readout)",
+            "stage": "4K",
+            "w_per_qubit": 0.003,
+            "scale_key": "cmos_w"
+          },
+          {"name": "HEMT amplifiers (1 per feedline)", "stage": "4K", "w_per_qubit": 0.001, "scale_key": "amp_w"}
+        ],
+        "profile_adjust": {
+          "mid2030s_low": {"cmos_w": 0.6, "amp_w": 0.8, "rt_channel_w": 0.7, "lines_scale": {"readout_in": 0.7, "readout_out": 0.7}},
+          "mid2030s": {"cmos_w": 0.33, "amp_w": 0.5, "rt_channel_w": 0.4, "lines_scale": {"readout_in": 0.5, "readout_out": 0.5}},
+          "mid2030s_high": {
+            "cmos_w": 0.15,
+            "amp_w": 0.3,
+            "rt_channel_w": 0.25,
+            "lines_scale": {"readout_in": 0.25, "readout_out": 0.25}
+          }
+        },
+        "profile_cryostat": {"mid2030s_low": "dilution_2035", "mid2030s": "dilution_2035", "mid2030s_high": "dilution_2035"},
+        "source": "ASSUMPTION: as the transmon cryo_cmos_4k scheme plus one buffer-pump line per cat qubit."
+      }
+    }
+  },
+  "photonic": {
+    "label": "Photonic, fusion-based (room-temperature optics, cryogenic detectors)",
+    "t_1q_ns": 5,
+    "t_2q_ns": 100,
+    "t_meas_ns": 100,
+    "t_reset_ns": 0,
+    "cycle_overhead_ns": 490,
+    "err_1q": 0.01,
+    "err_2q": 0.05,
+    "err_meas": 0.02,
+    "err_reset": 0.0,
+    "t2_us": 1000000000000.0,
+    "nonlocal_connectivity": false,
+    "qubit_density_per_mm2": 5.0,
+    "qpu_w_per_qubit": 0.0,
+    "qpu_w_fixed": 0.0,
+    "rt_overhead_w_fixed": 0.0,
+    "rt_overhead_w_per_qubit": 0.0,
+    "apparatus_w_fixed": 3000.0,
+    "apparatus_w_per_qubit": 0.0,
+    "default_code": "fusion_network",
+    "flags": "A 'physical qubit' here is one active resource-state generator (time-multiplexed); loss is folded into the effective fusion error err_2q; there is no idle decoherence (photons do not decohere in flight). Fusion-based computation is NOT a surface code: its overhead, threshold and clock are coarse assumptions here, to be replaced by a fusion-network simulation (Bartolucci et al., Nature Commun. 14, 912, 2023) before any design decision.",
+    "profiles": {
+      "today": {
+        "profile_note": "Power: Quandela Ascella, 6 qubits, 3 kW 'main system' (Quandela product page and 2025 whitepaper; the whitepaper adds that only the photon source and detectors are cryogenic, in a compact cryostat built into the rack, so this figure includes the cryostat; an independent review, arXiv:2409.08229, gives 'under 3 kW on 220 V AC'). Error rates: assumption, far above any fault-tolerance threshold."
+      },
+      "mid2030s_low": {
+        "err_1q": 0.002,
+        "err_2q": 0.006,
+        "err_meas": 0.005,
+        "apparatus_w_fixed": 30000.0,
+        "apparatus_w_per_qubit": 1.2,
+        "profile_note": "SCENARIO (slow progress). Assumption."
+      },
+      "mid2030s": {
+        "err_1q": 0.0005,
+        "err_2q": 0.0025,
+        "err_meas": 0.002,
+        "apparatus_w_fixed": 20000.0,
+        "apparatus_w_per_qubit": 0.6,
+        "profile_note": "SCENARIO (base): Lambda about 3. Context, NOT a calibration: Quandela's 2026 roadmap says systems with hundreds of logical qubits should stay below 500 kW (company projection, based on a hybrid emitter scheme it says needs about 12 components per logical qubit instead of about a million); this generic fusion-network model with Lambda about 3 needs far more generators per logical qubit and is therefore much more pessimistic. PsiQuantum (Omega chipset, 2025) states cabinet-based cryogenics instead of dilution refrigerators and plans sites in Brisbane and Chicago; no power figure was found. Numbers: assumption."
+      },
+      "mid2030s_high": {
+        "err_1q": 0.0002,
+        "err_2q": 0.0012,
+        "err_meas": 0.0008,
+        "apparatus_w_fixed": 15000.0,
+        "apparatus_w_per_qubit": 0.3,
+        "profile_note": "SCENARIO (fast progress). Assumption."
+      },
+      "projected": {
+        "err_1q": 0.002,
+        "err_2q": 0.006,
+        "err_meas": 0.005,
+        "apparatus_w_fixed": 30000.0,
+        "apparatus_w_per_qubit": 1.2,
+        "profile_note": "Alias scenario for backward compatibility: same values as mid2030s_low (this modality has no older 'projected' set). SCENARIO (slow progress). Assumption."
+      }
+    },
+    "default_scheme": "fbqc_snspd",
+    "schemes": {
+      "ambient": {
+        "label": "Rack-integrated source and detectors (Ascella-style; cryostat inside the rack figure)",
+        "cryostat": "ambient",
+        "qpu_stage": null,
+        "lines": [],
+        "electronics": [],
+        "source": "Today's 3 kW rack figure (Quandela) already includes its compact cryostat, so no separate cryostat is modelled."
+      },
+      "fbqc_snspd": {
+        "label": "Optical network at room temperature; superconducting nanowire detectors in cryo cabinets (~4 K)",
+        "cryostat": "cryo_cabinet_4k",
+        "qpu_stage": "4K",
+        "lines": [
+          {"kind": "fiber_out", "per_qubit": 0.1, "cable": "fiber_silica", "reach": "4K"},
+          {
+            "kind": "detector_bias_readout",
+            "per_qubit": 0.002,
+            "cable": "coax_ut047_ss",
+            "reach": "4K",
+            "rt_channels": 0.0
+          }
+        ],
+        "electronics": [{"name": "SNSPD bias and cryogenic readout", "stage": "4K", "w_per_qubit": 0.0001, "scale_key": "snspd_w"}],
+        "profile_adjust": {
+          "mid2030s_low": {"snspd_w": 3.0, "lines_scale": {}},
+          "mid2030s": {"snspd_w": 1.0, "lines_scale": {}},
+          "mid2030s_high": {"snspd_w": 0.5, "lines_scale": {}}
+        },
+        "source": "ASSUMPTION: about 0.1 fibres and 0.002 multiplexed coax per generator; 0.1 mW per generator of cold detector/readout dissipation; lasers, modulators, FPGAs are counted in apparatus_w_*. Room-temperature optical circuits dissipate in the apparatus term."
       }
     }
   }

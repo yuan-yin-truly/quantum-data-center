@@ -74,6 +74,10 @@ def to_dict(r: Result) -> dict:
         "power_w": r.power_w,
         "total_power_w": r.total_power_w,
         "facility_power_w": r.metrics["facility_power_w"],
+        "power_boundaries": r.boundaries,
+        "boundary_note": "total_power_w and power_w are the SYSTEM boundary (complete quantum computer); facility_power_w "
+                         "is (system + network/support) x PUE; power_boundaries.module separates the QPU module and the "
+                         "thermal cold-stage heat load (not wall power)",
         "metrics": {k: _finite(v) for k, v in r.metrics.items()},
         "classical_blocks": [{"role": b.role, "device": b.device.label, "count": b.count, "location": b.location,
                               "utilisation": b.utilisation, "power_w": b.power_w, "keeps_up": b.keeps_up}
@@ -111,10 +115,14 @@ def _table(headers: list[str], rows: Iterable[list[str]]) -> str:
 
 
 def _advantage(ratio: float) -> str:
-    """Quantum energy against the classical alternative; ratio = classical / quantum."""
+    """Quantum energy against the classical alternative; ratio = classical / quantum.
+
+    A same-problem, same-boundary ratio for ONE workload under this model's assumptions; it is not a
+    replacement ratio and does not carry over to other workloads.
+    """
     if ratio >= 1:
-        return f" (quantum uses {ratio:.2g}× less)"
-    return f" (quantum uses {1 / ratio:.2g}× more)"
+        return f" (this job: quantum {ratio:.2g}× less energy)"
+    return f" (this job: quantum {1 / ratio:.2g}× more energy)"
 
 
 def summary_markdown(r: Result) -> str:
@@ -144,15 +152,27 @@ def summary_markdown(r: Result) -> str:
                   f"{d['required_ops_per_s']:.3g} op/s, decode latency {human_time(d['latency_s'])}, "
                   f"control reaction time {human_time(d['reaction_time_s'])}."]
 
+    b = r.boundaries
     L += ["", "## Energy", "",
           _table(["consumer", "power", "share"], [
               [k, _fmt_w(v), f"{100 * v / r.total_power_w:.1f} %"]
               for k, v in sorted(r.power_w.items(), key=lambda kv: -kv[1])]
-              + [["**total (system)**", f"**{_fmt_w(r.total_power_w)}**", ""],
-                 [f"with facility overhead (PUE {r.arch['facility']['pue']})", _fmt_w(m['facility_power_w']), ""]]),
+              + [["**total, complete computer (system boundary)**", f"**{_fmt_w(r.total_power_w)}**", ""]]),
           "",
-          f"Energy per physical 2-qubit gate (all qubits busy): {m['energy_per_2q_gate_j']:.3g} J. "
-          + (f"Energy per logical operation: {m['energy_per_logical_op_j']:.3g} J." if cap.rqops else "")]
+          "Power at the three measurement boundaries (they are different quantities; never compare numbers across them):", "",
+          _table(["boundary", "power", "what it contains"], [
+              ["1. QPU module (electrical)", _fmt_w(b["module"]["electrical_w"]),
+               "module apparatus (lasers, optics, traps, sources) + supply of electronics inside the cryostat"]]
+              + ([["   cold-stage heat load (thermal, not wall power)", _fmt_w(b["module"]["cold_heat_load_w"]),
+                   "heat lifted by the cryostat stages: cable conduction, attenuators, cold electronics"]] if r.cryo else [])
+              + [["2. Complete computer (system)", _fmt_w(b["system"]["power_w"]),
+                  "everything above incl. cryostat compressors, room-temperature control, decoders, host; no facility cooling"],
+                 [f"3. Facility (PUE {b['facility']['pue']:g})", _fmt_w(b["facility"]["power_w"]),
+                  "(system + network/support" + (f" {_fmt_w(b['facility']['network_support_w'])}" if b['facility']['network_support_w'] else "")
+                  + ") x PUE; includes heat rejection and chilled water"]]),
+          "",
+          f"Energy per physical 2-qubit gate (all qubits busy, system boundary): {m['energy_per_2q_gate_j']:.3g} J. "
+          + (f"Energy per logical operation (system boundary): {m['energy_per_logical_op_j']:.3g} J." if cap.rqops else "")]
     if r.cryo:
         L[-1] += (f" Thermodynamic (Carnot) floor for the cryostat heat loads: {_fmt_w(r.cryo.carnot_floor_w)}, "
                   f"against {_fmt_w(r.cryo.wall_power_w)} installed.")
@@ -177,11 +197,13 @@ def summary_markdown(r: Result) -> str:
                  f"{abs(p.removed_w - p.injected_w) / max(p.injected_w, 1e-30):.1e} rel. err."] for p in r.plates])]
         L += [f"- {n}" for n in r.plate_notes]
 
-    L += ["", "## Workloads", "",
+    L += ["", "## Workloads (energy at the system boundary; classical alternative at the same boundary)", "",
           _table(["workload", "result", "time", "energy", "classical alternative"], [
               [w["label"],
-               (f"d={w['distance']}, {w['physical_qubits_used']:,} qubits ({w['bound']})" if w.get("feasible")
-                and w["type"] == "fault_tolerant" else
+               (f"d={w['distance']}, {w['physical_qubits_used']:,} qubits" + (f" ({w['bound']})" if w.get("bound") else "")
+                + (f", {w['io_overhead_share']:.0%} of gates beyond one inversion (loading, read-out repeats); no advantage claimed"
+                   if w.get("io_overhead_share") is not None else "")
+                if w.get("feasible") and w["type"] in ("fault_tolerant", "quantum_linear_algebra") else
                 (f"fidelity {w['circuit_fidelity']:.2g}" if w.get("feasible") else "✗ " + w["reason"])),
                w.get("runtime", "—"), w.get("energy", "—"),
                (f"{w['classical_energy']}" + (_advantage(w["energy_advantage"]) if "energy_advantage" in w else "")
@@ -302,7 +324,8 @@ def comparison_rows(results: list[Result]) -> list[dict]:
             "architecture": r.arch.name, "modality": r.modality["label"], "qubits": r.arch["n_qubits"],
             "p_eff": r.budget.p_eff, "lambda": cap.lam, "cycle_s": r.budget.cycle_s,
             "logical_qubits": cap.logical_qubits, "distance": cap.distance or 0, "rqops": cap.rqops,
-            "power_w": r.total_power_w, "energy_per_logical_op_j": m["energy_per_logical_op_j"],
+            "power_w": r.total_power_w, "facility_power_w": m["facility_power_w"],
+            "module_power_w": m["qpu_module_w"], "energy_per_logical_op_j": m["energy_per_logical_op_j"],
             "energy_per_2q_gate_j": m["energy_per_2q_gate_j"],
             "fridge_units": m["fridge_units"], "worst_stage_utilisation": worst,
             "feasible_single_fridge": (not r.cryo) or r.cryo.feasible_single_unit,
@@ -312,10 +335,10 @@ def comparison_rows(results: list[Result]) -> list[dict]:
 
 def comparison_markdown(results: list[Result]) -> str:
     rows = comparison_rows(results)
-    t = _table(["architecture", "qubits", "Λ", "logical qubits", "d", "rQOPS", "power", "J / logical op",
-                "fridges", "worst stage util."], [[
+    t = _table(["architecture", "qubits", "Λ", "logical qubits", "d", "rQOPS", "system power", "facility power",
+                "J / logical op (system)", "fridges", "worst stage util."], [[
         x["architecture"], f"{x['qubits']:,}", f"{x['lambda']:.2f}", f"{x['logical_qubits']:,}", x["distance"] or "—",
-        f"{x['rqops']:.3g}" if x["rqops"] else "—", _fmt_w(x["power_w"]),
+        f"{x['rqops']:.3g}" if x["rqops"] else "—", _fmt_w(x["power_w"]), _fmt_w(x["facility_power_w"]),
         f"{x['energy_per_logical_op_j']:.3g}" if math.isfinite(x["energy_per_logical_op_j"]) else "—",
         x["fridge_units"] or "none", f"{x['worst_stage_utilisation']:.0%}" if x["fridge_units"] else "—"] for x in rows])
     wl_keys = list(dict.fromkeys(k for r in results for k in r.workloads))
@@ -323,7 +346,10 @@ def comparison_markdown(results: list[Result]) -> str:
                                     for k in wl_keys], [[r.arch.name] + [
         (f"{r.workloads[k]['runtime']}, {r.workloads[k]['energy']}" if r.workloads[k].get("feasible") else "✗")
         for k in wl_keys] for r in results])
-    return f"# Architecture comparison\n\n{t}\n\n## Workloads (time, energy)\n\n{wl}\n"
+    note = ("Power is quoted at the boundary named in each column header (system = complete quantum computer; facility = incl. "
+            "PUE and network). rQOPS compares gate-based machines only; annealers and photonic networks use their own metrics "
+            "or coarse models (see README_QUANTUM.md).")
+    return f"# Architecture comparison\n\n{note}\n\n{t}\n\n## Workloads (time, system-boundary energy)\n\n{wl}\n"
 
 
 def fig_comparison(results: list[Result], path: Path) -> None:

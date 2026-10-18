@@ -1,38 +1,97 @@
 {
-  "_note": "Application workloads. 'fault_tolerant' workloads are given in logical resources (algorithm qubits, Toffoli/CCZ count and depth); 'variational' workloads run on physical qubits without error correction. classical_ops is the cost of the best classical alternative where one is quoted (None = no feasible classical method). Resource counts are from the cited papers, rounded.",
+  "_note": "Application workloads. 'fault_tolerant' workloads are given in logical resources (algorithm qubits, Toffoli/CCZ count and depth); 'variational' workloads run on physical qubits without error correction. classical_ops is the cost of the best classical alternative where one is quoted (None = no feasible classical method). Resource counts are from the cited papers, rounded. Types: 'fault_tolerant', 'variational', and 'quantum_linear_algebra' (added in the mid-2030s audit: an HHL/QSVT-style job with an EXPLICIT data-loading and read-out overhead; 'claim_quantum_advantage' is false by default and nothing in this package asserts a speed-up for AI or ordinary matrix multiplication).",
   "shor_rsa2048": {
     "label": "Shor, RSA-2048",
     "type": "fault_tolerant",
-    "logical_qubits": 1400, "toffoli_count": 6.5e9, "toffoli_depth": 6.5e9, "error_budget": 0.1,
-    "classical_ops": 6e35,
-    "source": "Gidney, arXiv:2505.15917 (2025): ~1.4k logical qubits, ~6.5e9 Toffoli (secondary-source figure; verify). Classical: GNFS L[1/3] heuristic, order of magnitude."
+    "logical_qubits": 1400,
+    "toffoli_count": 6500000000.0,
+    "toffoli_depth": 6500000000.0,
+    "error_budget": 0.1,
+    "classical_ops": 6e+35,
+    "source": "Gidney, arXiv:2505.15917 (2025): ~1.4k logical qubits, ~6.5e9 Toffoli (secondary-source figure; the 2026-10 audit confirmed the paper's headline claim of under a million noisy qubits in under a week at 0.1 % error / 1 us cycle, and a ~6.5e9 Toffoli count only via a truncated secondary snippet; the 1.4k logical-qubit figure was not found). Classical: GNFS L[1/3] heuristic, order of magnitude."
   },
   "femoco_thc": {
     "label": "FeMoco ground-state energy (THC qubitization)",
     "type": "fault_tolerant",
-    "logical_qubits": 2196, "toffoli_count": 6.7e9, "toffoli_depth": 6.7e9, "error_budget": 0.1,
+    "logical_qubits": 2196,
+    "toffoli_count": 6700000000.0,
+    "toffoli_depth": 6700000000.0,
+    "error_budget": 0.1,
     "classical_ops": null,
     "source": "Lee et al., PRX Quantum 2, 030305 (2021); counts as quoted in arXiv:2108.12371 (verify against the paper)."
   },
   "chemistry_small": {
     "label": "Small active-space chemistry (100 logical qubits)",
     "type": "fault_tolerant",
-    "logical_qubits": 100, "toffoli_count": 1e8, "toffoli_depth": 1e8, "error_budget": 0.1,
+    "logical_qubits": 100,
+    "toffoli_count": 100000000.0,
+    "toffoli_depth": 100000000.0,
+    "error_budget": 0.1,
     "classical_ops": null,
-    "source": "Illustrative mid-size fault-tolerant task for architecture comparison."
+    "source": "ASSUMPTION: illustrative mid-size fault-tolerant task for architecture comparison (not from a paper)."
   },
   "vqe_50q": {
     "label": "Variational solver, 50 qubits, GPU optimiser",
     "type": "variational",
-    "n_qubits": 50, "layers": 20, "shots_per_iteration": 20000, "iterations": 500,
-    "classical_flops_per_iteration": 2e12, "min_circuit_fidelity": 0.02,
-    "source": "Illustrative hybrid loop: each iteration samples the circuit, then a GPU step updates the parameters."
+    "n_qubits": 50,
+    "layers": 20,
+    "shots_per_iteration": 20000,
+    "iterations": 500,
+    "classical_flops_per_iteration": 2000000000000.0,
+    "min_circuit_fidelity": 0.02,
+    "source": "ASSUMPTION: illustrative hybrid loop; each iteration samples the circuit, then a GPU step updates the parameters."
   },
   "vqe_20q": {
     "label": "Variational solver, 20 qubits, GPU optimiser",
     "type": "variational",
-    "n_qubits": 20, "layers": 10, "shots_per_iteration": 10000, "iterations": 500,
-    "classical_flops_per_iteration": 5e11, "min_circuit_fidelity": 0.05,
-    "source": "Illustrative; small enough that exact classical simulation is cheap, which makes the energy comparison instructive."
+    "n_qubits": 20,
+    "layers": 10,
+    "shots_per_iteration": 10000,
+    "iterations": 500,
+    "classical_flops_per_iteration": 500000000000.0,
+    "min_circuit_fidelity": 0.05,
+    "source": "ASSUMPTION: illustrative; small enough that exact classical simulation is cheap, which makes the energy comparison instructive."
+  },
+  "qla_full_vector_1m": {
+    "label": "Quantum linear solve, N = 2^20, full solution vector read out",
+    "type": "quantum_linear_algebra",
+    "n_dim": 1048576,
+    "sparsity": 10,
+    "kappa": 100,
+    "epsilon": 0.01,
+    "output": "full_vector",
+    "input_model": "explicit_loading",
+    "rot_bits": 16,
+    "error_budget": 0.1,
+    "claim_quantum_advantage": false,
+    "source": "Illustrative cost model (qsvt: queries = 2 kappa ln(2/eps); block encoding 4 s log2 N Toffoli; loading N x rot_bits Toffoli per run; full-vector tomography needs about N/eps^2 runs). Order of magnitude, ASSUMPTION. Classical: conjugate gradient, 2 N s sqrt(kappa) ln(2/eps) flops."
+  },
+  "qla_scalar_explicit_1m": {
+    "label": "Quantum linear solve, N = 2^20, one scalar observable of the solution (explicit data loading)",
+    "type": "quantum_linear_algebra",
+    "n_dim": 1048576,
+    "sparsity": 10,
+    "kappa": 100,
+    "epsilon": 0.01,
+    "output": "scalar",
+    "input_model": "explicit_loading",
+    "rot_bits": 16,
+    "error_budget": 0.1,
+    "claim_quantum_advantage": false,
+    "source": "As qla_full_vector_1m, but amplitude estimation: (loading + inversion) / eps Toffoli in one coherent run. ASSUMPTION."
+  },
+  "qla_scalar_implicit_1e12": {
+    "label": "Quantum linear solve, N = 2^40, scalar observable, input given by an efficient oracle (no explicit loading)",
+    "type": "quantum_linear_algebra",
+    "n_dim": 1099511627776,
+    "sparsity": 10,
+    "kappa": 100,
+    "epsilon": 0.01,
+    "output": "scalar",
+    "input_model": "implicit_oracle",
+    "rot_bits": 16,
+    "error_budget": 0.1,
+    "claim_quantum_advantage": false,
+    "source": "The regime where QLA is argued to matter at all: structured problem, efficiently describable input, one number out, well-conditioned. Whether a classical method with comparable cost exists (e.g. tensor networks) is NOT assessed; no advantage is claimed. ASSUMPTION."
   }
 }

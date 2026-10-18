@@ -64,11 +64,12 @@ class Fridge:
 
     @classmethod
     def from_catalog(cls, key: str, capacity_scale: float = 1.0,
-                     targets_k: dict[str, float] | None = None) -> "Fridge":
+                     targets_k: dict[str, float] | None = None, profile: str | None = None) -> "Fridge":
         raw = catalog.entry("fridges", key)
+        wall_scale = raw.get("wall_scale_by_profile", {}).get(profile or "", 1.0)
         fridge = cls(key=key, label=raw["label"],
                      stages=[Stage(**s) for s in raw["stages"]],
-                     wall_power_w=float(raw["wall_power_w"]),
+                     wall_power_w=float(raw["wall_power_w"]) * wall_scale,
                      max_coax_lines=int(raw["max_coax_lines"]),
                      source=raw.get("source", ""),
                      capacity_scale=capacity_scale)

@@ -1,0 +1,967 @@
+{
+  "result": {
+    "name": "dc2035_ai_serving",
+    "profile": "mid2030s",
+    "policy": "time_and_energy",
+    "facility": {
+      "pue": 1.15,
+      "network_overhead_fraction": 0.08,
+      "rho_max": 0.85
+    },
+    "gpu_device": "Accelerator module (base)",
+    "cpu_device": "Server CPU socket (~512 cores) (base)",
+    "gpu_module_w": 5000,
+    "gpu_system_overhead_ratio": 1.35,
+    "pools": {
+      "sc_surface": {
+        "kind": "gate",
+        "label": "dc2035_sc_surface_300k",
+        "busy_power_w": 2910952.3688272727,
+        "standby_power_w": 2866990.4737654547,
+        "facility_busy_power_w": 3615402.8420834728,
+        "warnings": []
+      },
+      "annealer": {
+        "kind": "annealer",
+        "label": "annealer",
+        "busy_power_w": 14000.0,
+        "standby_power_w": 10640.0,
+        "facility_busy_power_w": 17388.0,
+        "warnings": []
+      }
+    },
+    "scenarios": {
+      "gpu_only": {
+        "scenario": "gpu_only",
+        "gpus": 1600.0,
+        "gpu_fraction_removed": 0.0,
+        "gpu_utilisation": 0.7,
+        "gpu_stable": true,
+        "quantum_pools": {},
+        "power_w": {
+          "module": 6126000.0,
+          "system": 8298600.0,
+          "facility": 10306861.2,
+          "by_pool_system_w": {
+            "gpu": 8013600.0,
+            "cpu": 285000.0
+          }
+        },
+        "capacity": {
+          "max_demand_scale": 1.2142857142857144,
+          "ordinary_ai_scale": 1.2521008403361344,
+          "ordinary_ai_headroom_gpus": 1192.0,
+          "ordinary_ai_demand_gpus": 952.0
+        },
+        "classes": [
+          {
+            "class": "llm_serving",
+            "demand_share": 0.5,
+            "answers_per_s": 140403.2,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.0,
+            "ordinary_ai": true,
+            "gpu_turnaround_s": 0.00398851308232291,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 0.00398851308232291,
+            "facility_j_per_accepted_answer": 35.443961391193355,
+            "gpu_only_marginal_j_per_answer": 33.43769942565412,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 1.1079203006452527e-06,
+            "breakeven_classical_gpu_hours": null,
+            "note": ""
+          },
+          {
+            "class": "llm_training",
+            "demand_share": 0.35,
+            "answers_per_s": 5.9076003086419746e-06,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.0,
+            "ordinary_ai": true,
+            "gpu_turnaround_s": 626361.7699115041,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 626361.7699115041,
+            "facility_j_per_accepted_answer": 589666148352.0,
+            "gpu_only_marginal_j_per_answer": 556288819200.0,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 18432.0,
+            "breakeven_classical_gpu_hours": null,
+            "note": ""
+          },
+          {
+            "class": "engineering_simulation",
+            "demand_share": 0.1,
+            "answers_per_s": 0.00024305555555555552,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.0,
+            "ordinary_ai": false,
+            "gpu_turnaround_s": 30928.619672484627,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 30928.619672484627,
+            "facility_j_per_accepted_answer": 4094903808.0,
+            "gpu_only_marginal_j_per_answer": 3863116800.0,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 128.0,
+            "breakeven_classical_gpu_hours": null,
+            "note": ""
+          },
+          {
+            "class": "materials_chemistry",
+            "demand_share": 0.03,
+            "answers_per_s": 1.2152777777777775e-05,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.3,
+            "ordinary_ai": false,
+            "gpu_turnaround_s": 90947.36842105261,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 90947.36842105261,
+            "facility_j_per_accepted_answer": 24569422847.999996,
+            "gpu_only_marginal_j_per_answer": 23178700800.0,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 768.0,
+            "breakeven_classical_gpu_hours": null,
+            "note": "no quantum system of this kind in the scenario"
+          },
+          {
+            "class": "scheduling_optimisation",
+            "demand_share": 0.02,
+            "answers_per_s": 0.27999999999999997,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.5,
+            "ordinary_ai": false,
+            "gpu_turnaround_s": 13.572119318604477,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 13.572119318604477,
+            "facility_j_per_accepted_answer": 710920.7999999999,
+            "gpu_only_marginal_j_per_answer": 670680.0,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 0.022222222222222223,
+            "breakeven_classical_gpu_hours": null,
+            "note": "no quantum system of this kind in the scenario"
+          }
+        ],
+        "work_gpu_seconds_per_s": 1120.0,
+        "facility_j_per_baseline_gpu_second": 9202.554642857142,
+        "added_facility_power_w_vs_gpu_only": 0.0,
+        "movable_share_of_demand": 0.0,
+        "served_fraction": 1.0,
+        "comparison": {
+          "ordinary_ai_capacity_ratio": 1.0,
+          "ordinary_ai_capacity_change_gpus": 0.0,
+          "max_total_demand_ratio": 1.0,
+          "facility_power_ratio": 1.0,
+          "energy_per_baseline_gpu_second_ratio": 1.0,
+          "movable_share_actually_moved": 0.0
+        }
+      },
+      "augment": {
+        "scenario": "augment",
+        "gpus": 1600.0,
+        "gpu_fraction_removed": 0.0,
+        "gpu_utilisation": 0.6885036296342227,
+        "gpu_stable": true,
+        "quantum_pools": {
+          "sc_surface": {
+            "systems": 1,
+            "label": "dc2035_sc_surface_300k",
+            "utilisation": 0.003688116850575892,
+            "wait_s": 1.8724651158977974,
+            "system_power_w": 2867152.6103714155,
+            "busy_power_per_system_w": 2910952.3688272727,
+            "standby_power_per_system_w": 2866990.4737654547,
+            "facility_power_w": 3561003.542081298
+          },
+          "annealer": {
+            "systems": 1,
+            "label": "annealer",
+            "utilisation": 0.05730021187214227,
+            "wait_s": 0.012439631712845215,
+            "system_power_w": 10832.528711890398,
+            "busy_power_per_system_w": 14000.0,
+            "standby_power_per_system_w": 10640.0,
+            "facility_power_w": 13454.000660167874
+          }
+        },
+        "power_w": {
+          "module": 6047351.9718834525,
+          "system": 11069806.851125969,
+          "facility": 13748700.109098453,
+          "by_pool_system_w": {
+            "gpu": 7906821.712042662,
+            "cpu": 285000.0,
+            "quantum:sc_surface": 2867152.6103714155,
+            "quantum:annealer": 10832.528711890398
+          }
+        },
+        "capacity": {
+          "max_demand_scale": 1.2345613539218903,
+          "ordinary_ai_scale": 1.2714224712029871,
+          "ordinary_ai_headroom_gpus": 1210.3941925852437,
+          "ordinary_ai_demand_gpus": 952.0
+        },
+        "classes": [
+          {
+            "class": "llm_serving",
+            "demand_share": 0.5,
+            "answers_per_s": 140403.2,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.0,
+            "ordinary_ai": true,
+            "gpu_turnaround_s": 0.00398851308232291,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 0.00398851308232291,
+            "facility_j_per_accepted_answer": 35.55562737528733,
+            "gpu_only_marginal_j_per_answer": 33.43769942565412,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 1.1079203006452527e-06,
+            "breakeven_classical_gpu_hours": null,
+            "note": ""
+          },
+          {
+            "class": "llm_training",
+            "demand_share": 0.35,
+            "answers_per_s": 5.9076003086419746e-06,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.0,
+            "ordinary_ai": true,
+            "gpu_turnaround_s": 626361.7699115041,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 626361.7699115041,
+            "facility_j_per_accepted_answer": 591523887954.4076,
+            "gpu_only_marginal_j_per_answer": 556288819200.0,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 18432.0,
+            "breakeven_classical_gpu_hours": null,
+            "note": ""
+          },
+          {
+            "class": "engineering_simulation",
+            "demand_share": 0.1,
+            "answers_per_s": 0.00024305555555555552,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.0,
+            "ordinary_ai": false,
+            "gpu_turnaround_s": 30928.619672484627,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 30928.619672484627,
+            "facility_j_per_accepted_answer": 4107804777.461164,
+            "gpu_only_marginal_j_per_answer": 3863116800.0,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 128.0,
+            "breakeven_classical_gpu_hours": null,
+            "note": ""
+          },
+          {
+            "class": "materials_chemistry",
+            "demand_share": 0.03,
+            "answers_per_s": 1.2152777777777775e-05,
+            "routed_to_quantum": 0.299981689453125,
+            "eligible_fraction": 0.3,
+            "ordinary_ai": false,
+            "gpu_turnaround_s": 70099.91213319651,
+            "quantum_turnaround_s": 9504.47760232719,
+            "mean_turnaround_s": 51922.39130948011,
+            "facility_j_per_accepted_answer": 311034755873.50635,
+            "gpu_only_marginal_j_per_answer": 23178700800.0,
+            "quantum_marginal_j_per_answer": 3659446727.0441093,
+            "p_accept_quantum": 0.6790082548086022,
+            "expected_attempts": 1.3209917451913977,
+            "classical_gpu_hours_per_job": 768.0,
+            "breakeven_classical_gpu_hours": 121.25162279888768,
+            "note": ""
+          },
+          {
+            "class": "scheduling_optimisation",
+            "demand_share": 0.02,
+            "answers_per_s": 0.27999999999999997,
+            "routed_to_quantum": 0.499969482421875,
+            "eligible_fraction": 0.5,
+            "ordinary_ai": false,
+            "gpu_turnaround_s": 10.405385341422676,
+            "quantum_turnaround_s": 4.386447301219289,
+            "mean_turnaround_s": 7.396100004732855,
+            "facility_j_per_accepted_answer": 463423.2248438458,
+            "gpu_only_marginal_j_per_answer": 670680.0,
+            "quantum_marginal_j_per_answer": 9212.610259528767,
+            "p_accept_quantum": 0.594008621555176,
+            "expected_attempts": 1.4059913784448241,
+            "classical_gpu_hours_per_job": 0.022222222222222223,
+            "breakeven_classical_gpu_hours": 0.00030524940721949755,
+            "note": ""
+          }
+        ],
+        "work_gpu_seconds_per_s": 1120.0,
+        "facility_j_per_baseline_gpu_second": 12275.625097409333,
+        "added_facility_power_w_vs_gpu_only": 3441838.909098454,
+        "movable_share_of_demand": 0.018998840332031246,
+        "served_fraction": 1.0,
+        "comparison": {
+          "ordinary_ai_capacity_ratio": 1.0154313696184931,
+          "ordinary_ai_capacity_change_gpus": 18.394192585243673,
+          "max_total_demand_ratio": 1.0166975855827332,
+          "facility_power_ratio": 1.3339366701764117,
+          "energy_per_baseline_gpu_second_ratio": 1.3339366701764117,
+          "movable_share_actually_moved": 0.018998840332031246
+        }
+      },
+      "replace": {
+        "scenario": "replace",
+        "gpus": 800.0,
+        "gpu_fraction_removed": 0.5,
+        "gpu_utilisation": 0.8499999731813617,
+        "gpu_stable": true,
+        "quantum_pools": {
+          "sc_surface": {
+            "systems": 1,
+            "label": "dc2035_sc_surface_300k",
+            "utilisation": 0.0022766032662345555,
+            "wait_s": 1.154201332652192,
+            "system_power_w": 2867090.557559342,
+            "busy_power_per_system_w": 2910952.3688272727,
+            "standby_power_per_system_w": 2866990.4737654547,
+            "facility_power_w": 3560926.4724887027
+          },
+          "annealer": {
+            "systems": 1,
+            "label": "annealer",
+            "utilisation": 0.035370313574441564,
+            "wait_s": 0.007504175656504277,
+            "system_power_w": 10758.844253610123,
+            "busy_power_per_system_w": 14000.0,
+            "standby_power_per_system_w": 10640.0,
+            "facility_power_w": 13362.484562983773
+          }
+        },
+        "power_w": {
+          "module": 3674446.9077438843,
+          "system": 7866249.277267195,
+          "facility": 9769881.602365857,
+          "by_pool_system_w": {
+            "gpu": 4703399.875454243,
+            "cpu": 285000.0,
+            "quantum:sc_surface": 2867090.557559342,
+            "quantum:annealer": 10758.844253610123
+          }
+        },
+        "capacity": {
+          "max_demand_scale": 0.6172806769609451,
+          "ordinary_ai_scale": 0.5571367569172729,
+          "ordinary_ai_headroom_gpus": 530.3941925852438,
+          "ordinary_ai_demand_gpus": 952.0
+        },
+        "classes": [
+          {
+            "class": "llm_serving",
+            "demand_share": 0.5,
+            "answers_per_s": 86668.18234348297,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.0,
+            "ordinary_ai": true,
+            "gpu_turnaround_s": 0.003988562899328884,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 0.003988562899328884,
+            "facility_j_per_accepted_answer": 34.26380746758274,
+            "gpu_only_marginal_j_per_answer": 33.43769942565412,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 1.1079203006452527e-06,
+            "breakeven_classical_gpu_hours": null,
+            "note": ""
+          },
+          {
+            "class": "llm_training",
+            "demand_share": 0.35,
+            "answers_per_s": 3.646647517733207e-06,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.0,
+            "ordinary_ai": true,
+            "gpu_turnaround_s": 4730879.795823849,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 4730879.795823849,
+            "facility_j_per_accepted_answer": 570032428212.2731,
+            "gpu_only_marginal_j_per_answer": 556288819200.0,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 18432.0,
+            "breakeven_classical_gpu_hours": null,
+            "note": ""
+          },
+          {
+            "class": "engineering_simulation",
+            "demand_share": 0.1,
+            "answers_per_s": 0.00015003349787245192,
+            "routed_to_quantum": 0.0,
+            "eligible_fraction": 0.0,
+            "ordinary_ai": false,
+            "gpu_turnaround_s": 57826.292753046844,
+            "quantum_turnaround_s": null,
+            "mean_turnaround_s": 57826.292753046844,
+            "facility_j_per_accepted_answer": 3958558529.251896,
+            "gpu_only_marginal_j_per_answer": 3863116800.0,
+            "quantum_marginal_j_per_answer": null,
+            "p_accept_quantum": null,
+            "expected_attempts": 1.0,
+            "classical_gpu_hours_per_job": 128.0,
+            "breakeven_classical_gpu_hours": null,
+            "note": ""
+          },
+          {
+            "class": "materials_chemistry",
+            "demand_share": 0.03,
+            "answers_per_s": 7.5016748936225955e-06,
+            "routed_to_quantum": 0.299981689453125,
+            "eligible_fraction": 0.3,
+            "ordinary_ai": false,
+            "gpu_turnaround_s": 56609.20886713907,
+            "quantum_turnaround_s": 8113.735277544141,
+            "mean_turnaround_s": 42061.45476890297,
+            "facility_j_per_accepted_answer": 492044697306.6506,
+            "gpu_only_marginal_j_per_answer": 23178700800.0,
+            "quantum_marginal_j_per_answer": 3659446727.0441093,
+            "p_accept_quantum": 0.6790082548086022,
+            "expected_attempts": 1.3209917451913977,
+            "classical_gpu_hours_per_job": 768.0,
+            "breakeven_classical_gpu_hours": 121.25162279888768,
+            "note": ""
+          },
+          {
+            "class": "scheduling_optimisation",
+            "demand_share": 0.02,
+            "answers_per_s": 0.17283858954906461,
+            "routed_to_quantum": 0.499969482421875,
+            "eligible_fraction": 0.5,
+            "ordinary_ai": false,
+            "gpu_turnaround_s": 13.393186384281016,
+            "quantum_turnaround_s": 4.873988101378497,
+            "mean_turnaround_s": 9.133847228128918,
+            "facility_j_per_accepted_answer": 477593.66024177324,
+            "gpu_only_marginal_j_per_answer": 670680.0,
+            "quantum_marginal_j_per_answer": 9212.610259528767,
+            "p_accept_quantum": 0.594008621555176,
+            "expected_attempts": 1.4059913784448241,
+            "classical_gpu_hours_per_job": 0.022222222222222223,
+            "breakeven_classical_gpu_hours": 0.00030524940721949755,
+            "note": ""
+          }
+        ],
+        "work_gpu_seconds_per_s": 691.3543581962585,
+        "facility_j_per_baseline_gpu_second": 14131.510833106555,
+        "added_facility_power_w_vs_gpu_only": -536979.5976341423,
+        "movable_share_of_demand": 0.018998840332031246,
+        "served_fraction": 0.6172806769609451,
+        "unserved_note": "cannot carry the baseline demand at the 85% utilisation cap; figures below are for the 62% of the demand it can serve",
+        "comparison": {
+          "ordinary_ai_capacity_ratio": 0.44496157096077504,
+          "ordinary_ai_capacity_change_gpus": -661.6058074147562,
+          "max_total_demand_ratio": 0.5083487927913666,
+          "facility_power_ratio": 0.9479007636549774,
+          "energy_per_baseline_gpu_second_ratio": 1.535607380943419,
+          "movable_share_actually_moved": 0.018998840332031246
+        }
+      }
+    },
+    "config": {
+      "name": "dc2035_ai_serving",
+      "profile": "mid2030s",
+      "facility": {
+        "pue": 1.15,
+        "network_overhead_fraction": 0.08,
+        "rho_max": 0.85
+      },
+      "gpu": {
+        "device": "gpu_2035",
+        "count": 1600,
+        "baseline_utilisation": 0.7
+      },
+      "cpu": {
+        "device": "cpu_2035",
+        "count": 400,
+        "utilisation": 0.5
+      },
+      "quantum_pools": {
+        "sc_surface": {
+          "kind": "gate",
+          "architecture": "dc2035_sc_surface_300k",
+          "concurrency": 1
+        },
+        "annealer": {
+          "kind": "annealer",
+          "annealer": {
+            "annealer": "advantage2_class"
+          },
+          "concurrency": 1
+        }
+      },
+      "quantum_standby_others_fraction": 0.2,
+      "mix": [
+        {
+          "name": "llm_serving",
+          "kind": "llm_inference",
+          "tokens_per_answer": 600,
+          "demand_share": 0.5,
+          "ordinary_ai": true,
+          "comment": "ordinary AI serving; no quantum implementation (eligible_fraction 0)"
+        },
+        {
+          "name": "llm_training",
+          "gpu_seconds": 66355200,
+          "gpus_per_job": 256,
+          "demand_share": 0.35,
+          "ordinary_ai": true,
+          "comment": "3-day, 256-module training runs; no quantum implementation"
+        },
+        {
+          "name": "engineering_simulation",
+          "gpu_seconds": 460800,
+          "gpus_per_job": 16,
+          "demand_share": 0.1,
+          "comment": "CFD / weather / structural; classical CPU+GPU, no quantum implementation assumed"
+        },
+        {
+          "name": "materials_chemistry",
+          "gpu_seconds": 2764800,
+          "gpus_per_job": 64,
+          "demand_share": 0.03,
+          "eligible_fraction": 0.3,
+          "comment": "classical cost at the required accuracy is an ASSUMPTION: 64 modules x 12 h = 768 module-hours (see the break-even column); the quantum side is workload chemistry_small",
+          "quantum": {
+            "pool": "sc_surface",
+            "workload": "chemistry_small",
+            "mapping_quality": 0.7,
+            "max_attempts": 2,
+            "prep_s": 600,
+            "transfer_s": 60,
+            "post_s": 300,
+            "qpu_setup_s": 60
+          }
+        },
+        {
+          "name": "scheduling_optimisation",
+          "gpu_seconds": 80,
+          "gpus_per_job": 8,
+          "demand_share": 0.02,
+          "eligible_fraction": 0.5,
+          "comment": "strong classical GPU solver reaches the target in 10 s on 8 modules (ASSUMPTION); annealer needs p_success_per_read 0.002 for the target quality",
+          "quantum": {
+            "pool": "annealer",
+            "p_success_per_read": 0.002,
+            "confidence": 0.99,
+            "mapping_quality": 0.6,
+            "max_attempts": 2,
+            "prep_s": 1.0,
+            "post_s": 0.5,
+            "transfer_s": 0.1
+          }
+        }
+      ],
+      "policy": "time_and_energy",
+      "scenarios": {
+        "gpu_only": {},
+        "augment": {
+          "quantum_systems": {
+            "sc_surface": 1,
+            "annealer": 1
+          }
+        },
+        "replace": {
+          "gpu_fraction_removed": 0.5,
+          "quantum_systems": {
+            "sc_surface": 1,
+            "annealer": 1
+          }
+        }
+      },
+      "description": "AI-serving-dominated 2035 facility: only a few percent of the work is quantum-eligible. REPLACE must lose ordinary AI capacity."
+    },
+    "assumption_note": "Scenario analysis, not a forecast: job classes, classical costs, mapping quality and hardware profile are inputs. No GPU-per-QPU conversion exists in this model."
+  },
+  "sweep": {
+    "rows": [
+      {
+        "movable_share": 0.0,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.0000007998306888,
+          "energy_ratio": 1.346760281535586,
+          "facility_power_ratio": 1.346760281535586,
+          "moved": 9.999694824218747e-07,
+          "max_demand_ratio": 1.0000008607611937
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.43822038581823,
+          "energy_ratio": 1.5612036884613558,
+          "facility_power_ratio": 0.9478743094091556,
+          "moved": 9.99969482421875e-07,
+          "max_demand_ratio": 0.5000003383440129
+        }
+      },
+      {
+        "movable_share": 0.05,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.041661557393947,
+          "energy_ratio": 1.3130118045916193,
+          "facility_power_ratio": 1.3130118045916193,
+          "moved": 0.04999847412109375,
+          "max_demand_ratio": 1.0451731524046728
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.45642152370500827,
+          "energy_ratio": 1.4938410524892873,
+          "facility_power_ratio": 0.9479456742777393,
+          "moved": 0.04999847412109375,
+          "max_demand_ratio": 0.5225864841657526
+        }
+      },
+      {
+        "movable_share": 0.1,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.0869543499229415,
+          "energy_ratio": 1.2792626526646138,
+          "facility_power_ratio": 1.2792626526646136,
+          "moved": 0.09999694824218748,
+          "max_demand_ratio": 1.0946205433677227
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.4762094586902453,
+          "energy_ratio": 1.4264770004934908,
+          "facility_power_ratio": 0.9480238392674871,
+          "moved": 0.0999969482421875,
+          "max_demand_ratio": 0.5473102716838614
+        }
+      },
+      {
+        "movable_share": 0.15,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.13637475947671,
+          "energy_ratio": 1.2455135007376092,
+          "facility_power_ratio": 1.245513500737609,
+          "moved": 0.14999542236328123,
+          "max_demand_ratio": 1.1489791905178741
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.4978007052570746,
+          "energy_ratio": 1.3591129757980924,
+          "facility_power_ratio": 0.9481097483868619,
+          "moved": 0.14999542236328123,
+          "max_demand_ratio": 0.5744895952589371
+        }
+      },
+      {
+        "movable_share": 0.2,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.1905139596402021,
+          "energy_ratio": 1.2117643488106036,
+          "facility_power_ratio": 1.2117643488106036,
+          "moved": 0.19999389648437496,
+          "max_demand_ratio": 1.2043557622853451
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.5214535408004364,
+          "energy_ratio": 1.2917490209185631,
+          "facility_power_ratio": 0.9482045841687272,
+          "moved": 0.19999389648437502,
+          "max_demand_ratio": 0.6045093518846176
+        }
+      },
+      {
+        "movable_share": 0.25,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.2500816775147285,
+          "energy_ratio": 1.1780151968835983,
+          "facility_power_ratio": 1.1780151968835983,
+          "moved": 0.2499923706054687,
+          "max_demand_ratio": 1.2329806124462803
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.5474780374742836,
+          "energy_ratio": 1.2243850203070636,
+          "facility_power_ratio": 0.9483099133488175,
+          "moved": 0.24999237060546878,
+          "max_demand_ratio": 0.6378394803580117
+        }
+      },
+      {
+        "movable_share": 0.3,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.3062081905980252,
+          "energy_ratio": 1.150500468815803,
+          "facility_power_ratio": 1.150500468815803,
+          "moved": 0.2904288564849217,
+          "max_demand_ratio": 1.2629992646329542
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.5665204411080937,
+          "energy_ratio": 1.157021023374112,
+          "facility_power_ratio": 0.9484275320747242,
+          "moved": 0.29999084472656246,
+          "max_demand_ratio": 0.6750594430110033
+        }
+      },
+      {
+        "movable_share": 0.35,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.3505937096710598,
+          "energy_ratio": 1.1339087087191724,
+          "facility_power_ratio": 1.1339087087191724,
+          "moved": 0.3141123442264924,
+          "max_demand_ratio": 1.2945160883314468
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.5696890458763415,
+          "energy_ratio": 1.1045891561478063,
+          "facility_power_ratio": 0.9485275545707028,
+          "moved": 0.3385167953237861,
+          "max_demand_ratio": 0.7071772656019996
+        }
+      },
+      {
+        "movable_share": 0.4,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.400217626809839,
+          "energy_ratio": 1.1173169486225412,
+          "facility_power_ratio": 1.1173169486225412,
+          "moved": 0.33779583196806323,
+          "max_demand_ratio": 1.327646129271563
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.5732316107431923,
+          "energy_ratio": 1.0770857130663243,
+          "facility_power_ratio": 0.9485806961177062,
+          "moved": 0.3578899401880346,
+          "max_demand_ratio": 0.7252757075954884
+        }
+      },
+      {
+        "movable_share": 0.45,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.456065454298023,
+          "energy_ratio": 1.1007251885259104,
+          "facility_power_ratio": 1.1007251885259104,
+          "moved": 0.3614793197096339,
+          "max_demand_ratio": 1.3625165820121763
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.5772184897111763,
+          "energy_ratio": 1.049582248798203,
+          "facility_power_ratio": 0.9486366583857023,
+          "moved": 0.3772630766831173,
+          "max_demand_ratio": 0.7443248875000896
+        }
+      },
+      {
+        "movable_share": 0.5,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.5193864533493393,
+          "energy_ratio": 1.0841334284292796,
+          "facility_power_ratio": 1.0841334284292796,
+          "moved": 0.3851628074512046,
+          "max_demand_ratio": 1.3992678943802324
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.5817388653587849,
+          "energy_ratio": 1.0220787600125651,
+          "facility_power_ratio": 0.9486956743545997,
+          "moved": 0.396636203493269,
+          "max_demand_ratio": 0.7644017478998968
+        }
+      },
+      {
+        "movable_share": 0.55,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.591788193407051,
+          "energy_ratio": 1.0675416683326486,
+          "facility_power_ratio": 1.0675416683326486,
+          "moved": 0.4088462951927753,
+          "max_demand_ratio": 1.4380570807877704
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.5869074992638839,
+          "energy_ratio": 0.9945752761308031,
+          "facility_power_ratio": 0.9487579551419005,
+          "moved": 0.4160093322405537,
+          "max_demand_ratio": 0.7855916987447176
+        }
+      },
+      {
+        "movable_share": 0.6,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.6753749354988632,
+          "energy_ratio": 1.0509499082360174,
+          "facility_power_ratio": 1.0509499082360174,
+          "moved": 0.43252978293434596,
+          "max_demand_ratio": 1.479057906305089
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.592874610949986,
+          "energy_ratio": 0.967071729098632,
+          "facility_power_ratio": 0.9488238819473437,
+          "moved": 0.4353824360421067,
+          "max_demand_ratio": 0.8079900899354151
+        }
+      },
+      {
+        "movable_share": 0.65,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.7729555187681167,
+          "energy_ratio": 1.034358148139387,
+          "facility_power_ratio": 1.0343581481393869,
+          "moved": 0.4562132706759167,
+          "max_demand_ratio": 1.5224654884899362
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.5998407185430182,
+          "energy_ratio": 0.9432584445749304,
+          "facility_power_ratio": 0.9432584445749302,
+          "moved": 0.4562132706759167,
+          "max_demand_ratio": 0.831702947616577
+        }
+      },
+      {
+        "movable_share": 0.7,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 1.8883651967848618,
+          "energy_ratio": 1.017766388042756,
+          "facility_power_ratio": 1.017766388042756,
+          "moved": 0.4798967584174877,
+          "max_demand_ratio": 1.5684977699728568
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.6080796141040699,
+          "energy_ratio": 0.9266666844782996,
+          "facility_power_ratio": 0.9266666844782996,
+          "moved": 0.4798967584174877,
+          "max_demand_ratio": 0.8568499193472018
+        }
+      },
+      {
+        "movable_share": 0.75,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 2.0269816197897668,
+          "energy_ratio": 1.0011746279461249,
+          "facility_power_ratio": 1.0011746279461249,
+          "moved": 0.503580246159058,
+          "max_demand_ratio": 1.6174006725058843
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.6179751987015614,
+          "energy_ratio": 0.9100749243816681,
+          "facility_power_ratio": 0.910074924381668,
+          "moved": 0.503580246159058,
+          "max_demand_ratio": 0.8835648263201998
+        }
+      },
+      {
+        "movable_share": 0.8,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 2.1965868730362343,
+          "energy_ratio": 0.9845828678494943,
+          "facility_power_ratio": 0.9845828678494942,
+          "moved": 0.527263733900629,
+          "max_demand_ratio": 1.6694508580600513
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.6300830218245114,
+          "energy_ratio": 0.8934831642850378,
+          "facility_power_ratio": 0.8934831642850377,
+          "moved": 0.527263733900629,
+          "max_demand_ratio": 0.9119991607525768
+        }
+      },
+      {
+        "movable_share": 0.85,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 2.4088804197182534,
+          "energy_ratio": 0.9679911077528633,
+          "facility_power_ratio": 0.9679911077528633,
+          "moved": 0.5509472216421997,
+          "max_demand_ratio": 1.7249627236057727
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.6452382877385591,
+          "energy_ratio": 0.8768914041884066,
+          "facility_power_ratio": 0.8768914041884065,
+          "moved": 0.5509472216421997,
+          "max_demand_ratio": 0.9423246629097881
+        }
+      },
+      {
+        "movable_share": 0.9,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 2.6822988927374625,
+          "energy_ratio": 0.9513993476562325,
+          "facility_power_ratio": 0.9513993476562326,
+          "moved": 0.5746307093837706,
+          "max_demand_ratio": 1.7842931870151963
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.6647571555005901,
+          "energy_ratio": 0.8602996440917757,
+          "facility_power_ratio": 0.8602996440917758,
+          "moved": 0.5746307093837706,
+          "max_demand_ratio": 0.9747360822032477
+        }
+      },
+      {
+        "movable_share": 0.95,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 3.047681182289422,
+          "energy_ratio": 0.9348075875596015,
+          "facility_power_ratio": 0.9348075875596014,
+          "moved": 0.5983141971253411,
+          "max_demand_ratio": 1.847850522574257
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.6908411596777767,
+          "energy_ratio": 0.8437078839951447,
+          "facility_power_ratio": 0.8437078839951447,
+          "moved": 0.5983141971253411,
+          "max_demand_ratio": 1.009456515312195
+        }
+      },
+      {
+        "movable_share": 1.0,
+        "augment": {
+          "ordinary_ai_capacity_ratio": 3.5607932088558765,
+          "energy_ratio": 0.9182161592981722,
+          "facility_power_ratio": 0.9182161592981722,
+          "moved": 0.6219972111971569,
+          "max_demand_ratio": 1.916101539836211
+        },
+        "replace": {
+          "ordinary_ai_capacity_ratio": 0.7274713320398144,
+          "energy_ratio": 0.8271164557337156,
+          "facility_power_ratio": 0.8271164557337156,
+          "moved": 0.6219972111971569,
+          "max_demand_ratio": 1.0467412717202134
+        }
+      }
+    ],
+    "break_even": {
+      "augment": {
+        "movable_share_for_capacity_parity": 0.0,
+        "movable_share_for_energy_parity": 0.7535397930637975
+      },
+      "replace": {
+        "movable_share_for_capacity_parity": 0.9363819162587604,
+        "movable_share_for_energy_parity": 0.5401381150611357
+      }
+    }
+  }
+}

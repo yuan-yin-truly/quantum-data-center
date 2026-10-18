@@ -1,0 +1,255 @@
+{
+  "name": "dc2035_photonic_6m",
+  "modality": "Photonic, fusion-based (room-temperature optics, cryogenic detectors)",
+  "scheme": "Optical network at room temperature; superconducting nanowire detectors in cryo cabinets (~4 K)",
+  "profile": "mid2030s",
+  "n_qubits": 6000000,
+  "error_budget": {
+    "syndrome_cycle_s": 1.0000000000000002e-06,
+    "p_eff": 0.00325000000007375,
+    "lambda": 3.0769230768532547,
+    "parts": {
+      "two_qubit": 0.0025,
+      "single_qubit": 0.00025,
+      "measurement": 0.0005,
+      "reset": 0.0,
+      "idle": 7.375000000000001e-14
+    }
+  },
+  "computing": {
+    "feasible": true,
+    "reason": "ok",
+    "code": "Fusion-based photonic network (surface-like fusion lattice)",
+    "distance": 53,
+    "logical_qubits": 124,
+    "logical_clock_hz": 18867.924528301883,
+    "rqops": 2339622.6415094333,
+    "logical_error_per_op": 3.5085414874451077e-13,
+    "target_logical_error": 1e-12
+  },
+  "decoder": {
+    "decoder": "fusion_matching",
+    "syndrome_bits_per_s": 2991584999999.9995,
+    "required_ops_per_s": 8974754999999999.0,
+    "latency_s": 0.000106,
+    "reaction_time_s": 0.0001063
+  },
+  "power_w": {
+    "cryostat (installed)": 2295000.0,
+    "cold electronics supply (cryo-CMOS, amplifiers, cold decoders)": 600.0,
+    "decoders": 89758.04,
+    "classical host / optimiser": 8650.0,
+    "QPU apparatus (lasers, optics, traps, sources)": 3620000.0,
+    "data links": 29.915849999999995
+  },
+  "total_power_w": 6014037.9558500005,
+  "facility_power_w": 6916143.6492275,
+  "power_boundaries": {
+    "module": {
+      "electrical_w": 3620600.0,
+      "cold_heat_load_w": 707.2317195871306,
+      "note": "QPU apparatus + supply of electronics inside the cryostat (electrical); cold_heat_load_w is thermal power at the cryostat stages and is NOT wall power"
+    },
+    "system": {
+      "power_w": 6014037.9558500005,
+      "cryostat_wall_w": 2295000.0,
+      "note": "complete quantum computer incl. cryostat compressors, control electronics, decoders, host; excludes facility cooling, networking and building overhead"
+    },
+    "facility": {
+      "power_w": 6916143.6492275,
+      "pue": 1.15,
+      "network_support_w": 0.0,
+      "note": "(system + network/support) x PUE; PUE covers heat rejection incl. chilled water for the compressors"
+    }
+  },
+  "boundary_note": "total_power_w and power_w are the SYSTEM boundary (complete quantum computer); facility_power_w is (system + network/support) x PUE; power_boundaries.module separates the QPU module and the thermal cold-stage heat load (not wall power)",
+  "metrics": {
+    "physical_qubits": 6000000,
+    "syndrome_cycle_s": 1.0000000000000002e-06,
+    "p_eff": 0.00325000000007375,
+    "lambda": 3.0769230768532547,
+    "peak_2q_gate_rate_hz": 29999999999999.996,
+    "energy_per_2q_gate_j": 2.0046793186166672e-07,
+    "total_power_w": 6014037.9558500005,
+    "system_power_w": 6014037.9558500005,
+    "qpu_module_w": 3620600.0,
+    "cold_heat_load_w": 707.2317195871306,
+    "facility_power_w": 6916143.6492275,
+    "logical_qubits": 124,
+    "code_distance": 53,
+    "logical_clock_hz": 18867.924528301883,
+    "rqops": 2339622.6415094333,
+    "logical_error_per_op": 3.5085414874451077e-13,
+    "energy_per_logical_op_j": 2.5705162230649203,
+    "n_lines": 612000,
+    "fridge_units": 1
+  },
+  "classical_blocks": [
+    {
+      "role": "decoder",
+      "device": "Large FPGA (decoder fabric) (base)",
+      "count": 449,
+      "location": "RT",
+      "utilisation": 0.9994159242761691,
+      "power_w": 89758.04,
+      "keeps_up": true
+    },
+    {
+      "role": "host",
+      "device": "Server CPU socket (~512 cores) (base)",
+      "count": 2,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 690.0,
+      "keeps_up": true
+    },
+    {
+      "role": "optimizer",
+      "device": "Accelerator module (base)",
+      "count": 4,
+      "location": "RT",
+      "utilisation": 0.3,
+      "power_w": 7960.0,
+      "keeps_up": true
+    }
+  ],
+  "line_counts": {
+    "fiber_out": 600000,
+    "detector_bias_readout": 12000
+  },
+  "workloads": {
+    "chemistry_small": {
+      "label": "Small active-space chemistry (100 logical qubits)",
+      "type": "fault_tolerant",
+      "feasible": true,
+      "reason": "ok",
+      "reference_qubits": 5042100,
+      "distance": 51,
+      "factories": 12,
+      "runtime_s": 10630.0,
+      "runtime": "2.95 h",
+      "physical_qubits_used": 5930280,
+      "total_logical_error": 0.08227809860124333,
+      "bound": "reaction time",
+      "energy_j": 63929223470.68551,
+      "energy": "17.8 MWh",
+      "power_w": 6014037.9558500005,
+      "facility_energy_j": 73518606991.28833,
+      "p_accept": 0.9177219013987566,
+      "boundary": "system"
+    },
+    "vqe_50q": {
+      "label": "Variational solver, 50 qubits, GPU optimiser",
+      "type": "variational",
+      "circuit_fidelity": 0.1569559189188229,
+      "feasible": true,
+      "reason": "ok",
+      "shot_time_s": 4.65e-06,
+      "quantum_time_per_iter_s": 0.09300000000000001,
+      "classical_time_per_iter_s": 0.0125,
+      "runtime_s": 53.25000000000001,
+      "runtime": "53.3 s",
+      "classical_duty": 0.11737089201877934,
+      "power_w": 6010896.735192724,
+      "energy_j": 320080251.14901257,
+      "energy": "88.9 kWh",
+      "facility_energy_j": 368092288.8213644,
+      "boundary": "system",
+      "p_accept": 1.0,
+      "classical_sim_memory_bytes": 1.8014398509481984e+16,
+      "classical_note": "state-vector simulation needs 1.8e+04 TB, more than the 1.5 TB reference node"
+    },
+    "qla_scalar_explicit_1m": {
+      "label": "Quantum linear solve, N = 2^20, one scalar observable of the solution (explicit data loading)",
+      "type": "quantum_linear_algebra",
+      "advantage_claimed": false,
+      "output": "scalar",
+      "input_model": "explicit_loading",
+      "logical_qubits_needed": 80,
+      "toffoli_per_run": 1762494677.8647687,
+      "runs": 1,
+      "loading_toffoli": 16777216,
+      "inversion_toffoli": 847730.7786476859,
+      "feasible": true,
+      "reason": "ok",
+      "distance": 57,
+      "factories": 9,
+      "runtime_s": 187353.1842570249,
+      "runtime": "2.17 days",
+      "runtime_per_run_s": 187353.1842570249,
+      "physical_qubits_used": 5750730,
+      "energy_j": 1126749161271.1064,
+      "energy": "313 MWh",
+      "power_w": 6014037.9558500005,
+      "boundary": "system",
+      "facility_energy_j": 1295761535461.7725,
+      "p_accept": 0.9613543547061834,
+      "io_overhead_share": 0.9995190165455281,
+      "readout_repetition_factor": 100.0,
+      "loading_share": 0.9519016545528127,
+      "io_note": "io_overhead_share = share of all Toffoli gates beyond ONE matrix inversion: data loading plus the repetitions needed to read the answer out to precision eps (amplitude estimation: 1/eps coherent rounds; full-vector tomography: about N/eps^2 runs)",
+      "classical_ops": 1111137686.1890948,
+      "classical_energy_j": 0.18750448454440974,
+      "classical_energy": "0.188 J",
+      "classical_facility_energy_j": 0.21563015722607118,
+      "energy_ratio_quantum_over_classical": 6009185135005.345,
+      "caveat": "No quantum advantage is claimed. Loading and read-out are charged explicitly; ordinary dense matrix multiplication and AI workloads are not accelerated by this routine."
+    }
+  },
+  "warnings": [],
+  "cryostat": {
+    "type": "Cryo cabinet for superconducting nanowire detectors (about 4 K), rack-style",
+    "units_needed": 1,
+    "units_for_heat": 1,
+    "units_for_lines": 1,
+    "n_lines": 612000,
+    "wall_power_w": 2295000.0,
+    "carnot_floor_w": 43036.6703155214,
+    "stages": [
+      {
+        "name": "50K",
+        "target_k": 45.0,
+        "temperature_k": 45.0,
+        "load_w": 104.57767400251242,
+        "capacity_w": 15000.0,
+        "utilisation": 0.006971844933500828,
+        "passive_w": 104.57767400251242,
+        "active_w": 0,
+        "components_w": 0.0,
+        "sources_w": {
+          "passive: fiber_out": 8.724547854547083,
+          "passive: detector_bias_readout": 95.85312614796534
+        }
+      },
+      {
+        "name": "4K",
+        "target_k": 4.2,
+        "temperature_k": 4.2,
+        "load_w": 602.6540455846182,
+        "capacity_w": 750.0,
+        "utilisation": 0.8035387274461576,
+        "passive_w": 2.6540455846181947,
+        "active_w": 0,
+        "components_w": 600.0,
+        "sources_w": {
+          "component: SNSPD bias and cryogenic readout": 600.0,
+          "passive: fiber_out": 0.23095739728333833,
+          "passive: detector_bias_readout": 2.4230881873348564
+        }
+      }
+    ]
+  },
+  "plates": [
+    {
+      "name": "cold electronics @ 4K",
+      "stage_k": 4.2,
+      "t_max_k": 13.23547415017518,
+      "rise_max_k": 9.03547415017518,
+      "rise_mean_k": 4.637777868620897,
+      "peak_power_density_w_per_cm2": 87.43932757406724,
+      "injected_w": 600.0,
+      "removed_w": 600.0000000829914
+    }
+  ],
+  "plate_notes": []
+}

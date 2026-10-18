@@ -25,10 +25,19 @@ Superconducting transmons, 100 physical qubits, `today` hardware profile. Contro
 | cryostat (installed) | 20 kW | 83.7 % |
 | room-temperature control electronics | 2.44 kW | 10.2 % |
 | classical host / optimiser | 1.45 kW | 6.1 % |
-| **total (system)** | **23.9 kW** |  |
-| with facility overhead (PUE 1.2) | 28.7 kW |  |
+| cold electronics supply (cryo-CMOS, amplifiers, cold decoders) | 100 mW | 0.0 % |
+| **total, complete computer (system boundary)** | **23.9 kW** |  |
 
-Energy per physical 2-qubit gate (all qubits busy): 1.91e-05 J.  Thermodynamic (Carnot) floor for the cryostat heat loads: 89.4 W, against 20 kW installed.
+Power at the three measurement boundaries (they are different quantities; never compare numbers across them):
+
+| boundary | power | what it contains |
+|---|---|---|
+| 1. QPU module (electrical) | 100 mW | module apparatus (lasers, optics, traps, sources) + supply of electronics inside the cryostat |
+|    cold-stage heat load (thermal, not wall power) | 11.2 W | heat lifted by the cryostat stages: cable conduction, attenuators, cold electronics |
+| 2. Complete computer (system) | 23.9 kW | everything above incl. cryostat compressors, room-temperature control, decoders, host; no facility cooling |
+| 3. Facility (PUE 1.2) | 28.7 kW | (system + network/support) x PUE; includes heat rejection and chilled water |
+
+Energy per physical 2-qubit gate (all qubits busy, system boundary): 1.91e-05 J.  Thermodynamic (Carnot) floor for the cryostat heat loads: 89.4 W, against 20 kW installed.
 
 ## Heat scheme
 
@@ -48,15 +57,18 @@ Dry dilution refrigerator (XLD400-class): 2 unit(s) needed (2 for heat, 1 for 41
 |---|---|---|---|---|---|---|
 | qubit chip @ MXC | 0.02 K | 0.02031 K | 0.312 mK | 0.115 mK | 7.97e-09 W/cm² | 1.6e-08 rel. err. |
 
-## Workloads
+## Workloads (energy at the system boundary; classical alternative at the same boundary)
 
 | workload | result | time | energy | classical alternative |
 |---|---|---|---|---|
-| Shor, RSA-2048 | ✗ 100 qubits hold only 0 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory | — | — | 8.33e+12 GWh |
+| Shor, RSA-2048 | ✗ 100 qubits hold only 0 tiles at d=101; the algorithm needs 2,800 plus a 15-tile factory | — | — | 1.49e+13 GWh |
 | FeMoco ground-state energy (THC qubitization) | ✗ 100 qubits hold only 0 tiles at d=101; the algorithm needs 4,392 plus a 15-tile factory | — | — | none feasible |
 | Small active-space chemistry (100 logical qubits) | ✗ 100 qubits hold only 0 tiles at d=101; the algorithm needs 200 plus a 15-tile factory; a reference design (10 factories) needs about 5,057,150 physical qubits | — | — | none feasible |
 | Variational solver, 50 qubits, GPU optimiser | fidelity 0.16 | 34.2 s | 0.23 kWh | state-vector simulation needs 1.8e+04 TB, more than the 1.5 TB reference node |
-| Variational solver, 20 qubits, GPU optimiser | fidelity 0.66 | 10.4 s | 2.5e+05 J | 68.2 J (quantum uses 3.7e+03× more) |
+| Variational solver, 20 qubits, GPU optimiser | fidelity 0.66 | 10.4 s | 2.5e+05 J | 122 J (this job: quantum 2.1e+03× more energy) |
+| Quantum linear solve, N = 2^20, full solution vector read out | ✗ 100 qubits hold only 0 tiles at d=101; the algorithm needs 160 plus a 15-tile factory | — | — | 0.0994 J |
+| Quantum linear solve, N = 2^20, one scalar observable of the solution (explicit data loading) | ✗ 100 qubits hold only 0 tiles at d=101; the algorithm needs 160 plus a 15-tile factory | — | — | 0.0994 J |
+| Quantum linear solve, N = 2^40, scalar observable, input given by an efficient oracle (no explicit loading) | ✗ 100 qubits hold only 0 tiles at d=101; the algorithm needs 280 plus a 15-tile factory | — | — | explicit vectors need more than one reference node; the comparison depends on structure (tensor-network or matrix-free methods) that is not assessed here |
 
 ## Warnings
 

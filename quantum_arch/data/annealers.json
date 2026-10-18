@@ -1,0 +1,48 @@
+{
+  "_note": "Quantum ANNEALERS are a separate class: special-purpose samplers for optimisation (Ising / QUBO) problems, NOT universal gate-based QPUs. They have no logical qubits, no error correction and no rQOPS; their qubit count is not comparable with gate-model qubits. Metrics here are samples per second, time-to-target and energy-to-target (per ACCEPTED solution at a stated solution quality and confidence), at the module / system / facility boundaries. Never mix them into rQOPS or logical-qubit comparisons. Profiles as in modalities.json; 'projected' aliases the slow scenario.",
+  "advantage2_class": {
+    "label": "Superconducting quantum annealer, D-Wave Advantage2 class",
+    "n_qubits": 4400,
+    "anneal_time_us": 20.0,
+    "readout_us": 150.0,
+    "programming_ms": 15.0,
+    "system_power_w": 12500.0,
+    "power_split": {
+      "cryostat (compressors, pumps)": 0.55,
+      "room-temperature control electronics": 0.3,
+      "support (racks, chillers)": 0.15
+    },
+    "cold_heat_w": 0.0005,
+    "temperature_k": 0.015,
+    "profiles": {
+      "today": {
+        "profile_note": "System power: D-Wave Advantage2 data sheet, 'Average power 12.5 kW', rating 208 V 60 A (standard) / 230/400 V 50 Hz 32 A (international), mass 3,900 kg (data sheet read in this audit). Note 208 V x 60 A = 12.5 kVA, so the quoted figure may coincide with the circuit rating rather than a metered average. More than 4,400 qubits (launch coverage). D-Wave says power has stayed at 12.5 kW over six generations (vendor claim). Anneal 20 us, readout 150 us, programming 15 ms, power split, cold heat and 15 mK: ASSUMPTION / vendor-typical, not read from a primary source in this audit."
+      },
+      "mid2030s_low": {
+        "n_qubits": 7000,
+        "system_power_w": 16000.0,
+        "readout_us": 150.0,
+        "profile_note": "SCENARIO (slow progress): bigger processor, more cryostat. Assumption."
+      },
+      "mid2030s": {
+        "n_qubits": 15000,
+        "system_power_w": 14000.0,
+        "readout_us": 100.0,
+        "profile_note": "SCENARIO (base). Assumption. D-Wave is also acquiring Quantum Circuits (dual-rail gate model, announced Jan 2026; closing not verified here); this entry models only the annealer."
+      },
+      "mid2030s_high": {
+        "n_qubits": 40000,
+        "system_power_w": 12500.0,
+        "readout_us": 50.0,
+        "profile_note": "SCENARIO (fast progress): power stays at today's 12.5 kW as D-Wave's historical claim. Assumption."
+      },
+      "projected": {
+        "n_qubits": 7000,
+        "system_power_w": 16000.0,
+        "readout_us": 150.0,
+        "profile_note": "SCENARIO (slow progress): bigger processor, more cryostat. Assumption."
+      }
+    },
+    "source": "See profile_note; every unsourced number is an assumption."
+  }
+}
