@@ -47,6 +47,13 @@ export function ProblemStatement() {
 
   return (
     <section id="problem" className="problem" aria-labelledby="problem-title">
+      <img
+        className="hero-img"
+        src={`${import.meta.env.BASE_URL}images/hero.webp`}
+        alt="Isometric illustration of a data center: rows of GPU racks beside a glowing quantum computer cryostat"
+        width={1376}
+        height={768}
+      />
       <div className="intro">
         <p className="eyebrow">Problem statement · Case B, agent developers · Earth, 2035</p>
         <h1 id="problem-title">
@@ -161,6 +168,16 @@ export function ProblemStatement() {
           Direct liquid cooling at a cold site, PUE {PUE}.
         </p>
       </div>
+
+      <figure className="arch">
+        <img
+          src={`${import.meta.env.BASE_URL}images/architecture.svg`}
+          alt="Architecture: agent developers send work to a task router. LLM steps go to GPU racks, LPU racks and a context-memory tier. Tool calls go to a CPU sandbox, a GPU sandbox for classical simulation, or a QPU wing for chemistry and materials."
+          width={1200}
+          height={660}
+          loading="lazy"
+        />
+      </figure>
 
       <StatusQuo />
     </section>

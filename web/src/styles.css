@@ -257,6 +257,29 @@ h2 {
 }
 
 /* Problem statement */
+.hero-img {
+  display: block;
+  width: 100%;
+  height: clamp(200px, 32vw, 380px);
+  margin-top: 24px;
+  object-fit: cover;
+  object-position: center 45%;
+  border-radius: var(--radius);
+  border: 1px solid var(--hairline);
+}
+.problem .intro {
+  padding-top: 32px;
+}
+.arch {
+  margin: 24px 0 0;
+}
+.arch img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  border: 1px solid var(--hairline);
+}
 .problem .intro {
   max-width: 940px;
 }
