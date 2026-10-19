@@ -8,7 +8,7 @@ Our entry for SUNDAI @ MIT Track 1, "Build the AI data center of 2035": serve 10
 
 ![Architecture: a scheduler node sends LLM steps to a pool of GPU nodes and quantum-eligible calls to a shared QPU service, while agents park their sessions in a parking memory during the QPU job](web/public/images/architecture.svg?v=3)
 
-The team page lives in `web/`. It opens with the problem statement and a GPU-only vs GPU + QPU comparison for the three cases, followed by a section per workstream.
+The team page lives in `web/`. It opens with the problem statement and a GPU-only vs GPU + QPU comparison for the three cases, then the architecture, the task-flow and parking-memory simulations, and the research notes. The QC Hybrid Simulator (`thermal_lab/`) has its own page, linked from the top bar.
 
 ## Run the page
 
@@ -20,14 +20,6 @@ npm run build    # typecheck + static build into web/dist
 ```
 
 Pushing to `main` deploys to GitHub Pages through `.github/workflows/pages.yml`. Turn it on once under Settings → Pages → Source: GitHub Actions.
-
-## Add your work
-
-- **Research notes:** `docs/research-notes.md`.
-- **Fleet model numbers:** `web/src/model/brief.ts` holds every number from the brief, each tagged with its page. `web/src/model/fleet.ts` is the fleet model. Both are plain TypeScript that Node 24 runs directly, so a quick script can import `computeFleet` to try numbers.
-- **Simulation output for the web** (thermal runs, sweeps): put JSON under `web/public/data/<workstream>/`.
-
-The brief and deck live in `data/`, which isn't committed. Ask a teammate for the files.
 
 ## What's in the repo
 
