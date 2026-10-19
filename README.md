@@ -6,7 +6,7 @@ Our entry for SUNDAI @ MIT Track 1, "Build the AI data center of 2035": serve 10
 
 **The problem we take on.** In 2035, 50M agent developers launch 1.5B background agent tasks a day. If just one in a million calls a high-accuracy chemistry tool, a GPU sandbox needs about 48k more GPUs (282 MW, $7.9B), which pushes the fleet over the 500 MW cap. Six QPUs do the same calls in 1.7 MW. We design the GPU + QPU data center and the router that sends each task to the right machine, to cut energy and cost per task. A QPU only pays off when the classical method is expensive: above about 55 GPU-hours per call on cost (about 4 on energy). We assume 768, and the page shows that break-even.
 
-![Architecture: a scheduler node sends LLM steps to a pool of GPU nodes and quantum-eligible calls to a shared QPU service, while agents park their sessions in a parking memory during the QPU job](web/public/images/architecture.svg?v=2)
+![Architecture: a scheduler node sends LLM steps to a pool of GPU nodes and quantum-eligible calls to a shared QPU service, while agents park their sessions in a parking memory during the QPU job](web/public/images/architecture.svg?v=3)
 
 The team page lives in `web/`. It opens with the problem statement and a GPU-only vs GPU + QPU comparison for the three cases, followed by a section per workstream.
 

@@ -23,12 +23,10 @@
   <path d="M250 225 H302" stroke="#8691aa" stroke-width="2" fill="none" marker-end="url(#a-grey)"/>
 
   <!-- Scheduler -->
-  <rect x="310" y="160" width="250" height="130" rx="12" fill="#111828" stroke="#22d3ee" stroke-width="1.5"/>
-  <text x="332" y="194" fill="#ebeff7" font-size="18" font-weight="700">Scheduler node</text>
-  <text x="332" y="222" fill="#b3bccf" font-size="13">• Will it need a QPU?</text>
-  <text x="332" y="244" fill="#b3bccf" font-size="13">• Is the QPU worth it, or is</text>
-  <text x="332" y="262" fill="#b3bccf" font-size="13">  the GPU cheaper?</text>
-  <text x="332" y="280" fill="#8691aa" font-size="12">Re-plans as load changes</text>
+  <rect x="310" y="175" width="250" height="100" rx="12" fill="#111828" stroke="#22d3ee" stroke-width="1.5"/>
+  <text x="332" y="210" fill="#ebeff7" font-size="18" font-weight="700">Scheduler node</text>
+  <text x="332" y="238" fill="#b3bccf" font-size="13">may be a CPU or QPU node</text>
+  <text x="332" y="258" fill="#8691aa" font-size="12">Re-plans as load changes</text>
 
   <!-- Trunk and branches -->
   <path d="M560 225 H610" stroke="#8691aa" stroke-width="2" fill="none"/>

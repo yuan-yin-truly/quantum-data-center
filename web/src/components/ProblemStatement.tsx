@@ -168,7 +168,7 @@ export function ProblemStatement() {
 
       <figure className="arch">
         <img
-          src={`${import.meta.env.BASE_URL}images/architecture.svg?v=2`}
+          src={`${import.meta.env.BASE_URL}images/architecture.svg?v=3`}
           alt="Architecture: coding agents and scientists send work to a scheduler node. LLM steps go to a pool of GPU nodes. Quantum-eligible calls go to a shared QPU service, and the agent parks its session in a parking memory while the QPU job waits or runs."
           width={1200}
           height={500}
