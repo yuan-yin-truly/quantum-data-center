@@ -1,6 +1,8 @@
 # Quantum Data Center
 
-![A 2035 data center: GPU racks beside a quantum computer cryostat](web/public/images/hero.webp)
+**▶ Live site: [yuan-yin-truly.github.io/quantum-data-center/](https://yuan-yin-truly.github.io/quantum-data-center/)**.
+
+[![A 2035 data center: GPU racks beside a quantum computer cryostat](web/public/images/hero.webp)](https://yuan-yin-truly.github.io/quantum-data-center/)
 
 Our entry for SUNDAI @ MIT Track 1, "Build the AI data center of 2035": serve 100% of one user case on Earth, inside 500 MW and $30B, then make it cheap.
 
@@ -8,9 +10,13 @@ Our entry for SUNDAI @ MIT Track 1, "Build the AI data center of 2035": serve 10
 
 ![Architecture: a scheduler node sends LLM steps to a pool of GPU nodes and quantum-eligible calls to a shared QPU service, while agents park their sessions in a parking memory during the QPU job](web/public/images/architecture.svg?v=3)
 
-The team page lives in `web/`. It opens with the problem statement and a GPU-only vs GPU + QPU comparison for the three cases, then the architecture, the task-flow and parking-memory simulations, and the research notes. The QC Hybrid Simulator (`thermal_lab/`) has its own page, linked from the top bar.
+The [team page](https://yuan-yin-truly.github.io/quantum-data-center/) is built from `web/`. It opens with the problem statement and a GPU-only vs GPU + QPU comparison for the three cases, then the architecture, the task-flow and parking-memory simulations, and the research notes. The QC Hybrid Simulator (`thermal_lab/`) has its own page, linked from the top bar.
 
-## Run the page
+## Run the page locally
+
+To view it, use the [live site](https://yuan-yin-truly.github.io/quantum-data-center/).
+
+To run the site on localhost:
 
 ```bash
 cd web
