@@ -1,4 +1,4 @@
-# quantum-data-center
+# Quantum Data Center
 
 ![A 2035 data center: GPU racks beside a quantum computer cryostat](web/public/images/hero.webp)
 
